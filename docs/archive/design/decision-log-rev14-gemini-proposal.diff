@@ -1,0 +1,44 @@
+diff --git a/docs/design/decision-log.md b/docs/design/decision-log.md
+index 511c6f4..948aee8 100644
+--- a/docs/design/decision-log.md
++++ b/docs/design/decision-log.md
+@@ -1,12 +1,13 @@
+ # Living mythos: decision log
+ 
+-Last updated: 2026-10-30 (rev 13). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
++Last updated: 2026-10-30 (rev 14). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
+ 
+ Rev 9 (2026-10-24): forks recorded as a v1 stretch goal (option C); first spec scoped to the success-test slice.
+ Rev 10 (2026-10-28): cloud sessions for tests and tooling only; information default is investigate-to-learn with a lab coat toggle (brainstorm Q3 resolved).
+ Rev 11 (2026-10-28): v1 god tools = rain/drought + bloom; camp diorama folded into Close-up, reading a read-only camp snapshot (brainstorm Q4, Q5 resolved). All brainstorm questions closed.
+ Rev 12 (2026-10-30): implementation state recorded for hard rules 3, 5, 7 (built on the laptop); event content key gains an ordinal; causes may be events or nudge commands; config and event payloads are integer-only; repo mirrors the Project docs in `docs/`; Windows `pnpm check` passed.
+ Rev 13 (2026-10-30): RNG keys use the full 64-bit entity ID (`entityHi` field); fixes the 32-bit entity-key collision risk.
++Rev 14 (2026-10-30): Slice spec finalized (`docs/design/spec_v0.1.md`). All 12 open questions closed: doubles in state (IEEE 754 basic ops only, -0 normalized, NaN guard); 128×128 slice map with Chebyshev radius 3; single signed `nudge_precipitation` command; binomial inverse CDF demography per bracket with `DeathChild`..`DeathElder` Purpose codes; end-of-season `regime_detector` pass with reserved `ROOT_ID` (`0000000000000000`); procedural climate (seasonal table [4] + 1D temporal noise + 2D regional noise); asymmetric vegetation/fauna targets; pure deterministic migration; hard zero die-out; glance word precedence ladder; pinned acceptance scenario (seed `0xDEADBEEF`, 2 bands, season 12 drought, <= 3 hops); 8 terrestrial biomes + ocean. Primary PBT skill settled: fast-check `javascript-testing-expert` adopted, Trail of Bits skipped.
+ 
+ ## Vision
+ A terrarium you poke: an observational god-view sandbox where bands of people develop, change the land and each other, and make history in unexpected, funny and exciting ways. You watch, read the history, zoom in, and nudge things to alter the course. Jordan's framing: "like a kid with an ant colony." It is not a game to win, and it is not a copy of Earth's timeline.
+@@ -48,6 +49,15 @@ Use this to judge every "should we add X?" question.
+ | Catchment | Bands forage a 3–5 cell catchment radius around camp/village | Novelty review addition (b); report 3 catchment 5-12 km |
+ | Cell size | Working assumption ~3 km per cell (catchment 3 cells ≈ 9 km). 256×256 ≈ 770 km square ≈ 350-2,800 bands at forager densities | Rev 4; report 3 + computed |
+ | Techniques (Q2, refined rev 4) | Integer level (0-3) plus a progress accumulator. Grows with use; decays as a forgetting time τ (years) driven by intervals between uses; elders lengthen τ | Grilling Q2; EMBERS (verified: τ 1-16 yr, use variability dominates). Report 3's 0.03/0.08 decay defaults rejected as unsupported |
++| Number representation (Q0, rev 14) | Doubles in state (`Float64Array`, primitive numbers) with basic arithmetic only (`+ − × ÷`, `Math.sqrt`); `-0` normalized and `NaN` rejected in state hashing. Config inputs scaled integers; event payloads integer-only | Jordan 2026-10-30: avoids fixed-point scale bookkeeping stalls in growth/diffusion equations while preserving cross-engine determinism under IEEE 754 |
++| Map size & Catchment (Q1, rev 14) | 128×128 cells for slice (256×256 v1); Chebyshev metric (radius 3, 49-cell square window) | Jordan 2026-10-30: sub-second property runs and zero-branch contiguous window traversal |
++| Drought command (Q2, rev 14) | Single signed command `nudge_precipitation` (sign, magnitude, durationSeasons, centerCell, radius 0=global) conforming to Hard Rule 6 | Jordan 2026-10-30: single unified typed command avoiding command proliferation |
++| Demography draws (Q3, rev 14) | One binomial draw per bracket via inverse CDF recurrence ($O(k)$ basic arithmetic ops); brackets 0-14, 15-24, 25-49, 50+; append `DeathChild`..`DeathElder` to Purpose codes | Jordan 2026-10-30: resolves decision log conflict without modifying `RngKey` or allocating individual member IDs |
++| Event emission & ROOT_ID (Q4, rev 14) | End-of-season `regime_detector` pass (#8); reserved `ROOT_ID` ("0000000000000000") for world/climate events | Jordan 2026-10-30: decouples field kernels from event logging; ensures consistent state transitions |
++| Climate regime (Q5, rev 14) | Seasonal lookup table [4] + 1D temporal value noise + 2D static regional noise; volatility & severity dials; anomaly clamping | Jordan 2026-10-30: avoids trig and advection overhead while providing bounded, reproducible climate |
++| Migration rules (Q7, rev 14) | Pure deterministic migration search (Chebyshev radius 8, 25% margin, tie-break lowest cell index; no RNG draw) | Jordan 2026-10-30: keeps causal "why" an exact pure function of environmental state |
++| Die-out floor (Q8, rev 14) | Hard zero (`minViable = 0`); band dies out only when total population reaches 0 | Jordan 2026-10-30: avoids arbitrary non-zero population disappearance |
++| Primary PBT skill (rev 14) | fast-check `javascript-testing-expert` (pinned to commit fd17f486fc); Trail of Bits not installed | Jordan 2026-10-30: eliminates conflicting PBT guidance; fast-check maintained by library author |
+ | Technique origin (Q3) | Invention (need, opportunity, population) + contact (relations, proximity) + shallow prerequisites (max 1–2, physical necessity only). Geography/opportunity dominates; invention rare, contact common. No scripted tech tree; stagnation and collapse allowed. Emergence uses bias weights, never hard threshold gates | Grilling Q3; batch review |
+ | Farming emergence | Farming favoured in ecological "crucibles" (circumscribed river valleys under climate/density stress) as a tunable bias, not a hard gate. Diet breadth drives it: grain enters the diet when large-game returns fall | Novelty review (d); report 3 |
+ | Demography | Report 3 ranges are sane defaults (band 15-50, l15 ≈ 0.57, TFR 4.5-6, IBI ~3.5 yr), not its equations (inconsistent). Births/deaths via per-member hash draws (bands ≤ ~50; no exp/log) | Batch review section 2; hard rules 1-2 |
+@@ -133,7 +143,7 @@ Implementation status (2026-10-30, laptop, not yet pushed): rules 1, 2, 3, 5, 7
+ - Brainstorm questions: all closed (Q1 lore deferred; Q2 pixel; Q3 rev 10; Q4, Q5 rev 11). Brainstorm archived at `archive/design/depth-and-visuals-brainstorm.md`.
+ - Close-up view: does look test v5 (trips, stash, cooking smoke, tighter crowd) give the ant-farm feel? Jordan to rewatch. Known weak spot: a camp whose lineage colour is pale on sand is hard to see.
+ - Property norm (Bowles & Choi) as a band attribute: defer until batch runs show farming needs it (lean).
+-- Tooling adoption, remaining: which PBT skill is primary (fast-check `javascript-testing-expert` vs Trail of Bits); which other tooling-report items to install. Cloud sessions resolved rev 10.
++- Tooling adoption: CLOSED rev 14. Primary PBT skill: fast-check `javascript-testing-expert` installed; Trail of Bits skipped.
+ - Pixel-art review items not yet decided (outline rule, fire scars, trails, BitmapText/HTML Legends, ParticleContainer, debug keys, Kenney glyphs): settle during the spec, slice-relevant items only.
+ 
+ ## Research
