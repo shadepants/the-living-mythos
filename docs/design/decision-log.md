@@ -1,11 +1,12 @@
 # Living mythos: decision log
 
-Last updated: 2026-10-30 (rev 12). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
+Last updated: 2026-10-30 (rev 13). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
 
 Rev 9 (2026-10-24): forks recorded as a v1 stretch goal (option C); first spec scoped to the success-test slice.
 Rev 10 (2026-10-28): cloud sessions for tests and tooling only; information default is investigate-to-learn with a lab coat toggle (brainstorm Q3 resolved).
 Rev 11 (2026-10-28): v1 god tools = rain/drought + bloom; camp diorama folded into Close-up, reading a read-only camp snapshot (brainstorm Q4, Q5 resolved). All brainstorm questions closed.
 Rev 12 (2026-10-30): implementation state recorded for hard rules 3, 5, 7 (built on the laptop); event content key gains an ordinal; causes may be events or nudge commands; config and event payloads are integer-only; repo mirrors the Project docs in `docs/`; Windows `pnpm check` passed.
+Rev 13 (2026-10-30): RNG keys use the full 64-bit entity ID (`entityHi` field); fixes the 32-bit entity-key collision risk.
 
 ## Vision
 A terrarium you poke: an observational god-view sandbox where bands of people develop, change the land and each other, and make history in unexpected, funny and exciting ways. You watch, read the history, zoom in, and nudge things to alter the course. Jordan's framing: "like a kid with an ant colony." It is not a game to win, and it is not a copy of Earth's timeline.
@@ -59,6 +60,7 @@ Use this to judge every "should we add X?" question.
 | World | Procedural, square grid. v1 worldgen = noise heightmap + biome lookup; rivers deferred | Scope control |
 | Event emission | Emit history events only when a regime threshold is crossed; each event records at most 3 enabling causes | Novelty review addition (a); counters "diffuse causality" (James Ryan) |
 | Event identity | Each event has a content key (type, tick, primary lineage ID, ordinal), written `type:tick:primary:ordinal`. The ordinal counts earlier events with the same type, tick and primary in that run; almost always 0. Sequential IDs are local to a run. Narration seeding (and any future fork matching) uses the content key | Batch review (reports 4-5); ordinal added rev 12 (Claude Code proposal, 2026-10-30; Jordan did not veto it) |
+| RNG entity key (rev 13) | `RngKey` gains a required `entityHi` (uint32): `entity` holds the low 32 bits of the 64-bit `EntityId`, `entityHi` the high 32 bits. Non-lineage keys (e.g. grid cells) set `entityHi` to 0 and must not share a `Purpose` code with lineage entities. Changes the RNG golden values once, before any saves exist | Jordan 2026-10-30 (option A). Option B (hash 64 bits into the 32-bit field) rejected: same collision rate |
 | Event causes (rev 12) | A cause is either an earlier event or a nudge command, max 3. Event causes are checked against the log; command causes are only shape-checked until the command log exists (hard rule 6) | Claude Code proposal, 2026-10-30; Jordan did not veto it. Nudges were already "logged with cause IDs" |
 | Salience | Computed in the narration layer; never decides what the sim logs | Batch review: resolves report 2 vs event emission |
 | Narration pipeline | Event collections (DF-style) → incremental sifting patterns (Winnow-style ideas, own implementation) → salience + quiet-epoch compression → first_valid conditional templates + seeded lexical grammar. LLM later, closed-world packets only | Report 4 |
@@ -124,11 +126,10 @@ Implementation status (2026-10-30, laptop, not yet pushed): rules 1, 2, 3, 5, 7 
 - Look-test artifact code ported into the viewer (rev 11): it is a visual reference only; likely uses Math.random (unverified). Rewrite, don't port.
 - [UNCERTAIN] Novelty-report claims: Euca Engine not found (do not rely); ActiveGraph exists but report's framing uncertain; "LogicTale" mismatches its cited source; sales figures are third-party estimates.
 - Hardware benchmark: the laptop is back (linked 2026-10-30); not run yet. Needs a tick loop and fields to measure.
-- RNG entity-key collisions (rev 12): `entityKey()` truncates the 64-bit entity ID to 32 bits for `RngKey.entity`. At 20,000 entities the chance of at least one collision is about 4.5% (birthday bound, computed, not tested); colliding entities get identical draws for every purpose and season, which silently breaks hard rule 1's independence. Fix before any saves exist: a second entity field in `RngKey`, or hash all 64 bits. Either changes the RNG golden values.
+- RNG entity-key collisions (rev 12, decided rev 13): `entityKey()` truncated the 64-bit entity ID to 32 bits, about a 4.5% chance of at least one colliding pair at 20,000 entities (birthday bound, computed, not tested); colliding entities would share every draw. Fix decided rev 13 (see Decisions); open until the laptop commit lands. Hashing 64 bits into one 32-bit field was rejected: any 32-bit field collides at the same rate.
 
 ## Open questions (to grill)
 - Cloud-session gate (rev 10): Windows `pnpm check` passed on 2026-10-30 (laptop, Node 25.3.0). Does the gate lift as written, stay (sim logic only on the laptop), or lift with a Windows check required before each sim merge? Lean: the last option.
-- Entity-key collision fix (see Known risks): which of the two fixes, and when.
 - Brainstorm questions: all closed (Q1 lore deferred; Q2 pixel; Q3 rev 10; Q4, Q5 rev 11). Brainstorm archived at `archive/design/depth-and-visuals-brainstorm.md`.
 - Close-up view: does look test v5 (trips, stash, cooking smoke, tighter crowd) give the ant-farm feel? Jordan to rewatch. Known weak spot: a camp whose lineage colour is pale on sand is hard to see.
 - Property norm (Bowles & Choi) as a band attribute: defer until batch runs show farming needs it (lean).

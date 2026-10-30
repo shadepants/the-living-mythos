@@ -92,7 +92,7 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 ## 10. Work state
 | Item | Status | Location |
 |---|---|---|
-| Decision log | rev 12 | Project `design/decision-log.md`; mirrored to repo `docs/design/` |
+| Decision log | rev 13 | Project `design/decision-log.md`; mirrored to repo `docs/design/` |
 | sim-core | rng, lint bans, config + hash, lineage IDs, event log; 43 tests pass on Windows and Linux. No tick loop, command log, entity registry or fields yet | repo `packages/sim-core`; state in `CONTEXT.md` |
 | Repo docs | `CLAUDE.md`, `README.md` updated; Project mirrored in `docs/` | GitHub, `Main-REPO` |
 | GitHub / laptop / cloud | In sync as of handoff #5 | — |
@@ -103,7 +103,7 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` |
 
 ## 11. Next steps
-1. Decide the entity-key collision fix before more code builds on `RngKey` (second entity field vs hashing all 64 bits). Either changes the RNG golden values; doing it now costs nothing because no saves exist. Lean: add the second field (`entityHi`) so draws use all 64 bits with no extra hash pass.
+1. Entity-key fix: decided rev 13 (option A, `entityHi`). Brief handed to the laptop Claude Code session 2026-10-30. When it lands: confirm new RNG golden values and test count, then record them in section 8.
 2. Decide the rev 10 cloud gate (lift / keep / lift with a Windows check before each sim merge). Lean: the last.
 3. Confirm or reverse the ordinal and command-cause rules (rev 12).
 4. Grill the last tooling question: which property-based-testing skill is primary (fast-check `javascript-testing-expert` vs Trail of Bits).
@@ -114,7 +114,7 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 9. Parked: v5 Close-up rewatch; property norm (deferred to batch runs).
 
 ## 12. Open questions
-- Entity-key collision fix (next step 1).
+- Entity-key fix landed? (next step 1).
 - Rev 10 gate (next step 2).
 - Ordinal and command-cause confirmation (next step 3).
 - PBT skill choice (next step 4).

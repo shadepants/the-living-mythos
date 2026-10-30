@@ -13,7 +13,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 12). Source of truth |
+| `design/decision-log.md` | Current (rev 13). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #5) |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | All prompts (1-6) run; consolidated 2026-10-28 (includes the former novelty prompt) |
