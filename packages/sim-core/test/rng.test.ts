@@ -59,6 +59,12 @@ describe('hash-based rng (hard rule 1)', () => {
     expect(hashKey({ seed: 0, season: 0, entity: 0, entityHi: 0, purpose: 0 })).toMatchInlineSnapshot(`3421405739`);
   });
 
+  it('pins the Purpose codes so a renumbering or a mid-list insert fails loudly', () => {
+    // Purpose codes are part of every rng key: renumbering one changes every draw that uses it.
+    // New codes go at the end; extend this list, never edit an existing entry.
+    expect(Purpose).toEqual({ ForageYield: 1, Migration: 2, Birth: 3, Death: 4, Invention: 5 });
+  });
+
   it('stays in [0, 1) and is roughly uniform', () => {
     const n = 100_000;
     const buckets = new Array<number>(10).fill(0);
