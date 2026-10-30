@@ -16,6 +16,7 @@ TypeScript (strict, pinned 6.0.x), pnpm workspace, Vitest, ESLint (determinism b
   - Open: lineage parent is not recorded by the log; the future entity registry must store it and assert id uniqueness.
 - [x] Tick loop with fixed substeps (rule 4, `tick.ts`): one tick = one season; `createSchedule` freezes an ordered list of systems (name, period, offset, substeps); `systemsDue` is a pure function of the season; `runTick` runs due systems in order for their fixed substeps. No real systems yet.
   - Open: periods and substep counts are passed by the caller; they move into `SimConfig` with the slice spec (changing the config hash once, before saves exist).
+- [x] Tooling: property tests (fast-check 4.10.2, @fast-check/vitest 0.5.0, pinned); `Purpose` list pinned by a test; project skills `javascript-testing-expert` (fast-check, commit fd17f486fc) and `determinism-rules`; read-only `determinism-reviewer` subagent. 67 tests + 1 todo.
 - [ ] Command log (rule 6) and entity registry (stores lineage parent, asserts id uniqueness); the command log unblocks the `it.todo` fork test in `rng.test.ts`
 
 ## Don't Forget
