@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { MAX_CAUSES, createEventLog, founderId, type Cause, type EventLog } from '../src/index.ts';
+import { fc, test } from '@fast-check/vitest';
+import { MAX_CAUSES, createEventLog, founderId, type Cause, type EventInput, type EventLog } from '../src/index.ts';
 
 const band = founderId(0);
 const otherBand = founderId(1);
@@ -177,4 +178,55 @@ describe('causal event log (hard rule 5)', () => {
       }
     }
   });
+});
+
+const uint32 = fc.nat({ max: 0xffffffff });
+const validEvents = fc
+  .array(fc.record({ type: fc.constantFrom('drought_began', 'band_migrated'), tick: uint32, bandIndex: fc.nat({ max: 3 }) }))
+  .map((events) => [...events].sort((a, b) => a.tick - b.tick));
+const REJECTIONS = ['too_many_causes', 'bad_type', 'future_cause', 'float_payload', 'earlier_tick'] as const;
+
+describe('causal event log properties', () => {
+  test.prop([validEvents, fc.constantFrom(...REJECTIONS)])(
+    'never changes the log, ordinals included, when an append is rejected',
+    (events, rejection) => {
+      const log = createEventLog();
+      for (const e of events) log.append({ type: e.type, tick: e.tick, primary: founderId(e.bandIndex) });
+      const lastTick = events.at(-1)?.tick ?? 0;
+      fc.pre(rejection !== 'earlier_tick' || lastTick > 0);
+      const before = log.events();
+
+      const base: EventInput = { type: 'drought_began', tick: lastTick, primary: founderId(0) };
+      const rejected: Record<(typeof REJECTIONS)[number], EventInput> = {
+        too_many_causes: { ...base, causes: [0, 1, 2, 3].map((id): Cause => ({ kind: 'command', id })) },
+        bad_type: { ...base, type: 'Drought-Began' },
+        future_cause: { ...base, causes: [{ kind: 'event', id: log.size as never }] },
+        float_payload: { ...base, payload: { severity: 0.5 } },
+        earlier_tick: { ...base, tick: lastTick - 1 },
+      };
+      expect(() => log.append(rejected[rejection])).toThrow(RangeError);
+      expect(log.events()).toEqual(before);
+
+      const sameGroup = before.filter((e) => e.type === base.type && e.tick === base.tick && e.primary === base.primary);
+      expect(log.append(base).ordinal).toBe(sameGroup.length);
+    },
+  );
+
+  test.prop([fc.array(fc.record({ tick: uint32, causeCount: fc.nat({ max: MAX_CAUSES + 2 }) }))])(
+    'never stores a tick that goes backwards or more than MAX_CAUSES causes',
+    (inputs) => {
+      const log = createEventLog();
+      for (const { tick, causeCount } of inputs) {
+        const causes = Array.from({ length: causeCount }, (_, id): Cause => ({ kind: 'command', id }));
+        try {
+          log.append({ type: 'band_migrated', tick, primary: band, causes });
+        } catch (error) {
+          expect(error).toBeInstanceOf(RangeError);
+        }
+      }
+      const stored = log.events();
+      expect(stored.every((e, i) => i === 0 || e.tick >= (stored[i - 1]?.tick ?? 0))).toBe(true);
+      expect(stored.every((e) => e.causes.length <= MAX_CAUSES)).toBe(true);
+    },
+  );
 });

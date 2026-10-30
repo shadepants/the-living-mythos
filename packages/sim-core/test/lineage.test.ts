@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { fc, test } from '@fast-check/vitest';
 import { ROOT_ID, Purpose, deriveEntityId, entityRngFields, founderId, rand01 } from '../src/index.ts';
 
 describe('lineage-derived entity ids (hard rule 3)', () => {
@@ -112,4 +113,24 @@ describe('entityRngFields (bridge to the rng, rev 13)', () => {
     const draw = (f: typeof fields): number => rand01({ seed: 42, season: 10, ...f, purpose: Purpose.Birth });
     expect(draw(sibling)).not.toBe(draw(fields));
   });
+});
+
+const uint32 = fc.nat({ max: 0xffffffff });
+const birth = fc.tuple(uint32, uint32, uint32);
+
+describe('lineage id properties', () => {
+  test.prop([birth])('always derives the same well-formed id from the same inputs', ([founder, season, sibling]) => {
+    const parent = founderId(founder);
+    const id = deriveEntityId(parent, season, sibling);
+    expect(deriveEntityId(parent, season, sibling)).toBe(id);
+    expect(id).toMatch(/^[0-9a-f]{16}$/);
+  });
+
+  test.prop([fc.uniqueArray(birth, { selector: (b) => b.join(':'), minLength: 2 })])(
+    'never collides across distinct (parent, birth season, sibling index) inputs',
+    (births) => {
+      const ids = births.map(([founder, season, sibling]) => deriveEntityId(founderId(founder), season, sibling));
+      expect(new Set(ids).size).toBe(ids.length);
+    },
+  );
 });

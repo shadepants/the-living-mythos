@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { fc, test } from '@fast-check/vitest';
 import { createSchedule, runTick, systemsDue, type ScheduledSystem } from '../src/index.ts';
 
 interface ToyState {
@@ -101,5 +102,45 @@ describe('tick loop with fixed substeps (hard rule 4)', () => {
     expect(() => runTick(toySchedule, state, 42, 1.5)).toThrow(RangeError);
     expect(() => runTick(toySchedule, state, 42, 2 ** 32)).toThrow(RangeError);
     expect(state.trace).toEqual([]);
+  });
+});
+
+const uint32 = fc.nat({ max: 0xffffffff });
+const systemSpec = fc
+  .record({
+    // Mix small periods (due often) with the full uint32 range.
+    period: fc.oneof(fc.integer({ min: 1, max: 8 }), fc.integer({ min: 1, max: 0xffffffff })),
+    offsetSeed: uint32,
+    substeps: fc.integer({ min: 1, max: 8 }),
+  })
+  .map(({ period, offsetSeed, substeps }) => ({ period, offset: offsetSeed % period, substeps }));
+
+type Spec = { period: number; offset: number; substeps: number };
+
+const traceSchedule = (specs: readonly Spec[]): ReturnType<typeof createSchedule<string[]>> =>
+  createSchedule<string[]>(
+    specs.map((spec, i) => ({ name: `s${i}`, ...spec, step: (trace: string[]): void => void trace.push(`s${i}`) })),
+  );
+
+describe('tick schedule properties', () => {
+  test.prop([fc.array(systemSpec), uint32])(
+    'always runs exactly the due systems, in declared order, each for its substeps',
+    (specs, season) => {
+      const schedule = traceSchedule(specs);
+      const due = systemsDue(schedule, season);
+      const trace: string[] = [];
+      runTick(schedule, trace, 1, season);
+
+      expect(trace).toEqual(due.flatMap((s) => Array.from({ length: s.substeps }, () => s.name)));
+      const order = due.map((s) => schedule.systems.indexOf(s));
+      expect(order).toEqual([...order].sort((a, b) => a - b));
+      expect(systemsDue(schedule, season)).toEqual(due);
+    },
+  );
+
+  test.prop([systemSpec, uint32])('always gives the same answer one period later', (spec, season) => {
+    fc.pre(season + spec.period <= 0xffffffff);
+    const schedule = traceSchedule([spec]);
+    expect(systemsDue(schedule, season + spec.period).length).toBe(systemsDue(schedule, season).length);
   });
 });

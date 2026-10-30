@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { fc, test } from '@fast-check/vitest';
 import { Purpose, hashKey, rand01, type RngKey } from '../src/index.ts';
 
 const key = (overrides: Partial<RngKey> = {}): RngKey => ({
@@ -84,4 +85,30 @@ describe('hash-based rng (hard rule 1)', () => {
   });
 
   it.todo('a no-op nudge produces an identical fork (needs the command log)');
+});
+
+const uint32 = fc.nat({ max: 0xffffffff });
+const rngKey = fc.record({ seed: uint32, season: uint32, entity: uint32, entityHi: uint32, purpose: uint32 });
+const KEY_FIELDS = ['seed', 'season', 'entity', 'entityHi', 'purpose'] as const;
+
+describe('hash-based rng properties', () => {
+  test.prop([rngKey])('always gives the same hash for the same key', (k) => {
+    expect(hashKey({ ...k })).toBe(hashKey(k));
+  });
+
+  // Every field passes through a chain of bijections (xor with a constant, then mix32),
+  // so changing one field always changes the hash, not just with high probability.
+  test.prop([rngKey, fc.constantFrom(...KEY_FIELDS), uint32])(
+    'always changes the hash when exactly one field changes',
+    (k, field, value) => {
+      fc.pre(k[field] !== value);
+      expect(hashKey({ ...k, [field]: value })).not.toBe(hashKey(k));
+    },
+  );
+
+  test.prop([rngKey])('always draws rand01 in [0, 1)', (k) => {
+    const r = rand01(k);
+    expect(r).toBeGreaterThanOrEqual(0);
+    expect(r).toBeLessThan(1);
+  });
 });
