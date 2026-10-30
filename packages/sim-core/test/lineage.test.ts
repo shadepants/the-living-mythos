@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ROOT_ID, Purpose, deriveEntityId, entityKey, founderId, rand01 } from '../src/index.ts';
+import { ROOT_ID, Purpose, deriveEntityId, entityRngFields, founderId, rand01 } from '../src/index.ts';
 
 describe('lineage-derived entity ids (hard rule 3)', () => {
   it('derives the same id from the same (parent, birth season, sibling index)', () => {
@@ -75,23 +75,41 @@ describe('lineage-derived entity ids (hard rule 3)', () => {
   });
 });
 
-describe('entityKey (bridge to the rng)', () => {
-  it('returns a stable uint32 for an id', () => {
-    const key = entityKey(founderId(0));
-    expect(Number.isInteger(key)).toBe(true);
-    expect(key).toBeGreaterThanOrEqual(0);
-    expect(key).toBeLessThanOrEqual(0xffffffff);
-    expect(entityKey(founderId(0))).toBe(key);
+describe('entityRngFields (bridge to the rng, rev 13)', () => {
+  it('splits an id into the low 32 bits (entity) and high 32 bits (entityHi)', () => {
+    // founderId(0) is pinned above as "352bad6048ab73b3".
+    expect(entityRngFields(founderId(0))).toEqual({ entity: 0x48ab73b3, entityHi: 0x352bad60 });
+  });
+
+  it('returns stable uint32 fields for any id', () => {
+    const fields = entityRngFields(deriveEntityId(founderId(2), 99, 3));
+    for (const value of [fields.entity, fields.entityHi]) {
+      expect(Number.isInteger(value)).toBe(true);
+      expect(value).toBeGreaterThanOrEqual(0);
+      expect(value).toBeLessThanOrEqual(0xffffffff);
+    }
+    expect(entityRngFields(deriveEntityId(founderId(2), 99, 3))).toEqual(fields);
+  });
+
+  it('rejects a malformed id', () => {
+    expect(() => entityRngFields('nope' as never)).toThrow(RangeError);
   });
 
   it('feeds rand01 without throwing and keeps entities independent', () => {
     const a = founderId(0);
     const b = founderId(1);
     const draw = (id: typeof a): number =>
-      rand01({ seed: 42, season: 10, entity: entityKey(id), purpose: Purpose.Birth });
+      rand01({ seed: 42, season: 10, ...entityRngFields(id), purpose: Purpose.Birth });
     const before = draw(a);
     draw(b);
     expect(draw(a)).toBe(before);
     expect(draw(a)).not.toBe(draw(b));
+  });
+
+  it('gives different draws to two ids that share their high 32 bits', () => {
+    const fields = entityRngFields(founderId(0));
+    const sibling = { ...fields, entity: fields.entity ^ 1 };
+    const draw = (f: typeof fields): number => rand01({ seed: 42, season: 10, ...f, purpose: Purpose.Birth });
+    expect(draw(sibling)).not.toBe(draw(fields));
   });
 });

@@ -62,5 +62,13 @@ export const deriveEntityId = (parent: EntityId, birthSeason: number, siblingInd
 /** The `index`-th founder of the world (born at season 0). */
 export const founderId = (index: number): EntityId => deriveEntityId(ROOT_ID, 0, index);
 
-/** First 32 bits of an id, for the `entity` field of an `RngKey`. */
-export const entityKey = (id: EntityId): number => splitId(id).high;
+/**
+ * The `entity` and `entityHi` fields of an `RngKey` for this id: low and high 32 bits.
+ * Spread it into a key: `rand01({ seed, season, ...entityRngFields(id), purpose })`.
+ * Both halves are needed: with only 32 bits, two entities collide about 4.5% of the time at 20,000.
+ * @throws RangeError if the id is malformed.
+ */
+export const entityRngFields = (id: EntityId): { entity: number; entityHi: number } => {
+  const { high, low } = splitId(id);
+  return { entity: low, entityHi: high };
+};

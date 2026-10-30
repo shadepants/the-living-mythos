@@ -19,7 +19,15 @@ export interface RngKey {
   readonly seed: number;
   /** Absolute season index since world start. */
   readonly season: number;
+  /**
+   * Low 32 bits of the entity's 64-bit `EntityId` (see `entityRngFields`).
+   * Keys for things that are not lineage entities (grid cells and the like) put their own
+   * index here, set `entityHi` to 0, and must use `Purpose` codes that no lineage entity uses,
+   * so a cell can never share draws with an entity whose id happens to have the same low bits.
+   */
   readonly entity: number;
+  /** High 32 bits of the entity's `EntityId`; 0 for non-lineage keys. Required so no call site can forget it. */
+  readonly entityHi: number;
   readonly purpose: number;
 }
 
@@ -43,12 +51,14 @@ export const hashKey = (key: RngKey): number => {
   assertUint32('seed', key.seed);
   assertUint32('season', key.season);
   assertUint32('entity', key.entity);
+  assertUint32('entityHi', key.entityHi);
   assertUint32('purpose', key.purpose);
 
   // Distinct odd constants per field so swapping two field values changes the hash.
   let h = mix32(key.seed ^ 0x9e3779b9);
   h = mix32(h ^ key.season ^ 0x85ebca6b);
   h = mix32(h ^ key.entity ^ 0xc2b2ae35);
+  h = mix32(h ^ key.entityHi ^ 0x68e31da5);
   h = mix32(h ^ key.purpose ^ 0x27d4eb2f);
   return h;
 };

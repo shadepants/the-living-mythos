@@ -5,6 +5,7 @@ const key = (overrides: Partial<RngKey> = {}): RngKey => ({
   seed: 42,
   season: 1000,
   entity: 7,
+  entityHi: 0,
   purpose: Purpose.Migration,
   ...overrides,
 });
@@ -25,7 +26,24 @@ describe('hash-based rng (hard rule 1)', () => {
     expect(hashKey(key({ seed: 43 }))).not.toBe(base);
     expect(hashKey(key({ season: 1001 }))).not.toBe(base);
     expect(hashKey(key({ entity: 8 }))).not.toBe(base);
+    expect(hashKey(key({ entityHi: 1 }))).not.toBe(base);
     expect(hashKey(key({ purpose: Purpose.Birth }))).not.toBe(base);
+  });
+
+  it('separates entities that share their low 32 bits and differ only in the high 32', () => {
+    // Before rev 13 the key held only 32 bits of the id, so these two shared every draw.
+    const a = key({ entity: 5, entityHi: 9 });
+    const b = key({ entity: 5, entityHi: 10 });
+    expect(hashKey(a)).not.toBe(hashKey(b));
+    expect(rand01(a)).not.toBe(rand01(b));
+  });
+
+  it('separates entities that share their high 32 bits and differ only in the low 32', () => {
+    expect(hashKey(key({ entity: 5, entityHi: 9 }))).not.toBe(hashKey(key({ entity: 6, entityHi: 9 })));
+  });
+
+  it('distinguishes swapped entity and entityHi values', () => {
+    expect(hashKey(key({ entity: 7, entityHi: 1000 }))).not.toBe(hashKey(key({ entity: 1000, entityHi: 7 })));
   });
 
   it('distinguishes swapped field values', () => {
@@ -34,8 +52,10 @@ describe('hash-based rng (hard rule 1)', () => {
 
   it('pins known outputs so any cross-engine or refactor drift fails loudly', () => {
     // Golden values captured on Node 22. A change here means old saves and forks no longer replay.
-    expect(hashKey(key())).toMatchInlineSnapshot(`3476084382`);
-    expect(hashKey({ seed: 0, season: 0, entity: 0, purpose: 0 })).toMatchInlineSnapshot(`892054880`);
+    // Recaptured once on 2026-10-30 (rev 13: entityHi joined the key); previous values were
+    // 3476084382 and 892054880. No saves existed then.
+    expect(hashKey(key())).toMatchInlineSnapshot(`1759517345`);
+    expect(hashKey({ seed: 0, season: 0, entity: 0, entityHi: 0, purpose: 0 })).toMatchInlineSnapshot(`3421405739`);
   });
 
   it('stays in [0, 1) and is roughly uniform', () => {
@@ -57,6 +77,9 @@ describe('hash-based rng (hard rule 1)', () => {
     expect(() => hashKey(key({ seed: -1 }))).toThrow(RangeError);
     expect(() => hashKey(key({ season: 1.5 }))).toThrow(RangeError);
     expect(() => hashKey(key({ entity: 2 ** 32 }))).toThrow(RangeError);
+    expect(() => hashKey(key({ entityHi: 2 ** 32 }))).toThrow(RangeError);
+    expect(() => hashKey(key({ entityHi: -1 }))).toThrow(RangeError);
+    expect(() => hashKey(key({ entityHi: 1.5 }))).toThrow(RangeError);
     expect(() => hashKey(key({ purpose: Number.NaN }))).toThrow(RangeError);
   });
 
