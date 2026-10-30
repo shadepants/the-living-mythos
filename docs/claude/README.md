@@ -15,6 +15,8 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 |---|---|
 | `design/decision-log.md` | Current (rev 13). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #5) |
+| `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
+| `design/spec_v0.1.md` | Draft v0.1 (2026-10-30); open questions in section 20 |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | All prompts (1-6) run; consolidated 2026-10-28 (includes the former novelty prompt) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |
