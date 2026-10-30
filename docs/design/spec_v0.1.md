@@ -36,7 +36,7 @@ Techniques, farming, soil, small fauna, water, fire age, crop domestication, ban
 - Events: snake_case type; `tick` = absolute season; ≤3 causes (event or command); flat integer payload; content key `type:tick:primary:ordinal`; `primary` is an `EntityId`.
 - Tick loop: one tick = one season; systems in fixed array order with `period`, `offset`, `substeps` (1-1024); schedule never depends on state.
 
-## 3. Number representation (open: question 0)
+## 3. Number representation (decided rev 15: option A)
 | Option | What it means | Cost | Risk |
 |---|---|---|---|
 | A. Doubles in state, basic ops only (lean) | Field and band state in `Float64Array`/numbers; config scaled integers divided once at load; payloads rounded to integers at emission | Least code; normal formulas | NaN/±0 must be guarded before state hashing; operation order must stay fixed (no parallel reductions) |
@@ -44,7 +44,7 @@ Techniques, farming, soil, small fauna, water, fire age, crop domestication, ban
 
 Known: ECMAScript Number arithmetic is IEEE 754 double with round-to-nearest, and engines may not fuse operations, so `+ − × ÷` and `sqrt` give the same results everywhere. Inferred: Float32Array storage is also deterministic (rounding to float32 is specified), but it adds a second precision to reason about, so the lean is Float64Array. External check: the cross-engine state-hash test (benchmark step 5), run once the tick loop drives fields.
 
-The rest of this spec writes formulas as plain arithmetic. Under option B each would also need its scale, rounding and bounds; those get added only if B is picked.
+Decided (Jordan 2026-10-30, rev 15): option A. Rules: the state hash rejects NaN and ±Infinity and normalizes -0; sums over cells or bands run in a fixed order (row-major, band ID order); config scaled integers are divided once at load; event payloads are rounded to integers at emission. Formulas below are plain arithmetic.
 
 ## 4. World
 | Item | Value | Tag |
@@ -227,7 +227,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 ## 19. Alternatives considered
 | Topic | Options | Pick | Why |
 |---|---|---|---|
-| Number representation | doubles / fixed-point | open (lean doubles) | §3 |
+| Number representation | doubles / fixed-point | doubles (rev 15) | §3 |
 | Demography draws | per-member + new key field / binomial per bracket | binomial per bracket (lean) | no RNG change; same distribution |
 | Event emission | in systems / detector pass | detector pass (lean) | one place compares regimes |
 | Migration randomness | none / `Migration` draw | none (lean) | keeps "why" a pure function of state |
@@ -237,7 +237,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 
 | # | Question | Depends on | Rough draft's pick |
 |---|---|---|---|
-| 0 | Number representation (§3) | — | doubles |
+| 0 | Number representation (§3) — **settled rev 15: doubles** | — | doubles |
 | 1 | Map size and catchment metric (§4, §9) | 0 | 128×128, Chebyshev radius 3 |
 | 2 | Event emission model and world-event primary (§5, §14) | — | detector pass, `ROOT_ID` |
 | 3 | Worldgen and biome table (§4.1) | 0, 1 | 4×3 bands, 8 biomes + ocean |
