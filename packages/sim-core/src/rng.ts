@@ -25,7 +25,7 @@ export interface RngKey {
 
 // lowbias32 integer finalizer (Chris Wellons). Math.imul and bit ops are exact
 // 32-bit integer operations in every engine, so this is platform-independent.
-const mix32 = (input: number): number => {
+export const mix32 = (input: number): number => {
   let h = input >>> 0;
   h = Math.imul(h ^ (h >>> 16), 0x7feb352d);
   h = Math.imul(h ^ (h >>> 15), 0x846ca68b);
