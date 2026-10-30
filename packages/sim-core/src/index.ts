@@ -6,3 +6,5 @@ export { ROOT_ID, deriveEntityId, entityRngFields, founderId } from './lineage.t
 export type { EntityId } from './lineage.ts';
 export { MAX_CAUSES, createEventLog } from './event-log.ts';
 export type { Cause, EventId, EventInput, EventLog, LogEvent } from './event-log.ts';
+export { createSchedule, runTick, systemsDue } from './tick.ts';
+export type { Schedule, ScheduledSystem, StepContext } from './tick.ts';

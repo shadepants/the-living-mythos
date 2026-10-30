@@ -83,5 +83,5 @@ describe('hash-based rng (hard rule 1)', () => {
     expect(() => hashKey(key({ purpose: Number.NaN }))).toThrow(RangeError);
   });
 
-  it.todo('a no-op nudge produces an identical fork (needs the tick loop)');
+  it.todo('a no-op nudge produces an identical fork (needs the command log)');
 });
