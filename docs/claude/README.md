@@ -13,8 +13,8 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 11). Source of truth |
-| `claude/handoff-living-mythos.md` | Current (handoff #4) |
+| `design/decision-log.md` | Current (rev 12). Source of truth |
+| `claude/handoff-living-mythos.md` | Current (handoff #5) |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | All prompts (1-6) run; consolidated 2026-10-28 (includes the former novelty prompt) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |
@@ -45,4 +45,8 @@ Removed 2026-10-28: `research/novelty-research-prompt.md` (content merged into `
 - Archiving: move to `archive/<original folder>/<name>`, add a dated status note at the top, update this index and any references in the decision log and handoff.
 
 ## Code
-Repo: github.com/shadepants/the-living-mythos, branch `Main-REPO` (pnpm workspace, `packages/sim-core` only). Its `CLAUDE.md` carries the determinism hard rules for Claude Code. Cloud sessions may add tests and tooling only until Windows `pnpm check` passes (rev 10). A docs consolidation pass on the repo is pending (handoff #4, next steps).
+Repo: github.com/shadepants/the-living-mythos (private), branch `Main-REPO` (pnpm workspace, `packages/sim-core` only). Its `CLAUDE.md` carries the code-binding rules for Claude Code; `CONTEXT.md` tracks code state. Laptop clone: `C:\Users\User\Workspace\Repositories\the-living-mythos`.
+
+**Repo mirror:** `docs/` in the repo mirrors this Project (same paths, plus the PDFs under `docs/research/`). The Project is the source of truth. After every decision-log revision, or any change to a doc here, re-sync the changed files to `docs/` in one `docs:` commit.
+
+Cloud sessions stay limited to tests and tooling until the rev 10 gate is decided (Windows `pnpm check` passed 2026-10-30; see the decision log's open questions).
