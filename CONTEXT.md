@@ -11,7 +11,9 @@ TypeScript (strict, pinned 6.0.x), pnpm workspace, Vitest, ESLint (determinism b
 - [x] Hash-based RNG (`rng.ts`) with golden-value test
 - [x] Versioned config + `hashConfig` (`config.ts`), golden-value test; fields are placeholders
 - [x] Lineage-derived entity IDs (rule 3): 64-bit hex `EntityId` (`lineage.ts`), `entityKey` bridges to the rng. The id does not encode the parent; the event log must store it and assert id uniqueness on registration.
-- [ ] Causal event log types (rule 5)
+- [x] Causal event log (rule 5, `event-log.ts`): sequential run-local ids, content key `type:tick:primary:ordinal`, max 3 causes (event or command), flat-integer payload, append-only with ticks non-decreasing. No event taxonomy yet.
+  - Open: command causes are only shape-checked until the command log exists (rule 6).
+  - Open: lineage parent is not recorded by the log; the future entity registry must store it and assert id uniqueness.
 - [ ] Tick loop with fixed substeps (rule 4); unblocks the `it.todo` fork test in `rng.test.ts`
 - Blocker: the design log (`design/decision-log.md`) lives in the claude.ai Project, not this repo. Config fields are unconfirmed against it.
 
