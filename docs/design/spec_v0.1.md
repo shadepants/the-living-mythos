@@ -1,22 +1,22 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.1
-Status: Draft (Phase 2; tags under grilling)
+Version: 0.2
+Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
 Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.1)
+# Living mythos: success-test slice (spec v0.2 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
 
 Tag key: **[R: source]** research-backed range · **[P]** placeholder, set by batch tuning · **[NEED: Jordan]** design choice · **[UNCERTAIN]** unverified · **[CONFLICT]** disagrees with the log.
 
-Code facts below were checked against the repo on 2026-10-30 (laptop commit `09dee57`, tick loop, not yet pushed).
+Code facts below were checked against the repo on 2026-10-30 (tick loop built, 67 tests + 1 todo). A rough alternative draft written by a Gemini agent is archived at `archive/design/spec-rough-draft-gemini-2026-10-30.md`; it is input to the grilling, not a decision.
 
 ## 1. Goals / non-goals
 **Goals**
@@ -105,14 +105,19 @@ Per season, per cell: `anomaly = seasonal[season mod 4] + volatility · temporal
 | `rV`, `moistureFactor` breakpoints, `minMoistureFactor`, `vegSeed` | [P]; no research basis for a procedural world; tuned so a 4-8 season drought visibly drops vegetation and recovery takes longer than the drought [UNCERTAIN: target shape is Jordan's call] |
 
 ## 8. Large fauna
-Per substep: `F' = F + rF · F · (1 − F / (cF · V)) − hunting/n_f + D · Laplacian(F)`, 4-neighbour Laplacian, closed boundaries at sea.
-- Stability (explicit diffusion, 2D): `D · dt / dx² ≤ 1/4` per substep, so `n_f = ceil(4 · D)` with `dt = 1 season`, `dx = 1 cell` [R: standard FTCS stability limit].
+Per substep, with `h = 1 / n_f` (fraction of a season):
+`F' = F + h · (growth(F, KF) − hunting) + h · D · Laplacian(F)`, then clamp `F ≥ 0`.
+- `KF = cF · V` (fauna carrying capacity of the cell).
+- `growth = rF · F · (1 − F / KF)` when `KF > epsK`; otherwise `growth = −mF · F` (the herd starves off a barren or ocean cell). This removes the divide-by-zero when `V = 0` or `cF = 0`. (Bug fixed in v0.2.)
+- Every rate is scaled by `h`, so `n_f` substeps add up to exactly one season of growth, hunting and diffusion. (Bug fixed in v0.2: v0.1 scaled hunting only.)
+- Laplacian: 4-neighbour; a sea neighbour contributes the cell's own value (zero-flux boundary), so fauna never diffuses into the sea.
+- Stability (explicit diffusion, 2D): `h · D ≤ 1/4`, so `n_f = max(1, ceil(4 · D))` [R: standard FTCS stability limit].
 - Grazing removes vegetation in proportion to F (`grazeRate`).
 - Iteration order: row-major with a double buffer, so update order can't change results.
 
 | Tunable | Tag |
 |---|---|
-| `rF`, `cF`, `D`, `grazeRate` | [P]. Report 3's overkill/regeneration ranges are a starting band, not values [R: report 3 ranges, equations rejected] |
+| `rF`, `cF`, `D`, `grazeRate`, `mF`, `epsK` | [P]. Report 3's overkill/regeneration ranges are a starting band, not values [R: report 3 ranges, equations rejected] |
 
 ## 9. Bands and food balance
 Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts, stash, food balance history (last 4 seasons), hunger seasons counter, alive flag.
@@ -140,7 +145,12 @@ Forage per season:
 | `gatherEff`, `huntEff`, `need[4]`, `stashCap`, `spoilage`, `starvingSeasons`, `flatBand` | [P] |
 
 ## 10. Demography (per season, per band)
-**[CONFLICT]** The log's Demography row says "births/deaths via per-member hash draws". The key has no member index (`rng.ts`), so per-member draws need either a new key field or a different method. Proposal (only valid under number option A): one draw per bracket and outcome, sampling the exact binomial by inverse CDF. The pmf recurrence `p(k+1) = p(k) · (n−k)/(k+1) · q/(1−q)` from `p(0) = (1−q)^n` (n repeated multiplications) uses only `× ÷`, so it's allowed, and it reproduces per-member results in distribution with n ≤ ~60. Draws use the start-of-season counts, so one outcome can't shift another. Proposed log edit: "Births/deaths via one binomial draw per bracket (inverse CDF, basic arithmetic only)". Under option B this would need a fixed-point CDF table.
+**[CONFLICT]** The log's Demography row says "births/deaths via per-member hash draws". The key has no member index (`rng.ts`), so per-member draws need either a new key field or a different method. Proposal (only valid under number option A): one draw per bracket and outcome, sampling the exact binomial `Bin(n, q)` by inverse CDF with one uniform `u`:
+  - `q ≤ 0` → 0 events; `q ≥ 1` → n events (no division).
+  - If `q > 0.5`, sample `X' ~ Bin(n, 1−q)` with the same `u` and return `n − X'`. The recurrence below then always has `1 − q ≥ 0.5` in its denominator. (Bug fixed in v0.2: v0.1 divided by zero at `q = 1`.)
+  - `p(0) = (1−q)^n` by a multiply loop (`intPow`, n multiplications; `Math.pow` and `**` are banned). With n ≤ ~60 and `1−q ≥ 0.5`, `p(0) ≥ 2^-60`, far above double underflow.
+  - Walk `k = 0, 1, …` accumulating `p(k+1) = p(k) · (n−k)/(k+1) · q/(1−q)` until the cumulative sum exceeds `u`; if rounding leaves `u` above the final sum, return n.
+  It uses only `× ÷ + −`, so it's allowed, and it matches per-member draws in distribution. Draws use the start-of-season counts, so one outcome can't shift another. Proposed log edit: "Births/deaths via one binomial draw per bracket (inverse CDF, basic arithmetic only)". Under option B this would need a fixed-point CDF table.
 - Deaths: per bracket, `q = baseMortality[bracket] + hungerMortality[bracket, hungerState]`. Purpose `Death`, entity = band; the bracket index is folded into the purpose space via new codes `DeathChild` … `DeathElder` ([NEED: Jordan] new codes vs a sub-purpose convention).
 - Births: `n = round(adults_and_young_adults / 2)` (fertile women, [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState)`. Purpose `Birth`.
 - Aging: a fixed fraction of each bracket moves up each season (`1 / span_in_seasons`), using deterministic rounding with a carried remainder per band, so no draw is needed.
@@ -181,13 +191,13 @@ Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (a
 | `dry_spell_began` / `dry_spell_ended` | `ROOT_ID` | natural regime crossing (§6) | none / `dry_spell_began` |
 | `forage_failed` | band | food balance first turns negative after ≥`stableSeasons` non-negative | active drought or dry spell over the catchment, if any |
 | `band_hunger_began` | band | hunger state enters `hungry` | `forage_failed` |
-| `band_starving` | band | hunger state enters `starving` | `band_hunger_began` |
-| `band_migrated` | band | migration executes | `band_hunger_began` (or `band_starving`) |
-| `band_died_out` | band | die-out | `band_starving` |
+| `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, `forage_failed` |
+| `band_migrated` | band | migration executes | `band_hunger_began` (or `band_starving`), `forage_failed` |
+| `band_died_out` | band | die-out | `band_starving`, `forage_failed` |
 
 - World/region events use `ROOT_ID` as primary [NEED: Jordan] (question 9; lean accept).
 - Payloads: integers only (cell indices, rounded population, scaled magnitudes).
-- Example chain [UNCERTAIN: illustration]: command → `drought_began` → `forage_failed` → `band_hunger_began` → `band_migrated` (3 hops from the migration back to the drought event).
+- Every band outcome cites `forage_failed` directly, so `band_migrated` and `band_died_out` reach `drought_began` in 2 hops (outcome → `forage_failed` → `drought_began`), inside the 3-hop limit. (Bug fixed in v0.2: v0.1's die-out chain was 4 hops.) The intermediate hunger events stay as causes for the fuller "why" walk.
 
 ## 15. Legends (templated)
 - One `first_valid` template list per event type, filled from payload and band name; seeded by the content key (log "Narration pipeline").
@@ -209,7 +219,7 @@ Snapshot fields (log rev 11): food balance and trend, stash level, hunger state,
 All tunables above become `SimConfig` fields with integer values and a stated scale (e.g. `rVPer10000`). The placeholders `seasonsPerYear` and `startingBandSize` are replaced; the config-hash golden value changes once.
 
 ## 18. Testing plan
-- Unit: each formula (clamping, stability, conservation where it applies, no NaN).
+- Unit: each formula (clamping, stability, conservation where it applies, no NaN). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
 - Property (PBT skill choice still open): same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
 - Acceptance (success test): a fixed seed and scenario with two bands; a drought at season S; run to S + N. Pass when one band has `band_migrated` and the other `band_died_out`, each with a cause chain reaching `drought_began` in ≤3 hops, and the Legends template renders the pass sentence. Scenario values [NEED: Jordan] (question 11).
@@ -223,19 +233,29 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 | Migration randomness | none / `Migration` draw | none (lean) | keeps "why" a pure function of state |
 
 ## 20. Open questions (grill order)
-0. Number representation (§3).
-1. Map size and catchment metric.
-2. Drought command fields.
-3. Demography draws ([CONFLICT] with the log's wording) and bracket cut points.
-4. Event emission model and `ROOT_ID` primary.
-5. Climate regime shape.
-6. Vegetation and fauna targets (what a drought should look like over time).
-7. Migration rules and randomness.
-8. Die-out floor.
-9. Glance-word thresholds.
-10. Test scenario and pass sentence.
-11. Worldgen biome table.
+Ordered so each answer only depends on earlier ones. The rough Gemini draft's pick is noted for each as input, not as a decision.
+
+| # | Question | Depends on | Rough draft's pick |
+|---|---|---|---|
+| 0 | Number representation (§3) | — | doubles |
+| 1 | Map size and catchment metric (§4, §9) | 0 | 128×128, Chebyshev radius 3 |
+| 2 | Event emission model and world-event primary (§5, §14) | — | detector pass, `ROOT_ID` |
+| 3 | Worldgen and biome table (§4.1) | 0, 1 | 4×3 bands, 8 biomes + ocean |
+| 4 | Climate regime shape and dials (§6) | 0, 3 | seasonal table + temporal + regional noise |
+| 5 | Drought command fields and area model (§13) | 4 | one signed command, radius 0 = whole map |
+| 6 | Vegetation response and recovery targets (§7) | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
+| 7 | Large fauna: grazing, hunting, diffusion (§8) | 6 | lag 1-2 seasons behind vegetation |
+| 8 | Food balance: yield, consumption, stash, hunger states (§9) | 6, 7 | (not covered) |
+| 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
+| 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
+| 11 | Die-out floor (§12) | 9 | zero |
+| 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
+| 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
+| 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.2 - 2026-10-30
+- Fixed: large-fauna divide by zero on barren/ocean cells (§8); rates not scaled per substep (§8); binomial divide by zero at q = 1 (§10); die-out cause chain over 3 hops (§14). Found by the rough Gemini draft's review, verified here.
+- Updated: section 20 reordered by dependency, with the rough draft's picks as input.
 ### v0.1 - 2026-10-30
 - Added: first draft from the laptop session's brief and decision log rev 13.

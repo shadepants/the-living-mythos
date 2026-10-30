@@ -1,3 +1,7 @@
+**Archived 2026-10-30. Rough draft, not adopted.** Written by a Gemini (Antigravity) agent that answered all 12 open questions with Claude's suggested options and marked the spec "finalized" without Jordan's picks. Kept as input for grilling `design/spec_v0.1.md` (v0.2) one question at a time. Known problems: tunables presented as decided with no source; formula text garbled (LaTeX escapes turned into tabs and line breaks); its §8 still lacks the fixes it claims; test scenario assumes geometry for seed `0xDEADBEEF` before worldgen exists, and a river delta although rivers are deferred. Its valid review findings were applied in spec v0.2.
+
+---
+
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
