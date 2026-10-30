@@ -1,0 +1,1262 @@
+Novelty and Feasibility Assessment:
+Observational Prehistoric Civilization
+Sandbox with Counterfactual History
+Diffing
+Executive Verdict
+The planned project—a browser-based, observational Paleolithic-to-Neolithic civilization
+sandbox featuring two-way ecological coupling, group-level demographic simulation, a causally
+linked Legends-style history log, light-touch environmental and biological nudges, and
+deterministic counterfactual fork-and-diff analysis—represents a genuinely novel synthesis that
+does not exist in any released commercial game, indie project, or academic tool. While
+individual simulation primitives within this design have been explored across disparate domains,
+no single system integrates an unscripted prehistoric subsistence transition with causal graph
+narration and interactive timeline diffing.
+When decomposed into its seven constituent pillars, the novelty profile divides sharply between
+established simulation mechanics and unexplored user-facing systems. Top-down observational
+"god-view" sandboxes (WorldBox, Ages of Conflict, Fantasy Map Simulator), two-way cellular
+ecological coupling (SimEarth, Songs of the Eons), and Paleolithic-to-farming survival arcs
+(Dawn of Man, archaeological agent-based models such as HUMLAND and AgModel) are
+well-trodden paradigms backed by decades of prior art. Condition-triggered, unscripted
+technological emergence occupies a middle ground: it is standard practice in academic
+agent-based models (ABMs) of the Neolithic transition and was partially architected for Songs of
+the Eons prior to its development hiatus, yet commercial games almost universally default to
+explicit technology trees or linear age-up thresholds. Similarly, Dwarf Fortress pioneered the
+procedural historical encyclopedia via its Legends Mode, but its underlying event log records flat
+temporal sequences and immediate action metadata rather than a queryable, multi-hop causal
+directed acyclic graph (DAG) capable of explaining macro-historical regime shifts.
+The intended signature feature—deterministic counterfactual fork-and-diff with a "ripple or fade"
+divergence readout—is entirely absent from consumer games and observational sandboxes.
+Verified technical literature confirms that between 2025 and 2026, deterministic world-forking
+and event-diffing emerged as an architectural primitive exclusively within developer-facing AI
+agent testing frameworks, specifically Euca Engine (v1.1.0, 2026) and ActiveGraph
+(2025–2026), alongside reinforcement learning causal credit assignment models (MDP-SCM,
+ForkPRM, TRACE). Translating deterministic state branching, automated narrative diffing, and
+trajectory damping or amplification measurement into a user-facing historical sandbox
+constitutes a category-defining innovation.
+
+Comprehensive Verification of Existing Projects
+To establish an empirical baseline and distinguish verified facts from analytical inference, all
+thirty-three reference projects mandated in the research specification—alongside relevant
+
+2024–2026 commercial, indie, and academic releases—were audited for existence,
+development status, and mechanical alignment. Every project named in the baseline
+specification is confirmed to exist; zero projects were flagged as unverified or fictional. Projects
+matching fewer than two of the planned v1 features are verified and summarized in the baseline
+table below to maintain analytical focus, whereas projects matching two or more features (or
+supplying the exact engine primitives for counterfactual branching) are evaluated in the Novelty
+Matrix and subsequent mechanical deep dives.
+
+Baseline Verification of Projects Matching Fewer Than Two Planned
+Features
+Project Name             Developer / Author & Verification &        Basis for Exclusion
+                         Release Year (Verified) Mechanical Summary from Deep Mechanical
+                                                                    Analysis
+Ultima Ratio Regum Mark R. Johnson        Verified ASCII/ANSI       Individual-scale player
+(URR)              (2011–2026, v0.11      roguelike set around      avatar; static worldgen
+                   active)                the Scientific            history without
+                                          Revolution focusing on ecological simulation or
+                                          qualitative procedural Paleolithic-to-farming
+                                          generation of cultures, dynamics.
+                                          riddles, and religious or
+                                          political iconography.
+Caves of Qud       Freehold Games (Early Verified science-fantasy Turn-based RPG;
+                   Access 2015; 1.0       roguelike that            history is generated
+                   release Dec 2024)      generates procedural pre-play via Markov
+                                          Sultan histories and      and template stitching
+                                          cultural gospels used to rather than emergent
+                                          seed dungeon sites        ecological simulation.
+                                          and faction
+                                          relationships.
+Songs of Syx       Gamatron / Jake de     Verified fantasy          Player-managed colony
+                   Laval (Early Access    city-state and empire and empire builder with
+                   2020–2026)             builder simulating tens explicit tech unlocking;
+                                          of thousands of           lacks Paleolithic
+                                          individual citizens with emergence and
+                                          regional trade and        counterfactual diffing.
+                                          warfare.
+RimWorld           Ludeon Studios / Tynan Verified sci-fi colony    Squad-scale colony
+                   Sylvester (2013–2026) simulator driven by an management (10–50
+                                          AI Storyteller, tracking pawns) with simulated
+                                          pawn relationships,       individual minds and a
+                                          memories, and             standard research tree.
+                                          procedural art tales.
+Ancestors: The     Panache Digital Games Verified third-person      Direct third-person
+Humankind Odyssey (August 2019)           survival game covering action and survival;
+                                          10 million to 2 million stops millions of years
+                                          years ago in Neogene before the
+
+Project Name          Developer / Author & Verification &              Basis for Exclusion
+                      Release Year (Verified) Mechanical Summary       from Deep Mechanical
+                                                                       Analysis
+                                             Africa, focusing on       Paleolithic-to-Neolithic
+                                             hominid neuronal          farming transition and
+                                             evolution.                uses an explicit
+                                                                       neuronal tree.
+Humankind             Amplitude Studios      Verified historical 4X    Traditional turn-based
+                      (August 2021)          strategy game featuring 4X game after the brief
+                                             a playable nomadic        opening era; relies on a
+                                             Neolithic Era tribe that scripted technology
+                                             hunts and gathers         tree and competitive
+                                             before founding an        victory conditions.
+                                             outpost.
+Civilization Series   MicroProse / Firaxis   Verified flagship         Lacks pre-agricultural
+(I–VII)               Games (1991–2025;      turn-based 4X             band simulation,
+                      Civ VII released Feb   franchise starting at the observational focus,
+                      2025)                  founding of the first     and condition-triggered
+                                             sedentary city (4000      unscripted technology.
+                                             BCE) with scripted tech
+                                             and civic trees.
+Spore (Tribal & Civ   Maxis (September       Verified multi-stage      Scripted stage
+Stages)               2008)                  evolution game where transitions, zero
+                                             the Tribal and            ecological feedback in
+                                             Civilization stages       later stages, and direct
+                                             function as simplified RTS unit control.
+                                             real-time strategy
+                                             (RTS) games.
+Populous Series       Bullfrog Productions   Verified foundational     Competitive
+                      (1989–1998)            god-game franchise        RTS-adjacent god
+                                             (Populous I–III) where game focused on mana
+                                             divine terrain flattening generation and enemy
+                                             allows followers to build destruction; lacks
+                                             larger huts and multiply. Paleolithic tech
+                                                                       emergence or a history
+                                                                       log.
+Black & White Series Lionhead Studios        Verified god games        Story-driven RTS and
+                     (2001, 2005)            combining village         god hybrid with
+                                             management, miracle individual villager
+                                             casting, and              micromanagement and
+                                             reinforcement-learned scripted campaign
+                                             Giant Creature AI.        progression.
+Thrive                Revolutionary Games    Verified open-source The Awakening
+                      Studio (Open-source,   spiritual successor to (hunter-gatherer) and
+                      2012–2026)             Spore; active in 2026, Society stages remain
+                                             with playable builds      unimplemented design
+                                             focused on the Microbe documents as of 2026.
+
+Project Name          Developer / Author & Verification &                Basis for Exclusion
+                      Release Year (Verified) Mechanical Summary         from Deep Mechanical
+                                                                         Analysis
+                                              and early Multicellular
+                                              stages.
+Species: ALRE         Quasar / Stephen        Verified                    Biological speciation
+                      (Early Access           clade-and-genetics          simulator; does not
+                      2018–2024)              natural selection           simulate human bands,
+                                              simulator (Artificial Life, cultural transmission, or
+                                              Real Evolution) where farming villages.
+                                              neural-network
+                                              creatures evolve in a
+                                              3D dish.
+Equilinox             ThinMatrix / Karl       Verified low-poly           Task-driven ecological
+                      Wimble (November        ecosystem sandbox           puzzle sandbox without
+                      2018)                   where players place         human societies or
+                                              plants and animals to historical logs.
+                                              balance biomes and
+                                              unlock evolutionary
+                                              mutations.
+Banished              Shining Rock Software Verified medieval             Starts as an
+                      (February 2014)         survival city-builder       established agrarian
+                                              focused on resource         village with individual
+                                              chains, aging               citizen tracking; lacks
+                                              demographics, and           technological
+                                              harsh winters.              progression or
+                                                                          prehistory.
+Farthest Frontier     Crate Entertainment     Verified survival           Direct player town
+                      (Early Access 2022,     town-builder featuring management starting
+                      v1.0 2024–2025)         detailed crop rotation, with medieval/agrarian
+                                              soil fertility and weed technology and
+                                              mechanics, and              individual villager
+                                              resource production.        simulation.
+Victoria 3            Paradox Development Verified 19th-century Strong precedent for
+                      Studio (October         grand strategy game group-level
+                      2022–2026)              modeling demographic demographic
+                                              "Pops" grouped by           aggregation, but set in
+                                              profession, culture,        1836–1936 with explicit
+                                              religion, and workplace. tech trees and no grid
+                                                                          ecology.
+Stanford Generative   Park et al., Stanford / Verified LLM-agent          Simulates individual
+Agents                Google (April 2023)     study (Interactive          minds (memory stream,
+                                              Simulacra of Human          reflection, daily
+                                              Behavior) simulating 25 planning) over 2 days;
+                                              individual minds in         lacks ecology,
+                                              "Smallville" using          prehistory, or
+                                              Phaser.                     macro-history.
+
+Project Name             Developer / Author & Verification &              Basis for Exclusion
+                         Release Year (Verified) Mechanical Summary       from Deep Mechanical
+                                                                          Analysis
+AI Town                  a16z-infra / Convex      Verified open-source Validates the
+                         (August 2023–2026)       TypeScript and PixiJS TypeScript + PixiJS
+                                                  starter kit replicating browser stack, but
+                                                  Stanford's Smallville   models conversational
+                                                  architecture in the     LLM individuals rather
+                                                  browser.                than group-level
+                                                                          prehistoric bands.
+Seshat &                 Peter Turchin et al.     Verified                Validates group-level
+Cliodynamics             (2011–2026)              macro-historical        cultural evolution
+                                                  database (Seshat) and equations, but focuses
+                                                  mathematical modeling on Old World
+                                                  discipline              agrarian-to-imperial
+                                                  (Structural-Demographi polities (3500
+                                                  c Theory, HoloSim       BCE–present) without
+                                                  war/ultrasociality      causal lore browsers.
+                                                  ABMs).
+Novelty Matrix of the Closest 15 Projects
+The fifteen projects most closely aligned with the planned simulation—each matching at least
+two core features, or providing the exact architectural prior art for deterministic counterfactual
+forking—are evaluated across all seven planned pillars in the visual matrix and detailed
+evidence table below.
+
+Detailed Evidence for the Novelty Matrix
+Project     Open-Ende Paleolithic-t Two-Way Causal          Nudge        Counterfact Browser-Ba
+(Developer, d Tech      o-Farming Environme Legends Intervention ual Fork & sed
+Verified    Progressio Arc          nt Coupling History     s            Diff
+Dates)      n
+Dwarf       No:         No:         Partial:     Partial:   No:          No: Same No: Native
+Fortress & Civilization Worldgen Fortress        Gold-stand Worldgen seed can C++/SDL
+LegendsVi s spawn       starts with mode has ard            is hands-off be          desktop
+ewer-Next with fixed settled        soil, water, Legends after           manually application;
+(Bay 12     entity tech agrarian    and tree     XML log    parameter re-run to      LegendsVi
+Games,      definitions and mining changes; (id, year, configuratio different        ewer-Next
+2006–2026 in            civs and    worldgen type), but n; lacks         end years, is a
+)           worldgen. mythical      has biome links are     mid-worldg but no        desktop
+                        beasts.     savagery mostly flat en nudges. mid-run          C#/.NET
+                                    shifts, not actor/site               fork,       app.
+                                    ecological references                nudge, or
+                                    grid         and                     diff tool
+                                    depletion. immediate                 exists.
+                                                 death
+                                                 causes.
+
+Project      Open-Ende Paleolithic-t Two-Way Causal             Nudge       Counterfact Browser-Ba
+(Developer, d Tech       o-Farming Environme Legends Intervention ual Fork & sed
+Verified     Progressio Arc           nt Coupling History       s           Diff
+Dates)       n
+WorldBox Partial:        Partial:     Partial:     Partial:     Has:        No: Manual Partial:
+- God        Culture     Spawned Grid fire, World Law Extensive save/load Originated
+Simulator "Knowledg units gather water, acid, history log divine            slots exist, as a Flash
+(Maxim       e" system berries and and biome records            powers      but no       web
+Karpenko, unlocks        hunt before tiles spread wars, king including automated prototype
+2012–2026 traits over building        and burn deaths, and rain,            fork-and-dif on
+)            time, but bonfires, trees, but alliances drought/Ag f or                    Newground
+             follows a tents, and lack deep chronologic es, biomes, divergence s (2012);
+             semi-fixed windmills, soil-nutrient ally without trait rain, measurem modern
+             pool of     but begin or              causal       resources, ent.          version is
+             cultural    as           fauna-over parent-eve and                          Unity
+             tech tiers. sedentary hunting         nt chaining. disasters.               desktop
+                         village      feedback                                           and mobile.
+                         claims.      loops.
+Songs of Partial:        Partial:     Has:         No: Tile     No:         No: Lacks No: SotE
+the Eons / Designed v0.3              Deepest      inspector Pre-gen        timeline     v0.2 is
+SongsOfF for             spawns 64 grid            tracks       tectonic    branching Unity/C++;
+OSS &        condition-b hunter-gath coupling in pops,          and climate or history SongsOfF
+Gleba        ased        erer tribes games: soil inventories, sliders       diffing.     OSS is
+(Demian & material       (10–50       texture/nutr and          exist, but               Lua/LÖVE;
+Calandiel, discovery; people)         ients/depth, characters, no                        Gleba
+2018–2026 SongsOfF with a 5-tile hydrology, but lacks a mid-simulat                      (2026) is
+)            OSS v0.3 foraging        glaciers,    narrative ion                         Rust/Godot
+             implemente catchment and              Legends environmen                    .
+             d early     radius;      percentage history        tal nudge
+             tribal      farming      cover of     browser.     tools.
+             foraging    remained grass,
+             before      unfinished. shrubs,
+             hiatus.                  conifers,
+                                      and
+                                      broadleafs.
+SimEarth: Partial:       Partial:     Has:         No:          Has: Core No: Lacks Partial:
+The Living Sentient      Simulates Foundation Provides gameplay branching Native
+Planet       species     evolution al two-way real-time consists of timelines or 1990
+(Maxis /     advance     from         Daisyworld graphs and environmen run               desktop
+Will Wright, from Stone single-celle coupling: a                tal and     comparison release,
+1990)        Age to      d life to    atmospher geological biological s.                 though
+             Nanotech Stone Age e, climate, ribbon, but nudges                           playable
+             based on tribes and continental no                 (meteors,                via browser
+             energy and Industrial drift,          historical monoliths,                 DOSBox
+             science     cities at a biomes,       event log or biome                    emulators.
+             allocation macro-plan and             named        seeding,
+             and         etary scale. anthropoge individuals. atmospheri
+
+Project     Open-Ende Paleolithic-t Two-Way Causal             Nudge        Counterfact Browser-Ba
+(Developer, d Tech       o-Farming Environme Legends Intervention ual Fork & sed
+Verified    Progressio Arc            nt Coupling History      s            Diff
+Dates)      n
+            planetary                 nic                      c sliders).
+            stability.                pollution
+                                      and
+                                      warming.
+Fantasy     No:          No: Begins No: Map Partial:           Has:         No: Users No:
+Map         Nations      with         editor      Features God-view on Steam Windows
+Simulator operate        established supports historical editing of forums              desktop
+(The        within a     tribal,      rivers and backtrackin national       explicitly  application
+Stranger, medieval/fa kingdom, ecological g and a              attributes, noted in     with
+Sep         ntasy        republic, or drawing     timeline of diplomacy, 2024–2025 desktop
+2024–Aug diplomatic empire            (Nov 2024 wars,          alliances, the lack of wallpaper
+2026)       and military polities.    update),    rebellions, and terrain an undo       mode.
+            framework;                but wars    and official mid-simulat button or
+            users                     and         appointmen ion.           timeline
+            requested                 Malthusian ts (Aug                    branch
+            a togglable               traps do    2026                      comparison
+            tech tree in              not         update),                  .
+            2025.                     dynamically but flat
+                                      degrade     causal
+                                      soil grids. structure.
+Ages of     No: Purely No:            No: Terrain Partial:     Has:         No: Lacks Partial:
+Conflict: geopolitical Nations        affects     Tracks       God-mode counterfact Built in
+World War and military spawn as movement nation                tools to     ual         Unity; early
+Simulator territorial territorial speeds, but statistics, spawn             branching demos ran
+(JoySpark combat         states with human        wars, and revolts,        or diffing. on itch.io
+Games,      without      cities and actions do collapse        force                    web, while
+Feb         technologic alliances. not alter      history, but alliances,               the main
+2023–2026 al eras.                    ecology.    lacks linked nuke cities,             product is
+)                                                 causal       and paint                Steam and
+                                                  event        borders.                 mobile.
+                                                  chains.
+Dawn of No: Uses Has:                 Partial:    No:          No: Direct No:           No: Unity
+Man         an explicit, Directly     Overhuntin Real-time RTS colony Standard desktop
+(Madruga player-purc covers the g depletes alerts only; manageme save/load and
+Works,      hased        Paleolithic local        lacks a      nt, not      only.       console
+March       knowledge hunter-gath megafauna historical observation                      application.
+2019)       point tech erer band and trees encycloped al nudging.
+            tree         to           can be      ia or
+            spanning Mesolithic cleared, but lineage log.
+            Paleolithic and           soil and
+            to Iron Age. Neolithic water grids
+                         farming      are static.
+                         village
+
+Project     Open-Ende Paleolithic-t Two-Way Causal             Nudge        Counterfact Browser-Ba
+(Developer, d Tech      o-Farming Environme Legends Intervention ual Fork & sed
+Verified    Progressio Arc           nt Coupling History       s            Diff
+Dates)      n
+                        transition.
+From Dust Partial:      Partial:     Has:        No:           Has:         No: Lacks No:
+(Ubisoft    Nomadic Nomadic Real-time Level-base Player acts branching Desktop
+Montpellier tribes      tribal bands cellular    d puzzle      as "The      timelines. and
+/ Eric      unlock      migrate      GPU         and           Breath,"                 console
+Chahi, July totemic     and          simulation survival       nudging the              release
+2011)       abilities   establish of water,      structure world                        (had a brief
+            and         villages,    lava, sand, with no       strictly by              Chrome
+            water/fire though        soil,       historical moving                      NaCl port
+            repelling   without      vegetation event log. matter                       in 2012,
+            songs by agricultural growth, and                  (water,                  now
+            reaching domesticati wildfire                      earth, lava,             defunct).
+            specific    on.          spread.                   trees).
+            landmarks.
+Azgaar's No: Static No:              Partial:    Partial:      Has: Users No:           Has:
+Fantasy     era setting Generates Biomes,        Generates can              Regenerati Open-sourc
+Map         configured settled       rivers,     diplomatic manually ng layers e
+Generator during        burgs,       temperatur chronicles edit             overwrites JavaScript
+(Azgaar,    generation. states, and e, and       and military heightmaps prior state; and SVG
+2017–2026               provinces precipitatio campaign , biomes, lacks                 web
+)                       instantly. n dictate     markers, temperatur diffing.           application
+                                     state       but lacks es, and                      running
+                                     expansion an ongoing cultures to                   entirely in
+                                     and         tick-by-tick regenerate                the
+                                     population causal         downstrea                browser.
+                                     density,    simulation. m states.
+                                     largely
+                                     one-way.
+Crusader No: Uses No: Starts No: Terrain Partial:              Partial:     No: Lacks No:
+Kings III structured in 867,         and county Features Observer built-in              Clausewitz
+(Paradox Cultural       1066, or     "Developm character mode               timeline    Engine
+Developme Innovations 1178 CE        ent" are    "Memories" allows          fork        desktop
+nt Studio, divided into with feudal, numerical (2022) and switching comparison application.
+2020–2026 four          clan, or     modifiers, Situation characters .
+)           medieval nomadic         not         "Catalysts" or
+            eras.       realms.      ecological and History triggering
+                                     grids.      windows console
+                                                 (Patch        events,
+                                                 1.20,         though
+                                                 2026),        designed
+                                                 though        for active
+                                                 scoped to dynasty
+                                                 individual/si play.
+
+Project      Open-Ende Paleolithic-t Two-Way Causal               Nudge         Counterfact Browser-Ba
+(Developer, d Tech        o-Farming Environme Legends Intervention ual Fork & sed
+Verified     Progressio Arc            nt Coupling History        s             Diff
+Dates)       n
+                                                     tuation
+                                                     lists.
+Altera       Partial:     Partial: 30 Partial:       No:          Partial:      No:          No: Runs
+Project Sid LLM agents to 1,000+ Agents              Analyzed Researcher Researcher on a
+(Altera.AL, (PIANO        agents start harvest       externally s seeded s ran               Minecraft
+Sep–Nov architecture as                Minecraft via              initial agent ablation     server
+2024)        )            gatherers blocks and research prompts                 studies      coupled
+             autonomou and             farm crops, telemetry (e.g.,             (removing with LLM
+             sly          explorers bounded by and social missionary action                  API
+             specialize and form standard graphs                  priests) to awareness) backends
+             into roles, villages      Minecraft rather than observe            , not        (GPT-4o).
+             farmers,     with         block         a            cultural      deterministi
+             and priests taxation,     mechanics. user-facing diffusion. c
+             within       laws, and                  Legends                    counterfact
+             Minecraft's religion.                   browser.                   ual history
+             item rules.                                                        diffs.
+Sugarscap No: Fixed No:                Partial:      No:          Partial:      Partial:     Has:
+e&           behavioral Artificial     Sugarscap Outputs          Parameter Used in          Available in
+Artificial rules          Anasazi      e has         aggregate sliders          academic NetLogo
+Anasazi      (foraging in models       two-way       demograph allow            ensemble Web
+(Epstein, Sugarscap already-agr resource ic                       testing       runs to      (JavaScript
+Axtell,      e; maize     icultural    depletion/re time-series drought         compare /HTML5) in
+Dean et al., farming in Ancestral growth and plots, not severity                simulated the
+1996–2026 Long            Puebloan pollution; narrative and harvest vs.                      browser.
+)            House        households Anasazi         histories. variance. archaeologi
+             Valley for (800–1350 uses                                          cal
+             Anasazi). CE)             historical                               population
+                          through      paleo-envir                              curves,
+                          collapse. onmental                                    without
+                                       water and                                event-level
+                                       arability                                diffing.
+                                       grids.
+HANDY        No:          No:          Has: Pure No:              Partial:      Partial:     Partial:
+Model        System-dy Abstracted mathematic Outputs              Parameter Academic Multiple
+(Motesharr namics         society of al two-way phase-plan changes              papers       open-sourc
+ei, Rivas, ODE model Commoner coupling               e            (depletion compare e
+Kalnay,      (4           s and Elites between       trajectories factor,       paired       JavaScript
+2014)        equations) extracting human             and          inequality trajectories and Python
+             without      "Nature"     population/ time-series \kappa) test (egalitarian interactive
+             technologic (\lambda). wealth           curves.      collapse      vs. unequal notebooks
+             al                        stratificatio              thresholds. resource exist on the
+             discovery.                n and                                    extraction), web.
+                                       ecological                               not discrete
+
+Project      Open-Ende Paleolithic-t Two-Way Causal           Nudge        Counterfact Browser-Ba
+(Developer, d Tech        o-Farming Environme Legends Intervention ual Fork & sed
+Verified     Progressio Arc           nt Coupling History     s            Diff
+Dates)       n
+                                      carrying                             historical
+                                      capacity                             events.
+                                      depletion,
+                                      modeling
+                                      stagnation
+                                      and
+                                      collapse.
+Archaeolo Has:            Has:        Has:        No:         Has:         Partial:     No: Built in
+gical        Farming      Explicitly HUMLAND Outputs          Researcher Batch          desktop
+Forager-Fa and            models      and recent statistical s inject      sensitivity NetLogo,
+rmer         landscape Paleolithic European spatial           climate      sweeps       R, C++, or
+ABMs:        burning      and         ABMs        maps,       shifts       compare Python/Me
+HUMLAND emerge            Mesolithic (2025)       genetic     (NGRIP       parameter sa.
+& AgModel and spread hunter-gath model            admixture ice-core       regimes,
+(Nikulina et unscripted erer bands hunter-gath ratios, and volatility      but lack
+al.          when group transitionin erer fire    aggregate \theta) and interactive
+2023–2025 size,           g to        regimes, charts.        resource mid-run
+; Burton / property       Neolithic vegetation                shocks.      fork-and-dif
+Gallagher norms,          farming via succession,                          f UI.
+et al.       climate      demic and and
+2015–2024 stability,      cultural    foraging
+)            and local diffusion. returns.
+             density
+             hold.
+Euca         No:          No:         No:         Partial:    Has:         Has: Exact Partial:
+Engine       General-pu Domain-ag Supports ActiveGrap Explicit API signature Euca
+(v1.1.0) & rpose          nostic,     physics     h supports primitive to match at Engine is
+ActiveGra deterministi demonstrat and ECS Trace               apply        the engine Rust +
+ph (Euca c game and ed on             rules, not (listing     mid-run      level:       wgpu
+Engine,      simulation combat/stra pre-built     events that intervention deep-copy/f (WebGPU
+2026;        engines,     tegy arenas ecological produced a s (healing ork live         compatible)
+ActiveGrap not            and         grids.      run) with an entity, world with ;
+h,           pre-packag synthetic                 linked      changing a canonical ActiveGrap
+2025–2026 ed              players.                decision    rule, or     seeded       h is a web
+)            civilization                         records.    altering     RNG, apply and cloud
+             games.                                           strategy at intervention replay
+                                                              tick t).     , advance, platform.
+                                                                           and diff
+                                                                           shared/uniq
+                                                                           ue events
+                                                                           and first
+                                                                           divergent
+                                                                           round.
+
+Deep Dives on the Five Closest Matches
+1. Dwarf Fortress (Worldgen & Legends Mode) and
+LegendsViewer-Next
+Developed by Tarn and Zach Adams at Bay 12 Games since 2002 and released commercially
+on Steam in December 2022 (reaching version 52.01+ in July 2025), Dwarf Fortress features
+the most comprehensive procedural history generator in interactive media. During its world
+generation phase, the software simulates geology, rain shadows, biome savagery, and centuries
+of interactions across civilizations, settlements, historical figures (HFs), and artifacts. Pressing
+[x] within Legends Mode exports an XML dump containing <historical_events>,
+<historical_figures>, <entities>, and <sites>, which third-party desktop applications such as
+LegendsViewer-Next (actively maintained by Kromtec on GitHub through 2024–2026) parse into
+hyperlinked encyclopedias, timelines, and interactive maps.
+Despite its depth, Dwarf Fortress worldgen omits several core pillars of the planned simulation.
+It does not model a Paleolithic-to-Neolithic subsistence transition; civilizations spawn at year 1
+with predefined cultural and technological templates ([DIGGER], metalworking, and domestic
+livestock). Worldgen is entirely hands-off once initial parameter sliders are set, offering no
+mid-simulation environmental nudges or counterfactual branching. Most significantly, its history
+log is associative and chronological rather than structurally causal. In the verified XML schema,
+an event records its timestamp (year, seconds72), type (such as attacked site, hf died, or
+change hf state), participating entity and HF IDs, and an immediate <cause> or <circumstance>
+tag (for example, air (suffocated) or bled to death). It does not construct a multi-hop causal
+chain linking a multi-decade ecological drought to herd migration, band starvation, territorial
+incursion, and settlement collapse. Furthermore, Dwarf Fortress simulates thousands of
+individual minds and anatomical body parts (tracking fat, nerves, muscle, and personality
+facets), creating severe CPU bottlenecks that preclude running and diffing parallel world
+branches rapidly.
+Analytical comparison indicates that by abstracting populations to the group level (bands and
+villages) and storing notable individuals strictly as lightweight historical records (name, lineage,
+deeds), the planned project avoids Dwarf Fortress's individual-agent computational bottleneck. It
+replaces static starting civilizations with an emergent Paleolithic-to-farming arc and upgrades
+the flat entity-interaction log into an explicit causal DAG designed for counterfactual diffing.
+
+2. WorldBox - God Simulator (and the 2023–2026 Observational Map
+Sandbox Wave)
+Created by Maxim Karpenko—first prototyped in Flash on Newgrounds in 2012, released on
+mobile in 2018, launched on Steam Early Access in December 2021, and updated through
+v0.51.4 (SteadyBox) in May 2026—WorldBox is the commercial benchmark for the
+observational "petri dish" god game. Alongside recent observational successes Ages of Conflict:
+World War Simulator (JoySpark Games, February 2023) and Fantasy Map Simulator (The
+Stranger, September 2024, updated with the Government Office System in August 2026),
+WorldBox proves that a massive audience enjoys spawning autonomous societies and watching
+them expand, wage war, and collapse. WorldBox provides an extensive toolkit of environmental
+and biological interventions—rain, fire, acid, biome seeds, plagues, and global "World Ages"
+
+(such as the Age of Chaos or Age of Ice)—while tracking kingdoms, clans, alliances, and
+cultural knowledge progression.
+However, WorldBox is architected around arcade spectacle (dropping nuclear bombs, UFOs,
+demons, and dragons) rather than grounded human-environment ecology. When humans are
+placed on a WorldBox map, they immediately establish a sedentary village boundary, gather
+berries, chop trees, and progress down a deterministic building and cultural upgrade path.
+There is no nomadic hunter-gatherer band phase, no soil nutrient depletion from
+over-cultivation, and no genuine Paleolithic stagnation. While WorldBox and Fantasy Map
+Simulator log major milestones (king deaths, war declarations, and official appointments),
+neither constructs linked cause chains explaining why a civilization collapsed, and neither
+supports counterfactual branching. In fact, Steam community discussions for Fantasy Map
+Simulator in 2024 and 2025 document recurring player frustration over the absence of even a
+basic undo button or save-branch comparison when testing interventions.
+The planned project diverges from WorldBox by substituting chaotic toybox destruction for
+systemic ecological and anthropological realism. Instead of spawning instant villages that march
+down a fixed upgrade track, bands navigate dynamic resource fields where agriculture is a
+conditional, reversible equilibrium. Most critically, whereas WorldBox players trigger a drought
+simply to watch destruction unfold, the planned project's counterfactual fork-and-diff transforms
+nudges into structured historical experiments that measure whether an intervention ripples
+across centuries or is absorbed by ecological homeostasis.
+
+3. Songs of the Eons (SongsOfFOSS) and Gleba
+Initiated by Demian Skye and Calandiel around 2018, Songs of the Eons (SotE) attempted to
+construct a grand strategy and fantasy world simulator from geological first principles. Version
+0.2 (Niflheim) and the open-source Lua release of the unreleased v0.3 build (SongsOfFOSS,
+2022–2024) implemented tectonic plate boundaries, orogeny, rain shadows, hydrogeology,
+dynamic snow and glacier accumulation, and a multi-variable soil grid tracking soil texture,
+fertility, moisture, nutrients, and depth. Plant biomes emerge dynamically from tile-level
+percentages of grass, shrubs, conifers, and broadleaf trees. In the v0.3 build, the simulation
+spawns up to 64 Stone Age hunter-gatherer tribes (10 to 50 people each) that forage local plant
+and animal trade goods—tracked across calories, water, proteins, fats, minerals, and
+vitamins—within a 5-tile catchment radius. Following SotE's indefinite hiatus around 2022–2023,
+co-developer Calandiel launched a successor project in Rust and Godot titled Gleba (reaching
+v0.3.6 in July–September 2026), which implements 12-sample-per-year climate resolution, rain
+shadows, coral reefs, and solar system accretion.
+Despite its unmatched ecological fidelity, Songs of the Eons stalled under its own architectural
+weight before connecting its substrate to an observable historical arc. Because v0.3 tracked
+every person as a separate agent alongside per-building volume and weight inventories and
+six-tier nutritional biochemistry across an Earth-scale globe, development halted before the
+transition from foraging to farming, narrative history logs, or player nudge tools could be
+completed. Similarly, Gleba remains a planet-generation proof of concept as of October 2026,
+with playable societies still unimplemented.
+Songs of the Eons serves as both the closest ecological precursor to the planned project and its
+most instructive cautionary tale. The planned simulation captures SotE's foundational
+premise—that human subsistence must emerge from two-way coupling with vegetation, soil,
+water, and fauna fields—while dramatically constraining scope. By operating on a regional
+landmass in 2D PixiJS rather than simulating planetary tectonics and six-nutrient biochemistry,
+
+and by aggregating humans at the band and village level, the planned project can execute the
+Paleolithic-to-Neolithic transition and run parallel counterfactual branches in real time.
+
+4. SimEarth: The Living Planet
+Designed by Will Wright and Fred Haslam at Maxis (1990) in collaboration with James Lovelock,
+SimEarth is the foundational precursor of the observational ecological nudge sandbox.
+Operating on a cellular grid coupled to global atmospheric, tectonic, and oceanic models, it
+simulates two-way feedback between biota and environment, directly incorporating Lovelock's
+Daisyworld mathematics. The user acts as an unseen planetary custodian, applying
+environmental nudges (adjusting solar radiation, triggering ice ages or meteor strikes), biological
+nudges (seeding biomes or mutagens), and cultural nudges (placing a Monolith) while observing
+whether life stagnates, flourishes, or collapses into a runaway greenhouse or icehouse state.
+However, SimEarth operates at a macro-planetary timescale spanning billions of years,
+compressing all of human prehistory and history into a brief late-game phase where abstract
+"Stone Age" icons upgrade to "Bronze Age" and "Industrial" icons based on global energy
+allocation sliders. It contains no anthropological structure—no migrating hunter-gatherer bands,
+no localized overhunting or anthropogenic burning, no contact-based cultural diffusion, and no
+named historical figures—and relies on numerical time-series graphs rather than a narrative
+history browser. The planned project effectively zooms SimEarth's cybernetic feedback loop into
+the specific anthropological window of the Pleistocene-Holocene transition, replacing planetary
+gas charts with migrating bands, localized subsistence ecology, and a causal Legends
+chronicle.
+
+5. Archaeological Forager-Farmer Agent-Based Models (HUMLAND,
+AgModel, and Artificial Anasazi)
+Within computational archaeology and human behavioral ecology, a rigorous body of
+peer-reviewed agent-based models simulates the exact demographic and ecological mechanics
+planned for v1. Foundational and contemporary systems include Artificial Anasazi (Dean,
+Gumerman, Epstein, Axtell et al., 2000; NetLogo port documented in JASSS), AgModel on
+CoMSES Net (explicitly modeling the forager-farmer transition), Gallagher, Shennan, and
+Thomas's PNAS model of the origins of farming (2015), HUMLAND (Nikulina et al., Quaternary
+Science Reviews, 2023–2024), and 2024–2026 ABMs investigating Neolithic demic versus
+cultural diffusion, hunter-gatherer vegetation burning, and affluent hunter-gatherer social
+stratification. These models simulate band-level foraging returns, seasonal mobility,
+anthropogenic fire clearing, population pressure, property rights norms, and horizontal cultural
+transmission of agriculture without a scripted technology tree.
+What these academic simulations lack is interactive mounting and narrative legibility—a
+limitation that narrative researcher James Ryan terms "failure to mount". Built as research
+scripts in NetLogo, R, C++, or Python, they output aggregate CSV files, genetic admixture
+curves, and spatial heatmaps for journal publication. None of them generate a readable
+historical chronicle, record notable individuals and lineages, or provide an interactive UI for
+branching and diffing a world's narrative history. The planned project bridges this divide by
+translating validated behavioral ecology mechanics into an expressive browser-based sandbox
+equipped with a causal lore browser and instant counterfactual experimentation.
+
+Prior Art for Deterministic Counterfactual
+Fork-and-Diff (Highest Priority)
+Addressing the highest-priority research question plainly: no released consumer video game,
+god sandbox, or historical strategy title provides a user-facing counterfactual
+fork-and-diff system, nor does any consumer game measure whether an intervention
+amplifies ("ripples") or is absorbed ("fades"). However, verified technical literature from
+2025 and 2026 reveals that the exact architectural primitives required for this
+feature—deterministic state snapshotting, canonical seeded random number generator (PRNG)
+branching, event-log diffing, and trajectory divergence quantification—have recently been
+invented within developer-facing AI agent simulation engines and academic reinforcement
+learning and game-analytics frameworks.
+
+Developer-Facing Engines with Deterministic Fork and Diff
+(2025–2026)
+Two specialized simulation platforms built between 2025 and 2026 implement the exact
+state-forking and event-diffing architecture envisioned for the planned project, though both are
+engineered as headless or API-driven environments for AI agents rather than consumer games.
+The first is Euca Engine (v1.1.0, 2026), an agent-native, 132,000-line Rust
+Entity-Component-System (ECS) game engine built around a flat, deterministic table
+architecture and a single engine-wide canonical seeded RNG. Its core workflow (build, play,
+experiment) exposes a world fork diff replay primitive over an HTTP REST API. An operator can
+deep-copy the live world at a chosen tick (such as t_{120}), apply an intervention (healing a unit,
+disabling an entity, or modifying a rule entity mid-run), advance both the main simulation and the
+fork through t_{240} under identical physics and AI rules, and inspect the resulting state diff—for
+instance, demonstrating that while the baseline run ended at tick 240 with archer 12 hp · mage
+0 hp, fork A flipped the outcome to archer 4 hp · mage 38 hp, and fork B triggered a runaway
+regime.
+The second platform is ActiveGraph (2025–2026), a replay and evaluation engine for synthetic
+players that formalizes three operations over a simulation's history: Trace (listing all events that
+produced a run), Fork (copying a run at a selected round or event, altering a strategy or state
+variable, and continuing execution while reconstructing the exact position in the seeded random
+stream without relying on process memory), and Diff (comparing the parent and fork to output
+their shared events, unique events, divergent objects, and the first divergent round). Crucially,
+ActiveGraph's engineering documentation highlights a fundamental constraint that directly
+validates the planned project's architecture: while deterministic agent rules can be cleanly
+forked and recomputed from game state and seed, LLM-controlled seats cannot reuse recorded
+completions once history diverges because doing so would fabricate behavior for a context the
+model never observed. Relying on deterministic group-level rules rather than LLM minds is
+therefore essential for fast, reproducible counterfactual branching.
+
+Reinforcement Learning, Game Analytics, and Causal Divergence
+Metrics (2025–2026)
+In academic reinforcement learning and competitive game telemetry, counterfactual rollout
+
+comparison has recently matured into a rigorous mathematical framework for determining
+whether a perturbation amplifies or fades. In a July 2026 study (arXiv:2607.16999), researchers
+cast Markov Decision Processes as Structural Causal Models (MDP-SCMs) to compute the
+Counterfactual Natural Total Effect (NTE) and Counterfactual Shapley values (\phi_t) of specific
+actions while holding exogenous randomness U=u fixed across branches. This framework
+provides a formal demonstration of trajectory absorption ("fade"): in a five-step counterfactual
+simulation where an intervention is injected at t=2, the counterfactual trajectory diverges at t=2
+and t=3, but returns on-track at t=4 (s^z_t = s_t). Once the state variables re-converge with the
+factual trajectory, downstream causal parents match the baseline run and the perturbation is
+fully absorbed.
+A complementary macro-level divergence metric is established in the TRACE framework
+(Frontiers in Artificial Intelligence, 2025), designed to interpret multi-agent strategy in StarCraft
+II. TRACE downsamples game trajectories at fixed physical intervals and compares an actual
+trajectory against a counterfactual or archetypal path using normalized L_2 distance and
+time-resolved feature deviations |\Delta_{t,f}|. The system pinpoints the exact divergence time
+t^*, ranks the top k=3 features exceeding a significance threshold, and populates a three-slot
+narrative template (T = [S_{\text{context}}, S_{\text{evidence}}, S_{\text{implication}}]) that
+connects the initial deviation (such as a delayed factory at 4:30) to its downstream strategic
+implication (lack of map pressure). Similarly, ForkPRM (2026) replays navigation episodes
+under a deterministic seed—verified via bit-identical state hashes at fork step t—to roll out K=4
+counterfactual arms, while the ChronoMind-TxMU architecture (August 2025) spawns parallel
+sandboxed branches and computes Kullback-Leibler divergence (D_{\text{KL}}) across joint
+distributions to distinguish high-impact interventions from negligible noise.
+
+Generative Alternate-History Simulators and Timeline-Branching
+Video Games
+Outside of deterministic simulation engines, several 2024–2026 web and hackathon projects
+have explored user-facing alternate-history branching using Large Language Models.
+Open-source and browser projects such as What-If (by MakazhanAlpamys on GitHub), Chronos
+Simulator (Devpost), and A Better World allow users to type a historical divergence point (for
+example, "The Aztecs discover gunpowder in 1400") and watch an AI generate branching
+cause-and-effect timelines. What-If explicitly includes a "Butterfly Effect" game mode ("Enter a
+tiny change, watch it cascade into world-altering events. Scored by impact!") alongside a
+"Reality vs Alternative" split-screen comparison view, while Chronos Simulator deploys a
+"Librarian" fact-checker agent to highlight where the new timeline diverged from real history.
+However, these projects are pure text-generation exercises with zero underlying ecological,
+spatial, or demographic simulation; the LLM simply invents narrative text rather than computing
+emergent dynamics from coupled state variables.
+In commercial video games, timeline manipulation exists in narrative RPGs and puzzle games
+such as Radiant Historia (2010), Outer Wilds (2019), and 5D Chess with Multiverse Time Travel
+(2020), while strategy players in Dwarf Fortress or Crusader Kings III occasionally perform
+manual "seed-replay" comparisons by reloading a save file and running Observer Mode twice.
+Yet as documented in game engineering analyses of Edward Lorenz's butterfly effect (such as
+Contraption Maker's cross-platform floating-point drift post-mortem), standard game engines
+share a single sequential PRNG stream across all entities. Consequently, a minor change in one
+corner of a map alters the timing of the next random() call, scrambling combat and weather rolls
+
+across the entire globe within seconds and rendering manual save-splitting incapable of
+isolating genuine causal ripples from PRNG noise.
+
+Prior Art for Causal, Explainable History Logs
+Most simulation games produce flat, chronological event logs (Year 102: Urvad slew Uktang)
+that resemble debugging console traces, leaving the human observer to infer cause and effect.
+However, four distinct lineages of prior art have tackled the challenge of recording and narrating
+explicit causal chains.
+The foundational theoretical and architectural treatment of causal history logs is James Ryan's
+800-page UC Santa Cruz doctoral dissertation, Curating Simulated Storyworlds (December
+2018), and his subsequent work on the Viv emergent narrative engine at Sifty Studio
+(2022–2026). Ryan diagnoses "Causality Issues" as a core failure mode of emergent narrative:
+in simulations governed by continuous utility scoring (such as Prom Week or standard
+colony-sim need bars), causality becomes overly diffuse because dozens of floating-point
+weights simultaneously nudge an agent toward an action, making it impossible to extract a
+clean explanation of why an event occurred. To solve this without resorting to heavy-handed
+drama management, Ryan proposes "curationist emergent narrative" (curationism),
+implemented in his Hennepin simulator and Sheldon County generated podcast. During
+simulation execution, the engine explicitly logs discrete causal links and belief-mutation graphs;
+afterward, an automated "story sifter" performs backward chaining through the causal graph to
+extract self-contained narrative sequences.
+Within commercial games, Dwarf Fortress Legends Mode and Crusader Kings III represent the
+state of the art, though both stop short of full multi-hop causal graphs. While early Dwarf
+Fortress XML dumps (v0.31) only attached a cause attribute to hf died events (air, blood,
+crushed bridge), later updates introduced <historical_event_collections>—grouping individual
+battles, site attacks, and abductions under parent wars or beast rampages—alongside
+immediate <circumstance> and <reason> metadata. Academic researchers have also built
+experimental query layers atop Dwarf Fortress Legends Mode and Ryan's Diol/Diel/Dial tools to
+automatically surface the causal history behind superlative entity traits (such as which events
+allowed an individual to live the longest). Crusader Kings III advanced character-level causal
+logging with its Memories system (introduced in the v1.7 Bastion update in September 2022 and
+expanded in Tours & Tournaments in 2023), which stores timestamped life events used to
+dynamically populate causal explanations in interpersonal dialogue and rival feuds. More
+recently, Crusader Kings III Patch 1.20 (2026) introduced macro-historical Situations (such as
+the Christian Church and Great Schism), where explicit Catalysts (simony, murdered prelates,
+holy wars, or lost Holy Sites) push a Situation between Chapters (Stability, Zeal, Instability,
+Crisis) and record every trigger in a dedicated Situation History window.
+Finally, 2024–2026 computational linguistics and game AI research has formalized lightweight
+causal graph schemas for narrative generation. A July 2026 paper (arXiv:2504.07459v2)
+introduces the STAC (Situation, Task, Action, Consequences) framework, constructing a
+directed causal graph G = (V, E) where event vertices are linked by multi-factorial enabling
+edges, outperforming unconstrained LLMs in causal faithfulness and readability. Similarly,
+deterministic hybrid game backends demonstrated between 2024 and 2026 maintain explicit
+causal DAG files where each node encodes an action_id, description, consequence, and the
+array of prior_action_ids required to activate it, while multimodal narrative planners such as
+LogicTale (ICLR 2026) enforce cross-scene coherence via a directed causal backbone
+
+G_{\text{causal}}.
+
+Abandoned and Failed Attempts: Post-Mortems and
+What Killed Them
+Analyzing stalled, abandoned, or commercially troubled simulation projects reveals four
+recurring structural traps that have historically killed ambitious world simulators, along with how
+the planned v1 design avoids them.
+
+The Bottom-Up Granularity Trap: Songs of the Eons (2018–2023)
+Songs of the Eons set out to simulate a living world from tectonic plates and soil chemistry up to
+hunter-gatherer bands and bureaucratic empires. Development entered an indefinite hiatus
+around 2022–2023 at v0.2 and unreleased v0.3 after one developer departed and co-developer
+Calandiel open-sourced the unfinished Lua gameplay code (SongsOfFOSS) before pivoting to
+Gleba. The project was killed by extreme granularity and architectural bifurcation. By modeling
+Earth-scale plate tectonics in C++ and Unity while simultaneously attempting in v0.3 to track
+every human as an individual agent alongside per-building volume and weight storage
+capacities and six-tier nutritional biochemistry (calories, water, proteins, fats, minerals, vitamins),
+the developers spent years on substrate plumbing before a single tribe could transition from
+foraging to agriculture. The planned project's explicit choice to simulate at the group level
+(bands and villages) and store notable individuals only as historical record structs directly
+circumvents the granularity trap that halted Songs of the Eons.
+
+The "Simulated Minds at Colony Scale" Spiral: Clockwork Empires
+and the Dwarf Fortress Economy
+Gaslamp Games (creators of Dungeons of Dredmor) announced the steampunk-Lovecraftian
+colony simulator Clockwork Empires in August 2012, released it out of Early Access in 2016 to
+poor sales, and subsequently shuttered the studio. Similarly, Tarn Adams permanently removed
+the Dwarf Fortress internal fortress economy (dwarven currency, wages, and room rents) after
+years of attempting to make it function. Both failures stemmed from coupling individual-mind
+utility AI and micro-accounting to macro-level colony progression. In Clockwork Empires, every
+colonist possessed individual memories, eldritch trauma counters, social opinions, and complex
+job queues; as settlements grew, psychological cascades became unreadable to the user,
+computationally expensive, and unstable without constant player micromanagement. In Dwarf
+Fortress, Tarn Adams reflected in his Reddit AMA that the fort economy was his "biggest error in
+judgment... in ordering the features" because micro-level economic accounting broke down
+whenever surrounding systemic features expanded. By eschewing individual simulated minds in
+favor of group-level band and village rules, the planned project insulates itself against
+agent-level psychological and economic spirals.
+
+The Nomadic Migration vs. Playable 4X Mismatch: Jon Shafer's At the
+Gates (2013–2019)
+Jon Shafer, lead designer of Civilization V, raised Kickstarter funding in 2013 for At the Gates, a
+
+4X strategy game about migrating barbarian clans adapting to harsh seasonal weather and
+depleting local resources. The game required seven grueling years to ship (releasing in 2019 to
+mixed reception), documented in Shafer's candid post-mortem, "How At the Gates took 7 years
+of my life – and nearly the rest". The core design friction was a mismatch between nomadic
+resource depletion and the psychological expectations of a playable, win-oriented 4X strategy
+game. When a player is trying to build an empire to win a match, being forced to abandon a
+camp because local game depleted or winter arrived feels punishing and regressive, while
+programming AI opponents to play a competitive game under constant migration proved
+exceptionally difficult. Crucially, resource depletion, seasonal migration, stagnation, and collapse
+are frustrating when the user is a player trying to win, but deeply compelling when the user is an
+observer watching an ecological documentary. Positioning the planned project as an
+observational god-view sandbox resolves Shafer's design contradiction at the root.
+
+Diffuse Causality and "Failure to Mount": Hennepin and Unwritten:
+That Which Happened
+Two additional projects highlight execution and runtime risks. James Ryan's Hennepin (the
+finer-grained successor to Talk of the Town) simulated decades of small-town history, tracking
+character genealogies and intricate belief networks. However, because characters spent their
+cognitive cycles remembering and gossiping about trivial attributes—such as the hair and eye
+color of other townsfolk—a single run took one to two days to compute and produced raw traces
+devoid of dramatic intrigue until heavily filtered offline. Meanwhile, Joe Houston's Unwritten:
+That Which Happened—a January 2013 Kickstarter ($78,017 raised) where players guided a
+nomadic tribe across a procedural tundra while carrying generational story fragments—was
+suspended indefinitely in January 2014 due to personal family medical emergencies and the
+exhaustion of full-time development funds. The lesson from Hennepin is strict variable
+discipline: every grid field and band attribute in v1 must map directly to discrete, high-intrigue
+historical thresholds rather than simulating unobservable trivia.
+
+Audience Evidence: Demonstrated Demand for
+"Watching Rather Than Playing"
+Empirical market data from 2021 through October 2026 confirms that the audience for
+observational "god-view" and "zero-player" map simulations is not an academic curiosity; it is a
+multi-million-unit commercial category on Steam, mobile, and YouTube.
+
+Verified Commercial Performance of Observational Sandboxes (As of
+October 2026)
+Title (Verified Steam Review Estimated            Estimated       Oct 2026         Verified
+Release Date) Score & Count Copies Sold           Gross Steam     Active           Observational
+                             (Steam)              Revenue         Concurrent       Audience
+                                                                  Players          Behavior
+WorldBox -    95%          1.2M – 2.1M            $14.15M –       1,646 – 2,900    Spawning
+God Simulator Overwhelming copies (plus           $31.9M          daily            civilizations,
+(Dec 2, 2021) ly Positive  886K–894K                              concurrent       applying divine
+
+Title (Verified Steam Review Estimated            Estimated        Oct 2026         Verified
+Release Date) Score & Count Copies Sold           Gross Steam      Active           Observational
+                             (Steam)              Revenue          Concurrent       Audience
+                                                                   Players          Behavior
+                   (57,441         wishlists)                      (all-time peak:  nudges, and
+                   reviews)                                        10,995)          watching
+                                                                                    kingdoms war
+                                                                                    and evolve
+                                                                                    (average
+                                                                                    playtime: 28.2h
+                                                                                    – 53.4h).
+Fantasy Map 87% Very               ~560.4K copies ~$3.2M            Steady Early Features an
+Simulator (Sep Positive (4,250 (42,928                              Access growth explicit
+4, 2024)           total / 1,174   followers)                       through Aug     "Windows
+                   English                                          2026 major      desktop
+                   reviews)                                         updates         wallpaper
+                                                                                    mode" where
+                                                                                    empires rise
+                                                                                    and fall in the
+                                                                                    background
+                                                                                    while the user
+                                                                                    works or rests.
+Ages of            96%–97%         212.7K –        $1.19M –         333 – 1,071     Pure AI-vs-AI
+Conflict:          Overwhelming 299.5K copies $1.8M                 daily           map
+World War          ly Positive     (51.2K                           concurrent      observation;
+Simulator (Feb (9,672 total        wishlists)                       (all-time peak: top reviews
+17, 2023)          reviews)                                         1,621 in July praise "playing
+                                                                    2026)           HOI4 without
+                                                                                    actually playing
+                                                                                    HOI4" and
+                                                                                    watching
+                                                                                    moving borders
+                                                                                    for 100–500+
+                                                                                    hours.
+Qualitative analysis of community behavior across Reddit, Steam, and YouTube demonstrates
+that the planned project sits at the intersection of three highly engaged spectator cohorts. The
+first cohort is the "Legends-Only" Dwarf Fortress community: discussions on r/dwarffortress
+(such as "Coming to terms with the fact that I'm a Legends player") and the active user base of
+LegendsViewer-Next highlight players who generate worlds solely to read exported XML
+histories, piece together why wars started, and trace lineages across centuries. The second
+cohort is the observational map-painter and worldbuilder audience. The rapid breakout of
+Fantasy Map Simulator—accumulating an estimated 560,400 copies sold and $3.2M in gross
+revenue within two years of its September 2024 Early Access launch, largely on the strength of
+watching imaginary worlds evolve over thousands of years in a background window—alongside
+r/FantasyMapGenerator and r/worldbuilding (300,000+ members cited by Songs of the Eons
+developers) proves strong demand for living historical lore generators. The third cohort is the
+simulation and "What-If" YouTube spectator ecosystem: viral videos staging observational
+
+experiments in WorldBox (such as "Which Ideology Will Conquer the World? - WorldBox" with
+1.3 million views) and AI civilization experiments (such as Altera's Project Sid and Minecraft AI
+society videos reaching 910,000+ views) rely entirely on posing a counterfactual premise and
+watching the emergent outcome. By building counterfactual branching and diffing directly into
+the interface, the planned project turns the primary storytelling format of simulation YouTube into
+a native interactive mechanic.
+
+Positioning and Adjacent Ideas Worth Borrowing
+Strategic Positioning
+Given the existing landscape, the strongest positioning angle for the planned project is an
+"Interactive Prehistoric Documentary and Butterfly-Effect Sandbox"—occupying the white
+space where SimEarth's ecological feedback meets Dwarf Fortress's Legends encyclopedia,
+powered by a deterministic timeline-diff engine. Rather than competing with WorldBox on
+chaotic destruction (nuclear weapons, UFOs, zombies) or with Dawn of Man on real-time
+villager micromanagement, the project should claim the observational deep-time niche:
+watching the fragile, contingent emergence of human farming villages out of the Pleistocene
+wilderness, where sedentarization is not an inevitable button-click, but an ecological equilibrium
+that the observer can probe through counterfactual experiments.
+
+Adjacent Technical and Design Ideas Worth Borrowing
+Synthesis of the closest prior art yields five specific mechanisms worth incorporating into the v1
+design. First, the counterfactual diff interface should directly adopt the Trace, Fork, and Diff
+vocabulary from ActiveGraph and Euca Engine. When comparing a baseline world against a
+nudged fork, the UI should summary-group historical records into First Divergent Year, Shared
+Historical Events, Unique Baseline Events, and Unique Fork Events, paired with a normalized
+state-distance curve (|\Delta_t|, borrowed from the TRACE framework) that visually classifies
+the outcome as an Amplified Ripple (structural regime shift) or an Absorbed Fade
+(homeostatic return to baseline, as modeled in MDP-SCM).
+Second, to prevent the classic PRNG-scramble butterfly effect—where a minor local nudge
+consumes a random number from a global generator and inadvertently alters hunting rolls on
+the opposite side of the landmass—the simulation engine should implement coordinate- and
+entity-hashed stateless PRNGs rather than a single global sequential PRNG stream. By
+computing stochastic outcomes as a pure hash of (world_seed, tick, tile_or_band_id,
+event_channel), bands and ecological tiles whose causal cones have not yet physically
+intersected the nudge will remain 100% bit-identical between the baseline and forked timelines.
+This architectural inference guarantees that every divergence shown in the diff viewer is a
+genuine causal ripple rather than a random number generator artifact.
+Third, for the causal Legends browser, the project should combine Crusader Kings III Patch
+1.20's Catalyst-and-Situation architecture with the STAC (Situation, Task, Action,
+Consequence) multi-factorial causal graph schema. Rather than logging millions of low-level
+foraging ticks, the simulation should only emit historical event nodes when a band or ecological
+zone crosses a discrete regime threshold, tagging each event node with both its immediate
+triggering action and up to three enabling ecological or demographic state conditions (for
+example, linking The Oakhaven Band settles a permanent hamlet to [Local Wild Grain Surplus >
+
+Threshold], [Catchment Game Depleted < 20%], and [Post-Glacial Warming Nudge]).
+Fourth, from Songs of the Eons v0.3, the simulation should borrow the multi-tile foraging
+catchment radius (such as a 3- to 5-tile radius around a band's camp or village). Having bands
+harvest across a catchment halo rather than a single grid cell naturally generates overlapping
+territorial friction, localized overhunting halos around sedentary camps, and ecological
+incentives to either migrate or intensify plant cultivation. Fifth, borrowing from Fantasy Map
+Simulator's breakout feature, the browser UI should include an optional "Ambient Chronicle
+Mode" where an auto-director smoothly pans the PixiJS viewport to emerging causal
+milestones while keeping UI chrome minimal.
+
+Risk Assessment: Untapped Opportunity vs. Hidden
+Trap
+When a specific combination of features has not previously been built, an objective assessment
+must distinguish between genuine market white space and "cursed design problems" that
+caused prior developers to fail.
+Unbuilt or Rare Feature Verdict: Opportunity or Grounded Technical & Mitigation Strategy for
+                        Trap?                   Design Risk Analysis Planned v1
+Deterministic           Untapped                Absent from consumer Store world state in flat
+Counterfactual Fork & Opportunity (with a games because                   TypeScript typed arrays
+Diff ("Ripple vs.       subtle PRNG trap)       standard engines          (Float32Array,
+Fade")                                          (Unity, Unreal) rely on Int32Array) for instant
+                                                mutable object graphs slice() snapshotting,
+                                                and shared global         and isolate
+                                                PRNG streams where randomness via
+                                                any nudge scrambles stateless hash-based
+                                                the entire world within PRNGs (hash(seed,
+                                                ticks, producing          tick, id)).
+                                                meaningless 100%
+                                                noise diffs.
+Condition-Triggered High Tuning Risk            Without a scripted tech Ground transition
+Unscripted Tech         (Bimodal Stagnation tree, emergent                probabilities in
+Progression             or Runaway)             simulations easily fall archaeological ABM
+                                                into degenerate           findings (Gallagher et
+                                                attractors: either no     al. 2015): keep foraging
+                                                band ever discovers       superior in low-density
+                                                farming (boring to        stable habitats so
+                                                watch), or every band farming only emerges
+                                                discovers farming         in specific ecological
+                                                simultaneously in year "crucibles"
+                                                20 (destroying historical (circumscribed river
+                                                contingency).             valleys under
+                                                                          climate/density stress)
+                                                                          and diffuses via
+                                                                          contact.
+Causal Legends          Readability & Memory As proven in James           Restrict causal DAG
+
+Unbuilt or Rare Feature Verdict: Opportunity or Grounded Technical & Mitigation Strategy for
+                        Trap?                   Design Risk Analysis Planned v1
+Event Log               Risk ("Diffuse          Ryan's Curating         nodes to discrete
+                        Causality")             Simulated Storyworlds, regime-crossing
+                                                logging micro-actions milestones (band
+                                                creates unreadable      fission, megafauna
+                                                debug dumps, while      extirpation, first
+                                                continuous grid         cultivation, village
+                                                variables exhibit       abandonment) and cap
+                                                "diffuse causality"     parent links to the top
+                                                where hundreds of ticks k=3 threshold drivers.
+                                                contribute to a famine.
+Browser-Based           Manageable              Running two world       Execute the
+Dual-Timeline           Performance             branches                deterministic simulation
+Execution (TypeScript Constraint                simultaneously on the loop inside a dedicated
++ PixiJS)                                       browser main thread     Web Worker using flat
+                                                can cause UI frame      typed-array memory
+                                                drops if grid cellular  buffers, sending only
+                                                automata and band       lightweight render
+                                                pathfinding are coupled snapshots and event
+                                                to rendering.           diffs to the main PixiJS
+                                                                        thread.
+Public Technical Material for Follow-Up Deep-Dive
+To seed the planned follow-up prompt on internal architecture, the following verified public
+technical sources—prioritizing 2024–2026 publications alongside foundational architectural
+references—explain how the closest matches work internally:
+
+1. Deterministic Counterfactual Forking, Replay, and Divergence
+Engines
+  ●​ Euca Engine (2026): Euca Engine v1.1.0 Technical Overview: "World as Table", "Forks &
+     Counterfactuals", Canonical Seeded RNG, and Rust ECS Architecture —
+     https://eucaengine.com/.
+  ●​ ActiveGraph (2025–2026): Synthetic Players and ActiveGraph Replay: Trace, Fork, and
+     Diff Operations on Seeded Random Streams —
+     https://activegraph.ai/blog/synthetic-players-activegraph-replay.
+  ●​ MDP-SCM Counterfactual Simulation (2026): Causal Credit Assignment and
+     Counterfactual Natural Total Effect in MDPs (MDP-SCM and On-Track Trajectory Return)
+     (arXiv:2607.16999, 2026) — https://arxiv.org/pdf/2607.16999.
+  ●​ Counterfactual Debugging in Simulation Environments (2025–2026): Counterfactual
+     Shapley Values and Trajectory Transfer Gap Attribution —
+     https://mingxuan.me/assets/papers/ctf_debugging.pdf.
+  ●​ ForkPRM (2026): Fork Process Reward Modeling: Deterministic Seed Replay and
+     State-Hash Verified Counterfactual Rollouts (OpenReview, 2026) —
+     https://openreview.net/pdf?id=gJN9Ax17lq.
+  ●​ TRACE Divergence Framework (2025): TRACE: An End-to-End Analytical Framework
+
+    for Interpreting Multi-Agent Decision-Making and Counterfactual Strategic Divergence in
+    StarCraft II (Frontiers in Artificial Intelligence, 2025, DOI: 10.3389/frai.2025.1724493) —
+    https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.172449
+    3/full. * ChronoMind-TxMU (August 2025): ChronoMind-TxMU: Real-Time Temporal
+    Imagination Architecture for Sandboxed Multi-Timeline Causal Reasoning and
+    Counterfactual Simulation (Authorea, Aug 25, 2025, DOI:
+    10.22541/au.175615718.80540720) —
+    https://www.authorea.com/doi/10.22541/au.175615718.80540720.
+
+2. Dwarf Fortress Worldgen, Legends XML, and Causal Narrative
+Curation
+ ●​ Tarn Adams Technical Optimization Interview (March 2023): John Harris, "How Tarn
+    Adams upgraded and optimized Dwarf Fortress for its official Steam release", Game
+    Developer (March 14, 2023) —
+    https://www.gamedeveloper.com/programming/how-tarn-adams-upgraded-and-optimized-
+    dwarf-fortress-for-its-official-steam-release.
+ ●​ Tarn Adams GDC Talks & Procedural Generation Books: Tarn Adams, "Procedurally
+    Generating History in Dwarf Fortress" and "Myth and Magic Generation" (GDC Vault);
+    Tanya Short & Tarn Adams (eds.), Procedural Generation in Game Design (CRC Press,
+    2017) and Procedural Storytelling in Game Design (CRC Press, 2019).
+ ●​ Bay 12 Games Technical Development Logs (2006–2026): Tarn Adams' continuous
+    development notes on worldgen, entity positions, and Legends export —
+    http://www.bay12games.com/dwarves/ and
+    https://www.bay12games.com/dwarves/dev_single.html.
+ ●​ Dwarf Fortress Legends XML Schema & LegendsViewer-Next Source Code
+    (2024–2026): Kromtec, LegendsViewer-Next (Open-source C# parser and viewer for DF
+    Legends XML dumps, active 2024–2026) —
+    https://github.com/Kromtec/LegendsViewer-Next; Dwarf Fortress Wiki XML Dump
+    Specification — https://dwarffortresswiki.org/index.php/v0.31:XML_dump.
+ ●​ James Ryan's Curationist Emergent Narrative & Viv Engine (2018–2026): James
+    Ryan, Curating Simulated Storyworlds (PhD Dissertation, UC Santa Cruz, Dec 2018) —
+    https://viv.sifty.studio/background/curating_simulated_storyworlds.pdf; Emily Short's
+    3-Part Technical Breakdown of Curating Simulated Storyworlds (May 2019) —
+    https://emshort.blog/2019/05/23/curating-simulated-storyworlds-james-ryan-2/; Viv Engine
+    & Sifty Studio Technical Portal (2022–2026) — https://jamesryan.computer/.
+ ●​ Linguistic & Structural Causal Graph Construction for Narratives (2024–2026):
+    Beyond LLMs: A Linguistic Approach to Causal Graph Generation from Narrative Texts
+    (STAC Framework) (arXiv:2504.07459v2, July 10, 2026) —
+    https://arxiv.org/pdf/2504.07459; LogicTale: Modeling Causal Dependencies via Directed
+    Causal Graphs G_{\text{causal}} (ICLR 2026) —
+    https://proceedings.iclr.cc/paper_files/paper/2026/file/a70522d112322111cbf19c69e927ea
+    f2-Paper-Conference.pdf; How I Built an LLM-Based Game from Scratch (Deterministic
+    Backend Causal Graph Architecture) (Towards Data Science / Medium, 2024) —
+    https://medium.com/data-science/how-i-built-an-llm-based-game-from-scratch-86ac55ec7
+    a10.
+
+3. Ecological Coupling & Prehistoric Hunter-Gatherer-to-Farmer
+Simulations
+  ●​ Songs of the Eons Open-Source Codebase & Devlogs (2020–2024): Calandiel &
+     Demian, SongsOfFOSS (Unreleased v0.3 Lua/LÖVE Source Code including
+     Hunter-Gatherer Tribes, Soils, and Ecology) —
+     https://github.com/Calandiel/SongsOfFOSS; Songs of the Eons Devlog: "The Need to
+     Feed" (Catchment Radius, Nutrition, and Tribe Spawning) —
+     https://demiansky.itch.io/[span_34](start_span)[span_34](end_span)songs-of-the-eons/de
+     vlog/263709/the-need-to-feed.
+  ●​ Gleba World Simulator Devlogs (2025–2026): Calandiel, Gleba v0.3.0 – v0.3.6
+     Technical Devlogs (Hydrology, 12-Sample Climate, Coral Reefs, and Rust/Godot
+     Architecture) — https://calandiel.itch.io/gleba and
+     https://calandiel.itch.io/gleba/devlog/1567515/devlog-4-going-interplanetary-v030.
+  ●​ HUMLAND Prehistoric Hunter-Gatherer & Fire Ecology ABM (2023–2025): Nikulina et
+     al., "HUMLAND: An agent-based model of hunter-gatherer landscape use and vegetation
+     burning" (Quaternary Science Reviews, 2023/2024) —
+     https://pure.au.dk/po[span_64](start_span)[span_64](end_span)rtal/files/451433529/1-s2.
+     0-S0277379123004870-main.pdf; and Integrating ABM and Genetic Algorithms for
+     Prehistoric Hunter-Gatherer Vegetation Burning in Europe (PMC12543167, 2025) —
+     https://pmc.ncbi.nlm.nih.gov/articles/PMC12543167/.
+  ●​ Neolithic Transition & Affluent Hunter-Gatherer ABMs (2014–2026): Gallagher,
+     Shennan, & Thomas, "Transition to farming more likely for small, conservative groups with
+     property rights, but increased productivity is not essential" (PNAS, 2015, DOI:
+     10.1073/pnas.1511870112) — https://www.pnas.org/doi/10.1073/pnas.1511870112;
+     Cultural Diffusion vs. Demic Expansion in the Neolithic ABM (bioRxiv, April 2024, DOI:
+     10.1101/2024.04.29.591653) —
+     https://www.biorxiv.org/content/10.1101/2024.04.29.591653v1.full.pdf; Origins of
+     Inequalities and Social Stratification in Affluent Hunter-Gatherer Societies ABM (JASSS
+     Vol. 29, Issue 3, 2026) — https://www.jasss.org/29/3/2.html; Iwamura et al., "Agent-based
+     modeling of hunting and subsistence agriculture on indigenous lands" (Environmental
+     Modelling & Software, 2014) — https://www.researchgate.net/publication/261998328;
+     Artificial Anasazi NetLogo ODD Documentation & Replication (JASSS 12(4)13 &
+     Northwestern CCL) — https://jasss.soc.surrey.ac.uk/12/4/13.html and
+     https://ccl.northwestern.edu/netlogo/models/ArtificialAnasazi.
+  ●​ Altera Project Sid & Generative Agents (2023–2024): Altera.AL, "Project Sid:
+     Many-agent simulations toward AI civilization" (arXiv:2411.00114, Oct 31, 2024) —
+     https://arxiv.org/abs/2411.00114; Park et al., "Generative Agents: Interactive Simulacra of
+     Human Behavior" (ACM UIST 2023, arXiv:2304.03442) —
+     https://arxiv.org/abs/2304.03442.
+
+Works cited
+
+1. Songs of the Eons, 0.2 by Demian, Calandiel - itch.io,
+https://demiansky.itch.io/songs-of-the-eons 2. WorldBox - God Simulator Steam Stats & Charts -
+Raijin.gg, https://raijin.gg/app/1206560/WorldBox__God_Simulator 3. Ages of Conflict: World
+
+War S… Steam Stats & Charts - Raijin.gg,
+https://raijin.gg/app/2186320/Ages_of_Conflict_World_War_Simulator 4. Fantasy Map Simulator
+on Steam, https://store.steampowered.com/app/3035500/Fantasy_Map_Simulator/ 5. CoMSES
+Net Computational Model Library,
+https://www.comses.net/codebases/?query=Rob+J.F.+Burton&page=6 6. Hunter-gatherer
+impact on European interglacial vegetation: A,
+https://pure.au.dk/portal/files/451433529/1-s2.0-S0277379123004870-main.pdf 7. Transition to
+farming more likely for small, conservative groups with,
+https://www.pnas.org/doi/10.1073/pnas.1511870112 8. The European Neolithic Expansion: A
+Model Revealing ... - bioRxiv,
+https://www.biorxiv.org/content/10.1101/2024.04.29.591653v1.full.pdf 9. What are good free
+ways of making a world map? : r/worldbuilding,
+https://www.reddit.com/r/worldbuilding/comments/12vzifv/what_are_good_free_ways_of_making
+_a_world_map/ 10. Coming to terms with the fact that I'm a Legends Mode player - Reddit,
+https://www.reddit.com/r/dwarffortress/comments/17jtbot/coming_to_terms_with_the_fact_that_i
+m_a_legends/ 11. v0.31:XML dump - Dwarf Fortress Wiki,
+https://dwarffortresswiki.org/index.php/v0.31:XML_dump 12. Counterfactual Shapley Credit
+Assignment - arXiv, https://arxiv.org/pdf/2607.16999 13. Tracing strategic divergence: archetypal
+and counterfactual analysis,
+https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1724493/full
+14. How Synthetic Players Used ActiveGraph to Verify 4919 Runs,
+https://activegraph.ai/blog/synthetic-players-activegraph-replay 15. FORKPRM: LEARNING
+EMBODIED PROCESS VERIFIERS FROM, https://openreview.net/pdf?id=gJN9Ax17lq 16.
+Euca Engine — The agent-native game engine, https://eucaengine.com/ 17. How Tarn Adams
+upgraded and optimized Dwarf Fortress for its,
+https://www.gamedeveloper.com/programming/how-tarn-adams-upgraded-and-optimized-dwarf-
+fortress-for-its-official-steam-release 18. Dwarf Fortress Classic - Bay 12 Games,
+http://www.bay12games.com/dwarves/ 19. Dwarf Fortress - Wikipedia,
+https://en.wikipedia.org/wiki/Dwarf_Fortress 20. Releases · Kromtec/LegendsViewer-Next -
+GitHub, https://github.com/Kromtec/LegendsViewer-Next/releases 21. Hi I'm Tarn Adams,
+co-creator of Dwarf Fortress and co-editor of 2,
+https://www.reddit.com/r/gamedev/comments/b15o8z/hi_im_tarn_adams_cocreator_of_dwarf_fo
+rtress_and/ 22. Changelog and Game Updates (0.51.4) - WorldBox,
+https://www.superworldbox.com/changelog 23. WorldBox - God Simulator Achievements -
+Steam Hunters, https://steamhunters.com/apps/1206560 24. The fight for WorldBox, or how a
+game you worked on for 8 ... - Reddit,
+https://www.reddit.com/r/Worldbox/comments/jmplqw/the_fight_for_worldbox_or_how_a_game_
+you_worked/ 25. WorldBox: Ultimate God Simulator | PDF | Computing - Scribd,
+https://www.scribd.com/document/699293979/WorldBox-God-Simulator-on-Steam 26. Fantasy
+Map Simulator EA Release Note - SteamDB, https://steamdb.info/patchnotes/15265638/ 27.
+Basic Guide to Fantasy Map Simulator - Steam Community,
+https://steamcommunity.com/sharedfiles/filedetails/?id=3342863157 28. WorldBox - God
+Sandbox - Ratings & Reviews - App Store - Apple,
+https://apps.apple.com/pl/app/1450941371?see-all=reviews&platform=iphone 29. Songs of the
+Eons Geology and Climatology Exhibition - Reddit,
+https://www.reddit.com/r/paradoxplaza/comments/a35gvx/songs_of_the_eons_geology_and_cli
+matology/ 30. The 2nd Life History Spectrum that Songs of the Eons intelligent,
+https://www.reddit.com/r/SongsOfTheEons/comments/a6p2l2/the_2nd_life_history_spectrum_th
+
+at_songs_of_the/ 31. GitHub - Calandiel/SongsOfFOSS: A FOSS release of source code,
+https://github.com/Calandiel/SongsOfFOSS 32. The need to feed - Songs of the Eons, 0.2 by
+Demian, Calandiel, https://demiansky.itch.io/songs-of-the-eons/devlog/263709/the-need-to-feed
+33. Gleba (v0.3.6) by Calandiel - itch.io, https://calandiel.itch.io/gleba 34. Devlog #4 - Going
+interplanetary (v0.3.0) - Gleba (v0.3.6) by Calandiel,
+https://calandiel.itch.io/gleba/devlog/1567515/devlog-4-going-interplanetary-v030 35. Small
+updates and screenshots - General - itch.io,
+https://itch.io/t/6576629/small-updates-and-screenshots 36. Computational Model Library -
+CoMSES Net, https://www.comses.net/codebases/?tags=computer%20simulation 37. On the
+ecological impact of prehistoric hunter-gatherers in Europe,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12543167/ 38. Origin of Inequality in Transegalitarian
+Societies: An Agent Based, https://www.jasss.org/29/3/2.html 39. Understanding Artificial
+Anasazi - JASSS, https://jasss.soc.surrey.ac.uk/12/4/13.html 40. Artificial Anasazi - NetLogo
+Models Library, https://ccl.northwestern.edu/netlogo/models/ArtificialAnasazi 41. Curating
+Simulated Storyworlds (James Ryan) – Ch 4-5,
+https://emshort.blog/2019/05/23/curating-simulated-storyworlds-james-ryan-2/ 42.
+Counterfactual Debugging the World Model Transfer Gap,
+https://mingxuan.me/assets/papers/ctf_debugging.pdf 43. ChronoMind-TxMU: Real-Time
+Temporal Imagination Architecture,
+https://www.authorea.com/doi/10.22541/au.175615718.80540720 44. Chronos | Devpost,
+https://devpost.com/software/chronos-simulator 45. GitHub - MakazhanAlpamys/what-if:
+Interactive alternate-history, https://github.com/MakazhanAlpamys/what-if 46. A Better World -
+Interesting Website | SHOULDSEETHIS, https://shouldseethis.com/website/a-better-world/ 47.
+Are there any Groundhog Day/Butterfly Effect-style games? - Reddit,
+https://www.reddit.com/r/gaming/comments/1wm63o5/are_there_any_groundhog_daybutterfly_
+effectstyle/ 48. The Butterfly Effect - Game Developer,
+https://www.gamedeveloper.com/design/the-butterfly-effect 49. Chaos Theory - The Business of
+Social Games and Casino, https://lloydmelnick.com/tag/chaos-theory/ 50. Just booted up
+legends viewer to see some stories of my world, and,
+https://www.reddit.com/r/dwarffortress/comments/os0k65/just_booted_up_legends_viewer_to_s
+ee_some_stories/ 51. UNIVERSITY OF CALIFORNIA SANTA CRUZ CURATING ... - Viv,
+https://viv.sifty.studio/background/curating_simulated_storyworlds.pdf 52. James Ryan,
+https://jamesryan.computer/ 53. Curating Simulated Storyworlds - James Ryan's PhD Thesis,
+https://intfiction.org/t/curating-simulated-storyworlds-james-ryans-phd-thesis/40869/16 54.
+Curating Simulated Storyworlds - ProQuest,
+https://search.proquest.com/openview/2b7cb13a72dc4f402a4ebf2f81d815d5/1?pq-origsite=gsc
+holar&cbl=18750&diss=y 55. Curating Simulated Storyworlds (James Ryan) – Ch 6f,
+https://emshort.blog/2019/05/28/curating-simulated-storyworlds-james-ryan-ch-6f/ 56. Automatic
+Interactive Documentation for Emergent Story Discovery,
+https://www.researchgate.net/publication/363847228_Automatic_Interactive_Documentation_for
+_Emergent_Story_Discovery 57. Crusader Kings III - Steam,
+https://store.steampowered.com/news/posts/?feed=steam_community_announcements&appids
+=1158310&enddate=1664886740 58. Crusader Kings III :: Dev Diary #146 - It Started With a
+Cough,
+https://steamcommunity.com/ogg/1158310/announcements/detail/4164211094615739723 59.
+Crusader Kings III - Steam Community,
+https://steamcommunity.com/app/1158310/announcements/ 60. Patch 1.20 - CK3 Wiki,
+https://ck3.paradoxwikis.com/Patch_1.20 61. A Linguistic Approach to Causal Graph Generation
+
+from Narrative, https://arxiv.org/pdf/2504.07459 62. Daily Papers - Hugging Face,
+https://huggingface.co/papers?q=causal%20generation 63. How I Built an LLM-Based Game
+from Scratch - Medium,
+https://medium.com/data-science/how-i-built-an-llm-based-game-from-scratch-86ac55ec7a10
+64. LOGISTORY: A LOGIC-AWARE FRAMEWORK FOR MULTI-IMAGE,
+https://proceedings.iclr.cc/paper_files/paper/2026/file/a70522d112322111cbf19c69e927eaf2-Pa
+per-Conference.pdf 65. Songs of the Eons Build Stream 10 November 2023 - YouTube,
+https://www.youtube.com/watch?v=A8nt2D_5MnQ 66. How do you gain pop? :
+r/SongsOfTheEons - Reddit,
+https://www.reddit.com/r/SongsOfTheEons/comments/12wo6lo/how_do_you_gain_pop/ 67.
+CreatorKiller / Video Games - TV Tropes,
+https://tvtropes.org/pmwiki/pmwiki.php/CreatorKiller/VideoGames 68. games that killed their
+studios : r/gamingsuggestions - Reddit,
+https://www.reddit.com/r/gamingsuggestions/comments/11ydja4/games_that_killed_their_studio
+s/ 69. August « 2012 « - Linux Gaming News, https://linuxgamingnews.org/2012/08/ 70. ALPHA
+47A - ALPHA 47A NOW IN EXPERIMENTAL BRANCH,
+https://community.gaslampgames.com/threads/alpha-47a-now-in-experimental-branch.16903/pa
+ge-3 71. How At the Gates took 7 years of my life – and nearly the rest | Jon,
+https://www.reddit.com/r/gamedev/comments/1p6ob9y/how_at_the_gates_took_7_years_of_my
+_life_and/ 72. Three Moves Ahead - Idle Thumbs, https://www.idlethumbs.net/feeds/3ma 73.
+Game Design - Space Sector, https://www.spacesector.com/blog/category/game-design/ 74. I
+am Joe Houston, former developer for the game "Dishonored" and,
+https://www.reddit.com/r/IAmA/comments/182j7t/i_am_joe_houston_former_developer_for_the_
+game/ 75. Unwritten: That Which Happened May Not Happen,
+https://www.rockpapershotgun.com/unwritten-that-which-happened-may-not-happen 76.
+Unwritten: That Which Happened by Roxlou Games - Kickstarter,
+https://www.kickstarter.com/projects/1599677835/unwritten-that-which-happened/posts?comme
+nt=Q29tbWVudC01NTgzOTgz 77. Top 10 Kickstarter Games That Failed to Deliver - Gamers
+Decide, https://www.gamersdecide.com/articles/top-10-kickstarter-games-failed-deliver 78.
+WorldBox - God Simulator Steam stats - Gamalytic, https://gamalytic.com/game/1206560 79.
+Maxim Karpenko History And Life, Where did the idea of WorldBox,
+https://www.youtube.com/watch?v=bgr62B-xgpY 80. Scientists Trapped 1000 AIs in Minecraft.
+They Started a Civilization., https://www.youtube.com/watch?v=ulF758rj20o 81. Ages of
+Conflict: World War Simulator - Steam Community,
+https://steamcommunity.com/app/2186320/reviews/?browsefilter=toprated 82. (PDF)
+Agent-based modeling of hunting and subsistence agriculture,
+https://www.researchgate.net/publication/261998328_Agent-based_modeling_of_hunting_and_
+subsistence_agriculture_on_indigenous_lands_Understanding_interactions_between_social_an
+d_ecological_systems 83. Can you point me to some really great, deeply technical game dev,
+https://www.reddit.com/r/proceduralgeneration/comments/1sxmtar/can_you_point_me_to_some
+_really_great_deeply/ 84. DwarfFortress, Rimworld, Caves of Quid, they all are world ... -
+Reddit,
+https://www.reddit.com/r/gamedev/comments/125ly65/dwarffortress_rimworld_caves_of_quid_th
+ey_all_are/ 85. Dwarf Fortress - Bay 12 Games,
+https://www.bay12games.com/dwarves/dev_single.html 86. Curating Simulated Storyworlds
+(James Ryan) – Ch 1-3,
+https://emshort.blog/2019/05/21/curating-simulated-storyworlds-james-ryan/ 87. Project Sid:
+Many-agent simulations toward AI civilization,
+
+https://fundamentalresearchlabs.com/blog/project-sid 88. (PDF) Project Sid: Many-agent
+simulations toward AI civilization,
+https://www.researchgate.net/publication/385509909_Project_Sid_Many-agent_simulations_tow
+ard_AI_civilization 89. Project Sid: Many-agent simulations toward AI civilization - arXiv,
+https://arxiv.org/abs/2411.00114 90. Generative Agents: Interactive Simulacra of Human
+Behavior, https://3dvar.com/Park2023Generative.pdf 91. Generative Agents: Interactive
+Simulacra of Human Behavior - arXiv, https://arxiv.org/abs/2304.03442

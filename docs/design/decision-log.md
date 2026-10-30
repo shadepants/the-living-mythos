@@ -1,0 +1,145 @@
+# Living mythos: decision log
+
+Last updated: 2026-10-28 (rev 11; doc paths updated after the 2026-10-28 archive pass). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
+
+Rev 9 (2026-10-24): forks recorded as a v1 stretch goal (option C); first spec scoped to the success-test slice.
+Rev 10 (2026-10-28): cloud sessions for tests and tooling only; information default is investigate-to-learn with a lab coat toggle (brainstorm Q3 resolved).
+Rev 11 (2026-10-28): v1 god tools = rain/drought + bloom; camp diorama folded into Close-up, reading a read-only camp snapshot (brainstorm Q4, Q5 resolved). All brainstorm questions closed.
+
+## Vision
+A terrarium you poke: an observational god-view sandbox where bands of people develop, change the land and each other, and make history in unexpected, funny and exciting ways. You watch, read the history, zoom in, and nudge things to alter the course. Jordan's framing: "like a kid with an ant colony." It is not a game to win, and it is not a copy of Earth's timeline.
+
+**Positioning (working label):** "a terrarium you poke" / emergent history sandbox. (Replaces "interactive prehistoric documentary + butterfly-effect sandbox", rev 4.)
+
+**Realism stance:** plausible mechanisms (scarcity, hunting, skill decay, scalar stress, diet breadth), not Earth fidelity. No Earth dates, no Earth climate curve.
+
+**Long-term vision:** from simple bands to a Roman-Empire-like civilization. Later eras plug in as new systems on the same core, not rewrites.
+
+## Scope (v1)
+- Arc: simple hunter-gatherer bands to the first farming villages, on one procedurally generated landmass. Time counts from year 0 of the world.
+- Version 1 must be worth watching on its own.
+
+## Core loop (v1)
+Live nudge and watch. Counterfactual forks are a v1 stretch goal (see Decisions).
+
+## Success test (v1)
+"I trigger a drought and can read in the Legends why one band migrated and another died out." Stretch: "...fork the world" before the drought and compare outcomes. v1 passes without the fork.
+Use this to judge every "should we add X?" question.
+
+## Decisions
+| Area | Decision | Basis |
+|---|---|---|
+| First spec scope (rev 9) | Success-test slice only: worldgen (heightmap + biomes), climate regime, 2 fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, drought nudge, events with causes, templated Legends. Techniques, farming, other fields come in later spec versions | Jordan 2026-10-24 (option A): avoid stacking feedback loops before the core loop is tuned |
+| Cloud sessions (rev 10) | Claude Code cloud sessions (mobile Code tab) may write tests and tooling only: hard-rule tests 3/5/6/7, hooks, read-only determinism-reviewer subagent, determinism skill. No sim logic in the cloud until Windows `pnpm check` passes. Repo work starts after the open questions are finished | Jordan 2026-10-28 (option C); Code tab confirmed to see the repo. Linux VM does not verify Windows |
+| Information default (rev 10) | Investigate-to-learn: ambient map, glance status word, band card with bars, Legends "why" chains; lab coat toggle (off by default) shows exact numbers and field heatmaps. Every glance word comes from a named threshold in the versioned config, and lab coat shows the number behind it. Slice builds only: glance word, band card (population bars, food trend), Legends "why" chains, lab coat heatmaps for vegetation and large fauna | Brainstorm Q3; Jordan 2026-10-28 (option A) |
+| God tools (rev 11) | v1 ships rain/drought (one typed command with a sign, acting on the climate anomaly layer) and bloom (temporary fertility boost on a patch, acting on vegetation). The slice ships drought. A tool ships with its mechanism, never before: spark waits for the fire-age field, herd for named herd entities; later biological/cultural tools follow the same rule | Brainstorm Q4; Jordan 2026-10-28 (option B) |
+| Close-up / camp snapshot (rev 11) | No separate diorama view; the diorama is the Close-up zoom. Views read a read-only camp snapshot built from sim state, never sim internals. Slice snapshot fields: food balance and trend, stash level, hunger state, 4 bracket counts, season, last foraging trip outcome. One field per thing a view actually draws. Technique objects (spears, baskets, grindstone) are added to the snapshot only when techniques exist. Snapshot consumers in the slice: Region badge, glance word, band card, Close-up | Brainstorm Q5; Jordan 2026-10-28 (option A + snapshot boundary) |
+| Stack | pnpm monorepo, strict TypeScript: `sim-core` (pure TS, no DOM, Vitest), `sim-worker` (thin wrapper), `viewer` (PixiJS v8 + UI + charts, main thread) | Stack report; PixiJS v8.22.0 (1 Oct 2026) verified. Re-check at install |
+| Repo | github.com/shadepants/the-living-mythos, default branch `Main-REPO`. TS pinned 6.0.x (typescript-eslint 8.x supports <6.1) | Rev 4 |
+| Threading | Sim in a plain Web Worker; renderer and UI on the main thread. OffscreenCanvas only if profiling demands it | Verified that Workers lose DOM interaction; the arrangement is inference |
+| Data layout | Structure-of-arrays typed arrays; bitECS only if needed. Zero allocation in hot loops | Judgment; batch review (Songs of Syx, Victoria 3) |
+| Granularity | Group-level (bands/villages); notable individuals as history records (name, lineage, traits, deeds), not simulated minds | Victoria 3, Artificial Anasazi; Songs of the Eons stalled on per-person granularity |
+| Group model | Band is the first form of a general "group" that can later become village, chiefdom, state | Keeps later eras additive |
+| Band state (Q1) | Lineage ID + name, home range (cells), population by age bracket, food balance, known techniques, relations, notable member refs | Grilling Q1 |
+| Age brackets (Q1) | 4: children (consume, vulnerable), young adults (mobile: marriage exchange, founding bands, migration), adults (main producers), elders (keep techniques alive) | Grilling Q1 |
+| Catchment | Bands forage a 3–5 cell catchment radius around camp/village | Novelty review addition (b); report 3 catchment 5-12 km |
+| Cell size | Working assumption ~3 km per cell (catchment 3 cells ≈ 9 km). 256×256 ≈ 770 km square ≈ 350-2,800 bands at forager densities | Rev 4; report 3 + computed |
+| Techniques (Q2, refined rev 4) | Integer level (0-3) plus a progress accumulator. Grows with use; decays as a forgetting time τ (years) driven by intervals between uses; elders lengthen τ | Grilling Q2; EMBERS (verified: τ 1-16 yr, use variability dominates). Report 3's 0.03/0.08 decay defaults rejected as unsupported |
+| Technique origin (Q3) | Invention (need, opportunity, population) + contact (relations, proximity) + shallow prerequisites (max 1–2, physical necessity only). Geography/opportunity dominates; invention rare, contact common. No scripted tech tree; stagnation and collapse allowed. Emergence uses bias weights, never hard threshold gates | Grilling Q3; batch review |
+| Farming emergence | Farming favoured in ecological "crucibles" (circumscribed river valleys under climate/density stress) as a tunable bias, not a hard gate. Diet breadth drives it: grain enters the diet when large-game returns fall | Novelty review (d); report 3 |
+| Demography | Report 3 ranges are sane defaults (band 15-50, l15 ≈ 0.57, TFR 4.5-6, IBI ~3.5 yr), not its equations (inconsistent). Births/deaths via per-member hash draws (bands ≤ ~50; no exp/log) | Batch review section 2; hard rules 1-2 |
+| Balance and tuning targets | Balance lives in data; tune via headless batch runs over many seeds. Targets are eventfulness (notable events per century) and variety of outcomes across seeds, not matching Earth. Choosing lively world settings is fine; a drama director is not | Rev 4 |
+| Time (Q4) | Seasonal ticks always. Run-ahead history buffer: worker simulates ahead, viewer plays back, pacing driven by the event log (fast through quiet stretches). Fixed multi-rate schedule for slow systems | Grilling Q4; timescale report |
+| No state-adaptive compression | No quiescence skipping, ABM/ODE switching or projective integration in v1. Playback pacing is fine | Keeps replay exact (timescale report) |
+| Environment fields (rev 4) | Vegetation, soil, large fauna, small fauna, water, fire age (fire risk derived from fire age + vegetation), crop domestication. Elevation static. Two-way coupling with people. Fields computed on CPU in sim-core | Report 3 (diet breadth, fire mosaic); GPU fields rejected for determinism |
+| Climate | World-seeded climate: deterministic generated regime (temperature/moisture anomaly per season) with world dials (volatility, severity). Stored/derived from config + seed. Not a climate simulation and not Earth's curve. Drought nudges layer on top | Rev 4 |
+| Variable discipline | Every field and band attribute must feed a threshold the Legends can report; no unobservable trivia | Novelty review addition (e), lesson from Hennepin |
+| World | Procedural, square grid. v1 worldgen = noise heightmap + biome lookup; rivers deferred | Scope control |
+| Event emission | Emit history events only when a regime threshold is crossed; each event records at most 3 enabling causes | Novelty review addition (a); counters "diffuse causality" (James Ryan) |
+| Event identity | Each event has a content key (type, tick, primary lineage ID). Sequential IDs are local to a run. Narration seeding (and any future fork matching) uses the content key | Batch review (reports 4-5) |
+| Salience | Computed in the narration layer; never decides what the sim logs | Batch review: resolves report 2 vs event emission |
+| Narration pipeline | Event collections (DF-style) → incremental sifting patterns (Winnow-style ideas, own implementation) → salience + quiet-epoch compression → first_valid conditional templates + seeded lexical grammar. LLM later, closed-world packets only | Report 4 |
+| Nudges | Typed commands applied at tick boundaries, logged with cause IDs. Environmental first, then biological, then cultural | Stack report (Azgaar "controlled mutations"); visibility of effects |
+| Lore (beliefs with mechanical effects) | Deferred until the food web and demography are stable and tuned. v1 stays compatible: events keep causes, bands have room for traits, but no belief system ships in v1 | Brainstorm Q1, 2026-10-24: Jordan chose B (avoid stacking feedback loops on an untuned ecology) |
+| Counterfactual forks | v1 stretch goal, not a pass condition. Determinism rules keep it reachable; no fork-comparison UI is required for v1 | Jordan 2026-10-24 (option C); replaces rev 4 "deferred, no commitment" |
+| Pacing | Session-length runs at top speed, with pause, fast-forward and scrub | Judgment |
+| Visual style | Pixel art: terrain stored as palette indices, seasons as palette swaps, ordered dither only for gradients, stipple for vegetation, orphan-pixel cleanup, terraces with 1-step light/shade. Sprite tokens, nearest-neighbour scaling, no mixed pixel scales. Resembling WorldBox is acceptable | Look tests v1-v3 (2026-10-24); research/pixel-art-review-2026-10-24.md |
+| Palette | Endesga 32 as the master palette (easier to tell apart than the muted Earth set). Autumn: only forest groves turn; grass stays green | Look test v3, Jordan 2026-10-24 |
+| Winter | Snowline: snow above a line that creeps down over the winter and melts through spring; cold palette below; frozen shallows | Look test v3, Jordan 2026-10-24 |
+| Band markers by zoom | World: small lineage-colour diamonds with crowd culling. Region: lineage badge (founding colour + own colour, inherited symbol, size dots), confirmed readable. Close-up: hut, fire and a tight crowd; foragers and hunters walk out in parties, work, and return carrying food or a kill (empty-handed when the band is hungry); a stash by the hut grows and shrinks with real food; a returning load thickens the cooking smoke; most people huddle by the fire in winter. All of it reads the camp snapshot (rev 11), never fed back; figures per camp capped, motion scripted from snapshot state. Whether it gives the ant-farm feel is pending Jordan's rewatch | Look test v3 (Jordan 2026-10-24); v5 close-up changes from Jordan's approval of the lever table |
+| Colour-blind accessibility | Not a v1 requirement. The colour-check tooling stays available for later | Jordan 2026-10-24 |
+| Screen | Map with switchable layers (vegetation, fauna, territory) + Legends panel | Judgment; refined by brainstorm |
+
+## Hard rules (write tests before sim code)
+1. **Hash-based randomness** keyed on (seed, absolute season index, entity, purpose), never a shared sequential stream. Test: replaying the same seed and nudge log produces an identical world (state hash). Implemented: `sim-core/src/rng.ts`.
+2. **No platform-dependent math in sim-core.** Lint-ban Math.random, trig/exp/pow/log, `**`, Date, performance.now; use own implementations. Math.sqrt and basic arithmetic are fine (IEEE 754). Verified: ECMAScript lets the others vary by implementation. Implemented: `eslint.config.js`.
+3. **Stable lineage-derived IDs** (parent, birth tick, sibling index), so entities stay identifiable across replays, saves and any future forks.
+4. **Fixed internal substeps for environment fields; schedules never depend on state.**
+5. **Causal event log from day one.** Every event records its parent-cause IDs (max 3).
+6. **Snapshots are keyframes + command log + replay.** Scrubbing backward is a real system with memory cost, not free.
+7. **All tunables in a versioned config;** saves record the config hash.
+
+## Rejected
+- Godot 4 / Unity DOTS / Bevy (hardware, language, iteration; Godot C# can't export to web)
+- PixiJS in an OffscreenCanvas Worker from the start
+- Variable tick length per era
+- Rome as v1 target (long-term only)
+- Earth's timeline, Earth dates and Earth's climate curve as targets (rev 4)
+- Single head count or full age pyramid (use 4 brackets); technique flags (use skill levels)
+- Deep tech-prerequisite trees; hard-gated technique emergence thresholds (report 3)
+- State-adaptive time compression in v1
+- Tuning the simulation itself for drama; a drama director inside the sim (RimWorld storyteller). Presentation-side nudge suggestions are fine
+- Salience-gated logging
+- GPU-computed simulation fields (driver-dependent floats)
+- LLM-driven population agents (cost; not deterministic). LLM may only narrate logged events, later
+- Voronoi mesh (dual-mesh), compromise NLP, Trrack, gitgraph.js (archived)
+- Reusing Winnow code (no license); Viv as a dependency (source-available, non-commercial)
+- Unity skills, spritecook, magicweave, playdrop, third-party Vitest skills
+- Numbers visible by default; shipping v1 with no raw-number view (rev 10)
+- God tools shipping before their mechanism (spark, herd in the slice) (rev 11)
+- A separate camp diorama view in v1; no Close-up figures in the slice (rev 11)
+- Views reading sim internals directly (rev 11)
+
+## Known risks
+- Feedback loops that collapse or explode under tuning: invariant tests (no negative biomass, population bounded by carrying capacity).
+- Teleology: progress rules that quietly force development. Crucible bias must stay a bias.
+- Bimodal tech outcomes: no band ever farms, or all farm at once. Tune with batch runs.
+- Arbitrariness: with no Earth anchor, rules can drift toward dice rolls. Keep mechanisms plausible; every event needs recorded causes.
+- Legends readability over thousands of years: templated narration and summarization.
+- Frontier stall: sim throughput falling below playback in dense eras.
+- Search/pathfinding cost (Ultima Online lesson): spatial hashing, budgeted per-tick work.
+- Silent cross-browser divergence: CI state-hash check on two engines.
+- Log and keyframe memory blow-up: keyframe sparsely; regime-threshold emission keeps the log small.
+- World generation growing into its own project.
+- Third-party skill/plugin supply-chain risk (tooling report): vet before install; prefer own determinism skill/hooks.
+- Glance words drifting from state (rev 10): mistuned thresholds make the glance layer lie. Mitigation: named config thresholds, lab coat shows the number.
+- Lab coat becoming the real UI while tuning, so glance/inspect/Legends layers get neglected (rev 10).
+- Camp snapshot growing into a second copy of sim state (rev 11). Rule: one field per thing a view draws.
+- Close-up turning into a crowd sim (rev 11): cap figures, script motion from snapshot state.
+- Look-test artifact code ported into the viewer (rev 11): it is a visual reference only; likely uses Math.random (unverified). Rewrite, don't port.
+- [UNCERTAIN] Novelty-report claims: Euca Engine not found (do not rely); ActiveGraph exists but report's framing uncertain; "LogicTale" mismatches its cited source; sales figures are third-party estimates.
+- [BLOCKED] Hardware benchmark: needs the laptop (i7-8665U, 16GB, integrated GPU).
+
+## Open questions (to grill)
+- Brainstorm questions: all closed (Q1 lore deferred; Q2 pixel; Q3 rev 10; Q4, Q5 rev 11). Brainstorm archived at `archive/design/depth-and-visuals-brainstorm.md`.
+- Close-up view: does look test v5 (trips, stash, cooking smoke, tighter crowd) give the ant-farm feel? Jordan to rewatch. Known weak spot: a camp whose lineage colour is pale on sand is hard to see.
+- Property norm (Bowles & Choi) as a band attribute: defer until batch runs show farming needs it (lean).
+- Tooling adoption, remaining: which PBT skill is primary (fast-check `javascript-testing-expert` vs Trail of Bits); which other tooling-report items to install. Cloud sessions resolved rev 10.
+- Pixel-art review items not yet decided (outline rule, fire scars, trails, BitmapText/HTML Legends, ParticleContainer, debug keys, Kenney glyphs): settle during the spec, slice-relevant items only.
+
+## Research
+- Done: novelty report (prompt 1); Gemini reports 2-5 + repos report (batch-reviewed 2026-10-23, review archived); pixel-art report (prompt 6, reviewed 2026-10-24); stack and prior-projects report (13 projects); timescale report; tooling report (cloud-sessions item decided rev 10; rest under review). All prompts in `research/gemini-prompts.md`; none pending.
+- Shelved: fork-comparison ideas (prompt 5) until forks are worked on as the stretch goal.
+
+## Benchmark order (when the laptop returns)
+1. Field cost per season (256×256 and 512×512, 7 fields, real substeps; warm and after 5 minutes sustained).
+2. Group cost at 1,000 / 5,000 / 20,000 groups.
+3. Run-ahead ratio by era.
+4. Snapshot and replay cost.
+5. Cross-browser state-hash check.
+6. Only then WASM or multi-worker on the hottest kernel.
+
+## Tooling noted (not yet adopted)
+- Official PixiJS skill pack (25 skills: 24 topic + `pixijs` router): in Claude Code, `/plugin marketplace add pixijs/pixijs-skills`.
+- Context7 connector for live library docs (covers bitECS).
+- Skills in use: spec-developer, grill, engineering:testing-strategy, algorithmic-art (worldgen prototyping on phone), active-memory:amhandoff.
