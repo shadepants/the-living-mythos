@@ -76,10 +76,10 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 | PixiJS | v8.22.0; `ParticleContainer.addParticle(new Particle())`, `boundsArea`, `dynamicProperties`; `TextureStyle.defaultOptions.scaleMode = 'nearest'` + `roundPixels` (verified) |
 | Unverified | Report claim: v8.19 particle blend modes, v8.20 ParticleContainer tint/alpha inheritance (check changelog on install) |
 | Toolchain | TS ~6.0.3 (locked 6.0.3), vitest 5.0.5, eslint 10.13.0, typescript-eslint 8.72.0; pnpm 10.28.0 |
-| RNG golden values | 3476084382 and 892054880 (`rng.test.ts`); verified on Node 22 (Linux) and Node 25.3.0 (Windows); never update casually |
-| Tests | 43 pass, 1 todo, on Windows and Linux (2026-10-30) |
-| Entity IDs | 64-bit, 16 lowercase hex chars; `entityKey()` returns the first 32 bits |
-| Entity-key collision risk | ~4.5% for at least one collision at 20,000 entities (birthday bound, computed, not tested) |
+| RNG golden values | 1759517345 and 3421405739 (`rng.test.ts`), recaptured once for the 64-bit key (rev 13, commit `b7d17b8`; old values 3476084382 and 892054880). Config hash and lineage golden values unchanged. Never update casually |
+| Tests | 57 pass, 1 todo, on Windows (2026-10-30, with the tick loop) |
+| Entity IDs | 64-bit, 16 lowercase hex chars; `entityRngFields()` returns `{ entity: low 32, entityHi: high 32 }` |
+| Entity-key collision risk | Fixed rev 13 (was ~4.5% at 20,000 entities with a 32-bit key) |
 | Catchment | 3-5 cells; events max 3 enabling causes |
 | Camp snapshot fields (slice) | food balance and trend, stash level, hunger state, 4 bracket counts, season, last foraging trip outcome |
 | Benchmark order (laptop) | field cost/season; group cost at 1,000/5,000/20,000; run-ahead ratio; snapshot cost; cross-browser hash; then WASM/multi-worker |
@@ -103,18 +103,17 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` |
 
 ## 11. Next steps
-1. Entity-key fix: decided rev 13 (option A, `entityHi`). Brief handed to the laptop Claude Code session 2026-10-30. When it lands: confirm new RNG golden values and test count, then record them in section 8.
+1. Entity-key fix: done (`b7d17b8`, pushed). Tick loop (hard rule 4) built in `09dee57` on the laptop, not yet pushed.
 2. Decide the rev 10 cloud gate (lift / keep / lift with a Windows check before each sim merge). Lean: the last.
 3. Confirm or reverse the ordinal and command-cause rules (rev 12).
 4. Grill the last tooling question: which property-based-testing skill is primary (fast-check `javascript-testing-expert` vs Trail of Bits).
-5. Draft the slice spec (spec-developer, then grill), `design/spec_v0.1.md`. Judge every item against the success test. It names the real config tunables (as scaled integers), the event types the slice needs, and the slice-relevant pixel-art items. Move the spec into the repo mirror once drafted.
+5. Slice spec: v0.1 draft written 2026-10-30 (Project `design/spec_v0.1.md`); grill its open questions in order, starting with number representation. Judge every item against the success test. It names the real config tunables (as scaled integers), the event types the slice needs, and the slice-relevant pixel-art items. Move the spec into the repo mirror once drafted.
 6. Laptop: tick loop with fixed substeps (rule 4), then command log (rule 6) and entity registry (stores lineage parent, asserts ID uniqueness). Unblocks the `it.todo` fork test.
 7. Cloud/laptop tooling: hooks and the read-only determinism-reviewer subagent; PixiJS skills when the viewer starts.
 8. Benchmarks once the tick loop and fields exist.
 9. Parked: v5 Close-up rewatch; property norm (deferred to batch runs).
 
 ## 12. Open questions
-- Entity-key fix landed? (next step 1).
 - Rev 10 gate (next step 2).
 - Ordinal and command-cause confirmation (next step 3).
 - PBT skill choice (next step 4).
