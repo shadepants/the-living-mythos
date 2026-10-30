@@ -23,6 +23,9 @@ const assertUint32 = (name: string, value: number): void => {
   }
 };
 
+/** True when `value` is a well-formed entity id (shape only; says nothing about existence). */
+export const isEntityId = (value: string): value is EntityId => ID_PATTERN.test(value);
+
 const toHex32 = (value: number): string => value.toString(16).padStart(8, '0');
 
 const splitId = (id: string): { high: number; low: number } => {
