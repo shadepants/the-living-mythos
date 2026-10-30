@@ -1,0 +1,23 @@
+{
+  "skill_name": "determinism-rules",
+  "evals": [
+    {
+      "id": 1,
+      "name": "math-random",
+      "prompt": "Review this diff to packages/sim-core/src/forage.ts:\n+export const forageYield = (base: number): number => base * (0.5 + Math.random());",
+      "expected_output": "Flags Math.random as a hard rule 1/2 violation (lint also blocks it) and says to use rand01 keyed on (seed, season, entity, entityHi, Purpose.ForageYield)."
+    },
+    {
+      "id": 2,
+      "name": "purpose-inserted-mid-list",
+      "prompt": "Review this diff to packages/sim-core/src/rng.ts:\n export const Purpose = {\n   ForageYield: 1,\n-  Migration: 2,\n-  Birth: 3,\n-  Death: 4,\n-  Invention: 5,\n+  Hunting: 2,\n+  Migration: 3,\n+  Birth: 4,\n+  Death: 5,\n+  Invention: 6,\n } as const;",
+      "expected_output": "Flags BLOCKING: an existing Purpose code was renumbered, which changes every draw that uses it; Hunting must be appended as 6 and the pinned list in rng.test.ts extended."
+    },
+    {
+      "id": 3,
+      "name": "golden-value-without-justification",
+      "prompt": "Review this commit. Message: 'test: fix flaky rng test'. Diff to packages/sim-core/test/rng.test.ts:\n-    expect(hashKey(key())).toMatchInlineSnapshot(`1759517345`);\n+    expect(hashKey(key())).toMatchInlineSnapshot(`2290184511`);",
+      "expected_output": "Flags BLOCKING: a golden value changed with no stated reason or decision-log entry; old saves and forks would stop replaying. Asks why the hash output changed instead of accepting the new value."
+    }
+  ]
+}
