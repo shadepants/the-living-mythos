@@ -1,6 +1,6 @@
 # active-memory handoff: Living mythos (civilization simulation)
 
-**Handoff #5** · 2026-10-30 · Lineage: #1 (2026-10-23): engine/stack research, scoping, grilling Q1-Q4, timescale research, Gemini novelty review · #2 (2026-10-23): Project set up, repo skeleton pushed · #3 (2026-10-24): reframe to "terrarium you poke", research batch reviewed, depth/visuals brainstorm, pixel-art look tests v1-v5, decision log rev 8 · #4 (2026-10-24 to 10-28): slice focus; forks = stretch; cloud sessions = tests/tooling; all brainstorm questions closed; decision log rev 11; Project docs consolidated · #5 (2026-10-30): laptop back and linked; Windows `pnpm check` passed; laptop session built config, lineage IDs and event log; Project docs mirrored into repo `docs/`; repo `CLAUDE.md`/`README.md` brought up to date; TS range fixed; decision log rev 12
+**Handoff #6** · 2026-10-30 · Lineage: #1 (2026-10-23): engine/stack research, scoping, grilling Q1-Q4, timescale research, Gemini novelty review · #2 (2026-10-23): Project set up, repo skeleton pushed · #3 (2026-10-24): reframe to "terrarium you poke", research batch reviewed, depth/visuals brainstorm, pixel-art look tests v1-v5, decision log rev 8 · #4 (2026-10-24 to 10-28): slice focus; forks = stretch; cloud sessions = tests/tooling; all brainstorm questions closed; decision log rev 11; Project docs consolidated · #5 (2026-10-30): laptop back and linked; Windows `pnpm check` passed; laptop session built config, lineage IDs and event log; Project docs mirrored into repo `docs/`; repo `CLAUDE.md`/`README.md` brought up to date; TS range fixed; decision log rev 12 · #6 (2026-10-30): 64-bit rng key, tick loop and testing tooling built; spec v0.1 drafted, a Gemini agent's unapproved "finalized" rewrite archived as a rough draft, 4 real bugs fixed (spec v0.2); grilling started in dependency order: Q0 and Q1 settled; decision log rev 16
 
 ## 0. Instructions for Claude (read first)
 
@@ -57,12 +57,13 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 | 8 | Colour-blind tooling as a v1 concern | Jordan: not needed now |
 | 9 | Asked which success test was current, offering forks as A/B/C | Jordan: "Option C was already decided." The log had not recorded it; check past decisions before re-asking |
 
-## 6. Decisions and changes this handoff (details in decision log rev 12)
-- Repo mirrors the Project docs in `docs/` (Jordan asked to upload all Project docs, 2026-10-30). Project stays the source of truth. Settles handoff #4 question 2.6.
-- Event content key `type:tick:primary:ordinal`; a cause is an event or a nudge command. Both proposed by the laptop Claude Code session; recorded as "Jordan did not veto". [NEED: Jordan] confirm.
-- Config values and event payloads are integer-only (built into code by the laptop session; recorded in rev 12).
-- Implementation status recorded for hard rules 3, 5, 7.
-- Repo housekeeping (2026-10-30): `typescript` range `^6.0.3` → `~6.0.3` (caret allowed 6.1+, which typescript-eslint 8.72 rejects); `CLAUDE.md` now carries slice scope, the rev 10 gate, rev 11 view rules, rule implementation status, integer-only rule, and the entity-key issue; `README.md` status updated.
+## 6. Decisions and changes this handoff (details in decision log rev 13-16)
+- Rev 13: `RngKey` gains `entityHi`; built (`b7d17b8`); RNG golden values recaptured once.
+- Rev 14: primary PBT skill = fast-check `javascript-testing-expert` (Jordan ran Prompt A). Spec at v0.2.
+- Rev 15 (spec Q0): doubles in sim state, basic arithmetic only; state hash rejects NaN/Infinity and normalizes -0; fixed summation order.
+- Rev 16 (spec Q1): world size is a setting, slice default 128×128; catchment Euclidean disc r = 3 (29 cells).
+- Gemini (Antigravity) agent episode: it answered all 12 spec questions with Claude's leans, marked the spec "finalized", and edited the repo mirror directly. Jordan's call: treat it as a very rough early draft and grill properly. Its edits are stashed on the laptop (`stash@{0}`, "gemini-staged-edits-2026-10-30"); copies archived at `archive/design/spec-rough-draft-gemini-2026-10-30.md` (+ its proposed log diff in the repo). Rule going forward: no agent edits `docs/` or the decision log except to mirror the Project.
+- Still unconfirmed from rev 12: ordinal and command-cause rules ("Jordan did not veto").
 
 ## 7. Changed / rejected
 See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to-Endesga colour-blind guarantee (lost in mapping; moot); Earth palette as default; "living atlas" look from the brainstorm (superseded by pixel art); presentation work ahead of the slice (rewatch and polish are parked until the slice runs).
@@ -77,10 +78,10 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 | Unverified | Report claim: v8.19 particle blend modes, v8.20 ParticleContainer tint/alpha inheritance (check changelog on install) |
 | Toolchain | TS ~6.0.3 (locked 6.0.3), vitest 5.0.5, eslint 10.13.0, typescript-eslint 8.72.0; pnpm 10.28.0 |
 | RNG golden values | 1759517345 and 3421405739 (`rng.test.ts`), recaptured once for the 64-bit key (rev 13, commit `b7d17b8`; old values 3476084382 and 892054880). Config hash and lineage golden values unchanged. Never update casually |
-| Tests | 57 pass, 1 todo, on Windows (2026-10-30, with the tick loop) |
+| Tests | 67 pass, 1 todo, on Windows (2026-10-30: tick loop + property tests) |
 | Entity IDs | 64-bit, 16 lowercase hex chars; `entityRngFields()` returns `{ entity: low 32, entityHi: high 32 }` |
 | Entity-key collision risk | Fixed rev 13 (was ~4.5% at 20,000 entities with a 32-bit key) |
-| Catchment | 3-5 cells; events max 3 enabling causes |
+| Catchment | Euclidean disc r = 3, 29 cells, ≤ 9 km (rev 16); events max 3 enabling causes |
 | Camp snapshot fields (slice) | food balance and trend, stash level, hunger state, 4 bracket counts, season, last foraging trip outcome |
 | Benchmark order (laptop) | field cost/season; group cost at 1,000/5,000/20,000; run-ahead ratio; snapshot cost; cross-browser hash; then WASM/multi-worker |
 
@@ -92,32 +93,30 @@ See decision log "Rejected". Plus: Bayer-dithered 75% snow (the speckle); Tol-to
 ## 10. Work state
 | Item | Status | Location |
 |---|---|---|
-| Decision log | rev 13 | Project `design/decision-log.md`; mirrored to repo `docs/design/` |
-| sim-core | rng, lint bans, config + hash, lineage IDs, event log; 43 tests pass on Windows and Linux. No tick loop, command log, entity registry or fields yet | repo `packages/sim-core`; state in `CONTEXT.md` |
-| Repo docs | `CLAUDE.md`, `README.md` updated; Project mirrored in `docs/` | GitHub, `Main-REPO` |
-| GitHub / laptop / cloud | In sync as of handoff #5 | — |
-| Config fields | Placeholders (`seasonsPerYear`, `startingBandSize`); real tunables come from the slice spec | `config.ts` |
-| Spec | Not started; scope = slice | will be `design/spec_v0.1.md` |
+| Decision log | rev 16 | Project `design/decision-log.md`; mirrored to repo `docs/design/` |
+| Spec | v0.2 draft (file name `spec_v0.1.md`); Q0, Q1 settled; Q2-Q14 open, ordered in §20 | Project `design/spec_v0.1.md` |
+| sim-core | rng (64-bit key), lint bans, config + hash, lineage IDs, event log, tick loop; property tests; 67 pass + 1 todo. No command log, entity registry, fields or systems yet | repo `packages/sim-core`; `CONTEXT.md` |
+| Tooling | fast-check skill (pinned `fd17f486fc`), `determinism-rules` project skill, read-only `determinism-reviewer` subagent | repo `.claude/` |
+| Config fields | Placeholders (`seasonsPerYear`, `startingBandSize`); real tunables come from the settled spec | `config.ts` |
+| GitHub / laptop / cloud | Synced at end of handoff #6 | `Main-REPO` |
 | Research | All Gemini prompts (1-6) run and reviewed | `research/`, `archive/research/` + PDFs |
-| Look test | v5 published; rewatch parked. Artifact code is a visual reference only; rewrite, don't port | artifact above |
+| Look test | v5 published; rewatch parked. Artifact code is a visual reference only | artifact in section 8 |
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` |
 
 ## 11. Next steps
-1. Entity-key fix: done (`b7d17b8`, pushed). Tick loop (hard rule 4) built in `09dee57` on the laptop, not yet pushed.
-2. Decide the rev 10 cloud gate (lift / keep / lift with a Windows check before each sim merge). Lean: the last.
-3. Confirm or reverse the ordinal and command-cause rules (rev 12).
-4. Grill the last tooling question: which property-based-testing skill is primary (fast-check `javascript-testing-expert` vs Trail of Bits).
-5. Slice spec: v0.1 draft written 2026-10-30 (Project `design/spec_v0.1.md`); grill its open questions in order, starting with number representation. Judge every item against the success test. It names the real config tunables (as scaled integers), the event types the slice needs, and the slice-relevant pixel-art items. Move the spec into the repo mirror once drafted.
-6. Laptop: tick loop with fixed substeps (rule 4), then command log (rule 6) and entity registry (stores lineage parent, asserts ID uniqueness). Unblocks the `it.todo` fork test.
-7. Cloud/laptop tooling: hooks and the read-only determinism-reviewer subagent; PixiJS skills when the viewer starts.
-8. Benchmarks once the tick loop and fields exist.
-9. Parked: v5 Close-up rewatch; property norm (deferred to batch runs).
+1. **Grill spec question 2: event emission model and world-event primary** (§5, §14). Then Q3-Q14 in the §20 order, one at a time: options table, strongest counterargument, ≥2 failure modes, lean, external check, exact decision-log row. After each pick: update the spec and log (next rev), re-sync the mirror (one `docs:` commit), pull on the laptop.
+2. Use the archived Gemini draft only as input; its numbers are unsourced guesses, its test scenario assumes worldgen geometry that doesn't exist yet, and it mentions a river delta (rivers are deferred).
+3. When all questions settle: spec-developer Phase 3 (finalize), then the laptop builds command log (rule 6), entity registry, then systems in spec §5 order.
+4. Decide the rev 10 cloud gate (lift / keep / lift with a Windows check before each sim merge). Lean: the last.
+5. Benchmarks once fields run. Parked: v5 Close-up rewatch; property norm.
 
 ## 12. Open questions
-- Rev 10 gate (next step 2).
-- Ordinal and command-cause confirmation (next step 3).
-- PBT skill choice (next step 4).
-- [NEED: Jordan] paste `claude/project-instructions.md` into Project settings (success test now says "fork the world (stretch)").
+- Spec Q2-Q14 (next step 1).
+- Ordinal and command-cause confirmation (rev 12).
+- Rev 10 gate.
+- Stray Project doc `next-steps-prompts.md` at the Project root (duplicate of `claude/next-steps-prompts.md`, origin unknown): delete? Ask Jordan; don't delete unasked.
+- Gemini stash on the laptop: drop once Jordan agrees the archive copies are enough.
+- [NEED: Jordan] paste `claude/project-instructions.md` into Project settings.
 
 ## 13. Re-attach checklist
 Nothing to attach inside the Project. The look-test source file lived only in an earlier cloud session; the published artifact is the durable copy.

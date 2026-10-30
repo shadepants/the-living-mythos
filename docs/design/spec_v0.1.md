@@ -49,7 +49,7 @@ Decided (Jordan 2026-10-30, rev 15): option A. Rules: the state hash rejects NaN
 ## 4. World
 | Item | Value | Tag |
 |---|---|---|
-| Map size | 128×128 cells for the slice; 256×256 stays the v1 working size | [NEED: Jordan] (question 1). 256×256 ≈ 770 km at ~3 km/cell [R: report 3 catchment 5-12 km; log "Cell size" row] |
+| Map size | Setting (`worldWidth`, `worldHeight`); slice default 128×128 (~385 km); v1 working size 256×256; property tests may use 32×32 | Decided rev 16 (Q1) |
 | Cell size | ~3 km (presentation only; the sim uses cells) | [R: log] |
 | Seasons per year | 4 | [R: log, seasonal ticks] |
 
@@ -130,7 +130,7 @@ Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts
 | elders | 50+ yr | [NEED: Jordan] |
 
 Forage per season:
-- Catchment = cells within radius `catchment` of the camp (Chebyshev or Euclidean: [NEED: Jordan]; lean Chebyshev for simplicity), land only.
+- Catchment = Euclidean disc around the camp, dx² + dy² ≤ `catchment`² (29 cells at r = 3), from a precomputed offset list sorted by (dy, dx); off-map and sea cells excluded (decided rev 16).
 - Labour `L = adults + 0.5·youngAdults` (weights [P]).
 - Yield = `L · (gatherEff · ΣV_share + huntEff · ΣF_share) · yieldNoise`, where `yieldNoise` comes from `rand01` with purpose `ForageYield`, entity = band. Harvest and hunting are subtracted from the cells the band forages, split evenly across the catchment ([P]; a nearest-first split is the alternative).
 - Consumption = `Σ bracket · need[bracket]`.
@@ -140,7 +140,7 @@ Forage per season:
 
 | Tunable | Tag |
 |---|---|
-| `catchment` | 3 cells [R: log 3-5 cells; report 3 catchment 5-12 km at ~3 km/cell] |
+| `catchment` | 3 cells, Euclidean (rev 16) [R: log 3-5 cells; report 3 catchment 5-12 km at ~3 km/cell] |
 | Starting band size | 25 (range 15-50) [R: report 3] |
 | `gatherEff`, `huntEff`, `need[4]`, `stashCap`, `spoilage`, `starvingSeasons`, `flatBand` | [P] |
 
@@ -238,7 +238,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | # | Question | Depends on | Rough draft's pick |
 |---|---|---|---|
 | 0 | Number representation (§3) — **settled rev 15: doubles** | — | doubles |
-| 1 | Map size and catchment metric (§4, §9) | 0 | 128×128, Chebyshev radius 3 |
+| 1 | Map size and catchment metric (§4, §9) — **settled rev 16: 128×128 default, Euclidean r = 3** | 0 | 128×128, Chebyshev radius 3 |
 | 2 | Event emission model and world-event primary (§5, §14) | — | detector pass, `ROOT_ID` |
 | 3 | Worldgen and biome table (§4.1) | 0, 1 | 4×3 bands, 8 biomes + ocean |
 | 4 | Climate regime shape and dials (§6) | 0, 3 | seasonal table + temporal + regional noise |
