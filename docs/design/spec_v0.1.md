@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.5
+Version: 0.6
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.5 draft)
+# Living mythos: success-test slice (spec v0.6 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -90,7 +90,7 @@ Decided (Jordan 2026-10-30, rev 17: option C). Systems 1-7 never append events. 
 
 ## 6. Climate regime
 Decided rev 19 (Q4, option B). Per season, per cell:
-`anomaly = seasonal[season mod 4] + volatility · spaceTimeNoise(x, y, season) − droughtMagnitude(cell, season)`, clamped to ±`anomalyClamp`.
+`anomaly = clamp(seasonal[season mod 4] + volatility · spaceTimeNoise(x, y, season), ±anomalyClamp) − droughtMagnitude(cell, season)`. Only the natural part is clamped (rev 20), so a drought still bites during a natural dry spell; `minMoistureFactor` (§7) bounds the effect.
 - `seasonal[4]`: a 4-entry lookup table, so no trig is needed.
 - `spaceTimeNoise`: gradient noise on a coarse lattice in (x, y, season), one lattice point every `climateLatticeCells` cells and every `climateLatticeSeasons` seasons; quintic fade in all three axes; lattice values from `hashKey`, purpose `ClimateSpaceTime`, lattice index in `entity`, `entityHi = 0`. Replaces v0.4's global temporal noise and fixed regional offset, which made every natural dry spell world-wide.
 - `severity` dial: sets `anomalyClamp`.
@@ -184,11 +184,17 @@ Forage per season:
 - Emits `band_died_out`; the band entity stays in the registry as a history record.
 
 ## 13. Drought command
-Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (anomaly units, scaled integer), `durationSeasons`, `centerCell`, `radius` (cells; 0 = whole map). Applied at the start of the next tick boundary (log "Nudges" row); recorded in the command log with a command ID that events can cite as a cause.
+Decided rev 20 (Q5, option B). Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (anomaly units, scaled integer), `durationSeasons`, `centerCell`, `radius` (cells; 0 = whole map). Applied at the next tick boundary and recorded in the command log with a command ID that events cite as a cause (confirms rev 12).
+- Area: with d = Euclidean distance from `centerCell` (`sqrt`), strength = 1 for d ≤ radius/2, `2·(1 − d/radius)` for radius/2 < d < radius, 0 for d ≥ radius.
+- `droughtMagnitude(cell, season)` = Σ over active commands of `sign`-adjusted `magnitude · strength`, in command ID order. Commands stack; no clamp after (§6).
+- Onset is instant; vegetation response supplies the lag.
+- A whole-map drought leaves no refuge; the test scenario uses a local drought.
+- The viewer draws the full-strength core and the fade ring (so radius isn't misread as full-strength area).
 
-| Field | Tag |
-|---|---|
-| magnitude units, default duration, area model | [NEED: Jordan] (question 2) |
+| Field | Value | Tag |
+|---|---|---|
+| magnitude presets | `droughtMild`, `droughtSevere` in anomaly units | [P] |
+| default `durationSeasons` | 8 | [P] |
 
 ## 14. Events (slice set)
 | Type | Primary | Emitted when | Causes (≤3) |
@@ -249,7 +255,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 2 | Event emission model and world-event primary (§5, §14) — **settled rev 17: transition records + emitter, `ROOT_ID`** | — | detector pass, `ROOT_ID` |
 | 3 | Worldgen and biome table (§4.1) — **settled rev 18: gradient noise, one landmass, continuous capacity, biomes as labels** | 0, 1 | 4×3 bands, 8 biomes + ocean |
 | 4 | Climate regime shape and dials (§6) — **settled rev 19: space-time noise, hysteresis, ~15% dry (12-18%)** | 0, 3 | seasonal table + temporal + regional noise |
-| 5 | Drought command fields and area model (§13) | 4 | one signed command, radius 0 = whole map |
+| 5 | Drought command fields and area model (§13) — **settled rev 20: core-and-fade disc, stacking after the natural clamp** | 4 | one signed command, radius 0 = whole map |
 | 6 | Vegetation response and recovery targets (§7) | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
 | 7 | Large fauna: grazing, hunting, diffusion (§8) | 6 | lag 1-2 seasons behind vegetation |
 | 8 | Food balance: yield, consumption, stash, hunger states (§9) | 6, 7 | (not covered) |
@@ -261,6 +267,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.6 - 2026-10-30
+- Decided: Q5 drought command (§13): core-and-fade area, stacking, presets; clamp moved to the natural anomaly only (§6).
 ### v0.5 - 2026-10-30
 - Decided: Q4 climate (§6): space-time noise, regional dry spells with hysteresis, dry-share target 15% (12-18%).
 ### v0.4 - 2026-10-30
