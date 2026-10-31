@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.4
+Version: 0.5
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.4 draft)
+# Living mythos: success-test slice (spec v0.5 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -89,16 +89,18 @@ All systems run every season in the slice (period 1, offset 0). Slow-system peri
 Decided (Jordan 2026-10-30, rev 17: option C). Systems 1-7 never append events. Each writes transition records to a per-season buffer (e.g. `command_applied`, `dry_spell_crossed`, `balance_turned_negative`, `hunger_changed`, `moved {from, to}`, `population_zero`). Each record carries its subject (band `EntityId` or `ROOT_ID`) and the facts the emitter needs to pick causes. `emit_events` (#8) sorts records by subject (`ROOT_ID` first, then band ID order), keeps record order within a subject, turns each into an event, and attaches causes by looking up earlier events in the log. The buffer is cleared after emission and is not part of saved state. A new system adds record types and emitter rules; existing systems don't change.
 
 ## 6. Climate regime
-Per season, per cell: `anomaly = seasonal[season mod 4] + volatility · temporalNoise(season) + regional(cell) − droughtMagnitude(cell, season)`.
+Decided rev 19 (Q4, option B). Per season, per cell:
+`anomaly = seasonal[season mod 4] + volatility · spaceTimeNoise(x, y, season) − droughtMagnitude(cell, season)`, clamped to ±`anomalyClamp`.
 - `seasonal[4]`: a 4-entry lookup table, so no trig is needed.
-- `temporalNoise`: 1D value noise over the season index (lattice every `climateLatticeSeasons`), purpose `ClimateTemporal`; smoothstep between lattice points.
-- `regional`: coarse 2D value noise, fixed per world, purpose `ClimateRegional`.
-- `severity` dial: scales the tails (anomaly is clamped to ±`anomalyClamp`).
-- A natural dry spell starts when the regional mean anomaly stays below `dryThreshold` for `dryMinSeasons`; it emits `dry_spell_began` / `dry_spell_ended` (primary `ROOT_ID`).
+- `spaceTimeNoise`: gradient noise on a coarse lattice in (x, y, season), one lattice point every `climateLatticeCells` cells and every `climateLatticeSeasons` seasons; quintic fade in all three axes; lattice values from `hashKey`, purpose `ClimateSpaceTime`, lattice index in `entity`, `entityHi = 0`. Replaces v0.4's global temporal noise and fixed regional offset, which made every natural dry spell world-wide.
+- `severity` dial: sets `anomalyClamp`.
+- Regions: climate-lattice blocks (`climateLatticeCells` square). Region mean = mean anomaly over its land cells, row-major order.
+- Dry spell: begins when the region mean stays below `dryThreshold` for `dryMinSeasons`; ends only when it rises above `dryThreshold + dryExitGap` (hysteresis). Emits `dry_spell_began` / `dry_spell_ended` with the region index in the payload, primary `ROOT_ID`. A band's catchment counts as in a dry spell when its camp cell's region is.
+- Target (Jordan, rev 19): about 15% of seasons in a dry spell per region, averaged over seeds; tune within 12-18%. Tune `dryThreshold` and `volatility` against it. `volatility = 0` gives a nudge-only climate for the test scenario.
 
 | Tunable | Tag |
 |---|---|
-| `seasonal[4]`, `volatility`, `severity`, `climateLatticeSeasons`, `anomalyClamp`, `dryThreshold`, `dryMinSeasons` | [P] all; dials exposed as world settings (log "Climate" row) |
+| `seasonal[4]`, `volatility`, `anomalyClamp`, `climateLatticeCells`, `climateLatticeSeasons`, `dryThreshold`, `dryMinSeasons`, `dryExitGap` | [P]; dials exposed as world settings (log "Climate" row); dry share 12-18% (rev 19) |
 
 ## 7. Vegetation
 `V' = V + rV · V · (1 − V / K) − grazing − harvest`, with `K = Kveg(cell) · moistureFactor(anomaly)` (Kveg from §4.1), clamped to `[0, K]`.
@@ -193,7 +195,7 @@ Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (a
 |---|---|---|---|
 | `drought_began` | `ROOT_ID` | a drought command takes effect | the command |
 | `drought_ended` | `ROOT_ID` | duration elapses | `drought_began` |
-| `dry_spell_began` / `dry_spell_ended` | `ROOT_ID` | natural regime crossing (§6) | none / `dry_spell_began` |
+| `dry_spell_began` / `dry_spell_ended` | `ROOT_ID` (region index in payload) | natural regime crossing with hysteresis (§6) | none / `dry_spell_began` |
 | `forage_failed` | band | food balance first turns negative after ≥`stableSeasons` non-negative | active drought or dry spell over the catchment, if any |
 | `band_hunger_began` | band | hunger state enters `hungry` | `forage_failed` |
 | `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, `forage_failed` |
@@ -246,7 +248,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 1 | Map size and catchment metric (§4, §9) — **settled rev 16: 128×128 default, Euclidean r = 3** | 0 | 128×128, Chebyshev radius 3 |
 | 2 | Event emission model and world-event primary (§5, §14) — **settled rev 17: transition records + emitter, `ROOT_ID`** | — | detector pass, `ROOT_ID` |
 | 3 | Worldgen and biome table (§4.1) — **settled rev 18: gradient noise, one landmass, continuous capacity, biomes as labels** | 0, 1 | 4×3 bands, 8 biomes + ocean |
-| 4 | Climate regime shape and dials (§6) | 0, 3 | seasonal table + temporal + regional noise |
+| 4 | Climate regime shape and dials (§6) — **settled rev 19: space-time noise, hysteresis, ~15% dry (12-18%)** | 0, 3 | seasonal table + temporal + regional noise |
 | 5 | Drought command fields and area model (§13) | 4 | one signed command, radius 0 = whole map |
 | 6 | Vegetation response and recovery targets (§7) | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
 | 7 | Large fauna: grazing, hunting, diffusion (§8) | 6 | lag 1-2 seasons behind vegetation |
@@ -259,6 +261,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.5 - 2026-10-30
+- Decided: Q4 climate (§6): space-time noise, regional dry spells with hysteresis, dry-share target 15% (12-18%).
 ### v0.4 - 2026-10-30
 - Decided: Q3 worldgen (§4.1): gradient noise, edge falloff, largest landmass kept, continuous vegetation capacity; biomes are labels.
 - Fixed: claim that gradient noise needs trig.

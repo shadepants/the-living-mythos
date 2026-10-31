@@ -1,6 +1,6 @@
 # Living mythos: decision log
 
-Last updated: 2026-10-30 (rev 18). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
+Last updated: 2026-10-30 (rev 19). Sources: planning chats, handoffs #1-#4, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
 
 Rev 9 (2026-10-24): forks recorded as a v1 stretch goal (option C); first spec scoped to the success-test slice.
 Rev 10 (2026-10-28): cloud sessions for tests and tooling only; information default is investigate-to-learn with a lab coat toggle (brainstorm Q3 resolved).
@@ -12,6 +12,7 @@ Rev 15 (2026-10-30): number representation (spec Q0): doubles in sim state, basi
 Rev 16 (2026-10-30): map size and catchment (spec Q1): 128×128 slice default, Euclidean disc catchment r = 3.
 Rev 17 (2026-10-30): event emission (spec Q2): transition records + one emitter pass; world events use ROOT_ID; ordinal (rev 12) confirmed.
 Rev 18 (2026-10-30): worldgen and capacity (spec Q3): gradient noise, one landmass for the slice, continuous vegetation capacity; biomes are labels.
+Rev 19 (2026-10-30): climate regime shape (spec Q4): space-time noise, regional dry spells with hysteresis; target ~15% of seasons dry per region (tuning band 12-18%).
 
 ## Vision
 A terrarium you poke: an observational god-view sandbox where bands of people develop, change the land and each other, and make history in unexpected, funny and exciting ways. You watch, read the history, zoom in, and nudge things to alter the course. Jordan's framing: "like a kid with an ant colony." It is not a game to win, and it is not a copy of Earth's timeline.
@@ -60,6 +61,7 @@ Use this to judge every "should we add X?" question.
 | Time (Q4) | Seasonal ticks always. Run-ahead history buffer: worker simulates ahead, viewer plays back, pacing driven by the event log (fast through quiet stretches). Fixed multi-rate schedule for slow systems | Grilling Q4; timescale report |
 | No state-adaptive compression | No quiescence skipping, ABM/ODE switching or projective integration in v1. Playback pacing is fine | Keeps replay exact (timescale report) |
 | Environment fields (rev 4) | Vegetation, soil, large fauna, small fauna, water, fire age (fire risk derived from fire age + vegetation), crop domestication. Elevation static. Two-way coupling with people. Fields computed on CPU in sim-core | Report 3 (diet breadth, fire mosaic); GPU fields rejected for determinism |
+| Climate regime shape (rev 19) | anomaly = seasonal[season mod 4] + volatility · spaceTimeNoise(x, y, season) − active droughts. Noise lattice every `climateLatticeCells` cells and `climateLatticeSeasons` seasons, interpolated in space and time; clamped to ±`anomalyClamp` (severity dial). Regions = climate-lattice blocks. Dry spells use hysteresis: enter below `dryThreshold` for `dryMinSeasons`, exit above `dryThreshold + dryExitGap`. Events carry the region index, primary `ROOT_ID`; a band cites the region of its camp cell. Target: ~15% of seasons in a dry spell per region, tuned within 12-18% (lower if too much, higher if too little). volatility 0 gives a nudge-only climate (usable for the test scenario) | Jordan 2026-10-30 (spec Q4, option B; target set by Jordan). The v0.4 formula's global temporal noise made every natural dry spell world-wide. Check: 20 seeds × 200 yr with no nudges, dry share in 12-18%; property test: no spell shorter than `dryMinSeasons` |
 | Climate | World-seeded climate: deterministic generated regime (temperature/moisture anomaly per season) with world dials (volatility, severity). Stored/derived from config + seed. Not a climate simulation and not Earth's curve. Drought nudges layer on top | Rev 4 |
 | Variable discipline | Every field and band attribute must feed a threshold the Legends can report; no unobservable trivia | Novelty review addition (e), lesson from Hennepin |
 | World | Procedural, square grid. v1 worldgen = noise heightmap + biome lookup; rivers deferred | Scope control |
