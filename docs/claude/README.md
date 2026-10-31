@@ -14,7 +14,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | Path | Status |
 |---|---|
 | `design/decision-log.md` | Current (rev 22). Source of truth |
-| `claude/handoff-living-mythos.md` | Current (handoff #6) |
+| `claude/handoff-living-mythos.md` | Current (handoff #7) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
 | `design/spec_v0.1.md` | Draft v0.8 (2026-10-30; file name kept); Q0-Q7 settled; open questions grilled in the order of section 20 |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
