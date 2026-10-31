@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.2
+Version: 0.3
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.2 draft)
+# Living mythos: success-test slice (spec v0.3 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -78,10 +78,10 @@ All systems run every season in the slice (period 1, offset 0). Slow-system peri
 | 5 | forage | 1 | catchment fields, labour | band yield, stash, food balance |
 | 6 | demography | 1 | food state, brackets | brackets (births, deaths, aging) |
 | 7 | migration | 1 | hunger history, catchment scores | band camp cell |
-| 8 | regime_detector | 1 | previous vs current regime per band/region | events |
+| 8 | emit_events | 1 | this season's transition records, event log | events |
 | 9 | snapshot | 1 | sim state | camp snapshot (read-only copy) |
 
-[NEED: Jordan] whether events are emitted inside each system or by one detector pass (#8). Lean: detector pass, because it compares start-of-season and end-of-season regimes in one place, which keeps causes consistent and keeps logging out of the field code.
+Decided (Jordan 2026-10-30, rev 17: option C). Systems 1-7 never append events. Each writes transition records to a per-season buffer (e.g. `command_applied`, `dry_spell_crossed`, `balance_turned_negative`, `hunger_changed`, `moved {from, to}`, `population_zero`). Each record carries its subject (band `EntityId` or `ROOT_ID`) and the facts the emitter needs to pick causes. `emit_events` (#8) sorts records by subject (`ROOT_ID` first, then band ID order), keeps record order within a subject, turns each into an event, and attaches causes by looking up earlier events in the log. The buffer is cleared after emission and is not part of saved state. A new system adds record types and emitter rules; existing systems don't change.
 
 ## 6. Climate regime
 Per season, per cell: `anomaly = seasonal[season mod 4] + volatility · temporalNoise(season) + regional(cell) − droughtMagnitude(cell, season)`.
@@ -195,7 +195,7 @@ Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (a
 | `band_migrated` | band | migration executes | `band_hunger_began` (or `band_starving`), `forage_failed` |
 | `band_died_out` | band | die-out | `band_starving`, `forage_failed` |
 
-- World/region events use `ROOT_ID` as primary [NEED: Jordan] (question 9; lean accept).
+- World/region events use `ROOT_ID` as primary, with cell and radius in the payload; same-tick collisions use the ordinal (decided rev 17). Synthetic IDs may replace `ROOT_ID` when forks are worked on.
 - Payloads: integers only (cell indices, rounded population, scaled magnitudes).
 - Every band outcome cites `forage_failed` directly, so `band_migrated` and `band_died_out` reach `drought_began` in 2 hops (outcome → `forage_failed` → `drought_began`), inside the 3-hop limit. (Bug fixed in v0.2: v0.1's die-out chain was 4 hops.) The intermediate hunger events stay as causes for the fuller "why" walk.
 
@@ -220,7 +220,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 
 ## 18. Testing plan
 - Unit: each formula (clamping, stability, conservation where it applies, no NaN). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
-- Property (PBT skill choice still open): same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
+- Property (fast-check, rev 14): every event's causes appear earlier in the log; band outcomes reach a root in ≤3 hops; emission order identical across two runs; same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
 - Acceptance (success test): a fixed seed and scenario with two bands; a drought at season S; run to S + N. Pass when one band has `band_migrated` and the other `band_died_out`, each with a cause chain reaching `drought_began` in ≤3 hops, and the Legends template renders the pass sentence. Scenario values [NEED: Jordan] (question 11).
 
@@ -229,7 +229,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 |---|---|---|---|
 | Number representation | doubles / fixed-point | doubles (rev 15) | §3 |
 | Demography draws | per-member + new key field / binomial per bracket | binomial per bracket (lean) | no RNG change; same distribution |
-| Event emission | in systems / detector pass | detector pass (lean) | one place compares regimes |
+| Event emission | in systems / state-diff detector / transition records + emitter | transition records + emitter (rev 17) | §5; no actions inferred from diffs |
 | Migration randomness | none / `Migration` draw | none (lean) | keeps "why" a pure function of state |
 
 ## 20. Open questions (grill order)
@@ -239,7 +239,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 |---|---|---|---|
 | 0 | Number representation (§3) — **settled rev 15: doubles** | — | doubles |
 | 1 | Map size and catchment metric (§4, §9) — **settled rev 16: 128×128 default, Euclidean r = 3** | 0 | 128×128, Chebyshev radius 3 |
-| 2 | Event emission model and world-event primary (§5, §14) | — | detector pass, `ROOT_ID` |
+| 2 | Event emission model and world-event primary (§5, §14) — **settled rev 17: transition records + emitter, `ROOT_ID`** | — | detector pass, `ROOT_ID` |
 | 3 | Worldgen and biome table (§4.1) | 0, 1 | 4×3 bands, 8 biomes + ocean |
 | 4 | Climate regime shape and dials (§6) | 0, 3 | seasonal table + temporal + regional noise |
 | 5 | Drought command fields and area model (§13) | 4 | one signed command, radius 0 = whole map |
@@ -254,6 +254,9 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.3 - 2026-10-30
+- Decided: Q2 event emission (§5, §14, §19): transition records + one emitter pass; `ROOT_ID` primary for world events.
+- Fixed: stale "PBT skill choice still open" in §18 (settled rev 14).
 ### v0.2 - 2026-10-30
 - Fixed: large-fauna divide by zero on barren/ocean cells (§8); rates not scaled per substep (§8); binomial divide by zero at q = 1 (§10); die-out cause chain over 3 hops (§14). Found by the rough Gemini draft's review, verified here.
 - Updated: section 20 reordered by dependency, with the rough draft's picks as input.
