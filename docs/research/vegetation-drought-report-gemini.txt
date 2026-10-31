@@ -1,0 +1,457 @@
+1. Vegetation Decline During Drought
+Vegetation decline operates on distinct timescales governed by rooting depth, tissue turnover,
+and hydraulic architecture. In a seasonal-tick model (1 tick = 1 season / ~3 months), decline
+rates differ across plant functional types.
+           PRECIPITATION DEFICIT​
+                        │​
+         ┌──────────┴──────────┐​
+         ▼                              ▼​
+[Herbaceous Layer]              [Woody Layer]​
+Fast turnover                   Buffered by deep roots & xylem capacitance​
+Decline: 1–2 ticks              Decline: 2–6 ticks​
+Loss: 40%–80%                   Loss: 15%–40% (growth) / mortality if prolonged​
+
+
+Grassland & Steppe
+
+  ●​ Decline Magnitude:
+       ○​ Moderate Drought (1.0 \le \vert{}\text{SPEI}\vert{} < 1.5): Aboveground Net Primary
+           Production (ANPP) drops by 20% to 35%.
+       ○​ Severe to Extreme Drought (\vert{}\text{SPEI}\vert{} \ge 2.0): ANPP drops by 40%
+           to 65% on average, with arid grasslands experiencing crashes up to 75% to 85%.
+  ●​ Seasons to Nadir: 1 to 2 seasons (1–2 ticks). Grasslands track precipitation
+     synchronously; production collapses in the first dry growing season.
+  ●​ Data & Sources:
+       ○​ Observed: Wilcox et al. (2024, Science, EDGE network, n = 170 grassland sites
+           across 6 continents) showed a global mean 1-year severe drought caused a 35%
+           ANPP reduction, with semi-arid grasslands declining by over 60%.
+       ○​ Observed: Global meta-analysis by Gherardi & Sala (2015, PNAS, n = 13 LTER
+           sites) confirmed direct, aridity-dependent sensitivity within 1 growing season.
+
+Savanna & Shrubland
+
+  ●​ Decline Magnitude:
+       ○​ Herbaceous understory: Drops by 50% to 80% within 1 season.
+       ○​ Woody/shrub component: Declines by only 10% to 25% under moderate drought
+           and 30% to 50% under prolonged severe drought. Total standing forage falls by
+           35% to 60%.
+  ●​ Seasons to Nadir: 2 to 4 seasons (2–4 ticks). Deep taproots and woody storage buffer
+     shrubs against short precipitation anomalies, but multi-season deficits deplete subsoil
+     moisture.
+  ●​ Data & Sources:
+       ○​ Observed: Vicente-Serrano et al. (2013, PNAS, global satellite NDVI/SPEI analysis)
+           found semi-arid shrublands show peak sensitivity at intermediate hydrological
+           scales (6–12 months / 2–4 seasons).
+       ○​ Observed: Ruppert et al. (2015, Global Change Biology, n = 8 semi-arid sites)
+           demonstrated that shrub productivity resists single-season droughts but drops
+            non-linearly if drought extends past 12 months.
+
+Temperate & Boreal Forest
+
+  ●​ Decline Magnitude:
+       ○​ Moderate Drought: Canopy Gross Primary Production (GPP) drops 10% to 20%;
+           stem radial growth falls 10% to 15%.
+       ○​ Severe Drought: GPP falls 25% to 40%; stem radial growth falls 30% to 55%.
+           Under extreme cavitation thresholds, canopy leaf shed reduces effective
+           forage/biomass by up to 50%.
+  ●​ Seasons to Nadir: 2 to 6 seasons (2–6 ticks). Forests buffer water stress using
+     sapwood capacitance, deep root networks, and stomatal regulation; decline manifests
+     over multiple seasons.
+  ●​ Data & Sources:
+       ○​ Observed: Ciais et al. (2005, Nature, n = 18 European flux tower sites) documented
+           a 30% drop in temperate forest canopy GPP during the 2003 summer drought.
+       ○​ Observed: Anderegg et al. (2015, Science, n = 1,338 tree-ring sites, 49,339
+           site-years) observed stem radial growth reductions of 10–30% persisting across
+           global forest biomes.
+
+2. Recovery Timescales and Scaling
+Recovery to \ge 90\% of pre-drought carrying capacity (K) is decoupled from decline rates. It is
+controlled by the survival of plant meristems (bud banks), xylem hydraulic repair, and
+carbohydrate reserves.
+Drought Duration (D) ───► Grassland: 0.5× to 1.0× D (1–2 ticks)​
+                              ───► Shrubland: 1.0× to 1.5× D (2–5 ticks)​
+                              ───► Forest:          1.5× to 3.0× D (4–12 ticks)​
+
+  ●​ Grassland / Steppe:
+       ○​ Recovery Window: 1 to 2 seasons (1–2 ticks) for moderate droughts; 2 to 4
+          seasons (2–4 ticks) after multi-year severe droughts.
+       ○​ Scaling Factor: Typically 0.5\times to 1.0\times drought duration (D). If
+          belowground root crowns survive, biomass flushes back within a single
+          normal-rainfall season.
+       ○​ Key Study: Wilcox et al. (2024, Science) found rapid resilience across 170 sites:
+          ~80% of temperate grasslands recovered baseline ANPP within 1 post-drought
+          growing season, showing minimal multi-year legacy effects unless the drought
+          exceeded 3 years.
+  ●​ Savanna / Shrubland:
+       ○​ Recovery Window: 2 to 5 seasons (2–5 ticks).
+       ○​ Scaling Factor: 1.0\times to 1.5\times D. Grass understory recovers in 1–2
+          seasons, but woody browse regeneration and structural leaf rebuilding require
+          multiple wet cycles.
+  ●​ Temperate & Boreal Forest:
+       ○​ Recovery Window: 4 to 12+ seasons (1 to 3+ years / 4–12 ticks). High-latitude
+          boreal forests can require up to 4–5 years (16–20 ticks).
+       ○​ Scaling Factor: 1.5\times to 3.0\times D.
+        ○​ Key Studies:
+             ■​ Schwalm et al. (2017, Nature, global remote sensing + FLUXNET synthesis)
+                showed semi-arid grasslands recover in <6 months, while temperate and
+                boreal forests take 12 to 28 months.
+             ■​ Anderegg et al. (2015, Science) documented persistent "legacy effects"
+                where wood growth remained suppressed for 2 to 4 years post-drought due
+                to cavitation damage and carbohydrate starvation.
+
+Scaling with Drought Length vs. Severity
+
+  ●​ Duration dictates the exhaustion of belowground carbon stores and bud mortality.
+  ●​ Severity (Vapor Pressure Deficit & Soil Water Deficit) dictates physical structural
+     damage: xylem cavitation in trees, tiller death in grasses.
+  ●​ Non-linear Transition: While recovery scales roughly linearly with drought length for
+     moderate droughts, once severity crosses critical hydraulic or meristem thresholds,
+     recovery time transitions into a multi-year structural rebuilding phase.
+
+3. Asymmetry, Hysteresis, and Tipping Points
+Decline is consistently faster than recovery.
+\text{Rate of Decline} \approx 2\times \text{ to } 5\times \text{ Rate of Recovery}
+Biomass (B)​
+  1.0 ┬──────┐​
+       │         │ Rapid physiological/canopy shutdown (1–2 ticks)​
+       │          \​
+  0.3 │             \_______​
+       │                        \    Slow biological rebuild: tillers, buds, wood
+(2–8 ticks)​
+       │                         \───────────────────────────────────────►​
+  0.0 ┴──────────────────────────────────────────────────────────​
+       0          1             2           3             4            5          6
+Seasons​
+
+
+Tipping Points and State Changes
+
+  1.​ Grassland-to-Shrubland Transition (Woody Encroachment):
+        ○​ Mechanism: Severe multi-season drought (>2 consecutive years) kills perennial
+           grass tussocks and their below-ground bud banks (Dalgleish & Hartnett, 2006, J.
+           Ecology). When rain returns, fast-rooting woody shrubs (e.g., Artemisia, Prosopis,
+           Larrea) capture deep infiltration before grasses can re-seed, permanently shifting
+           the cell to shrubland.
+        ○​ Threshold Conditions: Rainfall deficit >50\% for \ge 3 consecutive growing seasons,
+           accompanied by grazing.
+  2.​ Forest Die-off & Savannization:
+        ○​ Mechanism: Hydraulic failure occurs when xylem water tension crosses the P_{50}
+           or P_{88} threshold (water potential causing 50% or 88% loss of stem hydraulic
+           conductivity; Choat et al., 2012, Nature).
+        ○​ Consequence: Once canopy trees die, recovery does not take 1–3 years; it resets
+           to secondary succession, requiring 20 to 100+ years (80 to 400+ ticks). The
+           system shifts to open woodland, shrubland, or pyrophytic grassland.
+  3.​ Desertification (Soil Erosion / Crust Destruction):
+        ○​ Mechanism: Loss of plant cover below ~15–20% exposes bare soil to wind/water
+           erosion, blowing away the organic A-horizon and creating surface crusting that
+           prevents water infiltration (D'Odorico et al., 2012, Bioscience). The local carrying
+           capacity K drops permanently unless restored by external soil development.
+
+4. Grazing Interactions
+Grazing pressure during and immediately after drought acts as a strong compound stressor,
+driving structural degradation.
+                        [Drought Stress]​
+                                │​
+                                ▼​
+                 Low Soil Moisture / Wilting​
+                                │​
+           ┌────────────────┴────────────────┐​
+           ▼                                          ▼​
+[Ungrazed Recovery]                        [Grazed Recovery]​
+Residual leaves & buds intact              Herbivores target fresh regrowth
+("green bites")​
+Root carbs fuel tiller flush               Root carbon pools exhausted; crown
+trampled​
+Recovery: 1–2 ticks                        Recovery: 4–10 ticks (or alternative
+state)​
+
+  ●​ Exhaustion of Non-Structural Carbohydrates (NSC): Plants survive drought by storing
+     starch/sugars in crowns and roots. Heavy defoliation during drought forces plants to burn
+     root carbon reserves to respire, inducing plant starvation and tiller mortality.
+  ●​ The "Green Flush Trap" (Post-Drought): When rains return, surviving herbivores
+     concentrate on emerging green shoots. Repeatedly removing tissue before it can
+     photosynthesize depletes remaining root reserves.
+  ●​ Empirical Magnitudes:
+        ○​ In semi-arid rangelands, heavy grazing during/post-drought delays biomass
+           recovery by 2\times to 4\times (from 1–2 seasons up to 4–8 seasons) (Illius &
+           O'Connor, 1999, J. Applied Ecology).
+        ○​ In the Sahel and Australian arid zone, overgrazing during multi-year droughts
+           lowered perennial grass basal cover by 70% to 90%, converting perennial
+           grasslands into annual weedlands or bare soil (Fensham et al., 2010, Ecological
+           Monographs, n = 43 long-term plots).
+
+5. Herbivore Population Lags
+Large grazing ungulate populations exhibit a delayed, non-linear collapse followed by an
+intrinsically slow demographic recovery.
+Rainfall Index:          ───┐
+┌────────────────────────​
+                     └─────────────────────────────────┘​
+Vegetation (𝑉): ───┐
+┌───────▲────────────────​
+                     └─────────────────────────────────┘                              │ ~1
+season recovery​
+Herbivore (𝐻): ──────┐
+────┴───────────────▲​
+                        └─────────────────────────────────┘                              3–7
+year lag │​
+                       1–2 seasons lag​
+
+
+Decline Dynamics
+
+  ●​ Lag Time: 1 to 2 seasons (3 to 6 months / 1–2 ticks) after forage collapses.
+       ○​ Reason: Herbivores initially maintain body condition by burning
+           subcutaneous/visceral fat stores, decreasing activity, and shifting to lower-quality
+           reserve forage (woody twigs, standing dry straw).
+  ●​ Crash Point: Mortality spikes when dry-season protein falls below metabolic
+     maintenance (~5–6% crude protein) or standing biomass drops below ~200–300 kg
+     DM/ha. Juveniles and lactating females die first (tick 2), followed by prime-age adults
+     during sustained droughts (ticks 3–4).
+  ●​ Mortality Magnitude: Severe droughts cause 30% to 75% herd mortality.
+       ○​ Serengeti Ungulates (1993 drought): Wildebeest population crashed by ~35% over
+           1 year (Mduma et al., 1999, J. Animal Ecology).
+       ○​ Amboseli / Mara (2009 drought): Zebra and wildebeest mortality reached 60% to
+           75% across 3 consecutive failed rainy seasons (Ogutu et al., 2014, PLOS ONE).
+       ○​ Red Kangaroos (Australia): Populations crash by 40% to 60% during ENSO
+           droughts, with juvenile survival dropping to near zero (Caughley et al., 1987).
+
+Recovery Dynamics
+
+  ●​ Lag Time: 3 to 7 years (12 to 28 ticks / seasons) to return to ~90% of pre-drought
+     abundance.
+  ●​ Demographic Ceiling: Herbivores are constrained by biological parameters:
+       ○​ Gestation periods: 7 to 9 months (bovids, equids, cervids).
+       ○​ Litter size: Usually 1 calf/fawn per year.
+       ○​ Age to reproductive maturity: 1.5 to 3 years.
+       ○​ Maximum intrinsic rate of increase (r_{\max}): \approx 0.15 - 0.25 per year (4–6%
+          per season).
+
+Summary Table: Ecological Drought Response
+Confidence levels: High = verified across global observational/remote-sensing syntheses and
+multi-site rainout experiments; Medium = robust local field studies, regional variation; Low =
+limited empirical long-term tracking or heavily dependent on local microclimate.
+Vegetation Drought     % Decline Seasons to Recovery Recovery Confidence Key
+Type       Severity    in        Nadir      Time to    Scaling            Empirical
+                       Biomass/A (Ticks)    90%        (\times            Sources
+                       NPP                  Pre-drough Drought
+                                            t          Length D)
+Grassland Moderate 20% – 35% 1 season 1 1 – 2          0.5\times – High   Wilcox et
+/ Steppe Severe        45% – 70% – 2        seasons 2 1.0\times D         al. 2024
+                                 seasons    –4         0.8\times –        (Science);
+                                            seasons    1.2\times D        Gherardi &
+                                                                          Sala 2015
+                                                                          (PNAS);
+                                                                          Knapp et
+                                                                          al. 2015
+Savanna / Moderate 15% – 30% 1 – 2          2–3        1.0\times – Medium Vicente-Ser
+Shrubland Severe       35% – 60% seasons 2 seasons 3 1.2\times D          rano et al.
+                                 –4         –6         1.2\times –        2013
+                                 seasons    seasons    1.8\times D        (PNAS);
+                                                                          Ruppert et
+                                                                          al. 2015
+                                                                          (GCB);
+                                                                          Schwalm et
+                                                                          al. 2017
+Temperate Moderate 10% – 20% 1 – 2          3–6        1.2\times – High   Anderegg
+Forest     Severe      25% – 45% seasons 2 seasons 6 1.8\times D          et al. 2015
+                                 –5         – 12       1.5\times –        (Science);
+                                 seasons    seasons    2.5\times D        Ciais et al.
+                                                                          2005
+                                                                          (Nature);
+                                                                          Choat et al.
+                                                                          2012
+Boreal     Moderate 5% – 15% 2 – 3          4–8        1.5\times – Medium Schwalm et
+Forest     Severe      20% – 40% seasons 3 seasons 8 2.0\times D          al. 2017
+                                 –6         – 20       2.0\times –        (Nature);
+                                 seasons    seasons    3.5\times D        Gonsamo
+                                                                          et al. 2019;
+                                                                          Vicente-Ser
+                                                                          rano et al.
+                                                                          2013
+Large      Severe      30% – 75% 2 – 4      12 – 28    3.0\times – High   Mduma et
+Herbivores Multi-seaso           seasons    seasons (3 6.0\times D        al. 1999 (J.
+           n                     (lags rain – 7 years)                    Anim.
+                                 by 1–2)                                  Ecol);
+                                                                          Ogutu et al.
+                                                                          2014;
+                                                                          Sinclair et
+                                                                          al. 1985
+Hunter-Gatherer Food Storage and Spoilage
+Mobile foragers are broadly divided into "foragers" (low/non-storing, immediate return) and
+"collectors" (logistical storing, delayed return; Binford, 1980; Testart, 1982).
+FOOD STORAGE SPECTRUM​
+Non-storing / Immediate Return                                           High-Latitude
+Storage / Collectors​
+[0 to 3 days]                                                            [3 to 6 months (1–2
+ticks)]​
+(e.g., Hadza, San, Ache)                                                 (e.g., Inuit,
+Nunamiut, Ainu, Pacific NW)​
+  │                                                                         │​
+  ▼                                                                         ▼​
+Stored in living landscape                                               Stored in elevated
+timber caches,​
+(tubers in ground, live game)                                            permafrost pits,
+rendered pemmican​
+
+
+Cache Lifespans & Spoilage Dynamics
+
+Spoilage rates depend on moisture content, ambient temperature, microbial/fungal activity, lipid
+oxidation (rancidity), and animal pests.
+  ●​ Fresh Meat / Fish (Unprocessed):
+         ○​ Warm Season (>15^\circ\text{C}): Spoils within 24 to 72 hours (maggots, bacterial
+             decay).
+         ○​ Sub-Zero / Boreal Winter: Lasts 1 to 2 seasons frozen in snow/permafrost caches.
+  ●​ Dried / Smoked Meat & Fish (Biltong, Jerky, Split Salmon):
+         ○​ Dry / Cool Climates: Lasts 3 to 9 months (1–3 ticks).
+         ○​ Humid / Warm Climates: Lasts 1 to 3 months (<1 tick) before mold and dermestid
+             beetle larvae consume the store.
+  ●​ Pemmican (Dried pounded meat + rendered animal tallow in rawhide bags):
+         ○​ Lifespan: 1 to 4 years (4 to 16 ticks). The rendered fat creates an anaerobic seal
+             preventing moisture absorption and bacterial colonization. This was the premier
+             multi-season buffer among subarctic/plains hunters.
+  ●​ Nuts, Acorns, & Seeds (Acorns, Pinyon pine nuts, Mongongo nuts):
+         ○​ Lifespan: 6 to 24 months (2 to 8 ticks) if stored dry in raised woven granaries or
+             dry rock shelters.
+         ○​ Vulnerabilities: Moisture induces lethal aflatoxin-producing molds (Aspergillus);
+             rodents (packrats, mice) can consume >50\% of cached nuts within 1 season if
+             structures are breached.
+  ●​ Underground Tubers & Roots:
+         ○​ Lifespan in Cache: 2 to 8 weeks (rot or sprout).
+         ○​ Storage Strategy: Foragers deliberately left tubers unharvested in the ground
+             ("living storage"), where they remain viable throughout multi-year droughts until
+             excavated.
+Buffer Sizes Held
+
+  ●​ Equatorial & Arid Low-Latitude Bands (e.g., Ju/'hoansi San, Hadza):
+       ○​ Buffer: 0 to 3 days. Storage was socially and ecologically maladaptive: mobility
+          costs outweighed storage benefits, high temperatures spoiled provisions, and meat
+          was shared immediately across the band to build social capital.
+  ●​ Temperate / Boreal / Coastal Collectors (e.g., Nunamiut, Tlingit, Great Basin Paiute):
+       ○​ Buffer: 1 to 2 seasons (3 to 6 months / 1–2 ticks). Storage was designed to
+          bridge the non-productive winter/lean season, rarely to protect against multi-year
+          famine. Multi-year personal caches were historically rare because storage
+          infrastructure was difficult to protect against marauding predators, raiders, and
+          mold.
+
+Forager Responses to Drought: Mobility, Refugia, and Kin
+Mobile foragers manage drought through spatial relocation, diet breadth expansion, and
+inter-band social insurance rather than relying on stockpiled food.
+DROUGHT ONSET​
+        │​
+        ▼ (Tick 1: Local depletion)​
+Expand Diet Breadth: target unpalatable "famine foods" (toxic roots,
+bark, gum)​
+        │​
+        ▼ (Tick 1–2: Depletion past patch threshold)​
+Tethering Phase: abandon dry hinterlands; contract toward permanent
+water points (Refugia)​
+        │​
+        ▼ (Tick 2–4: Regional collapse)​
+Long-Distance Dispersion: activate kin networks (hxaro / social
+storage); move 100–300 km​
+
+
+Decision Timing (Seasons to Relocate)
+
+  ●​ Initial Response (Tick 1 / Season 1): Foragers remain within their primary seasonal
+     range but expand their dietary breadth. High-return game and choice berries disappear;
+     bands switch to high-cost "famine foods" (fibrous tubers requiring extensive
+     roasting/leaching, bitter melon, tree gum, lichen, unpalatable small game).
+  ●​ Abandonment Threshold (End of Tick 1 to Tick 2 / 3–6 months): When daily energetic
+     foraging returns drop below basal metabolic needs (~1,500–2,000 kcal/forager/day) or
+     ephemeral surface water disappears, the residential camp moves. Bands do not wait to
+     starve; relocation occurs rapidly.
+
+Movement Distances
+
+  ●​ Normal Seasonal Mobility: 5 to 25 km per residential move; home ranges encompass
+     200 to 2,000 \text{km}^2.
+  ●​ Drought Relocation:
+       ○​ Arid environments (e.g., Kalahari, Australian Western Desert): Bands relocate 50 to
+          300+ km across landscape borders (Gould, 1980; Kelly, 2013).
+       ○​ Australian Western Desert Mardu and Pintupi recorded traversing journeys
+          exceeding 250 to 400 km between distinct waterholes during multi-year droughts.
+
+Destination Choice: Refugia vs. Kin
+
+Foragers do not wander randomly; they use a two-tiered spatial survival protocol based on
+drought severity:
+                       SURVIVAL STRATEGY SELECTION​
+                                        │​
+                   Is drought localized or pan-regional?​
+                                        │​
+                ┌──────────────────┴──────────────────┐​
+                ▼                                                  ▼​
+        [LOCALIZED]                                      [PAN-REGIONAL]​
+Move to Unaffected Kin                          Contract to Permanent Refugia​
+• Activate social exchange (hxaro)              • Fall back to deep springs /
+major rivers​
+• Disperse population across range              • High band aggregation
+(temporary peace)​
+• Distance: 50–200 km                           • Depleted local game; rely on
+tubers/water​
+
+  1.​ Phase 1: Contraction to Known Refugia ("Key-Resource Points"):
+        ○​ As ephemeral pans dry up, bands contract inward toward permanent water points
+           (deep bedrock soakages, natural springs, perennial riverbanks).
+        ○​ Bands that were dispersed across thousands of square kilometers aggregate in
+           high-density "dry-season camps" around these refuges (e.g., the Ju/'hoansi around
+           the 8 permanent Dobe waterholes; Lee, 1979).
+        ○​ Trade-off: Forage and game around these permanent water sources are depleted
+           rapidly within an 8–12 km walking radius, creating localized starvation conditions
+           even though drinking water remains available.
+  2.​ Phase 2: Long-Distance Kin Dispersal ("Social Storage"):
+        ○​ If the drought persists past 2–3 seasons, high-density refuge aggregation collapses
+           due to local depletion and social conflict.
+        ○​ Bands activate regional social safety nets by calling in reciprocal gifting
+           obligations (e.g., the hxaro system of the Ju/'hoansi; Wiessner, 1982, American
+           Ethnologist).
+        ○​ Mechanism: Individuals maintain gift-giving partnerships with distant kin 50 to 200
+           km away in regions subject to different rainfall patterns. During extreme crises,
+           families exercise their social right to migrate and live in their partners' territories until
+           regional conditions reset.
+        ○​ Simulation Application: If a cell's available water drops to zero, the band searches
+           within its social network graph for allied cells with available resources; if none exist,
+           it retreats directly to the nearest regional permanent water cell (Refugium).
+Simulation Implementation Suggestions
+To wire these dynamics into a seasonal tick engine (t = \text{season}):
+# 1. Vegetation Dynamics (Logistic growth with drought penalty &
+legacy)​
+def update_vegetation(V, K_base, drought_severity, pft,
+drought_duration):​
+     # drought_severity: 0.0 (normal) to 1.0 (extreme)​
+     # pft: 'grass', 'shrub', 'forest'​
+     ​
+     decay_rates = {'grass': 0.65, 'shrub': 0.35, 'forest': 0.15}​
+     growth_rates = {'grass': 0.85, 'shrub': 0.40, 'forest': 0.10}​
+     ​
+     if drought_severity > 0.3:​
+           # Rapid decline​
+           V -= V * decay_rates[pft] * drought_severity​
+     else:​
+           # Logistic recovery throttled by post-drought legacy​
+           legacy_drag = 1.0 / (1.0 + 0.2 * drought_duration)​
+           r_eff = growth_rates[pft] * legacy_drag​
+           V += r_eff * V * (1.0 - V / K_base)​
+           ​
+     return max(0.05 * K_base, V)​
+​
+# 2. Herbivore Population (Lagged response)​
+def update_herbivores(H, V, K_veg):​
+     forage_ratio = V / K_veg​
+     if forage_ratio < 0.4:​
+           # Starvation threshold crossed: mortality spike​
+           mortality = 0.25 + 0.40 * (0.4 - forage_ratio)​
+           H *= (1.0 - mortality)​
+     else:​
+           # Slow demographic rebuild (r_max ~ 5% per seasonal tick)​
+           r_herb = 0.05​
+           H += r_herb * H * (1.0 - H / (V * 0.2))​
+     return max(0.0, H)​
+
+This model mirrors the key dynamics documented above: grass plunges in a single tick and
+rebounds in one to two; forests decline slowly and show long multi-tick recovery lags; herbivores
+crash only after a one-to-two tick lag and need many ticks to recover; and human agents
+migrate early toward water refugia and kin nodes rather than relying on stored food.
+

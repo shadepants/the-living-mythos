@@ -111,3 +111,11 @@ Research how to make a pixel-art world simulation look good, stay readable, and 
 
 Output: a comparison table of approaches for each topic (readability, effort for a solo developer who cannot draw, consistency, performance), links to concrete examples, recommended defaults for my project, and a list of pitfalls.
 ```
+
+### Prompt 7: Vegetation drought decline and recovery (done 2026-10-30; review `research/vegetation-drought-review-2026-10-30.md`)
+Asked for decline magnitude and seasons to nadir by vegetation type, recovery time (absolute and as a multiple of drought length), asymmetry and tipping points, grazing effects, and large-herbivore lags, with primary sources, observed vs modelled, ranges and a summary table. Feeds spec Q6 and Q7. Full prompt text was given in the planning chat of 2026-10-30.
+
+## Suggested (not run)
+- Hunter-gatherer food storage: cache lifespans, spoilage by food type and season, typical buffer sizes (spec Q8). Partly answered by prompt 7's extra section.
+- Forager drought response: lean seasons before relocating, distances, refuge vs kin destinations (spec Q10). Partly answered by prompt 7's extra section.
+
