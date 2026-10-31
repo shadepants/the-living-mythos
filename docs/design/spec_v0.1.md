@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.6
+Version: 0.7
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.6 draft)
+# Living mythos: success-test slice (spec v0.7 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -103,13 +103,21 @@ Decided rev 19 (Q4, option B). Per season, per cell:
 | `seasonal[4]`, `volatility`, `anomalyClamp`, `climateLatticeCells`, `climateLatticeSeasons`, `dryThreshold`, `dryMinSeasons`, `dryExitGap` | [P]; dials exposed as world settings (log "Climate" row); dry share 12-18% (rev 19) |
 
 ## 7. Vegetation
-`V' = V + rV · V · (1 − V / K) − grazing − harvest`, with `K = Kveg(cell) · moistureFactor(anomaly)` (Kveg from §4.1), clamped to `[0, K]`.
-- `moistureFactor`: piecewise-linear from anomaly (lookup with linear interpolation), floor `minMoistureFactor` so ground cover never vanishes entirely.
-- A seed term `vegSeed` added when V is 0 so a cell can recover.
+Decided rev 21 (Q6, option B2). Per season, per cell, with `K = Kveg(cell) · moistureFactor(anomaly)` (Kveg from §4.1):
+- If `V ≤ K`: `V' = V + rV · V · (1 − V / K) − grazing − harvest`.
+- If `V > K` (a drought lowered K): `V' = K + (V − K) · (1 − dieBack) − grazing − harvest`. Decays toward K, never below it from die-back alone. No drought flag: natural dry spells and nudges act the same way, through K.
+- Then floor at 0; grazing and harvest removal are capped upstream (§8, §9) so the clamp is a guard, not a mechanism.
+- `rV(m)` and `dieBack(m)`: piecewise-linear over base moisture m. Dry (grass-like) = fast drop and fast recovery; wet (forest-like) = slow both.
+- `moistureFactor`: piecewise-linear from anomaly, floor `minMoistureFactor`.
+- `vegSeed` added when V is 0 so a cell can recover.
 
-| Tunable | Tag |
-|---|---|
-| `rV`, `moistureFactor` breakpoints, `minMoistureFactor`, `vegSeed` | [P]; no research basis for a procedural world; tuned so a 4-8 season drought visibly drops vegetation and recovery takes longer than the drought [UNCERTAIN: target shape is Jordan's call] |
+| Tunable | Value | Tag |
+|---|---|---|
+| `dieBack` endpoints | dry 0.40-0.60, wet 0.10-0.20 per season | [P] start (prompt 7 review, shape only) |
+| `rV` endpoints | dry 0.60-0.80, wet 0.10-0.25 per season | [P] start |
+| `moistureFactor` breakpoints, `minMoistureFactor`, `vegSeed` | | [P] |
+
+Targets [P], severe drought: dry cells drop 45-70% within 1-2 seasons and recover to 90% within 0.5-1.2× drought length; wet cells drop 25-45% over 2-5 seasons and recover within 1.5-2.5×. Grass recovers about as fast as the drought ends, so the lasting shortage that separates "migrated" from "died out" must come from game (§8, Q7), not from slowing plants (no drama tuning).
 
 ## 8. Large fauna
 Per substep, with `h = 1 / n_f` (fraction of a season):
@@ -256,7 +264,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 3 | Worldgen and biome table (§4.1) — **settled rev 18: gradient noise, one landmass, continuous capacity, biomes as labels** | 0, 1 | 4×3 bands, 8 biomes + ocean |
 | 4 | Climate regime shape and dials (§6) — **settled rev 19: space-time noise, hysteresis, ~15% dry (12-18%)** | 0, 3 | seasonal table + temporal + regional noise |
 | 5 | Drought command fields and area model (§13) — **settled rev 20: core-and-fade disc, stacking after the natural clamp** | 4 | one signed command, radius 0 = whole map |
-| 6 | Vegetation response and recovery targets (§7) | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
+| 6 | Vegetation response and recovery targets (§7) — **settled rev 21: die-back toward K, moisture-dependent rates** | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
 | 7 | Large fauna: grazing, hunting, diffusion (§8) | 6 | lag 1-2 seasons behind vegetation |
 | 8 | Food balance: yield, consumption, stash, hunger states (§9) | 6, 7 | (not covered) |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
@@ -267,6 +275,9 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.7 - 2026-10-30
+- Decided: Q6 vegetation (§7): die-back toward K, rV and dieBack over base moisture, targets from the prompt 7 review.
+- Noted for Q7: grazing is Type I and fauna capacity follows V instantly, so herds crash with the grass (no lag).
 ### v0.6 - 2026-10-30
 - Decided: Q5 drought command (§13): core-and-fade area, stacking, presets; clamp moved to the natural anomaly only (§6).
 ### v0.5 - 2026-10-30
