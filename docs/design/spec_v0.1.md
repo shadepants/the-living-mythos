@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.7
+Version: 0.8
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.7 draft)
+# Living mythos: success-test slice (spec v0.8 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -120,19 +120,23 @@ Decided rev 21 (Q6, option B2). Per season, per cell, with `K = Kveg(cell) · mo
 Targets [P], severe drought: dry cells drop 45-70% within 1-2 seasons and recover to 90% within 0.5-1.2× drought length; wet cells drop 25-45% over 2-5 seasons and recover within 1.5-2.5×. Grass recovers about as fast as the drought ends, so the lasting shortage that separates "migrated" from "died out" must come from game (§8, Q7), not from slowing plants (no drama tuning).
 
 ## 8. Large fauna
-Per substep, with `h = 1 / n_f` (fraction of a season):
-`F' = F + h · (growth(F, KF) − hunting) + h · D · Laplacian(F)`, then clamp `F ≥ 0`.
-- `KF = cF · V` (fauna carrying capacity of the cell).
-- `growth = rF · F · (1 − F / KF)` when `KF > epsK`; otherwise `growth = −mF · F` (the herd starves off a barren or ocean cell). This removes the divide-by-zero when `V = 0` or `cF = 0`. (Bug fixed in v0.2.)
-- Every rate is scaled by `h`, so `n_f` substeps add up to exactly one season of growth, hunting and diffusion. (Bug fixed in v0.2: v0.1 scaled hunting only.)
-- Laplacian: 4-neighbour; a sea neighbour contributes the cell's own value (zero-flux boundary), so fauna never diffuses into the sea.
-- Stability (explicit diffusion, 2D): `h · D ≤ 1/4`, so `n_f = max(1, ceil(4 · D))` [R: standard FTCS stability limit].
-- Grazing removes vegetation in proportion to F (`grazeRate`).
-- Iteration order: row-major with a double buffer, so update order can't change results.
+Decided rev 22 (Q7, option C + `mDens`). Per cell: herd density `F` and condition `c` (0-1). Per substep, with `h = 1 / n_f`, double-buffered, row-major:
+- Intake demand `= F · gMax · V/(V + halfSat) · h` (Type II). Removal `= min(demand, maxGrazeFraction · h · V)`; subtract from V.
+- Satisfaction `s = min(1, removal / (F · need · h))` (`s = 1` when `F = 0`).
+- Condition `c += condRate · h · (s − c)`. Condition falls over 1-2 dry seasons, which produces the herd lag.
+- Births `= rMax · max(0, (c − cBreed)/(1 − cBreed)) · F · h`.
+- Deaths `= (mBase + mDens · F + mStarve · max(0, (cStarve − c)/cStarve)) · F · h`. `mDens` (stand-in for predators, disease, crowding) is required: without it the model cycles on rich land (paradox of enrichment; reproduced in a prototype, removed at `mDens ≥ 0.05`).
+- Diffusion: `h · Dc · Laplacian(F)` with `Dc = D · (1 + roam · (1 − c))`, so hungry herds spread out of drought. 4-neighbour; sea neighbours contribute the cell's own value (zero flux). Condition moves with the herd as a density-weighted mix.
+- Stability: `n_f = max(1, ceil(4 · D · (1 + roam)))` from the maximum possible rate, fixed per config, so the schedule never depends on state (hard rule 4) [verified numerically: stable at h·D = 1/4, unstable at 0.26].
+- Capacity emerges from food; `cF`, `rF`, `epsK` from v0.7 are removed. Very poor cells hold no herds.
+- Hunting (yield side in §9): take `= huntEff · L_share · F/(F + huntHalf)`, capped at `maxHuntFraction · F` per season.
 
-| Tunable | Tag |
-|---|---|
-| `rF`, `cF`, `D`, `grazeRate`, `mF`, `epsK` | [P]. Report 3's overkill/regeneration ranges are a starting band, not values [R: report 3 ranges, equations rejected] |
+| Tunable | Value | Tag |
+|---|---|---|
+| `rMax` | 0.04-0.06 per season | [R: allometry, rmax = 1.375·W^-0.315 (Sinclair 2003): wildebeest 0.248/yr, buffalo 0.208, eland 0.150] |
+| `gMax`, `halfSat`, `need`, `maxGrazeFraction`, `condRate`, `cBreed`, `mBase`, `mDens`, `mStarve`, `cStarve`, `D`, `roam`, `huntEff`, `huntHalf`, `maxHuntFraction` | | [P]; `mDens ≥ 0.05` in prototype units |
+
+Targets [P], severe drought: herds fall 25-75%; deaths start 1-3 seasons after onset; recovery to 90% in 30-50 seasons [UNCERTAIN]. The report's 12-28 seasons was relaxed: in a 576-setting prototype sweep no stable setting with ≥25% crash recovered in under 30. Stability (no self-sustaining boom-bust) is the hard requirement, because cycling herds write false Legends events.
 
 ## 9. Bands and food balance
 Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts, stash, food balance history (last 4 seasons), hunger seasons counter, alive flag.
@@ -240,7 +244,7 @@ Snapshot fields (log rev 11): food balance and trend, stash level, hunger state,
 All tunables above become `SimConfig` fields with integer values and a stated scale (e.g. `rVPer10000`). The placeholders `seasonsPerYear` and `startingBandSize` are replaced; the config-hash golden value changes once.
 
 ## 18. Testing plan
-- Unit: each formula (clamping, stability, conservation where it applies, no NaN). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
+- Unit: each formula (clamping, stability, conservation where it applies, no NaN). Fauna: no-drought stability across vegetation richness 1-8 (no self-sustaining cycles). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
 - Property (fast-check, rev 14): every event's causes appear earlier in the log; band outcomes reach a root in ≤3 hops; emission order identical across two runs; same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
 - Acceptance (success test): a fixed seed and scenario with two bands; a drought at season S; run to S + N. Pass when one band has `band_migrated` and the other `band_died_out`, each with a cause chain reaching `drought_began` in ≤3 hops, and the Legends template renders the pass sentence. Scenario values [NEED: Jordan] (question 11).
@@ -265,7 +269,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 4 | Climate regime shape and dials (§6) — **settled rev 19: space-time noise, hysteresis, ~15% dry (12-18%)** | 0, 3 | seasonal table + temporal + regional noise |
 | 5 | Drought command fields and area model (§13) — **settled rev 20: core-and-fade disc, stacking after the natural clamp** | 4 | one signed command, radius 0 = whole map |
 | 6 | Vegetation response and recovery targets (§7) — **settled rev 21: die-back toward K, moisture-dependent rates** | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
-| 7 | Large fauna: grazing, hunting, diffusion (§8) | 6 | lag 1-2 seasons behind vegetation |
+| 7 | Large fauna: grazing, hunting, diffusion (§8) — **settled rev 22: herd-condition model, Type II, required mDens** | 6 | lag 1-2 seasons behind vegetation |
 | 8 | Food balance: yield, consumption, stash, hunger states (§9) | 6, 7 | (not covered) |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
@@ -275,6 +279,9 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.8 - 2026-10-30
+- Decided: Q7 large fauna (§8): herd-condition model, Type II intake with cap, required density mortality, condition-scaled diffusion with fixed substeps.
+- Removed: v0.7's `cF·V` capacity and its divide-by-zero guard (`epsK`), superseded.
 ### v0.7 - 2026-10-30
 - Decided: Q6 vegetation (§7): die-back toward K, rV and dieBack over base moisture, targets from the prompt 7 review.
 - Noted for Q7: grazing is Type I and fauna capacity follows V instantly, so herds crash with the grass (no lag).
