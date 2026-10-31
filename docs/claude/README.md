@@ -20,6 +20,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | All prompts (1-7) run; consolidated 2026-10-28 (includes the former novelty prompt); two suggested prompts not run |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |
+| `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
 | `research/vegetation-drought-report-gemini.txt` | Prompt 7 report (text of the PDF, which Jordan attached in chat; PDF in the repo mirror at `docs/research/`) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |
 | `research/tooling-report.md` | Final; cloud sessions decided (rev 10); PBT skill choice and other installs still open |

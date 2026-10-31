@@ -103,7 +103,7 @@ See decision log "Rejected". Plus: per-biome carrying capacities (rev 18); globa
 | sim-core | unchanged this handoff: rng, lint bans, config, lineage IDs, event log, tick loop; 67 tests + 1 todo | repo `packages/sim-core` |
 | Doc workflow used this handoff | Claude (cloud session) cloned the repo, edited `docs/`, wrote the same files to the Project with `project_write` from the local path, made one `docs:` commit per decision and pushed. Jordan pulls on the laptop | — |
 | Laptop | behind GitHub: needs `git pull` (fast-forward, docs only) | laptop clone |
-| Q7 prototype scripts | throwaway, in the old session's scratchpad; likely gone. Findings recorded in the log and §8 | — |
+| Q7 prototype scripts | throwaway Python (floats), evidence for rev 22; never port to sim-core | Project and repo mirror `research/prototypes/q7-fauna/` (README lists what each script shows) |
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` |
 
 ## 11. Next steps
