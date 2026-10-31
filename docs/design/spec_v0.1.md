@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.3
+Version: 0.4
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-10-30
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.3 draft)
+# Living mythos: success-test slice (spec v0.4 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -54,17 +54,22 @@ Decided (Jordan 2026-10-30, rev 15): option A. Rules: the state hash rejects NaN
 | Seasons per year | 4 | [R: log, seasonal ticks] |
 
 ### 4.1 Worldgen (once, at season 0)
-- Heightmap: hash-based value noise (lattice values from `hashKey` with a new purpose `WorldgenHeight`, cell index in `entity`), smoothstep interpolation `t·t·(3−2t)`, `octaves` summed with halving amplitude. No trig, so Perlin/simplex gradients are out.
-- Moisture base: same method, purpose `WorldgenMoisture`.
-- Sea level: the height value at the `seaLevelPercent` quantile (sorted; ties broken by cell index), so the land fraction is exact per seed.
-- Biome = lookup table over (height band × moisture band). Each biome carries a vegetation carrying capacity `Kveg[biome]` and a fauna capacity factor.
+Decided rev 18 (Q3, option C + both defaults).
+- Heightmap: 2D gradient noise. Each lattice point picks one of 8 integer gradients (±1,±1), (±1,0), (0,±1) via `hashKey` (new purpose `WorldgenHeight`, lattice index in `entity`, `entityHi = 0`); quintic fade `t·t·t·(t·(6t−15)+10)`; `octaves` summed with halving amplitude. No trig needed. (v0.3 wrongly said gradient noise needs trig.)
+- Edge falloff: subtract `falloff · d²`, d = distance from the map centre normalised to the half-width (`sqrt` only), so the map edge is sea.
+- Moisture base: same method, purpose `WorldgenMoisture`; no falloff.
+- Sea level: the height value at the `seaLevelPercent` quantile (sorted; ties broken by cell index).
+- One landmass (slice only): flood-fill land 4-connected in row-major seed order; keep the largest component (ties: lowest first cell index), set the rest to sea. Islands return when sea travel exists, as a world setting.
+- Vegetation capacity: `Kveg(cell) = moistureCurve(baseMoisture) · heightPenalty(height)`, both piecewise-linear lookups. Inferred, unverified: plant productivity rises with rainfall then saturates (Lieth's Miami model), so `moistureCurve` should flatten at the wet end.
+- Biome = 4 height bands × 3 moisture bands → ~8 named biomes + ocean, read from the same height and moisture values. Labels only: palette and Legends wording. Biomes are fixed at worldgen; droughts act through the moisture anomaly (§7).
 
 | Tunable | Value | Tag |
 |---|---|---|
 | `octaves` | 4 | [P] |
 | `seaLevelPercent` | 35 | [P] |
-| Biome table | 4 height bands × 3 moisture bands → ~8 biomes | [NEED: Jordan] (question 12); later look tests already use Endesga ramps |
-| `Kveg[biome]` | relative 0-1 per biome | [P] |
+| `falloff` | [P] |
+| Biome table | 4 height × 3 moisture bands → ~8 biomes + ocean; labels only (rev 18); band cut points and names [P], Endesga ramps from the look tests |
+| `moistureCurve`, `heightPenalty` breakpoints | [P]; ~5-6 values total |
 
 ## 5. Systems and run order
 All systems run every season in the slice (period 1, offset 0). Slow-system periods come with later fields.
@@ -96,7 +101,7 @@ Per season, per cell: `anomaly = seasonal[season mod 4] + volatility · temporal
 | `seasonal[4]`, `volatility`, `severity`, `climateLatticeSeasons`, `anomalyClamp`, `dryThreshold`, `dryMinSeasons` | [P] all; dials exposed as world settings (log "Climate" row) |
 
 ## 7. Vegetation
-`V' = V + rV · V · (1 − V / K) − grazing − harvest`, with `K = Kveg[biome] · moistureFactor(anomaly)`, clamped to `[0, K]`.
+`V' = V + rV · V · (1 − V / K) − grazing − harvest`, with `K = Kveg(cell) · moistureFactor(anomaly)` (Kveg from §4.1), clamped to `[0, K]`.
 - `moistureFactor`: piecewise-linear from anomaly (lookup with linear interpolation), floor `minMoistureFactor` so ground cover never vanishes entirely.
 - A seed term `vegSeed` added when V is 0 so a cell can recover.
 
@@ -240,7 +245,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 0 | Number representation (§3) — **settled rev 15: doubles** | — | doubles |
 | 1 | Map size and catchment metric (§4, §9) — **settled rev 16: 128×128 default, Euclidean r = 3** | 0 | 128×128, Chebyshev radius 3 |
 | 2 | Event emission model and world-event primary (§5, §14) — **settled rev 17: transition records + emitter, `ROOT_ID`** | — | detector pass, `ROOT_ID` |
-| 3 | Worldgen and biome table (§4.1) | 0, 1 | 4×3 bands, 8 biomes + ocean |
+| 3 | Worldgen and biome table (§4.1) — **settled rev 18: gradient noise, one landmass, continuous capacity, biomes as labels** | 0, 1 | 4×3 bands, 8 biomes + ocean |
 | 4 | Climate regime shape and dials (§6) | 0, 3 | seasonal table + temporal + regional noise |
 | 5 | Drought command fields and area model (§13) | 4 | one signed command, radius 0 = whole map |
 | 6 | Vegetation response and recovery targets (§7) | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
@@ -254,6 +259,9 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.4 - 2026-10-30
+- Decided: Q3 worldgen (§4.1): gradient noise, edge falloff, largest landmass kept, continuous vegetation capacity; biomes are labels.
+- Fixed: claim that gradient noise needs trig.
 ### v0.3 - 2026-10-30
 - Decided: Q2 event emission (§5, §14, §19): transition records + one emitter pass; `ROOT_ID` primary for world events.
 - Fixed: stale "PBT skill choice still open" in §18 (settled rev 14).

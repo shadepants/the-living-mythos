@@ -13,10 +13,10 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 17). Source of truth |
+| `design/decision-log.md` | Current (rev 18). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #6) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.3 (2026-10-30; file name kept); Q0-Q2 settled; open questions grilled in the order of section 20 |
+| `design/spec_v0.1.md` | Draft v0.4 (2026-10-30; file name kept); Q0-Q3 settled; open questions grilled in the order of section 20 |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | All prompts (1-6) run; consolidated 2026-10-28 (includes the former novelty prompt) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |
