@@ -2,6 +2,8 @@
 
 Status: open. Prompted by Jordan during spec Q8: "Research better solutions to this issue, even if it means revising previous decisions. ... The system needs to work as a whole. It's a simulation and will need to get deeper and more complex as systems are added." Nothing here is decided; each revision is grilled one at a time (order in section 4) and lands in the decision log only when Jordan picks.
 
+Update 2026-10-31: Gemini prompts 8, 9, 11 run and reviewed (`research/forager-reports-review-2026-10-31.md`); prompt 10 pending.
+
 Evidence: two throwaway prototypes (Python floats, never port), filed under `research/prototypes/q8-system/`. Gemini prompts 8-11 (`research/gemini-prompts.md`) cover what needs real literature.
 
 ## 1. What the prototypes showed

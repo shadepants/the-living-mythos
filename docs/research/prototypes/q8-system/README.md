@@ -12,3 +12,4 @@ Run from this folder with Python 3 and numpy.
 | `sysproto.py` | Integrated model: guilds (game, plant foods), rank-and-cap, home range with seasonal camp choice, migration, binomial demography, die-out at 5 |
 | `run1.py` | Two bands, no fission, drought 8 and 16 seasons: bands grow to 32-78, background hunger, both migrate, no die-out |
 | `run2.py` | Adds fission above 50 and kept-apart homes: 10-13 bands, almost no background hunger, no migrations and no die-outs under drought. Its "bands at drought" figure counts all bands ever founded (reporting bug, harmless) |
+| `sysproto_dep.py`, `run3.py` - `run3d.py` | Behavioural prey depression (hunters see F/(1+ψ·recent hunting labour)) and return-ordered vs fixed-rank allocation, 2 bands, no drought. No clear protective effect at these settings; results noisy (2 seeds). `campmoves/yr` = 4.0 everywhere is an artifact: the camp is re-chosen every season |

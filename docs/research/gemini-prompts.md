@@ -1,6 +1,6 @@
 # Gemini deep-research prompts (Living mythos)
 
-Status (2026-10-30): prompts 1-7 run and reviewed. Prompts 8-11 pending (whole-system review, `design/integration-review-2026-10-30.md`). Reviews: prompt 1 → `research/novelty-report-gemini.txt` (caveats in decision log); prompts 2-5 + repos report → `archive/research/batch-review-2026-10-23.md`; prompt 6 → `research/pixel-art-review-2026-10-24.md`; prompt 7 → `research/vegetation-drought-review-2026-10-30.md`.
+Status (2026-10-31): prompts 1-9 and 11 run and reviewed; prompt 10 pending. Reviews: prompt 1 → `research/novelty-report-gemini.txt` (caveats in decision log); prompts 2-5 + repos report → `archive/research/batch-review-2026-10-23.md`; prompt 6 → `research/pixel-art-review-2026-10-24.md`; prompt 7 → `research/vegetation-drought-review-2026-10-30.md`; prompts 8, 9, 11 → `research/forager-reports-review-2026-10-31.md`.
 Usage for new prompts: paste the CONTEXT BLOCK first, then the prompt. Upload each report to the Project.
 Consolidated 2026-10-28: prompt 1 moved here from the former `research/novelty-research-prompt.md` (deleted).
 
@@ -115,10 +115,10 @@ Output: a comparison table of approaches for each topic (readability, effort for
 ### Prompt 7: Vegetation drought decline and recovery (done 2026-10-30; review `research/vegetation-drought-review-2026-10-30.md`)
 Asked for decline magnitude and seasons to nadir by vegetation type, recovery time (absolute and as a multiple of drought length), asymmetry and tipping points, grazing effects, and large-herbivore lags, with primary sources, observed vs modelled, ranges and a summary table. Feeds spec Q6 and Q7. Full prompt text was given in the planning chat of 2026-10-30.
 
-## Pending (written 2026-10-30, whole-system review)
+## Whole-system review prompts (written 2026-10-30; 8, 9, 11 done 2026-10-31, 10 pending)
 Purpose: ground the candidate architecture in `design/integration-review-2026-10-30.md`. Run 8 and 10 first; they decide R2-R4. Paste the context block first. Add this line after it for all four: "Current focus: a slice where bands forage, go hungry, migrate or die out after a drought. Seasonal ticks; grid cells ~3 km; bands of 15-50 people in 4 age brackets."
 
-### Prompt 8: Forager responses to drought and famine
+### Prompt 8: Forager responses to drought and famine (done; report `research/forager-famine-report-gemini.txt`)
 ```
 Research how hunter-gatherer and other mobile foraging groups respond to drought and famine, in quantitative terms I can turn into simulation rules. Cover:
 1. The sequence of responses: diet broadening, storage use, increased residential mobility, logistical trips, long-distance relocation, dispersal of members to kin or allied groups, group merging, and starvation in place. Which come first, and after how long (in seasons) of shortfall?
@@ -129,13 +129,13 @@ Research how hunter-gatherer and other mobile foraging groups respond to drought
 Output: a response-sequence table with typical timing; a mortality table by age and severity with sources; a section on die-out vs dissolution with cases; flags for contested or thin evidence. Distinguish verified facts (with sources and dates) from inference.
 ```
 
-### Prompt 9: Food storage by environment
+### Prompt 9: Food storage by environment (done; report `research/food-storage-report-gemini.txt`)
 ```
 Research hunter-gatherer food storage as a buffer against shortfall. Cover: which foragers stored food and which did not, related to effective temperature, latitude and seasonality (Binford, Kelly, Testart); typical storage amounts as days or seasons of consumption; spoilage and loss rates by food type (dried meat, nuts, seeds, roots, fish) and season; the "delayed-return" vs "immediate-return" distinction; and how storage changed mobility and sedentism on the path to farming.
 Output: a table of storage duration and loss rates by environment and food type with sources; a short section on storage and sedentism; suggested defaults for a seasonal simulation (stash size in seasons of consumption, spoilage per season) with the evidence for each. Distinguish verified facts from inference.
 ```
 
-### Prompt 10: Forager population ecology and band dynamics
+### Prompt 10: Forager population ecology and band dynamics (pending)
 ```
 Research the population ecology of hunter-gatherer bands, for setting simulation targets. Cover:
 1. Population density by environment: persons per km² versus net primary productivity, effective temperature, and reliance on hunting vs gathering vs fishing (Binford 2001, Kelly, Marlowe, D-PLACE).
@@ -147,7 +147,7 @@ Research the population ecology of hunter-gatherer bands, for setting simulation
 Output: one table per topic with ranges and sources; correlations stated with sample sizes where available; suggested simulation targets with the evidence for each; flags for contested points. Distinguish verified facts from inference.
 ```
 
-### Prompt 11: Architecture of forager and food-web simulations
+### Prompt 11: Architecture of forager and food-web simulations (done; report `research/food-system-architecture-report-gemini.txt`)
 ```
 Research how existing agent-based and system-dynamics simulations of foragers and early farmers structure their food systems, so a simulation can add resources (small game, fish, nuts, wild grain, crops) without rewriting its core. Look at: Artificial Anasazi / Village Ecodynamics Project, HUMLAND, the MASON and NetLogo forager models, Gallagher et al. (Scientific Reports 2019) on hunter-gatherer agents, optimal foraging ABMs (prey choice, patch choice, central place foraging), Ache and Hadza foraging models, Pleistocene overkill models, and any game that models a food web for people (Dwarf Fortress, Songs of Syx, Banished, Dawn of Man) where internals are documented.
 For each: how resources are represented (stocks, regrowth, return curves), how agents allocate labour across resources, how depletion and mobility interact, how farming was added, what made the model unstable or hard to tune, and what the authors would change.

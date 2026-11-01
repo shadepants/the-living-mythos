@@ -1,0 +1,723 @@
+Hunter-Gatherer Food Storage:
+Macroecological Distribution,
+Preservation Energetics, Socioeconomic
+Regimes, and Simulation Modeling
+Food storage represents a critical evolutionary threshold in human hunter-gatherer adaptations,
+marking an organizational shift from spatial buffering strategies—such as residential mobility,
+seasonal range shifts, and reciprocal inter-band visiting networks—to temporal buffering
+anchored within specific landscapes. By decoupling daily caloric intake from immediate foraging
+success, physical accumulation mitigates resource shortfalls, yet it simultaneously imposes
+heavy upfront procurement and processing costs, substantial transport penalties, and acute
+vulnerabilities to microbial decomposition, arthropod infestation, rodent scavenging, and
+inter-group raiding.
+Cross-cultural ethnographic datasets, archaeological assemblages, and actualistic preservation
+experiments demonstrate that food storage is not a ubiquitous trait among foraging populations.
+Rather, its distribution, technological sophistication, and socioeconomic consequences are
+governed by macroecological constraints of thermal seasonality, the temporal pulse and spatial
+density of key food resources, and preservation energetics.
+
+Macroecological Distribution of Forager Storage
+Systems: Latitudinal and Thermal Gradients
+The global distribution of hunter-gatherer storage is patterned by environmental productivity and
+the annual duration of the non-growing season. In Constructing Frames of Reference, Lewis
+Binford classified the storage dependence of 337 ethnographically documented hunter-gatherer
+societies using the ordinal index QTSTOR, which grades investment from absent or negligible
+(Score 1: short-term emergency buffering of two to three days) through moderate (Score 2:
+several weeks up to two months), major (Score 3: systematic multi-month overwintering stores),
+to massive (Score 4: multi-species stockpiles supporting multi-season consumption and
+sociopolitical transactions).
+Binford demonstrated that storage dependence correlates with latitude and Bailey’s Effective
+Temperature (\text{ET}), a bioclimatic index that measures the warmth of the summer growing
+window against the severity of winter cold:
+\text{ET} = \frac{18W - 10C}{W - C + 8}
+In this formulation, W represents the mean temperature of the warmest month and C represents
+the mean temperature of the coldest month in degrees Celsius. Binford identified a primary
+macroecological threshold at \text{ET} = 15.25^\circ\text{C}, below which significant investment
+in food storage becomes an ecological necessity.
+Macroecological Distribution of Hunter-Gatherer Food Storage Reliance:​
+​
+Low-Latitude / Non-Storing Zone (ET >= 15.25°C; Latitude < 35°):​
+ QTSTOR 1 (None / minor 2–3 day buffers): 88% of ethnographic societies​
+ QTSTOR 2 (Moderate; several weeks):      7% of ethnographic societies​
+ QTSTOR 3 (Major; 3–5 month overwinter): 5% of ethnographic societies​
+ QTSTOR 4 (Massive; multi-season caches): 0% of ethnographic societies​
+​
+High-Latitude / Obligate Storage Zone (ET < 15.25°C; Latitude >= 35°):​
+  QTSTOR 1 (None / minor 2–3 day buffers): 2% of ethnographic societies​
+  QTSTOR 2 (Moderate; several weeks):      11% of ethnographic societies​
+  QTSTOR 3 (Major; 3–5 month overwinter): 69% of ethnographic societies​
+  QTSTOR 4 (Massive; multi-season caches): 18% of ethnographic societies​
+
+In low-latitude biomes (< 35^\circ\text{ N/S}) where \text{ET} \ge 15.25^\circ\text{C}, the growing
+season persists for 10 to 12 months. In these tropical, subtropical, and warm-arid zones, 88% of
+foraging groups maintain negligible or non-existent storage (QTSTOR 1), while massive storage
+(QTSTOR 4) is completely absent. Warm ambient temperatures and high relative humidity
+accelerate cellular respiration, enzymatic breakdown, and microbial colonization, causing
+unsealed organic caches to spoil within days.
+Simultaneously, high primary productivity produces a continuous, overlapping sequence of
+edible underground storage organs, fruits, seeds, and terrestrial fauna. In such settings, storing
+physical food carries a negative energetic return; the metabolic and social labor required to
+process and defend perishable stores exceeds the marginal costs of harvesting fresh biomass
+daily. Exceptions within this thermal band are rare and restricted to hyper-arid desert ecotones
+where foragers cache hard-shelled seeds or mesquite pods for several weeks to smooth
+extreme intra-annual variance (QTSTOR 2).
+Once effective temperature drops below \text{ET} = 15.25^\circ\text{C}—a condition prevailing
+poleward of 35^\circ latitude—the vegetative growing season contracts to nine months or fewer.
+This seasonal curtailment imposes an annual shortfall interval of 90 to 200 consecutive days
+during which primary plant productivity ceases and many prey species migrate, hibernate, or
+lose substantial body fat.
+Within this climatic regime, 87% of foraging societies exhibit major or massive storage reliance
+(QTSTOR 3 or 4), while groups lacking storage drop to 2%. When \text{ET} falls below
+12.75^\circ\text{C} (growing seasons of six months or less), food storage becomes an obligate
+condition of human landscape occupation.
+This climatic shift coincides with distinct biochemical preservation advantages: sub-zero winter
+temperatures halt microbial activity and insect reproduction, converting ambient snowdrifts,
+permafrost, and frozen water into natural preservation facilities that maintain high-fat meat and
+aquatic carcasses with minimal labor.
+Robert Kelly and Alain Testart demonstrated that obligate storage is further conditioned by the
+spatial concentration and temporal brevity of resource pulses. In ecosystems characterized by
+massive, compressed biomass flushes—such as anadromous salmon runs in the Pacific
+Northwest, autumn acorn masts in temperate California, or migratory caribou drives across
+subarctic river crossings—enormous caloric volumes arrive within a discrete window of two to
+six weeks. Without bulk-capture technologies (weirs, fish traps, nets, drive corrals) and intensive
+preservation processing (smoking, dehydration, tallow rendering, subterranean pit storage),
+these ephemeral resource flushes pass unharvested, leaving human populations vulnerable
+during subsequent non-productive seasons. Storing foragers capitalize on these brief seasonal
+surpluses, substituting logistical collection and long-term storage for year-round residential
+nomadism.
+
+Socioeconomic Modes of Production: The
+Immediate-Return Versus Delayed-Return Structural
+Divide
+James Woodburn established a fundamental distinction between immediate-return (IR) and
+delayed-return (DR) hunter-gatherer economies, a taxonomy later expanded by Alain Testart,
+Tim Ingold, and Brian Hayden to model the emergence of prehistoric institutional complexity.
+The Immediate-Return vs. Delayed-Return Structural Divide:​
+​
+Immediate-Return (IR) Systems:​
+Daily Procurement ──> Immediate Consumption (0–3 Days)​
+  • Technology: Simple, portable, low-investment gear​
+  • Social Norms: Compulsory demand sharing; fierce egalitarianism​
+  • Property Rights: Open access to resources; no individual claims on food​
+  • Risk Buffering: Spatial residential mobility and wide reciprocal visiting (social storage)​
+​
+Delayed-Return (DR) Systems:​
+Mass Harvest Pulse ──> Labor-Intensive Processing ──> Fixed Storage Facilities​
+  • Technology: Complex capture gear (weirs, corrals) and storage facilities (granaries, pits)​
+  • Social Norms: Restricted sharing; custodial ownership; obligations and debt​
+  • Property Rights: Corporate and lineage ownership over caches and harvest locations​
+  • Risk Buffering: Temporal caloric accumulation anchored to defensible central base camps​
+
+In immediate-return economies, subsistence activities are oriented toward immediate needs.
+Exemplified by equatorial foragers such as the Hadza of Tanzania, the Mbuti and Baka of
+Central Africa, and the Ju/'hoansi of the Kalahari, hunters and gatherers obtain food on a
+day-to-day basis, consuming kills and plant harvests either in the field or within 24 to 72 hours of
+returning to camp.
+These societies maintain leveling mechanisms that inhibit the material accumulation of food
+surpluses. Paramount among these is compulsory demand sharing: any individual in
+possession of food is socially required to distribute portions to anyone who requests them,
+preventing personal claims of exclusive ownership over caloric reserves. Interpersonal tensions
+or localized resource depressions are resolved not through territorial defense, but through group
+fission, with households shifting residences across fluid band boundaries.
+To buffer environmental shortfalls, immediate-return foragers rely on "social storage" rather than
+material caches: they convert transient food surpluses into reciprocal social obligations, using
+gift-exchange systems (such as the Kalahari hxaro network) that span 50 to 200 km to secure
+visiting and foraging privileges in neighboring territories during localized crises.
+In delayed-return economies, human labor is invested in assets that yield food only after
+significant temporal delays. This economic structure encompasses both the construction of
+durable, labor-intensive extraction infrastructure (weirs, boats, communal game corrals) and the
+accumulation of long-term food caches (elevated granaries, grease-sealed bags, subterranean
+cache pits).
+Alain Testart argued that the primary evolutionary rupture in human history was not the advent
+of agriculture, but the adoption of systematic food storage among hunter-gatherers. The
+presence of stored food alters the foundations of egalitarian social organization:
+First, material caches cannot function under unconditional demand sharing without eroding the
+incentive to harvest and process surplus foods. Consequently, stored goods become the
+recognized property of domestic households, extended lineages, or corporate houses, which
+assert custodial rights to restrict access and deny non-kin.
+Second, controlled food surpluses can be deployed strategically to generate social obligations,
+underwrite debts, fund ceremonial feasts, and hire labor. In settings such as the Pacific
+Northwest Coast (e.g., Tlingit, Haida, Kwakwaka'wakw), storing hunter-gatherers developed
+hereditary ranking, elite-commoner stratification, and chattel slavery—structural institutions
+historically attributed only to agricultural societies.
+Third, large, immobile food stores represent high-density targets for theft during regional
+subsistence failures. Storing groups are forced either to conceal their caches in subterranean,
+camouflaged pit features away from settlements (as observed among prehistoric Great Basin
+and Plains groups) or to aggregate into defensible, semi-permanent villages equipped with
+fortifications and corporate defense sodalities.
+
+Preservation Taphonomy, Storage Capacities, and
+Spoilage Dynamics by Food Class
+The feasibility and longevity of food storage depend on the biochemical composition of the
+targeted food resource, the preservation technology applied, and the microclimatic conditions of
+the storage facility. Foragers deployed distinct preservation strategies across five primary food
+categories: dried and smoked fish, dried meat and pemmican, acorns and nuts, small wild
+seeds, and geophytes or roots.
+
+Dried and Smoked Fish
+In high-latitude and temperate maritime and riverine environments, anadromous salmon
+(Oncorhynchus spp.) and clupeids provided substantial autumn caloric windfalls. Preservation
+requires reducing tissue water activity (a_w) below 0.70 to inhibit pathogenic bacterial growth,
+achieved through butchery into thin fillets, sun- and wind-drying on open racks, and
+wood-smoking in specialized smokehouses. Smoke curing deposits antibacterial and
+antioxidant compounds (phenols, cresols, and formaldehydes) onto the flesh, creating a
+protective chemical shield.
+Ethnographic and ethnohistoric data from the Columbia River basin, Fraser River, and Karluk
+River indicate annual per capita consumption and storage rates ranging from 165 to 365 kg (365
+to 800 lbs) of dried fish equivalent per person. A domestic family of five routinely accumulated
+between 800 and 1,800 kg of processed fish to sustain themselves through the 5 to 7 months of
+late autumn, winter, and early spring.
+The primary biochemical risk threatening stored fish is lipid auto-oxidation. Fish tissues contain
+high concentrations of polyunsaturated fatty acids that degrade into hydroperoxides, producing
+rancidity and nutritional loss. In damp coastal environments, re-hydration induces infestation by
+blowfly larvae (Calliphoridae) during early drying stages and subsequent fungal mold
+(Aspergillus, Penicillium), resulting in typical seasonal losses of 10% to 25% over winter and
+spring. In arctic regimes, sub-surface permafrost cellars and sub-zero winter temperatures
+freeze carcasses solid, reducing quarterly storage loss to negligible levels (2% to 5%) until the
+spring thaw.
+
+Dried Meat and Pemmican
+Hunters of migratory artiodactyls (bison on the Great Plains; caribou in the arctic tundra and
+taiga) converted large animal carcasses into dehydrated meat strips and pemmican (pimîhkân).
+Jerky production involved slicing lean muscle along the grain and dehydrating it over low-heat
+smoldering fires or in arid wind, driving moisture content below 15% to 20%.
+Pemmican represents an advanced composite food technology: dehydrated lean meat was
+pulverized into a fibrous meal and blended in a 1:1 ratio by weight with rendered mammalian
+tallow and nutrient-dense bone grease extracted by smashing and boiling epiphyses. The
+molten fat encapsulated the protein particles, creating an anaerobic seal that excluded ambient
+moisture and atmospheric oxygen.
+Bands packed pemmican into rawhide containers (parflèches) weighing 40 to 45 kg (90 to 100
+lbs) each, maintaining multi-bag reserves that could provide complete nutritional sustenance for
+three to six months, or serve as supplementary travel rations across one to two years.
+While lean jerky alone is susceptible to damp mold and infestation by hide and larder beetles
+(Dermestes spp.)—yielding typical seasonal losses of 5% to 15%—tallow-sealed pemmican
+demonstrates exceptional shelf stability. Ethnographic and fur-trade provisioning accounts
+confirm that properly cured pemmican stored in cool, dry conditions remains wholesome for one
+to five years unrefrigerated, experiencing minimal quarterly degradation (1% to 3% per season)
+unless protective skins are breached by rodents or insects.
+
+Acorns and Tree Nuts
+In Mediterranean and temperate woodland belts, hunter-gatherers exploited seasonal acorn
+mast pulses (Quercus kelloggii, Q. agrifolia, Q. lobata). Raw acorns contain high levels of tannic
+acid, which makes them unpalatable and toxic without intensive aqueous leaching, yet serves
+as a natural defensive biochemical that retards microbial rot while nuts remain stored intact in
+their shells.
+California societies (such as the Miwok, Yokuts, Pomo, and Western Mono) developed storage
+infrastructure consisting of exterior elevated granaries (chuckahs), platform cribs, and large
+woven silos raised off the ground on posts to prevent dampness and rodent access. Granary
+linings incorporated aromatic botanical repellents, such as California bay laurel leaves
+(Umbellularia californica) and wormwood (Artemisia), to deter boring insects.
+A single chuckah held between 225 and 900 kg (500 to 2,000 lbs) of dry acorns, and a domestic
+household harvested 450 to 1,350 kg (1,000 to 3,000 lbs) during the autumn drop. This
+accumulated supply covered 50% to 70% of a family's annual caloric requirements, providing a
+one- to two-year buffer against the natural masting cycles of oak groves, which yield full crops
+only once every two to three years.
+The primary vector of acorn storage loss is pre-harvest infestation by acorn weevils (Curculio
+spp.) and filbert moths (Cydia latiferreana), whose larvae consume the cotyledons and exit via
+small perforations that permit secondary fungal entry. Foragers conducted water-flotation
+assays to cull damaged, buoyant nuts before filling granaries. In storage, moisture penetration
+induces fungal rot (Ciboria batschiana) and premature winter germination, generating baseline
+seasonal losses of 10% to 20% through winter and spring.
+Small Seeds and Grains
+Arid-zone and steppe foragers (including Great Basin Shoshone and Australian desert
+Aborigines) gathered the seeds of native grasses (Oryzopsis, Eragrostis, Panicum) and
+chenopods (Chenopodium, Atriplex). Small wild seeds enter physiological dormancy upon
+maturation, reaching natural moisture levels below 10% to 12%. Consequently, they require
+minimal processing beyond threshing, winnowing, and parching with hot coals to kill embedded
+insect eggs and neutralize embryo germination.
+Foragers deposited parched seeds into subterranean pits lined with dry grasses and juniper
+bark, or into pitch-coated coiled basketry jars cached within dry rock alcoves and cave shelters.
+Individual caches held 20 to 100 kg, providing one to three months of critical emergency
+subsistence for small family clusters navigating late-winter and early-spring resource gaps.
+Stored wild seeds are resilient to biochemical decay, but vulnerable to burrowing rodents
+(Dipodomys, Peromyscus) and granary beetles. In dry environments where caches remain
+moisture-sealed, seasonal losses remain low (2% to 5% per quarter), and seeds can remain
+edible for two to five years.
+
+Geophytes and Root Crops
+On the Columbia Plateau and in the Great Basin, underground storage organs—principally
+common camas (Camassia quamash), bitterroot (Lewisia rediviva), and biscuitroot (Lomatium
+spp.)—provided large carbohydrate flushes. Raw camas bulbs are composed primarily of the
+indigestible complex polysaccharide inulin.
+To convert this storage tissue into accessible metabolic fuel, foragers constructed large earthen
+pit ovens lined with heated cobblestones and vegetation, baking the bulbs under steam
+pressure for 24 to 72 hours to hydrolyze inulin into sweet, digestible fructose. The baked
+geophytes were mashed, shaped into cohesive loaves or flat cakes, and sun-dried on tule mats.
+Plateau families put away 100 to 300 kg of dried camas cakes annually, packed into woven
+hemp bags and stored in dry rock shelters or bark-lined pits, securing two to four months of
+winter carbohydrate reserves.
+While raw geophytes decay from bacterial soft rot within two to four weeks, baked and dried
+camas cakes resist bacterial attack. However, their hygroscopic sugar matrix readily absorbs
+atmospheric moisture during humid winters, leading to surface mold and souring with typical
+seasonal losses of 8% to 18%.
+Resource Target       Preservati Storage Family        Caloric     Seasonal Primary Primary
+Class       Taxa      on          Facility   Stash     Duration Loss Rate Spoilage Literature
+                      Technolog Type         Size (kg (Months / (% /            & Loss      Citations
+                      y                      Dry Mass) Seasons) 3-Month Agents
+                                                                   Step)
+Dried & Oncorhyn Filleting, Elevated 600\text{-- 4\text{--}7\ Winter:           Lipid       Hewes
+Smoked chus spp., smoke-cu cedar-crib }1,800\tex text{             3\text{--}8\ auto-oxid (1973),
+Fish        Clupea    ring,       granaries, t{ kg}    months} %;               ation,      Walker
+            pallasii  sun-dryin rawhide                (1.5–2.5 Summer: blowfly             (1985),
+                      g, oil      packs,               seasons) 15\text{--} larvae          Schalk
+                      rendering wooden                             30\%         (Calliphori (1986),
+                                  boxes                                         dae),       Testart
+                                                                                mold        (1982)
+Resource Target       Preservati Storage   Family     Caloric    Seasonal Primary Primary
+Class    Taxa         on         Facility  Stash      Duration Loss Rate Spoilage Literature
+                      Technolog Type       Size (kg (Months / (% /            & Loss     Citations
+                      y                    Dry Mass) Seasons) 3-Month Agents
+                                                                 Step)
+                                                                              (Aspergill
+                                                                              us), mice
+Dried     Rangifer Strip-slicin Rawhide 150\text{-- 2\text{--}4\ Winter:      Dermestid Binford
+Meat      tarandus, g,          parflèches }400\text{ text{      2\text{--}5\ beetles (1978,
+(Jerky) Bison        sun-dehy , elevated kg}          months} %;              (Dermesti 2001),
+          bison      dration, timber                  (1.0–1.5 Summer: dae),             Colpitts
+                     open fire platforms              seasons) 10\text{--} atmosphe (2014),
+                     smoking                                     20\%         ric        Speth
+                                                                              re-hydrati (2010)
+                                                                              on, flies
+Pemmica Bison        Pulverize Rawhide 100\text{-- 6\text{--}2 All            Puncture Colpitts
+n         bison,     d jerky + parflèches }350\text{ 4\text{     Seasons: of rawhide (2014),
+          Cervus     rendered sealed       kg}        months} 1\text{--}3\ seal,         Shay
+          canadensi tallow & with tallow              (2.0–8.0 %              rodent     (2022),
+          s          marrow exterior                  seasons)                gnawing, Speth
+                     (1:1)                                                    rancidity (2010)
+                                                                              (very
+                                                                              slow)
+Acorns & Quercus Flotation Elevated 450\text{-- 6\text{--}1 Autumn/ Acorn                Bettinger
+Tree Nuts kelloggii, sorting, post         }1,350\tex 8\text{    Winter:      weevils (2015),
+          Q.         whole-nut granaries t{ kg}       months} 10\text{--} (Curculio), Koenig et
+          agrifolia drying,     (chuckahs             (2.0–6.0 20\%;          fungal rot al. (2008),
+                     parching ), rock                 seasons) Spring:        (Ciboria), Heizer
+                                shelters                         15\text{--} germinati (1978)
+                                                                 25\%         on,
+                                                                              rodents
+Small     Oryzopsis Winnowin Grass-line 40\text{--} 1\text{--}4\ Dry          Granary Steward
+Grass     hymenoid g, coal      d          150\text{ text{       Season: beetles, (1938),
+Seeds     es,        parching subterran kg}           months} 2\text{--}5\ burrowing Kidder
+          Chenopod (embryo ean pits,                  (0.5–1.5 %; Wet         rodents (2000),
+          ium        killing)   pitch-seal            seasons) Season: (Dipodom Cunningh
+                                ed                               8\text{--}1 ys),        am (2011)
+                                baskets                          5\%          moisture
+                                                                              germinati
+                                                                              on
+Baked     Camassia Earth-ove Tule-mat 100\text{-- 3\text{--}6\ Winter:        Moisture Thoms
+Geophyte quamash, n pit         bundles, }300\text{ text{        5\text{--}1 absorptio (1989),
+s         Lomatium baking       dry rock kg}          months} 0\%;            n, fungal Turner &
+                     (inulin    shelters,             (1.0–2.0 Spring:        souring, Kuhnlein
+                     hydrolysis bark pits             seasons) 12\text{-[s scavengin (1983),
+                     ), loaf                                     pan_186]( g insects, Ames
+                     drying                                      start_spa small         (1994)
+Resource Target       Preservati Storage    Family    Caloric  Seasonal Primary Primary
+Class    Taxa         on         Facility   Stash     Duration Loss Rate Spoilage Literature
+                      Technolog Type        Size (kg (Months / (% /      & Loss   Citations
+                      y                     Dry Mass) Seasons) 3-Month Agents
+                                                               Step)
+                                                               n)[span_1 rodents
+                                                               86](end_s
+                                                               pan)-}20\
+                                                               %
+The Storage-Sedentism Nexus on the Evolutionary
+Horizon to Agriculture
+The institutionalization of bulk storage altered the spatial dynamics of hunter-gatherers,
+establishing the settlement patterns and ecological interactions that ultimately led to plant
+cultivation and domestication. In residential foraging systems, human groups move between
+resource patches as local encounter rates drop.
+The introduction of bulk storage alters this logic, favoring a logistical "collector" system.
+Specialized task units radiate from a central residential base to harvest concentrated seasonal
+resources, process them in the field, and transport stable food products back to a central hub.
+The Storage-Sedentism-Cultivation Evolutionary Sequence:​
+​
+Seasonal Resource Flush (Wild Cereals, Salmon Runs, Acorn Mast)​
+              │​
+              ▼​
+Development of Bulk Capture & Dehydration Facilities​
+              │​
+              ▼​
+Massive
+Physic[span_1](start_span)[span_1](end_span)[span_3](start_span)[span_3](end_span)al
+Caches & Sunk Processing Labor​
+              │​
+              ▼​
+Residential Immobilization (Energetic barrier to moving multi-ton stores on foot)​
+              │​
+              ▼​
+Depletion Halos Form Around Permanent Base Camps (Local fauna & flora decline)​
+              │​
+              ▼​
+In-Situ Resource Intensification: Weeding, Burning, Tillage, and Morphological Domestication​
+
+Physical food caches immobilize human groups through two mechanisms:
+The first mechanism is the transport penalty. Transporting multi-ton stores of dried fish, acorns,
+or camas on foot is energetically unfeasible. Pedestrian transport incurs an energetic
+expenditure of approximately 4.2 kJ per kilogram per kilometer traversed. A band attempting to
+move 5,000 kg of cached acorns over 20 km to an alternate winter camp would expend roughly
+420,000 kJ of metabolic work, eroding the net caloric advantage of the stored reserve.
+The second mechanism is the defense of sunk labor. Stored provisions represent hundreds of
+person-hours devoted to harvesting, cleaning, filleting, parching, and weaving containers.
+Leaving caches unmonitored invites destruction by animal pests or theft by competing groups.
+Consequently, foraging bands become anchored to their storage facilities, establishing
+permanent or semi-permanent residential villages adjacent to their caches.
+This residential anchoring produces localized resource depression. As a sedentary population
+remains at a single site throughout the year, an exploitation halo forms within a 5 to 10 km daily
+walking radius. Within this catchment, firewood is depleted, large mammalian game is hunted
+out or driven to flight distances exceeding 300 to 500 meters, and wild plant stands are picked
+clean. Because the band is tethered to its stored reserves, it cannot relocate to escape this local
+depletion.
+To overcome declining foraging returns within the catchment halo, sedentary hunter-gatherers
+were forced to intensify local resource productivity through habitat manipulation: broadcast
+burning to clear oak woodlands, ditch irrigation to boost wild root yields, and systematic weeding
+around wild grain stands.
+The archaeological record demonstrates that systematic food storage preceded morphological
+plant domestication. In the southern Levant, the Natufian culture (ca. 14,500–11,500 cal BP)
+established semi-sedentary villages featuring stone architectural foundations, heavy basalt
+grinding mortars, and subterranean, plaster-lined storage pits used to cache wild emmer and
+wild barley.
+At the subsequent Pre-Pottery Neolithic A (PPNA) site of Dhra' in the Jordan Valley (ca.
+11,500–11,200 cal BP), excavations revealed dedicated communal granary buildings
+constructed with suspended timber floors to promote air circulation and isolate wild cereals from
+ground moisture and rodents.
+These sophisticated storage structures stored large volumes of wild barley (Hordeum
+spontaneum), wild oats (Avena sterilis), and lentils (Lens orientalis) roughly a millennium before
+morphologically domesticated crops with tough, non-shattering rachises appeared in the
+archaeological sequence. Rather than being a secondary byproduct of agriculture, large-scale
+food storage was the primary ecological and organizational driver that anchored human
+populations in place, necessitating the plant manipulation practices that ultimately produced the
+Neolithic agricultural transition.
+
+Simulation Architecture: Default Seasonal Parameters,
+Loss Functions, and Epistemological Demarcation
+For demographic agent-based models (ABMs) operating on a seasonal time-step (\Delta t =
+1\text{ season} \approx 3\text{ months} \approx 90\text{ days}), the storage sub-module
+evaluates three linked processes:
+   1.​ Storage Activation and Capacity Limits: Determined by the environmental regime
+       (QTSTOR assignment derived from \text{ET} and latitude) and processing labor
+       constraints.
+   2.​ Autonomous Natural Decay: Driven by temperature, humidity, storage facility type, and
+       biochemical susceptibility to microbial rot and insect attack.
+   3.​ Consumption Drawdown: Priority rules that establish when agents rely on stored
+       reserves versus daily logistical foraging.
+Mathematical Decay and Drawdown Functions
+For any food asset k stored by agent band i at season t, the stock available for consumption in
+the following season t+1 is calculated as:
+Q_{i,k}(t+1) = \max\left(0, \, Q_{i,k}(t) \cdot \left[1 - \delta_{k}(\text{Biome}, \text{Season},
+\text{Facility})\right] - C_{i,k}(t)\right)
+where \delta_k \in [0.0, 1.0] is the seasonal decay coefficient capturing microbial breakdown,
+insect infestation, and vertebrate scavenging, and C_{i,k}(t) is the caloric volume consumed by
+the band during the season.
+If the band's daily logistical foraging yield falls below its aggregate basal metabolic requirement,
+the agent draws the energetic deficit from Q_{i,k}. Once an agent band holds stored reserves
+exceeding 0.5 seasons of consumption, its residential mobility is locked: move distance resets
+to zero (D_{\text{move}} = 0), and the agent enters the "residentially tethered" state, reflecting
+the energetic costs of abandoning or transporting heavy stores.
+
+Seasonal Parameters and Epistemological Status
+To maintain model validity, parameter assignments must differentiate between empirically
+verified ethnographic and historical data, simulation inferences derived from indirect proxies,
+and contested theoretical debates.
+Parameter       Target Food      Modeled Stash Modeled            Epistemological Calibration
+Domain          Class &          Capacity          Seasonal       Status           Basis &
+                Environment (S_{\t[span_15] Decay Rate                             Empirical
+                                 (start_span)[sp (\delta_k per 3                   Justification
+                                 an_15](end_sp Months)
+                                 an)[span_17](st
+                                 art_span)[span
+                                 _17](end_span)
+                                 ext{cap}},
+                                 Seasons of
+                                 Diet)
+High-Latitude Dried &            1.5\text{--}2.5\t Winter:        Verified         Calibrated
+Aquatic         Smoked           ext{ seasons} 0.03\text{         Empirical Fact against
+                Salmon;          (135–225 band (3\%)}; Spring:                     historical
+                Subarctic &      days)             0.12\text{                      Columbia/Plate
+                NW Coast                           (12\%)};                        au harvest data
+                                                   Summer:                         (165–365
+                                                   0.25\text{                      kg/person/yr)
+                                                   (25\%)}                         and Alaskan
+                                                                                   Inuit
+                                                                                   fish-storage
+                                                                                   logs. Winter
+                                                                                   sub-zero
+                                                                                   freezing halts
+                                                                                   decay; spring
+                                                                                   moisture
+Parameter       Target Food    Modeled Stash Modeled              Epistemological Calibration
+Domain          Class &        Capacity          Seasonal         Status          Basis &
+                Environment    (S_{\t[span_15] Decay Rate                         Empirical
+                               (start_span)[sp (\delta_k per 3                    Justification
+                               an_15](end_sp Months)
+                               an)[span_17](st
+                               art_span)[span
+                               _17](end_span)
+                               ext{cap}},
+                               Seasons of
+                               Diet)
+                                                                                  induces rapid
+                                                                                  mold.
+High-Latitude / Dried Meat     1.0\text{--}1.5\t Cold Season: Verified            Derived from
+Plains Fauna (Jerky);          ext{ seasons} 0.03\text{           Empirical Fact Binford’s
+                Subarctic &    (90–135 band (3\%)}; Warm                          Nunamiut
+                Plains Steppe days)              Season:                          caribou caching
+                                                 0.15\text{                       records and
+                                                 (15\%)}                          Hudson's Bay
+                                                                                  Company
+                                                                                  provision logs.
+                                                                                  Warm-season
+                                                                                  losses driven
+                                                                                  by dermestid
+                                                                                  beetle
+                                                                                  predation.
+Composite       Rendered       2.0\text{--}4.0\t All Seasons:     Verified        Supported by
+Lipid / Protein Pemmican;      ext{ seasons} 0.02\text{           Empirical Fact fur-trade
+                Great Plains & (180–360 band (2\%)}                               shipping
+                Boreal         days)                                              manifests
+                                                                                  (Carlton
+                                                                                  House) and
+                                                                                  laboratory
+                                                                                  shelf-life
+                                                                                  evaluations
+                                                                                  verifying
+                                                                                  multi-year
+                                                                                  stability of
+                                                                                  tallow-sealed
+                                                                                  packs.
+Temperate       Whole Stored 1.5\text{--}3.0\t Autumn:            Verified        Miwok and
+Mast            Acorns in      ext{ seasons} 0.15\text{           Empirical Fact Pomo chuckah
+                Granaries;     (135–270 band (15\%)}; Winter:                     capacities
+                California     days)             0.10\text{                       (450–1,350
+                                                 (10\%)}; Spring:                 kg/household);
+                                                 0.20\text[span_                  experimental
+                                                 124](start_span                  and ecological
+Parameter    Target Food   Modeled Stash Modeled            Epistemological Calibration
+Domain       Class &       Capacity          Seasonal       Status          Basis &
+             Environment   (S_{\t[span_15] Decay Rate                       Empirical
+                           (start_span)[sp (\delta_k per 3                  Justification
+                           an_15](end_sp Months)
+                           an)[span_17](st
+                           art_span)[span
+                           _17](end_span)
+                           ext{cap}},
+                           Seasons of
+                           Diet)
+                                             )[span_124](en                 assays
+                                             d_span){                       documenting
+                                             (20\%)}                        15% to 40%
+                                                                            weevil
+                                                                            infestation and
+                                                                            fungal mold.
+Arid Wild    P雲ched Grass 0.5\text{--}1.0\t Dry Season:     Simulation      Inferred from
+Seeds        Seeds &       ext{ seasons} 0.03\text{         Inference       excavated
+             Pinyon; Great (45–90 band (3\%)}; Wet                          cache pit
+             Basin         days)             Season:                        volumes at
+                                             0.10\text{                     Danger Cave
+                                             (10\%)}                        and Lovelock
+                                                                            Cave
+                                                                            cross-reference
+                                                                            d with modern
+                                                                            botanical seed
+                                                                            dormancy
+                                                                            models.
+Temperate    Pit-Baked     1.0\text{--}1.5\t Cold/Dry:      Simulation      Extrapolated
+Geophytes    Camas Loaves; ext{              0.06\text{     Inference       from
+             Columbia      seas[span_149 (6\%)};                            ethnographic
+             Plateau       ](start_span)[sp Warm/Wet:                       camas oven
+                           an_149](end_s 0.18\text{                         yield tallies and
+                           pan)[span_152] (18\%)}                           experimental
+                           (start_span)[sp                                  studies of inulin
+                           an_152](end_s                                    fructose
+                           pan)[span_155]                                   decomposition
+                           (start_span)[sp                                  under humidity.
+                           an_155](end_s
+                           pan)ons}
+                           (90–135 band
+                           days)
+Equatorial   Fresh Tubers, 0.0\text{         Constant:      Verified        Longitudinal
+Foraging     Meat, Honey; seasons} (Max 0.95\text{--}1.0 Empirical Fact observations of
+             Tropical      0.03 seasons = 0 (complete                       Hadza, Batek,
+             Rainforest    3 days)           loss in days)                  and Ache
+Parameter       Target Food   Modeled Stash Modeled           Epistemological Calibration
+Domain          Class &       Capacity          Seasonal      Status          Basis &
+                Environment   (S_{\t[span_15] Decay Rate                      Empirical
+                              (start_span)[sp (\delta_k per 3                 Justification
+                              an_15](end_sp Months)
+                              an)[span_17](st
+                              art_span)[span
+                              _17](end_span)
+                              ext{cap}},
+                              Seasons of
+                              Diet)
+                                                                              economies;
+                                                                              intense
+                                                                              equatorial heat
+                                                                              and humidity
+                                                                              cause total
+                                                                              spoilage within
+                                                                              72 hours.
+Pre-Domestica Wild Cereals in 2.0\text{--}3.0\t Dry Season:   Contested /     Reconstructed
+tion Cereals Built Granaries; ext{ seasons} 0.04\text{        Inferred        storage
+              PPNA Levant (180–270 band (4\%)}; Wet                           capacities of
+                              days)             Season:                       suspended-floo
+                                                0.12\text{                    r granaries at
+                                                (12\%)}                       Dhra' (11,500
+                                                                              BP). Debate
+                                                                              centers on
+                                                                              whether
+                                                                              granaries
+                                                                              served as
+                                                                              household
+                                                                              buffers or
+                                                                              competitive
+                                                                              feasting stores.
+Conclusions
+Food storage is a context-dependent evolutionary adaptation among mobile hunter-gatherers,
+governed by the interaction between thermal regimes, resource seasonality, and preservation
+taphonomy. It is not an inevitable stage of cultural evolution, but an ecological necessity
+emerging primarily when Bailey’s effective temperature falls below 15.25^\circ\text{C} and
+latitudes exceed 35^\circ. In these environments, winter non-growing periods of 90 to 200 days
+cannot be survived through daily opportunistic foraging alone.
+Where storage is absent, human societies sustain immediate-return economies characterized
+by compulsory demand sharing, high residential mobility, and distributed social safety nets.
+Where bulk caching becomes mandatory, it triggers a delayed-return socioeconomic cascade:
+heavy stored reserves create high transport costs and sunk labor investments, anchoring
+populations into semi-permanent or sedentary central settlements. This residential immobility
+generates localized resource depletion halos, closing off traditional residential mobility and
+forcing groups to intensify local land stewardship, vegetation burning, and wild plant tending.
+Concurrently, stored surpluses cease to be open-access common pool goods, fostering lineage
+property claims, social stratification, and territorial defense. Long before the appearance of
+morphological plant domesticates, the ecological and structural demands of preserving
+seasonal wild harvests established the organizational infrastructure that underpinned the
+Neolithic agricultural transition.
+
+Works cited
+
+1. Meat outside the freezer - eScholarship.org,
+https://escholarship.org/content/qt2ft4x5wj/qt2ft4x5wj_noSplash_f0394e2368ea02d3ddd257680
+e856eb1.pdf 2. Ancestral Inequality and Preferences for Redistribution - IRIS Unimore,
+https://iris.unimo.it/retrieve/aa56c139-4693-41b7-ae50-c9f1f60fc64b/0270.pdf 3. The ecological
+and evolutionary energetics of hunter‐gatherer,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC5094510/ 4. Archaeological Pitfalls of Storage |
+Current Anthropology: Vol 61, No 6, https://www.journals.uchicago.edu/doi/10.1086/712087 5.
+The Significance of Food Storage Among Hunter-Gatherers,
+https://www.journals.uchicago.edu/doi/abs/10.1086/202894 6. Why Africa has no Houses and
+Other Questions for Deep History,
+https://www.cambridge.org/core/services/aop-cambridge-core/content/view/F7FDE6DB6205921
+2A353FE78916868CE/S0079497X25100650a.pdf/why_africa_has_no_houses_and_other_que
+stions_for_deep_history.pdf 7. Immediate return societies - UGA Department of Psychology,
+https://psyc.franklin.uga.edu/sites/default/files/CVs/Hunters%20and%20gatherers_0.pdf 8. Map
+of the world showing zones based on Binford's effective,
+https://www.researchgate.net/figure/Map-of-the-world-showing-zones-based-on-Binfords-effectiv
+e-temperature-thresholds_fig3_257578033 9. Journal of Archaeological Science - University of
+Liverpool Repository,
+https://livrepository.liverpool.ac.uk/3176567/1/Grove%20et%20al.%202023%20JASR.pdf 10.
+climatic correlates of human subsistence: a global analysis,
+https://www.researchgate.net/publication/282288941_Climatic_correlates_of_human_subsisten
+ce_A_global_analysis 11. (PDF) Exploring Adaptive Variation among Hunter-gatherers with,
+https://www.researchgate.net/publication/257578033_Exploring_Adaptive_Variation_among_Hu
+nter-gatherers_with_Binford's_Frames_of_Reference 12. Insights from Hunter-Gatherers and
+Other Small-Scale Societies,
+https://www.annualreviews.org/doi/pdf/10.1146/annurev-nutr-111120-105520 13. Food Spoilage,
+Storage, and Transport: Implications for a,
+https://academic.oup.com/bioscience/article/65/8/758/240222 14. Acorn Granaries of California
+- Primitive Ways, https://www.primitiveways.com/acorn%20granary.html 15. Rethinking Binford's
+Utility Indices: Interpretive Problems in Northern,
+https://paleoanthropology.org/ojs/index.php/paleo/article/download/113/772/1317 16. Iqaluich
+NiƦiñaqtuat, - Fish That We Eat - The North Slope Borough,
+https://www.north-slope.org/wp-content/uploads/2022/04/Fish_that_we_Eat.pdf 17. The
+Pemmican Bioregion, 1790–1810 (Chapter 2),
+https://www.cambridge.org/core/books/pemmican-empire/pemmican-bioregion-17901810/DFEB
+4D7F1CE3D37E6328B07111FF8281 18. Cultural Responses to Resource Variability in North
+Alaska,
+https://www.researchgate.net/publication/259782660_The_Spirit_of_Survival_Cultural_Respons
+es_to_Resource_Variability_in_North_Alaska 19. (PDF) Restorative diets: a methodological
+exploration comparing,
+https://www.researchgate.net/publication/371885271_Restorative_diets_a_methodological_expl
+oration_comparing_historical_and_contemporary_salmon_harvest_rates 20. Lesson 3
+Gathering, https://www.cccoe.net/miwokproject/Lesson3.html 21. Is the Notion of Mode of
+Production Universally Relevant?, https://www.sociostudies.org/journal/articles/140570/ 22.
+Egalitarian Societies: What Does Equality Actually Mean?,
+https://www.livinganthropologically.com/history-of-humanity/egalitarian/ 23. (PDF) Social
+dynamism in the archaeology of the Western Desert,
+https://www.researchgate.net/publication/272158811_Social_dynamism_in_the_archaeology_of
+_the_Western_Desert 24. (PDF) Information sharing in times of scarcity: an ethnographic and,
+https://www.researchgate.net/publication/338096192_Information_sharing_in_times_of_scarcity
+_an_ethnographic_and_archaeological_examination_of_drought_strategies_in_the_Kalahari_D
+esert_and_the_central_plains_of_North_America 25. Egalitarianism made us the symbolic
+species | Hunter Gatherer, https://www.liverpooluniversitypress.co.uk/doi/10.3828/hgr.2022.2 26.
+Land, Time, and Social Relationships in Anthropological Models of,
+https://macsphere.mcmaster.ca/bitstreams/b92bcf16-41ae-4604-ba24-03261a549de0/download
+27. (PDF) Evidence for food storage and predomestication granaries,
+https://www.researchgate.net/publication/26314333_Evidence_for_food_storage_and_predome
+stication_granaries_11000_years_ago_in_the_Jordan_Valley 28. Some Major Problems in the
+Social Anthropology of Hunter, http://www.alaintestart.com/UK/documents/pbsocanth.pdf 29.
+Resource Utilization in Atka, Aleutian Islands, Alaska,
+https://www.adfg.alaska.gov/techpap/tp088.pdf 30. Pemmican: An Ideal Trail Food C. Thomas
+Shay, https://www.oxfordsymposium.org.uk/wp-content/uploads/2022/06/Shay-Formatted.pdf
+31. First Nations Plant Use - HLM,
+https://www.ericanotebook.com/uploads/1/2/0/7/12079084/thurs_2018_june.pdf 32. Tools and
+Trade - Yosemite National Park (U.S. National Park Service),
+https://www.nps.gov/yose/learn/historyculture/tools-and-trade.htm 33. Columbia Basin Heritage
+Fish Consumption Rates,
+https://superfund.oregonstate.edu/sites/superfund.oregonstate.edu/files/2025-06/harperwalker-2
+015-heritagefishconsumptionratespacificnw.pdf 34. A taphonomical model of fish butchering and
+long- term preservation,
+https://www.researchgate.net/publication/334567703_The_role_of_dried_fish_A_taphonomical_
+model_of_fish_butchering_and_long-_term_preservation 35. KARLUK SOCKEYE SALMON
+BIBLIOGRAPHY, https://spo.nmfs.noaa.gov/sites/default/files/2024-12/KarlukBibliography.pdf
+36. aging and fermentation as adaptive food management strategies in,
+https://oasis.library.unlv.edu/cgi/viewcontent.cgi?article=3977&context=thesesdissertations 37.
+The Hidden Symphony of Dried Fish: Decoding the Bacterial,
+https://www.researchgate.net/publication/383237802_The_Hidden_Symphony_of_Dried_Fish_
+Decoding_the_Bacterial_Ensemble 38. How To Make Pemmican: Jerky, Rendered Fat, and
+Dried Fruit, https://www.onxmaps.com/hunt/blog/how-to-make-pemmican 39. Pemmican
+Empire: Food, Trade, and the Last Bison Hunts in the,
+https://www.researchgate.net/publication/283902912_Pemmican_Empire_Food_Trade_and_the
+_Last_Bison_Hunts_in_the_North_American_Plains_1780-1882_by_George_Colpitts 40.
+Effects of storage on tannin and protein content of cached acorns,
+https://www.researchgate.net/publication/286032448_Effects_of_storage_on_tannin_and_protei
+n_content_of_cached_acorns 41. Effects of Caching on Acorn Tannin Levels and Blue Jay
+Dietary, https://digitalcommons.usf.edu/cgi/viewcontent.cgi?article=13323&context=condor 42. 4
+- Early Inhabitants - The Pollock Pines Epic,
+http://thepollockpinesepic.com/title/early-inhabitants/ 43. HISTORY – Miwok of Elk Grove,
+https://elkgrovehistoricalsociety.com/place-holder-page-for-rogue-pages/history-miwok-of-elk-gr
+ove/ 44. California Indian Food and Culture,
+https://hearstmuseum.berkeley.edu/wp-content/uploads/TeachingKit_CaliforniaIndianFoodAndC
+ulture-1.pdf 45. Direct Effects of Carpophagous Insects on the Germination Ability,
+http://publicatio.uni-sopron.hu/142/1/csoka_hirka_u.pdf 46. (PDF) Effect of acorn fall phenology
+on seedling establishment,
+https://www.researchgate.net/publication/382423663_Effect_of_acorn_fall_phenology_on_seedl
+ing_establishment_success_in_two_mediterranean_oak_species_Implications_facing_climate_
+change 47. Proceedings of the Symposium on Oak Woodlands and Hardwood,
+https://www.govinfo.gov/content/pkg/GOVPUB-A13-PURL-gpo212580/pdf/GOVPUB-A13-PURL
+-gpo212580.pdf 48. Impact of Thermotherapy and Short-Term Storage on Quercus robur,
+https://www.mdpi.com/1999-4907/12/5/528 49. Direct seeding to restore oak (Quercus spp.)
+forests and woodlands, https://research.fs.usda.gov/download/treesearch/58267.pdf 50. hunter -
+gatherer adaptations and environmental change in the,
+https://digital.library.unt.edu/ark:/67531/metadc696757/m2/1/high_res_d/629409.pdf 51.
+Camassia Quamash - Garry Oak Ecosystems Recovery Team,
+https://goert.ca/species/camassia-quamash/ 52. The Neolithic refrigerator on a Friday night:
+How many people are,
+https://www.researchgate.net/publication/277923438_The_Neolithic_refrigerator_on_a_Friday_
+night_How_many_people_are_coming_to_dinner_and_just_what_should_I_do_with_the_slimy_
+veggies_in_the_back_of_the_fridge 53. The Northern Roots of Hunter-Gatherer Intensification:
+Camas and,
+https://www.researchgate.net/publication/276847641_The_Northern_Roots_of_Hunter-Gatherer
+_Intensification_Camas_and_the_Pacific_Northwest 54. CAMAS BULBS, THE KALAPUYA,
+AND GENDER - Scholars' Bank,
+https://scholarsbank.uoregon.edu/bitstreams/9d3f5563-7455-4e91-87eb-41ed8c01164f/downloa
+d 55. on the relative contribution of men and women - USDA Forest Service,
+https://www.fs.usda.gov/media/218363 56. Food Composition and Heat Treatment with Special
+Emphasis on Pit,
+https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1027&context=anthropologyfacpub
+57. Camas - Oregon History Project,
+https://www.oregonhistoryproject.org/articles/historical-records/camas/ 58. (PDF) Including
+Spatial Heterogeneity and Animal Dispersal When,
+https://www.researchgate.net/publication/240652420_Including_Spatial_Heterogeneity_and_Ani
+mal_Dispersal_When_Evaluating_Hunting_A_Model_Analysis_and_an_Empirical_Assessment
+_in_an_Amazonian_Community 59. Indigenous impacts on North American Great Plains fire
+regimes of, https://pmc.ncbi.nlm.nih.gov/articles/PMC6094123/ 60. (PDF) What Do We Really
+Know about Food Storage, Surplus, and,
+https://www.researchgate.net/publication/45273383_What_Do_We_Really_Know_about_Food_
+Storage_Surplus_and_Feasting_in_Preagricultural_Communities
+

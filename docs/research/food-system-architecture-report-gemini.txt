@@ -1,0 +1,938 @@
+Structural Architecture of Subsistence
+Systems in Agent-Based and
+System-Dynamics Simulations
+Integrating dynamic food webs into socio-ecological agent-based models (ABMs) and
+system-dynamics simulations presents a foundational computational challenge: the simulation
+engine must accommodate biological renewal, trophic dependencies, spatial dispersion,
+handling and search trade-offs, and delayed-return agricultural transitions without necessitating
+structural rewrites of its core scheduling loops. A comprehensive review of models across
+computational archaeology, evolutionary anthropology, macroecology, and systems-driven
+colony simulations reveals standard mathematical formalisms and software patterns that permit
+seamless extensibility.
+
+Comparative Analysis of Prehistoric Subsistence
+Simulators
+Artificial Anasazi and the Village Ecodynamics Project
+The Artificial Anasazi model was conceived to explain the demographic expansion and abrupt
+regional abandonment of the Kayenta Anasazi within Long House Valley, Arizona, between AD
+800 and 1300. Its subsistence sub-model is structured strictly around dry-farming of maize
+across a cellular lattice where each cell represents a one-hectare plot.
+Maize paleoproductivity is reconstructed exogenously on an annual cycle by integrating
+retrospective dendroclimatological data—specifically the Palmer Drought Severity Index
+(PDSI)—with localized soil geomorphological classifications. The environmental model converts
+annual PDSI variations into five discrete harvest productivity tiers (659 to 1{,}201\text{ kg/ha}).
+Household agents cultivate a selected cell and extract an annual yield calculated as:
+Y_{\text{harvest}} = Y_{\text{potential}} \times U_{\text{factor}} \times \epsilon_{\text{stochastic}}
+where U_{\text{factor}} = 0.64 denotes the proportion of potential harvest obtainable using
+prehistoric agricultural methods, and \epsilon_{\text{stochastic}} introduces location-specific
+noise.
+Labor allocation is represented implicitly: households commit whatever labor is necessary to
+their single selected hectare. Each household (fixed at five individuals) requires 160\text{ kg} of
+maize per person annually, yielding an annual baseline consumption of 800\text{ kg} (560\text{
+kcal/person/day}). Surplus grain is placed into granary storage with a hard two-year expiration
+window; unconsumed grain older than two years rots completely.
+The model lacks dynamic resource depletion: continuous cropping causes zero soil nutrient
+exhaustion or yield degradation. Instead, mobility is purely reactive. Each April, if the
+household’s remaining grain store plus the anticipated harvest (estimated directly from the
+preceding year's yield) falls below the 800\text{ kg} annual requirement, the household
+relocates. The relocation algorithm searches for an unoccupied, unfarmed cell within
+1{,}600\text{ meters} of a persistent domestic water source that promises a yield of at least
+160\text{ kg/person}. Household fissioning occurs probabilistically
+([span_5](start_span)[span_5](end_span)[span_18](start_span)[span_18](end_span)p \in
+[0.125, 0.155]) once accumulated corn reserves exceed defined thresholds, endowing the
+daughter household with one-third of the parent store.
+The Village Ecodynamics Project (VEP) expanded this architecture into the central Mesa Verde
+region of southwestern Colorado and the northern Rio Grande of New Mexico, fundamentally
+modifying the subsistence structure by embedding wild resource depletion and animal protein
+requirements. The VEP modeled four coupled resource categories alongside maize: mule deer
+(Odocoileus hemionus), lagomorphs (black-tailed jackrabbits, Lepus californicus, and desert
+cottontails, Sylvilagus audubonii), fuelwood, and water.
+Deer populations were implemented as dynamic stocks across 200\text{ m} \times 200\text{ m}
+grid cells, governed by logistic regrowth functions tied to climatically fluctuating carrying
+capacities, with spatial diffusion dispersing deer into underpopulated contiguous patches.
+Hunting was modeled through central-place foraging principles: households harvested deer
+within concentric travel radii, incurring travel costs and resource depression.
+As human settlements aggregated into large villages, local deer herds were extirpated, creating
+high energetic search costs. This depression drove two subsistence shifts: "garden hunting" of
+pest lagomorphs attracted to cleared agricultural plots, and the domestication of the wild turkey
+(Meleagris gallopavo). Turkey husbandry formed an endogenous feedback loop: turkeys
+provided a critical protein buffer against game exhaustion, but because domesticated turkeys
+were fed harvested maize, domestic protein production directly inflated human agricultural
+acreage demands, accelerating forest clearance and regional deer habitat loss.
+In both iterations, system calibration revealed severe sensitivities. Artificial Anasazi suffered
+from rigid demographic oscillations: during protracted wet periods, populations expanded
+exponentially until a sudden dry interval triggered a catastrophic Malthusian die-off. In the VEP,
+early iterations produced runaway game collapse: because human populations were
+energetically sustained by maize agriculture, their hunting pressure was disconnected from prey
+availability. Human hunters hunted deer to landscape-wide extinction within decades. The
+authors rectified this instability by introducing spatial terrain friction, travel energetic
+expenditures, search limits, and inaccessible upland refugia.
+In retrospective analyses, researchers noted that future iterations should incorporate flexible,
+multi-household exchange networks, soil nutrient degradation (specifically nitrogen depletion
+from continuous cropping), and endogenous household labor scheduling rather than static,
+rule-based annual triggers.
+
+HUMLAND Simulation Suite
+The HUMLAND framework (spanning HUMLAND 1.0 through HUMLAND 2.0) was developed
+by Scherjon, Nikulina, and colleagues to quantify the environmental transformations wrought by
+prehistoric hominins (Neanderthals and Early Holocene Mesolithic hunter-gatherers) across
+Europe. Operating on a coarse continental grid (10\text{ km} \times 10\text{ km} cells),
+HUMLAND couples paleoclimatic vegetation simulations with hominin behavioral disturbance.
+Resources are represented across two primary ecological tiers: standing vegetation biomass
+and herbivore animal stocks. Vegetation is initialized using CARAIB dynamic global vegetation
+models and calibrated against continental fossil pollen reconstructions (the REVEALS model).
+Each grid cell tracks Net Primary Production (NPP), canopy openness (ratio of open pasture to
+closed forest), and dominant tree composition.
+Herbivorous megafauna (e.g., straight-tusked elephants, aurochs, bison) act as intermediate
+biological agents that consume a fraction of cell NPP (V_c), driving vegetation openness
+upward through persistent browsing and physical trampling:
+V_c = f(\text{Megafauna Density}, \text{NPP})
+Human hunter-gatherers alter this landscape via two distinct labor mechanisms:
+   1.​ Direct hunting, which depresses herbivore densities and indirectly reduces browsing
+       pressure, permitting closed-canopy forest succession.
+   2.​ Anthropogenic fire regimes, wherein forager bands set deliberate fires around campsites
+       whenever canopy openness drops below an empirical visibility and mobility threshold.
+Labor allocation is governed by environmental state thresholds rather than explicit marginal
+caloric calculations. Bands operate from seasonal campsites, dispatching hunting and burning
+parties within a defined foraging radius. Campsite relocation operates across multi-year and
+decadal time steps, triggered when local megafauna biomass is exhausted below a viable
+encounter rate or when regional vegetation closes completely. Agriculture is deliberately omitted
+from HUMLAND, as the model isolates pre-agricultural landscape modification.
+A major technical obstacle in HUMLAND was extreme equifinality. Different configurations of
+natural wildfire frequencies, megafaunal browsing pressures, and human fire ignition rules
+produced near-identical regional canopy openness profiles. The authors countered this
+instability by coupling NetLogo with a genetic algorithm, executing thousands of automated
+simulation runs to optimize parameter configurations against empirical pollen databases.
+In their methodological evaluations, the authors highlighted that the simulation treats hominin
+foraging phenomenologically: human agents set fires and hunt based on environmental states
+rather than tracking energetic acquisition against metabolic survival requirements. They
+emphasized that coupling demographic metabolic survival directly to local foraging yields would
+offer a more robust foundation for future continental-scale simulations.
+
+MASON and NetLogo Canonical Forager Models
+Within general-purpose agent-based simulation toolkits, canonical models such as Epstein and
+Axtell’s Sugarscape (and its multi-agent extensions in NetLogo and MASON) formalize the
+baseline mathematics of resource consumption and spatial mobility. In the foundational
+single-resource Sugarscape, the environment is a toroidal grid where each cell maintains a
+sugar stock bounded by a local carrying capacity C_i.
+Regrowth is governed by a constant replenishment rule:
+S_i(t+1) = \min(C_i, S_i(t) + \alpha)
+where \alpha is a fixed integer increment (commonly \alpha = 1). Extended variants implement
+seasonal growback, partitioning the lattice into hemispheres that alternate between summer
+(\alpha = 1) and winter (\alpha = 0.125 or zero renewal) across 50-tick intervals.
+Agents possess vision ranges (v \in [1, 6]) and metabolic burn rates (m \in [1, 4]). At each time
+step, an agent scans its von Neumann neighborhood out to distance v, identifies the unoccupied
+cell with the highest sugar stock, relocates to that cell, harvests the entire stock instantaneously
+(Y = S_i), and deducts its metabolism m.
+When the model is expanded to two resources (sugar and spice), agent utility is modeled using
+Cobb-Douglas production functions:
+U(w_1, w_2) = w_1^{\frac{m_1}{m_1+m_2}} \cdot w_2^{\frac{m_2}{m_1+m_2}}
+where w_1, w_2 represent internal stocks and m_1, m_2 represent metabolic requirements for
+sugar and spice, respectively. Agents calculate the marginal rate of substitution to trade or
+allocate movement toward the resource currently yielding the highest marginal utility.
+Within the MASON framework, social-ecological models such as HouseholdsWorld and related
+agro-pastoral simulations (e.g., Cioffi-Revilla et al., Hailegiorgis et al.) extended these spatial
+principles into pastoralism and rain-fed farming. Hailegiorgis et al. modeled rural households
+adapting to climate variability in semi-arid environments, formalizing resource allocation across
+farming and herding options.
+Pasture biomass renews via non-linear precipitation indices, while crop growth accumulates
+based on soil quality q and soil moisture m:
+G_t = G_{t-1} + \omega \cdot q \cdot m
+where \omega is the crop-specific growth rate. Labor is partitioned dynamically: households
+compare the expected economic return of herding versus farming and allocate their labor
+endowment proportionately. Farming operates as a multi-stage operational calendar: land
+preparation occurs upon the anticipated onset of seasonal rains, followed by planting, manual
+weeding, and harvest when crops reach the Length of Growing Period (LGP).
+The primary stability hazard in these canonical models stems from extreme sensitivity to
+metabolic burn rates and localized depletion. In Sugarscape, if starting densities slightly exceed
+the landscape's mean replenishment rate, catastrophic mortality cascades occur, wiping out
+large proportions of the agent population before spatial clustering stabilizes.
+In MASON agro-pastoral models, households experience maladaptation traps: if climate shocks
+disrupt rainfall onset, households misallocate labor to early planting, exhaust their seed
+reserves, and experience consecutive crop failures. Modelers highlighted that rigid,
+perfect-information utility optimization fails under seasonal volatility; architectures require
+bounded-rational heuristic rules and communal mutual-aid mechanisms to absorb
+environmental stochasticity.
+
+Gallagher et al. (2019): Cultural Evolution of Forager Mobility
+Gallagher, Shennan, and Thomas developed an agent-based cultural evolutionary simulation to
+investigate how resource depletion rates, environmental replenishment rates, and human
+mobility coevolve. The model is implemented across a two-dimensional lattice of hexagonal
+cells, with each simulation step representing one calendar year.
+Each patch i is characterized by a continuous foraging quality variable q_i \in [q_{\min}, 1.0].
+Resource replenishment follows an asymptotic regrowth curve penalized by human foraging
+extraction:
+q_i(t+1) = q_i(t) + r \cdot (1 - q_i(t)) - \lambda \cdot n_i(t)
+where r is the intrinsic replenishment rate, \lambda is the per-capita depletion scalar, and n_i(t)
+represents the number of family units co-occupying cell i during year t.
+Labor allocation is undifferentiated: agents spend their full annual effort harvesting food within
+their current cell. The total foraging yield of the cell is partitioned equally among all resident
+agents:
+f_i(t) = \frac{q_i(t)}{n_i(t)}
+Food income f_i is non-cumulative: agents do not store food across years. If an agent's annual
+food income falls below a subsistence threshold (f_{\min} = 0.17), the agent dies from
+starvation. If income exceeds f_{\min}, the agent reproduces via fission with an annual
+probability scaled linearly up to p_{\max} = 0.14.
+Mobility is modeled as an evolving cultural trait rather than an optimal calculation. Each agent
+possesses a genetically or culturally transmitted mobility parameter m \in [0.01, 0.99].
+Approximately once per generation (25\text{ years}, mutation probability \mu = 0.04), m mutates
+via a binomial process informed by the agent’s recent food income. When deciding whether to
+move, the agent tests m against a random draw; if movement occurs, the agent evaluates
+neighboring cells j using an attractiveness metric A_j that penalizes travel distance:
+A_j = f_j^* - \eta \cdot d_{i,j}
+where f_j^* is the expected food yield of the target cell, d_{i,j} is Euclidean distance, and \eta is
+the movement cost scalar.
+Gallagher et al. represented food production phenomenologically by simulating ecologies with
+high replenishment rates (r) and low depletion rates (\lambda). The simulation revealed a
+counter-intuitive evolutionary outcome: while high-replenishment, low-depletion environments
+strongly selected for sedentary strategies (low m), this sedentism caused dense population
+packing that drove per-capita food income down to the starvation threshold (f_{\min}).
+The model demonstrated that the physical and nutritional stress observed in early sedentary
+archaeological populations emerges endogenously from density-dependent competition without
+needing to invoke pathogen loads or dietary imbalances.
+A major calibration challenge was the stochastic volatility of multi-agent packing, which
+frequently resulted in localized extinction vortices. The authors developed "Outcomes
+Clustering" to classify the multi-parameter state space. They noted that real human groups
+mitigate packing pressure through storage and dietary switching, which were excluded from
+their stylized model.
+
+Optimal Foraging Theory Models: Central Place Foraging, Ache, and
+Hadza
+Optimal Foraging Theory (OFT) ABMs formalize human subsistence through algorithmic
+microeconomic optimization, primarily utilizing the Prey Choice Model (diet breadth), the Patch
+Choice Model (Marginal Value Theorem), and Central Place Foraging (CPF).
+In the Prey Choice Model, resources are ranked by post-encounter profitability:
+\pi_k = \frac{E_k}{h_k}
+where E_k is the net energy yield (kcal) and h_k is the handling time (pursuit, capture,
+processing). An agent expanding its diet breadth from k-1 resources to incorporate resource k
+does so only when:
+\frac{E_k}{h_k} > \frac{\sum_{i=1}^{k-1} \lambda_i E_i - C_s}{1 + \sum_{i=1}^{k-1} \lambda_i h_i}
+where \lambda_i is the encounter rate with resource i, and C_s is the energetic expenditure per
+unit search time. The critical dynamic of this model is that the inclusion of a low-ranked resource
+depends entirely on the encounter rates of higher-ranked resources, not on its own abundance.
+Central Place Foraging (CPF) models adapt these principles to residential base camps.
+Foraging trips incur a round-trip transit cost 2d/v (where d is distance and v is walking speed)
+and transport load limitations. The net energetic return rate delivered back to the central
+campsite from patch j is expressed as:
+R_{\text{camp}, j} = \frac{E_j(t_p) - (2 d_j / v) \cdot C_{\text{transit}}}{2 d_j / v + t_p +
+t_{\text{proc}}}
+where t_p is time spent foraging in the patch, C_{\text{transit}} is travel metabolic expenditure,
+and t_{\text{proc}} is central processing time. Under the Marginal Value Theorem, an agent
+abandons patch j when its instantaneous marginal return rate drops to the average return rate
+across the broader landscape.
+Kim Hill, Marco Janssen, and colleagues translated these formalisms into agent-based models
+parameterized by longitudinal field observations of Ache foragers in the subtropical forests of
+eastern Paraguay.
+The Ache model simulates mobile prey species (peccaries, pacas, armadillos, capuchin
+monkeys) alongside stationary plant resources (palm hearts, wild honey, seasonal fruits).
+Individual hunters search the landscape, but high-yield prey encounters trigger cooperative
+pursuit: nearby hunters recruit peers to surround peccary sounders or chop out burrowed
+armadillos.
+Ache residential mobility is exceptionally high, with bands establishing new campsites almost
+daily. The simulation captures the mechanism driving this mobility: behavioral prey depression.
+When human foragers enter a forest tract, mammalian prey species flee or enter deep burrows,
+causing the encounter rate \lambda_i within an 8\text{ km} walking radius to fall precipitously
+within 24 to 48 hours. Foragers who stay at a campsite for a second consecutive night
+experience diminished returns, making daily residential relocation the optimal strategy.
+In contrast, models simulating Hadza foragers in the savannah-woodland environment of
+northern Tanzania emphasize sexual division of labor and central-place transport bottlenecks.
+Men pursue large, mobile game (ungulates, giraffes) using bow and poison arrows,
+characterized by high return rates upon encounter but prolonged, high-variance search times.
+Women systematically target sessile, low-ranked, but zero-variance underground storage
+organs (tubers like Vigna frutescens) and baobab fruit.
+Hadza CPF simulations show that carcass transport introduces structural discontinuities: small
+game is transported whole, whereas large game must be butchered at the kill site, with meat
+defleshed and bundled into "meat shirts" to maximize the ratio of edible protein to carrier transit
+costs.
+A chronic instability in pure OFT agent-based models is the "extinction spiral". Because agents
+act as rational profit-maximizers, they focus intensive hunting effort on high-ranked prey items,
+exterminating local animal populations before switching to alternative prey. The authors resolved
+this by incorporating prey flight dynamics, spatial refugia, search costs that scale inversely with
+vegetation density, and stochastic encounter functions that prevent absolute resource stripping.
+
+Pleistocene Overkill Simulations (Alroy 2001)
+John Alroy formulated a multispecies macroecological system-dynamics model to evaluate
+whether human hunting alone could account for the terminal Pleistocene extinction of 41 large
+herbivore species (M > 44\text{ kg}) across North America.
+The simulation operates across a grid of geographic cells covering North America. Each prey
+species j reproduces logistically according to allometrically scaled biological constants:
+\frac{dN_j}{dt} = r_{m, j} N_j \left( 1 - \frac{\sum_{k} \alpha_{jk} N_k}{K_j} \right) - P_j
+where r_{m, j} is the intrinsic rate of increase, calculated directly from adult body mass M_j:
+r_{m, j} = \exp(1.4967 - 0.370 \cdot \ln(M_j))
+Carrying capacity K_j is determined by species biomass requirements, and \alpha_{jk}
+represents interspecific competitive interactions among herbivores.
+The human population H reproduces logistically toward a regional demographic saturation
+density. Total human hunting predation on species j is governed by a multi-species non-linear
+functional response:
+P_j = H \cdot c_{\max} \cdot \frac{w_j N_j}{\sum_{k}
+w_[span_250](start_span)[span_250](end_span)[span_255](start_span)[span_255](end_span)k
+N_k + D} \cdot \min\left(1, \frac{\sum_k w_k N_k}{S}\right)
+where c_{\max} is the maximum annual per-capita meat consumption, w_j is the hunting
+vulnerability or preference coefficient, D is a half-saturation constant, and S is a low-density
+threshold below which total hunting effort declines due to prey scarcity.
+Alroy’s model exhibited catastrophic sensitivity to demographic decoupling. Because human
+population growth was sustained by broad-spectrum foraging and alternative prey, human
+numbers remained high even when slow-breeding megafauna (e.g., proboscideans, with r_m
+\approx 0.06) collapsed. As a result, the model predicted rapid, sweeping mass extinctions
+within 1,200 to 1,500 years of human entry.
+Critics (e.g., Donald Grayson) demonstrated that the model’s catastrophic extinctions were an
+artifact of parameterizing unrealistically low intrinsic growth rates (r_m) and omitting prey
+switching thresholds. To stabilize the model and prevent the extermination of every large
+mammal, Alroy had to enforce low maximum hunting capacities (c_{\max}) and introduce
+low-density hunting cutoff parameters.
+In retrospectives, researchers noted that overkill simulations must incorporate dynamic prey
+evasion behaviors, explicit technological investment costs, and dynamic geographical barriers to
+avoid artificial "blitzkrieg" collapses.
+
+Colony Simulation Games with Documented Internals
+Commercial simulation games model human-environment food systems using data-driven
+software architectures that mirror academic ABM requirements while emphasizing runtime
+efficiency.
+Dwarf Fortress decouples entity behaviors from the underlying game loop by driving all plant,
+animal, and dietary mechanics through plain-text configuration files ("raws"). Plants are declared
+via [OBJECT:PLANT] tokens. Growth cycles are governed by integer tick counters rather than
+continuous differential equations. The token [GROWDUR:n] specifies the duration in hundreds
+of ticks required for a plant to reach harvestable maturity (with 1,008 units constituting a
+standard game season).
+Seasonal compatibility is defined using boolean tokens ([SPRING], [SUMMER], [AUTUMN],
+[WINTER]). Structural components are declared via [GROWTH:NAME] tokens that have
+independent scheduling scripts ([GROWTH_TIMING]). For example, a chestnut tree has distinct
+growth tokens for its trunk wood, foliage, flowers, and edible nuts, with nuts configured to
+mature and drop to the forest floor ([GROWTH_DROPS_OFF]) during late autumn.
+Agriculture is spatial: farm plots must be designated on subterranean mud/soil or cleared
+surface biomes. Seeds are itemized, physical entities stored in containers. If a dwarf consumes
+a plant raw or brews it into alcohol, the seed remains intact and returns to the inventory; if the
+plant is cooked in a prepared meal, the seed is destroyed. Labor allocation relies on a priority
+job-dispatch queue: idle agents claim open planting, harvesting, or foraging jobs based on
+fort-wide labor assignments.
+In Songs of Syx, the landscape maintains continuous 2D scalar fields representing elevation,
+soil composition, and ground moisture. A cellular automaton models groundwater diffusion
+outward from sweet-water bodies, altering adjacent tile fertility dynamically. Farm plots are
+spatial polygons where seasonal crop yields scale with base fertility, water-table proximity,
+allocated workforce headcounts, and crop-specific phenology.
+The game models agricultural labor across four phases: spring sowing, summer
+tending/weeding, autumn harvesting, and winter fallow. Spoilage is implemented as a
+continuous exponential decay function influenced by warehouse insulation, environmental
+humidity, and technology upgrades. If winter arrives before fields are harvested, unharvested
+crops rot in place, producing systemic starvation cascades.
+Banished structures food production around central-place gathering and farming zones.
+Gatherer Huts employ workers who search a fixed radius of natural forest canopy, harvesting
+four wild food items (berries, mushrooms, roots, onions) that regenerate based on canopy
+maturity. If a forester cuts down mature trees, gathering yields drop to zero until tree cover
+regenerates.
+Farming requires cleared, tilled fields. Crops follow rigid temperature and seasonal thresholds:
+workers sow seeds in early spring, and crops accumulate yield toward maturity. If an early
+autumn freeze occurs before workers transport the harvest to storage barns, standing crops
+suffer frost kill tile-by-tile, permanently destroying that year's yield.
+In Dawn of Man, wild food resources follow strict phenological windows. Wild cereals and tree
+nuts can only be harvested during a brief window in late autumn, requiring specialized tools
+(bone or flint sickles). Game animals possess sensory radii and flight routines. Intensive hunting
+around a base settlement generates behavioral depression, causing animal herds to flee off the
+local map edge and forcing hunters to travel farther. This depression provides the primary
+incentive to domesticate cereals and pastoral livestock (goats, sheep, cattle) during the
+Neolithic transition.
+Across all four games, the most frequent failure mode is the "autumn harvest bottleneck":
+because wild nuts, wild cereals, and domesticated crops mature simultaneously in late autumn,
+agent labor queues become oversubscribed. Without heuristic priority overrides, agents
+prioritize secondary tasks, leaving standing crops to rot in the field and triggering winter
+famines.
+
+Cross-Model Architectural Comparison
+The following table synthesizes the mathematical representations, labor allocation models,
+spatial dynamics, agricultural mechanisms, and calibration failure modes across all evaluated
+simulation systems.
+Simulation /    Resource         Labor            Depletion &     Agricultural   Primary
+Model           Representation Allocation         Spatial         Integration    Instabilities &
+                & Regrowth       Decision Logic Feedback          Mechanics      Calibration
+                Math                                                             Bottlenecks
+Artificial      Exogenous        Binary           Zero soil       Core           Malthusian
+Anasazi         static yield     allocation:      depletion;      subsistence    demographic
+                grids            households       spatial         base;          overshoot;
+                (\text{kg/ha}) cultivate a fixed movement is monoculture         population
+                calibrated       cell if expected triggered when dry-farming     explodes
+                annually via     yield exceeds grain stocks + with two-year during wet
+                tree-ring PDSI 160\text{          next yield fall storage limit. PDSI intervals,
+                and soil types. kg/capita}.       below                          causing abrupt
+                                                  threshold.                     catastrophic
+                                                                                 collapse.
+Village         Logistic         Multi-resource Local deer        Farming        Hyper-depletio
+Ecodynamics regrowth for         central-place depleted           cleared wild   n of game: deer
+Project (VEP) mule deer;         foraging;        rapidly around forest patches; exterminated
+                dynamic          optimization of large pueblos, turkey           within decades
+                lagomorph        caloric net      forcing         domestication without artificial
+                stocks;          return across long-distance fed on maize to spatial refugia
+                dendroclimatol travel, field      hunting or      buffer wild    and high travel
+                ogical maize     clearance, and dietary           protein        friction.
+                paleoproductivit hunting.         switching.      depletion.
+Simulation /  Resource        Labor           Depletion &     Agricultural    Primary
+Model         Representation Allocation       Spatial         Integration     Instabilities &
+              & Regrowth      Decision Logic Feedback         Mechanics       Calibration
+              Math                                                            Bottlenecks
+              y.
+HUMLAND / Continuous          Rule-based      Local hunting Agriculture       Equifinality
+HUMLAND 2.0 NPP grids         disturbance:    suppresses      omitted;        across
+              (10\text{ km}); foragers set    herbivores,     focuses         high-dimension
+              dynamic         fires when      driving forest exclusively on al parameter
+              canopy          canopy          closure;        hunter-gatherer space;
+              openness;       openness <      anthropogenic landscape         calibrated using
+              herbivore       \theta; hunting fires reset     modification    genetic
+              biomass         effort scales   succession.     and fire        algorithms
+              stocks.         with                            regimes.        against pollen
+                              megafauna                                       data.
+                              presence.
+MASON         Dynamic soil Households         Grazing         Multi-stage     Maladaptation
+Households / quality and      partition labor depletes        calendar:       traps: climate
+Agro-Pastoral rainfall-driven between         pasture         rain-dependent volatility
+              vegetative/crop herding and     biomass;        field           disrupts rain
+              growth curves; farming based unmitigated        preparation,    onset,
+              discrete parcel on expected     mono-cropping planting,         triggering
+              tracking.       comparative     degrades local weeding, and repeated crop
+                              economic        soil quality.   LGP harvest. failures and
+                              returns.                                        poverty traps.
+NetLogo       Grid lattice;   Greedy spatial Immediate local Replaced in      Malthusian
+Canonical /   constant        optimization: consumption extensions with population
+Sugarscape    integer         agents move exhausts cell multi-resource crashes when
+              regrowth        along vision    stock; forces substitution      local
+              (+\alpha) up to rays to the     continuous      (Sugar and      consumption
+              capacity C;     highest-payoff spatial drift    Spice) using    outpaces fixed
+              seasonal        cell within     across          Cobb-Douglas regeneration
+              sinusoidal      range.          landscape.      utility.        rates.
+              growth waves.
+Gallagher et Bounded          Culturally      Local crowding Phenomenologi Sedentary
+al. (2019)    renewal:        transmitted     depletes q; low cally           poverty trap:
+              q(t[span_97](st mobility        mobility        represented by agents pack
+              art_span)[span parameter m evolves under parameter              into
+              _97](end_span) \in[span_98](st high r and low regimes of high high-renewal
+              +1) = q(t) +    art_span)[span \lambda,         replenishment cells, reducing
+              r(1-q(t)) -     _98](end_span) creating high (r) and low        food income to
+              \lambda n(t) on [0, 1]; patch   packing.        depletion       near-starvation
+              a hexagonal     attractiveness                  (\lambda).      floors.
+              lattice.        discounted by
+                              distance.
+Optimal       Discrete        Classical Diet Behavioral prey Omitted in pure Prey extinction
+Foraging      individual      Breadth         depression      forager models; spirals if game
+Simulation /    Resource         Labor            Depletion &      Agricultural    Primary
+Model           Representation Allocation         Spatial          Integration     Instabilities &
+                & Regrowth       Decision Logic Feedback           Mechanics       Calibration
+                Math                                                               Bottlenecks
+Models (Ache / animals and       (stepwise        (fleeing/burrowi wild            dispersal and
+Hadza)          clumped plant profitability       ng); localized roots/tubers      prey behavioral
+                patches;         ranking E_i/h_i) depletion        serve as        evasion are
+                stochastic       and CPF          forces daily     low-return,     poorly
+                encounters       load-distance camp                zero-variance parameterized.
+                based on         trade-offs.      relocation.      fallbacks.
+                density.
+Pleistocene     41 prey          Multi-species Non-spatial / Omitted;              "Blitzkrieg"
+Overkill (Alroy species;         non-linear       coarse-grained assumes           collapse: fast
+2001)           allometrically functional         continental      humanity        human
+                scaled logistic response;         depletion;       sustains itself expansion
+                differential     hunting          human            via generalist drives
+                equations with pressure           population       hunting and     catastrophic
+                competitive      distributed      decoupled from non-modeled cascade of
+                Lotka-Volterra across             individual prey vegetal foods. megafaunal
+                terms.           available prey collapse.                          extinctions.
+                                 biomass.
+Dwarf           Plain-text data Priority-based Wild plants         Dedicated farm Pathfinding
+Fortress        raws             job queue;       cleared          plots requiring labor lock-ups;
+                ([OBJECT:PLA agents claim tile-by-tile; wild mud/soil, seed runaway seed
+                NT][span_214]( agricultural,      fauna flee or    inventories,    stockpiling;
+                start_span)[spa herbalist, or     are hunted out planting labor, catastrophic
+                n_214](end_sp hunting labors of regional           and harvesting failure if raw
+                an)); integer    based on fort caverns/surfac before season tags miss
+                ticks, seasonal work orders.      e biomes.        ends.           seasonal
+                growth duration                                                    transitions.
+                ([GROWDUR]),
+                modular
+                growths.
+Songs of Syx Continuous          Global labor     Wild game        Labor-intensive Storage
+                fertility and    allocation       depopulates      seasonal        perishability
+                water-table      sliders; workers under pressure; farming: sowing cascades:
+                diffusion maps; assigned to       farmland         (spring),       failure to
+                tile-based yield agricultural     permanently      maturing        harvest before
+                accumulation zones,               converts         (summer),       winter freezes
+                over calendar pastures, or        natural terrain, harvesting      triggers
+                cycles.          foraging         altering         (autumn),       warehouse
+                                 sectors.         hydrology.       decay (winter). mass
+                                                                                   starvation.
+Dawn of Man Seasonal             Proximity-weig Overhunted         Requires field Labor
+                resource         hted utility     game herds       plowing,        bottlenecking:
+                pulses; tree     queue; tasks migrate              sowing, manual autumn harvest
+                nuts/fruit       flagged on       off-map; tree weeding,           overlaps with
+Simulation /    Resource         Labor          Depletion &       Agricultural    Primary
+Model           Representation Allocation       Spatial           Integration     Instabilities &
+                & Regrowth       Decision Logic Feedback          Mechanics       Calibration
+                Math                                                              Bottlenecks
+                available in     world objects felling            harvesting with grain and fruit
+                autumn; wild with automated eliminates local sickles, and         collection; labor
+                cereals          worker         seasonal          threshing into shortages rot
+                harvestable      dispatch.      fruit/nut yields. grain/straw.    crops in field.
+                only with tools.
+Recurring Architectural Patterns in Foraging and
+Farming Simulations
+Synthesizing these diverse modeling traditions reveals five consistent socio-ecological patterns
+that govern the design of extensible food systems.
+
+Trophic Decoupling and the Protein-Calorie Scissor
+When human agents obtain baseline metabolic calories from high-density, reliable plant
+resources—such as wild grass seeds, domestic maize, or manioc—their demographic density
+becomes detached from local game animal biomass. Because human starvation no longer acts
+as a negative feedback loop to curb hunting, human hunters continue harvesting large game
+even as animal densities collapse toward extinction. To avoid this runaway collapse, simulations
+must implement a dual-currency nutritional architecture: tracking caloric requirements separately
+from essential macronutrients (such as animal proteins or lipids).
+This dual-currency dynamic recreates the historical subsistence transition observed in the VEP:
+as deer were overharvested, human populations did not starve, but rather encountered a protein
+bottleneck that forced them to domesticate turkeys and trade surplus carbohydrate calories to
+sustain animal husbandry.
+
+Search-Limited versus Handling-Limited Exploitation
+Subsistence resources occupy distinct operational regimes along Holling Type II functional
+response curves. Wild terrestrial game is overwhelmingly search-limited: finding an animal
+requires significant time and energetic expenditure, whereas pursuit, butchery, and consumption
+(handling) take relatively little time. The return rate for search-limited resources is therefore a
+steep function of prey density per unit area.
+Conversely, wild grains, mast nuts, and domesticated crops are handling-limited: locating the
+patch requires trivial effort, but cutting, winnowing, hulling, grinding, or cooking impose heavy
+linear time investments per unit mass. An extensible simulation engine must decouple search
+efficiency (\beta_s) from handling cost (h_r); treating all food extraction as uniform gathering
+creates models in which agents spend weeks "searching" for standing fields of wheat or catch
+fleeing game with constant gathering times.
+
+Phenological Pulsing versus Continuous Biological Renewal
+While animal populations (small game, fish) reproduce across multi-season schedules that can
+be approximated by continuous logistic differential equations, sessile plant resources exhibit
+sharp, synchronous phenological pulses. Mast tree nuts (acorns, hickory) and wild grains
+mature within a narrow seasonal window in autumn, followed by complete vegetative dormancy
+during winter and spring.
+If an ABM models wild cereals or nuts as continuous stocks that regenerate smoothly each time
+step, agents will forage on them evenly year-round, failing to capture the intense autumn labor
+competition that historically drove storage innovations and sedentary settlement patterns.
+
+Sedentism Traps and Demographic Ratchets
+As demonstrated by Gallagher et al. and the VEP, sedentism is rarely adopted because it offers
+superior leisure or nutrition. Instead, environments with high resource replenishment and
+predictable returns select for reduced mobility. Once a human group establishes a permanent
+residential base, birth intervals decrease and population densities increase.
+This demographic growth quickly depresses wild game within walking distance, pushing the
+group's per-capita caloric intake back to the physiological margin (f_{\min}). Once this occurs,
+returning to a mobile foraging lifestyle is impossible: the regional population has expanded far
+beyond the carrying capacity of wild game, locking the society into labor-intensive agriculture
+and local landscape modification.
+
+The Delayed-Return Problem of Agriculture
+Wild foraging operates as an immediate-return system: labor expended today yields food
+consumed today. In contrast, agriculture is a delayed-return system: labor invested in spring
+(field clearing, plowing, sowing) produces zero caloric payoff until autumn.
+If an agent's labor allocation is governed purely by instantaneous optimal foraging theory (such
+as the Marginal Value Theorem), agents will never choose to farm, because the instantaneous
+marginal return of planting seed is negative. A simulation engine must either evaluate
+agricultural tasks using anticipated discounted utility over an annual planning horizon or enforce
+rule-based task partitioning that prioritizes agricultural calendars ahead of opportunist wild
+foraging.
+
+Modular Resource Architecture for Seasonal Grid
+Simulations
+To permit a simulation to initialize with two baseline resources (e.g., small game and wild grain)
+and subsequently integrate fish, mast tree nuts, and domesticated crops without refactoring the
+core scheduling engine, the software architecture must decouple three domains:
+  1.​ The environmental grid patch state.
+  2.​ The biological renewal and spatial diffusion strategy of the resource.
+  3.​ The labor extraction and nutritional delivery mechanics.
+
+Formal Mathematical Architecture
+Let the simulation space be a regular 2D grid of patches c \in \Omega, updated across discrete
+seasonal steps t \in \{0, 1, 2, 3\} (Spring, Summer, Autumn, Winter). Each cell tracks a vector of
+resource biomass stocks \mathbf{S}_c = [S_{c, 1}, S_{c, 2}, \dots, S_{c, K}].
+
+Biological State Update
+
+At the beginning of season t, before agent harvesting occurs, each resource stock updates
+according to local biological growth, spatial diffusion, and environmental carrying capacity:
+S_{c, k}(t+1) = \operatorname{Clamp}\Big( S_{c, k}(t) + \Delta_{\text{bio}}(S_{c, k},
+\mathbf{E}_c, t) + \Delta_{\text{diff}}(S_{\cdot, k}) - \sum_{a \in A_c} Y_{a, c, k}(t), \, 0, \, K_{c, k}
+\Big)
+𝑤ℎ𝑒𝑟𝑒$𝐸𝑐$𝑖𝑠𝑡ℎ𝑒𝑎𝑏𝑖𝑜𝑡𝑖𝑐𝑒𝑛𝑣𝑖𝑟𝑜𝑛𝑚𝑒𝑛𝑡𝑎𝑙𝑐𝑜𝑛𝑡𝑒𝑥𝑡(𝑡𝑒𝑚𝑝𝑒𝑟𝑎𝑡𝑢𝑟𝑒, 𝑠𝑜𝑖𝑙𝑚𝑜𝑖𝑠𝑡𝑢𝑟𝑒, 𝑝𝑟𝑒𝑐𝑖𝑝𝑖𝑡𝑎𝑡𝑖𝑜𝑛), $𝐾𝑐,𝑘$𝑖𝑠𝑡ℎ𝑒𝑝𝑎𝑡𝑐ℎ𝑐𝑎𝑟𝑟𝑦
+\Delta_{\text{diff}}(S_{\cdot, k}) = D_k \sum_{j \in \mathcal{N}(c)} (S_{j, k} - S_{c, k})
+For sessile plant resources (wild grain, nuts, crops), the diffusion coefficient D_k = 0. For mobile
+game and riverine fish, D_k > 0, modeling dispersal from overcrowded or undisturbed patches
+into depleted territory.
+Biological renewal \Delta_{\text{bio}} varies by resource class:
+   ●​ For continuously breeding stocks (small game): \Delta_{\text{bio}} = r_k(t) \cdot S_{c, k}(t)
+       \left( 1 - \frac{S_{c, k}(t)}{K_{c, k}} \right)
+   ●​ For seasonally pulsed wild vegetation (wild grains, mast nuts): \Delta_{\text{bio}} =
+       \begin{cases} K_{c, k} \cdot \Phi_k(\mathbf{E}_c), & \text{if } t = \text{FlushSeason}_k \\
+       -\mu_{\text{decay}} \cdot S_{c, k}(t), & \text{if } t \neq \text{FlushSeason}_k \end{cases}
+       where \mu_{\text{decay}} represents seed drop, rot, and consumption by non-human
+       wildlife.
+
+Extraction Functional Response
+
+When agent a allocates L_{a, k} labor hours to resource k in patch c, the extracted yield Y_{a, c,
+k} accounts for search efficiency, handling time, and co-forager interference:
+Y_{a, c, k} = \frac{\beta_{s, k} \cdot S_{c, k} \cdot L_{a, k}}{1 + \beta_{s, k} \cdot h_k \cdot S_{c,
+k} + \sum_{b \in A_c \setminus \{a\}} \gamma_k \cdot L_{b, k}}
+where \beta_{s, k} is search efficiency, h_k is handling time per unit biomass, and \gamma_k
+captures mutual interference between multiple foragers in the same cell.
+
+Object-Oriented Interface Schemas
+The following interface decouples resource logic from the simulation core using standard
+object-oriented strategy patterns.
+from abc import ABC, abstractmethod​
+from dataclasses import dataclass​
+from typing import Dict, Optional​
+from enum import Enum​
+​
+class Season(Enum):​
+     SPRING = 0​
+     SUMMER = 1​
+     AUTUMN = 2​
+     WINTER = 3​
+​
+@dataclass(frozen=True)​
+class NutritionalProfile:​
+    calories_per_kg: float       # Metabolic energy (kcal)​
+    protein_g_per_kg: float      # Structural amino acids (grams)​
+    fat_g_per_kg: float          # Essential lipids (grams)​
+    spoilage_rate_per_season: float # Storage decay rate​
+​
+@dataclass​
+class EnvironmentalContext:​
+    season: Season​
+    temperature_c: float​
+    rainfall_mm: float​
+    soil_fertility: float        # Index 0.0 to 1.0​
+    water_proximity: float       # Proximity index to rivers/springs​
+​
+class RegrowthStrategy(ABC):​
+    @abstractmethod​
+    def calculate_renewal(​
+        self, current_stock: float, carrying_capacity: float, env:
+EnvironmentalContext​
+    ) -> float:​
+        """Returns delta biomass added or lost before harvesting."""​
+        pass​
+​
+    @abstractmethod​
+    def get_diffusion_coefficient(self) ->
+fl[span_49](start_span)[span_49](end_span)oat:​
+        """Spatial dispersion coefficient (0.0 for stationary
+resources)."""​
+        pass​
+​
+class HarvestStrategy(ABC):​
+    @abstractmethod​
+    def calculate_yield(​
+        self, stock: float, allocated_labor_hours: float,
+total_patch_labor: float​
+    ) -> float:​
+        """Calculates harvested biomass (kg) given labor allocation
+and stock."""​
+        pass​
+​
+    @abstractmethod​
+    def requires_delayed_return(self) -> bool:​
+        """Returns True if harvest requires prior planting/tending
+investment."""​
+        pass​
+​
+@dataclass​
+class ResourceArchetype:​
+    archetype_id: str​
+    nutrition: NutritionalProfile​
+    regrowth: RegrowthStrategy​
+    harvest: HarvestStrategy​
+
+
+Grid Patch State and Biological Execution
+The patch layer acts as a generic container that delegates biological and harvest calculations to
+registered archetypes without hardcoding resource identities.
+class SpatialPatch:​
+      def __init__(self, patch_id: int, x: int, y: int, soil_quality:
+float):​
+           self.patch_id = patch_id​
+           self.x = x​
+           self.y = y​
+           self.soil_quality = soil_quality​
+           ​
+           # Maps archetype_id -> current biomass stock (kg)​
+           self.stocks: Dict[str, float] = {}​
+           self.carrying_capacities: Dict[str, float] = {}​
+           ​
+           # Agricultural state tracking (active only when domestic crops
+are planted)​
+           self.cultivated_crop_id: Optional[str] = None​
+           self.accumulated_cultivation_labor: float = 0.0​
+​
+      def step_biological_renewal(​
+           self, archetypes: Dict[str, ResourceArchetype], env:
+EnvironmentalContext​
+      ):​
+           for res_id, current_biomass in list(self.stocks.items()):​
+                archetype = archetypes[res_id]​
+                k = self.carrying_capacities.get(res_id, 1000.0)​
+                ​
+                delta = archetype.regrowth.calculate_renewal(​
+                      current_stock=current_biomass, carrying_capacity=k,
+env=env​
+                )​
+                # Enforce stock boundaries​
+                self.stocks[res_id] = max(0.0, min(k, current_biomass +
+delta))​
+
+
+Parameterization of Subsistence Archetypes
+By implementing the RegrowthStrategy and HarvestStrategy interfaces, diverse resources are
+integrated into the simulation engine cleanly:
+   ●​ Small Game (Cottontails / Jackrabbits):
+         ○​ RegrowthStrategy: Logistic regrowth with seasonal breeding pulses
+             (r_{\text{spring}} = 0.45, r_{\text{winter}} = 0.05). Diffusion coefficient D = 0.20
+             allows animals to migrate across cell boundaries.
+         ○​ HarvestStrategy: Search-limited Holling Type II curve. High search time per
+             encounter (\beta_s = 0.05), low handling time (h = 0.15\text{ hr/kg}).
+         ○​ Nutrition: 1{,}400\text{ kcal/kg}, 210\text{ g protein/kg}, 50\text{ g fat/kg}. High
+             storage perishability (0.90\text{ season}^{-1}).
+   ●​ Riverine / Coastal Fish:
+         ○​ RegrowthStrategy: Zero capacity on land cells; high capacity on river/coastal cells.
+             Sharp spring spawning pulses simulating anadromous runs.
+         ○​ HarvestStrategy: Central place harvesting with fixed spatial infrastructure (nets,
+             weirs). Low search time once runs occur; moderate handling/cleaning time (h =
+             0.40\text{ hr/kg}).
+         ○​ Nutrition: 1{,}200\text{ kcal/kg}, 180\text{ g protein/kg}, 60\text{ g fat/kg}.
+   ●​ Mast Tree Nuts (Acorns / Hickory):
+         ○​ RegrowthStrategy: Strictly pulsed mast renewal in Autumn based on summer
+             rainfall. Zero growth in other seasons; unharvested nuts rot or are consumed by
+             wildlife in winter (\mu_{\text{decay}} = 0.75). Diffusion D = 0.0.
+         ○​ HarvestStrategy: Handling-limited extraction. Search time is negligible (\beta_s \to
+             \infty); handling time is very high (h = 2.0\text{ hr/kg}) to account for gathering,
+             hulling, and leaching.
+         ○​ Nutrition: 4{,}500\text{ kcal/kg}, 60\text{ g protein/kg}, 450\text{ g fat/kg}. Low
+             storage decay rate (0.05\text{ season}^{-1}).
+   ●​ Wild Cereals (Wild Einkorn / Rice Grass):
+         ○​ RegrowthStrategy: Autumn-only flush window, zero spatial diffusion. Seed dispersal
+             mechanics: unharvested mature cereals shatter and drop their seeds if not
+             collected during the autumn window.
+         ○​ HarvestStrategy: Handling-limited harvest. High labor cost per kilogram for reaping,
+             threshing, and winnowing (h = 2.5\text{ hr/kg}).
+         ○​ Nutrition: 3{,}300\text{ kcal/kg}, 120\text{ g protein/kg}, 20\text{ g fat/kg}. Low
+             storage decay (0.08\text{ season}^{-1}).
+   ●​ Domesticated Field Crops (Maize / Emmer Wheat):
+         ○​ RegrowthStrategy: State-machine delayed return. In Spring, planting consumes
+             seed grain from household storage and initializes plot growth. In Summer, standing
+             biomass accumulates as a function of temperature, precipitation, and accumulated
+             weeding labor. In Autumn, biomass converts to harvestable grain. In Winter,
+             unharvested standing crops are killed by frost.
+         ○​ HarvestStrategy: Bulk area-clearance harvest. Labor is dedicated to field reaping
+             and transport.
+         ○​ Nutrition: 3{,}500\text{ kcal/kg}, 90\text{ g protein/kg}, 30\text{ g fat/kg}. Highly
+             stable dry storage (0.05\text{ season}^{-1}).
+
+Systemic Modeling Pitfalls and Calibration Failure
+Modes
+Overpredation and Trophic Collapse Cascades
+In multi-species forager simulations, wild animals are frequently hunted to complete extinction
+within decades because computational agents do not experience physical exhaustion and
+possess complete information regarding animal locations. In real-world ecosystems, animals
+respond to predation pressure with behavioral avoidance—fleeing, adopting nocturnal habits, or
+retreating into rough terrain—long before their populations are biologically extirpated.
+When behavioral avoidance is omitted, human foragers harvest prey down to the final individual.
+Modelers must implement behavioral prey depression: patch search efficiency \beta_{s, k} must
+decay exponentially as a function of cumulative hunting hours spent in that cell over preceding
+cycles:
+\beta_{s, k}(t) = \beta_{0, k} \cdot \exp\Big(-\psi \cdot \sum_{\tau=t-n}^{t-1} \text{Labor}_{c,
+k}(\tau)\Big)
+This formulation depresses harvesting returns, encouraging agents to relocate campsites or
+switch to alternative resources while wild breeding stocks remain intact.
+
+The Agricultural Labor Deadlock
+Introducing crops into an agent-based simulation often results in agents refusing to farm. If
+agent behavior is governed by short-term optimal foraging rules (such as daily or weekly
+Marginal Value calculations), the instantaneous return of planting a seed in spring is zero, while
+hunting or wild seed gathering provides immediate calories. As a consequence, agents starve in
+winter because they fail to sow fields in spring.
+Simulations must resolve this by modeling labor allocation through hierarchical goal
+architectures: agents first satisfy seasonal baseline commitments (field preparation and
+planting) before allocating remaining discretionary hours to opportunistic foraging.
+
+Storage Decay Cliffs and Malthusian Catastrophes
+In simulations tracking food storage (such as Artificial Anasazi), implementing hard expiration
+cutoffs (e.g., grain disappears entirely after exactly 24 months) creates artificial demographic
+cliffs. During prolonged wet intervals, households fill granaries to capacity, driving exponential
+population growth. When drought occurs, all households consume their reserves at identical
+rates.
+At month 24, grain stocks across the entire region expire simultaneously, resulting in a sudden,
+catastrophic population crash where thousands of agents die within a single time step. A more
+robust design implements non-linear, continuous storage spoilage:
+\frac{dS_{\text{stored}}}{dt} =
+-\d[span_9](start_span)[span_9](end_span)[span_22](start_span)[span_22](end_span)elta_[spa
+n_77](start_span)[span_77](end_span)1 \cdot S_{\text{stored}} - \delta_2 \cdot
+(S_{\text{stored}})^2
+The quadratic term penalizes excessive hoarding, accounts for pest infestations, and smooths
+demographic adjustments during environmental downturns.
+
+Labor Queue Deadlocks in Multi-Resource Flushes
+When multiple resources mature in the same season—such as autumn mast flushes of nuts,
+wild grains, and agricultural harvests—uncoordinated priority queues often break down. Agents
+can become trapped in pathfinding routines or dedicate all labor to distant nut patches while
+standing domestic crops rot in adjacent fields.
+Simulations must implement spatial discounting and central-place transport costs directly into
+utility prioritization, ensuring agents account for round-trip travel time, field clearing investments,
+and storage proximity when ranking competing harvest tasks.
+
+Epistemological Demarcation: Verified Empirical Data
+versus Computational Inference
+To ensure scientific rigor, empirical findings documented in peer-reviewed literature must be
+distinguished from computational assumptions and structural inferences implemented for model
+execution.
+Dimension / Domain                 Verified Empirical Facts        Theoretical Inferences &
+                                   (Literature Grounded)           Modeling Assumptions
+Puebloan Subsistence (VEP • Maize constituted over 70% of • Household consumption is
+& Anasazi)                         human dietary biomass in        treated as an invariant static
+                                   Central Mesa Verde. • Turkey quota of 160\text{
+                                   consumption expanded            kg/capita/year}. • Storage
+                                   dramatically after AD 1000,     longevity is assumed to
+                                   replacing wild deer in faunal   truncate sharply at two years. •
+                                   records. • Dendroclimatic PDSI Household fissioning is
+                                   reconstructs annual             triggered by fixed wealth and
+                                   paleoproductivity variations.   demographic thresholds.
+Forager Mobility Dynamics • Mobile foragers exhibit                • Sedentary health decline can
+                                   systematically lower population be generated purely by spatial
+                                   densities than sedentary        packing without novel diseases.
+                                   groups. • Skeletal markers      • Mobility strategy m is
+                                   indicate declining nutritional  assumed to mutate via simple
+                                   status during early sedentary binomial cultural transmission.
+                                   transitions.
+Ache & Hadza                       • Ache hunting provides higher • Search encounters are
+Ethnoarchaeology                   post-encounter returns than     treated as homogeneous
+                                   gathered plant foods. • Ache    spatial Poisson processes. •
+                                   bands move camp nearly daily Group band size is assumed to
+                                   due to local prey depression. • optimize primarily around
+                                   Hadza hunters partition carcass caloric meat sharing.
+                                   transport using defleshed "meat
+                                   shirts".
+Pleistocene Megafauna              • Large mammals possess         • Human hunters are assumed
+Extinction                         allometrically lower intrinsic  to harvest 41 prey species with
+                                   reproductive rates (r_m) than a uniform functional response. •
+                                   small game. • Proboscideans Climatic shifts are assumed
+                                   exhibit r_m \approx 0.06,       unnecessary to explain
+                                   making them vulnerable to       continent-wide megafaunal
+                                   sustained mortality.            collapse.
+Dimension / Domain              Verified Empirical Facts       Theoretical Inferences &
+                                (Literature Grounded)          Modeling Assumptions
+Colony Simulation Game          • Dwarf Fortress structures    • Heuristic game priority
+Internals                       plant organs and phenology via queues approximate
+                                raw text tokens ([GROWDUR], bounded-rational human labor
+                                [GROWTH]). • Songs of Syx      scheduling. • Fixed crop
+                                models groundwater table       perishability percentages
+                                diffusion into continuous soil accurately capture complex
+                                fertility.                     post-harvest spoilage
+                                                               dynamics.
+---
+## Architectural Synthesis
+Constructing an extensible subsistence simulation requires decoupling biological replenishment
+from the agent decision loop. When resources are modeled as discrete implementations of a
+unified interface, the core engine remains agnostic to whether an agent is pursuing mobile
+game, harvesting an autumn acorn mast, netting an anadromous fish run, or weeding a
+domesticated crop field.
+Agents interact with abstract return-rate functions that evaluate search, handling, and
+central-place transport costs. Concurrently, the spatial grid updates biological stocks according
+to independent phenological and diffusion equations.
+By separating search-limited extraction from handling-limited processing, tracking protein and
+caloric currencies independently, and accounting for non-linear storage decay, a simulation
+avoids the catastrophic collapse modes common in early socio-ecological models while
+providing an expandable foundation for modeling human subsistence evolution.
+
+Works cited
+
+1. (PDF) Understanding Anasazi Culture Change Through Agent,
+https://www.researchgate.net/publication/23740546_Understanding_Anasazi_Culture_Change_
+Through_Agent-Based_Modeling 2. (PDF) Population growth and collapse in a multiagent
+model of the,
+https://www.researchgate.net/publication/11360901_Population_growth_and_collapse_in_a_mul
+tiagent_model_of_the_Kayenta_Anasazi_in_Long_House_Valley 3. Statistical Model Checking
+of NetLogo Models - arXiv, https://arxiv.org/html/2509.10977v1 4. Settlement Ecodynamics in
+the Prehispanic Central Mesa Verde,
+https://www.researchgate.net/publication/265286353_Settlement_Ecodynamics_in_the_Prehisp
+anic_Central_Mesa_Verde_Region 5. Tim KOHLER | Regents Professor of Archaeology and
+Evolutionary, https://www.researchgate.net/profile/Tim-Kohler/2 6. Population and Warfare: A
+Test of the Turchin Model in Puebloan,
+http://sfi-edu.s3.amazonaws.com/sfi-edu/production/uploads/sfi-com/dev/uploads/filer/40/0e/400
+efa35-b938-4c19-8c74-b00275bbc880/06-06-018.pdf 7. (PDF) Mesa Verde Migrations -
+ResearchGate, https://www.researchgate.net/publication/250968765_Mesa_Verde_Migrations
+8. Animal Resource Use Related to Socioenvironmental Change,
+https://www.journals.uchicago.edu/doi/10.1086/704143 9. Wealth inequality in the prehispanic
+northern US Southwest - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC10291424/ 10. Wealth
+inequality in the prehispanic northern US Southwest,
+https://royalsocietypublishing.org/rstb/article/378/1883/20220298/42681/Wealth-inequality-in-the
+-prehispanic-northern-US 11. Becoming Villagers: Comparing Early Village Societies (Amerind,
+https://dokumen.pub/becoming-villagers-comparing-early-village-societies-amerind-studies-in-ar
+chaeology-0816529019-9780816529018.html 12. Computational Model Library - CoMSES Net,
+https://www.comses.net/codebases/?tags=neanderthal 13. On the ecological impact of
+prehistoric hunter-gatherers in Europe, https://pmc.ncbi.nlm.nih.gov/articles/PMC12543167/ 14.
+Neanderthals and early humans reshaped Europe's landscapes,
+https://archaeologymag.com/2025/10/neanderthals-and-early-humans-reshaped-landscapes/
+15. An Agent Based Model of Climate Change and Conflict among,
+https://scholarsarchive.byu.edu/cgi/viewcontent.cgi?article=2114&context=iemssconference 16.
+(PDF) The Specification of Sugarscape - ResearchGate,
+https://www.researchgate.net/publication/277145127_The_Specification_of_Sugarscape 17.
+sugarscape.nlogo - GitHub Gist,
+https://gist.github.com/rht/65c3f0819e92ed9d8419429a12718d07 18. Replication in Agent
+Based Models using Formal Methods and, https://doras.dcu.ie/21839/1/thesisFinal.pdf 19.
+MASON HIERARCHIES: A LONG-RANGE AGENT MODEL OF,
+http://socialcomplexity.gmu.edu/wp-content/uploads/2017/03/Cioffi-Revilla-et-al.Hierarchies-201
+5.pdf 20. An Agent-Based Model of Rural Households' Adaptation to Climate,
+https://www.jasss.org/21/4/4.html 21. The MASON HouseholdsWorld Model of Pastoral Nomad
+Societies,
+https://www.researchgate.net/publication/226786134_The_MASON_HouseholdsWorld_Model_o
+f_Pastoral_Nomad_Societies 22. Food Income and the Evolution of Forager Mobility -
+ResearchGate,
+https://www.researchgate.net/publication/332131694_Food_Income_and_the_Evolution_of_For
+ager_Mobility 23. A dynamical systems approach to optimal foraging,
+https://repository.ubn.ru.nl/bitstream/handle/2066/303352/303352.pdf?sequence=1 24. World
+Models Unlock Optimal Foraging Strategies in Reinforcement,
+https://arxiv.org/html/2512.12548v2 25. A Spatially explicit ABM of Central Place Foraging
+Theory ... - ORBilu,
+https://orbilu.uni.lu/bitstream/10993/42178/1/ABM_of_CFP%20%282%29.pdf 26. Foraging
+Decisions Among Ach Hunter-Gatherers: New Data and,
+https://content.csbs.utah.edu/~hawkes/Hill_al87ForagingAcheOFT.pdf 27. A spatially explicit
+agent-based model of central place foraging,
+https://www.researchgate.net/publication/342133190_A_spatially_explicit_agent-based_model_
+of_central_place_foraging_theory_and_its_explanatory_power_for_hunter-gatherers_settlement
+_patterns_formation_processes 28. Hadza man wearing a “meat shirt” to transport meat from a
+kill site to,
+https://www.researchgate.net/figure/Hadza-man-wearing-a-meat-shirt-to-transport-meat-from-a-
+kill-site-to-the-residential_fig1_226692634 29. Benefits of Grouping and Cooperative Hunting
+Among Ache Hunter,
+https://www.researchgate.net/publication/271738833_Benefits_of_Grouping_and_Cooperative_
+Hunting_Among_Ache_Hunter-Gatherers_Insights_from_an_Agent-Based_Foraging_Model 30.
+An Agent-Based Model of Resource Distribution on Hunter-Gatherer,
+https://www.researchgate.net/publication/309331220_An_Agent-Based_Model_of_Resource_Di
+stribution_on_Hunter-Gatherer_Foraging_Strategies_Clumped_Habitats_Favor_Lower_Mobility
+_but_Result_in_Higher_Foraging_Returns 31. Did Human Hunting Cause Mass Extinction? -
+ResearchGate,
+https://www.researchgate.net/publication/11641087_Did_Human_Hunting_Cause_Mass_Extinct
+ion 32. A Multispecies Overkill Simulation of the End-Pleistocene,
+https://www.researchgate.net/publication/11941539_A_Multispecies_Overkill_Simulation_of_the
+_End-Pleistocene_Megafaunal_Mass_Extinction 33. (PDF) On the dynamics of mortality and
+the ephemeral nature of,
+https://www.researchgate.net/publication/365889493_On_the_dynamics_of_mortality_and_the_
+ephemeral_nature_of_mammalian_megafauna 34. Pleistocene Overkill and North American
+Mammalian Extinctions*,
+https://www.annualreviews.org/doi/pdf/10.1146/annurev-anthro-102214-013854 35.
+Determinants of loss of mammal species during the Late Quaternary,
+https://royalsocietypublishing.org/rspb/article-pdf/269/1506/2221/546499/rspb.2002.2130.pdf 36.
+[PDF] A Multispecies Overkill Simulation of the End-Pleistocene,
+https://www.semanticscholar.org/paper/A-Multispecies-Overkill-Simulation-of-the-Mass-Alroy/16
+9df12bcba2fe44d8e41c3fdc885944a7e24afa 37. v0.34:Plump helmet - Dwarf Fortress Wiki,
+https://dwarffortresswiki.org/index.php/v0.34:Plump_helmet 38. Plant token - Dwarf Fortress
+Wiki, https://dwarffortresswiki.org/index.php/Plant_token 39. DF2014:Plump helmet - Dwarf
+Fortress Wiki, https://dwarffortresswiki.org/index.php/DF2014:Plump_helmet 40. Guide :: Things
+I wish I knew before (outdated) - Steam Community,
+https://steamcommunity.com/sharedfiles/filedetails/?id=2929030023 41. Communauté Steam ::
+Manor Lords, https://steamcommunity.com/app/1363080?l=french 42. Marginal value theorem,
+patch choice, and human foraging,
+https://www.researchgate.net/publication/301271597_Marginal_value_theorem_patch_choice_a
+nd_human_foraging_response_in_varying_environments 43. (PDF) Transition to farming more
+likely for small, conservative,
+https://www.researchgate.net/publication/283670357_Transition_to_farming_more_likely_for_s
+mall_conservative_groups_with_property_rights_but_increased_productivity_is_not_essential
+

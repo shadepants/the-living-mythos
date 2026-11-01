@@ -19,10 +19,12 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `design/spec_v0.1.md` | Draft v0.8 (2026-10-30; file name kept); Q0-Q7 settled; open questions grilled in the order of section 20 |
 | `design/integration-review-2026-10-30.md` | Open (2026-10-30): whole-system review raised during Q8; issues I1-I9, candidate architecture, revised grill order R1-R4 then Q9-Q14 |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
-| `research/gemini-prompts.md` | Prompts 1-7 run; prompts 8-11 pending (2026-10-30, whole-system review) |
+| `research/gemini-prompts.md` | Prompts 1-9 and 11 run; prompt 10 pending |
+| `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 11 (food-system architecture); spot-checks; feeds R1-R4 |
+| `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt` | Prompt 8, 9, 11 report text (PDFs in the repo mirror at `docs/research/`) |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |
 | `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
-| `research/prototypes/q8-system/` | Throwaway Python prototypes for the whole-system review (band-only and integrated); evidence only; never port |
+| `research/prototypes/q8-system/` | Throwaway Python prototypes for the whole-system review (band-only, integrated, prey depression `run3*`); evidence only; never port |
 | `research/vegetation-drought-report-gemini.txt` | Prompt 7 report (text of the PDF, which Jordan attached in chat; PDF in the repo mirror at `docs/research/`) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |
 | `research/tooling-report.md` | Final; cloud sessions decided (rev 10); PBT skill choice and other installs still open |

@@ -1,0 +1,828 @@
+Drought and Famine Responses in
+Mobile Hunter-Gatherer Societies:
+Quantitative Parameters, Decision
+Architectures, and Demographic
+Dynamics for Simulation Modeling
+Hierarchical Decision Architectures: Behavioral
+Sequences and Temporal Shortfall Thresholds
+Mobile foraging groups mitigate resource scarcity through an escalating sequence of behavioral
+adaptations designed to balance energetic expenditure against social disruption. Drawing on
+Paul Minnis’s model of social adaptation to food stress and the risk-buffering taxonomy
+formalized by Halstead and O’Shea, these coping mechanisms advance through four distinct
+operational domains: diversification, storage depletion, mobility adjustments, and exchange or
+social aggregation. Foragers do not deploy these strategies simultaneously; instead, they
+activate responses hierarchically as localized buffers fail, mapping directly to the cumulative
+duration of resource shortfalls.
+Temporal
+[span_1](start_span)[span_1](end_span)[span_4](start_span)[span_4](end
+_span)Shortfall Escalation Continuum:​
+0–1 Season: Diet broadening, cache depletion, extended logistical
+radius (5–20 km)​
+1–2 Seasons: Fissioning into micro-bands (5–12 people), doubled
+residential moves (every 4–10 days)​
+2–3 Seasons: Inter-band dispersal (50–200 km) via kin/exchange
+networks (e.g., hxaro)​
+3–4+ Seasons: Regional distress migration (150–500+ km) OR aggregation
+at permanent refugia (50–150+ people)​
+Terminal: Spatial enclosure or mobility collapse resulting in in-place
+starvation​
+
+
+Initial Buffering: Weeks 1 to 12 (Season 0 to Season 1)
+When seasonal resource flushes fail or yields drop below baseline expectations, foraging units
+maintain their residential base while expanding their dietary breadth and logistical range. In
+classical optimal foraging theory, particularly the diet-breadth or prey-choice model, as
+encounter rates with high-ranked prey items drop, foragers expand their selection to incorporate
+lower-ranked fallback foods with high processing costs. These fallback resources include fibrous
+underground storage organs (roots, tubers, and corms), inner tree bark, unpalatable seeds, and
+toxic wild yams (Dioscorea species) requiring extensive multi-day leaching, boiling, or roasting
+to eliminate secondary plant toxins. Foragers concurrently intensify intra-carcass bone
+processing, shattering long bones for marrow and boiling cancellous bone fragments to extract
+structural grease.
+In high-latitude and cold-climate contexts, however, diet broadening encounters a strict
+physiological limit. As documented by John Speth, the human liver exhibits an upper metabolic
+rate for urea synthesis, restricting lean protein intake to a ceiling of approximately 35% to 40%
+of total daily calories, or roughly 200 to 300 grams of protein per day for an average adult. When
+prolonged cold or nutritional distress strips adipose stores from ungulates, hunters consuming
+lean game face protein poisoning, historically termed "rabbit starvation". Foragers cannot
+survive purely on lean meat without dietary lipids or carbohydrates; hence, during initial stress,
+hunting groups prioritize the few fat-bearing anatomical elements remaining (mandibles, foot
+pads, and marrow cavities) or allocate substantial labor toward accessing carbohydrate-rich
+emergency plants.
+Simultaneously, logistical collectors draw down cached reserves. Food storage among mobile
+hunter-gatherers is functionally limited to buffering seasonal deficits across two to four months,
+rather than surviving multi-year crises. Stored food is constrained by container transport costs,
+microbial decay, insect infestation, rodent scavenging, and the threat of raiding by neighboring
+groups. Task groups also expand their daily foraging radius, pushing the gathering range from
+typical baselines of 5 to 8 km outward to 15 to 20 km. Because human pedestrian transport
+carries an energetic cost of roughly 4.2 kJ per kilogram per kilometer traversed, return rates
+diminish rapidly, and logistical excursions beyond 20 km become energetically unsustainable
+unless they access high-fat, high-bulk food patches.
+
+Intermediate Escalation: Months 3 to 6 (Season 1 to Season 2)
+When localized low-ranked foods and stored provisions are exhausted, foraging bands
+restructure their settlement patterns and group sizes. The frequency of residential camp
+relocations doubles or triples. Bands that customarily moved camp every 30 to 45 days begin
+moving every 7 to 14 days; in hyper-arid desert settings, residential moves may occur every 4 to
+6 days as localized water and patch yields are quickly depleted. Rather than moving
+systematically among predictable seasonal patches, camp moves become opportunistic
+excursions tethered to localized rainfall, animal tracks, or unexploited plant patches.
+To reduce localized foraging pressure, bands undergo social fissioning. Macro-bands
+comprising 25 to 50 individuals split into autonomous micro-bands of 5 to 12 individuals,
+typically centered on nuclear or extended family units. Fissioning lowers the daily caloric
+demand of the co-residential unit and shortens the radius over which foragers must walk to
+locate food, temporarily delaying the depletion of local resource patches.
+If the crisis extends across multiple ecological basins, micro-bands activate institutionalized
+social storage networks. The Kalahari Ju/'hoansi formalize this through the hxaro system, an
+extensive, lifetime network of delayed reciprocal gift exchange linking individuals across spatial
+distances of 50 to 200 km. During localized environmental collapse, individual families disperse
+into the residential territories of their hxaro partners. The host band grants foraging privileges
+and waterhole access under cultural norms of generalized reciprocity, sustained by the
+expectation that reciprocal access will be returned during future spatial disruptions.
+
+Severe Escalation: Months 6 to 18 (Seasons 2 to 4)
+When drought or game failure spans an entire geographical region, localized kinship networks
+reach carrying capacity and can no longer absorb displaced families. Micro-bands abandon their
+regular territories and initiate long-distance distress relocations traversing 100 to 500+ km. In
+arid settings, such as the Australian Western Desert, these treks trace ancestral lines of deep
+subsurface wells and rockholes, bypassing completely desiccated zones to reach
+topographically protected ecological refugia.
+Under severe regional stress, the spatial distribution of populations inverts: dispersion gives way
+to emergency aggregation. As water holes, springs, and creeks dry up across the surrounding
+landscape, surviving family units coalesce at permanent regional refugia—deep montane
+canyons, spring mounds, or master river drainages. These aggregation camps frequently swell
+to 100 to 200+ individuals. Because foraging is tightly tethered to the water source, local plant
+and animal resources within a 10 to 15 km perimeter are quickly depleted, forcing refugee
+populations to subsist on shared water and marginal resources.
+
+Terminal Escalation: Beyond 18 Months (Season 4+)
+When environmental conditions eliminate all available exit vectors—whether due to absolute
+geographic barriers like open ocean or glaciated terrain, severe blizzards, physical exhaustion,
+or violently closed territorial boundaries—bands experience in-place starvation. Caloric intake
+collapses below basal metabolic requirements (under 800 to 1,000 kcal per day for an adult),
+and individuals exhaust their endogenous fat stores and catabolize skeletal muscle. Severe
+physiological wasting impairs locomotion, rendering base camps completely immobile. During
+this terminal stage, human groups process hide clothing, raw bone grease, and tool
+components for sustenance before succumbing to hypothermia, dehydration, and opportunistic
+infections.
+Stress Tier          Shortfall Duration Behavioral            Energetic & Social Operational
+                                          Mechanisms          Drivers            Simulation Rule
+Tier 1: Minor /      0–1 Season (1–3 Diet breadth             Optimal foraging Add resources
+Localized            months)              expansion; bone prey-choice            where E/h <
+                                          marrow/grease       expansion; hepatic \text{baseline};
+                                          extraction; cache protein limit (max expand logistical
+                                          drawdown;           35–40% lean        foraging radius
+                                          logistical foraging meat); storage     1.5\times\text{--}2.
+                                          radius extension. buffering.           5\times (max 20
+                                                                                 km); deplete
+                                                                                 stored food at
+                                                                                 standard
+                                                                                 consumption rates.
+Tier 2: Moderate / 1–2 Seasons (3–6 Social fissioning; Mitigate local            Fission bands (N =
+Prolonged            months)              accelerated         resource           25\text{--}50) into
+                                          residential         depletion; lower   micro-units (N =
+                                          mobility; local     localized patch    5\text{--}12);
+                                          band dispersion. depression;           multiply residential
+                                                              increase spatial   move frequency by
+                                                              sampling.          2.0\times\text{--}3.
+                                                                                 0\times (camp
+                                                                                 tenure drops to
+Stress Tier        Shortfall Duration Behavioral        Energetic & Social Operational
+                                      Mechanisms        Drivers              Simulation Rule
+                                                                             4–10 days).
+Tier 3: Severe / 2–3 Seasons       Activation of        Inter-band           Disperse 30–60%
+Regional           (6–12 months)   external kin         reciprocity; spatial of micro-bands to
+                                   networks (hxaro); risk-spreading          allied nodes within
+                                   long-range family across                  50–200 km; host
+                                   dispersal.           non-covariant        camp population
+                                                        patches; social      increases by
+                                                        storage.             25–50%; daily per
+                                                                             capita ration drops
+                                                                             to 70–80%
+                                                                             baseline.
+Tier 4: Extreme / 3–4+ Seasons     Regional territorial Hydrological         Relocate
+Multi-Year         (12–24 months)  abandonment;         failure in           residential base
+                                   long-distance        peripheral zones; 100–500+ km
+                                   distress migration; retreat to            along refugium
+                                   emergency            permanent            vector; aggregate
+                                   refugium             water/food           to N =
+                                   aggregation.         anchors; resource 50\text{--}200;
+                                                        depression.          deplete local patch
+                                                                             resources within
+                                                                             15 km at 3\times
+                                                                             baseline; flag
+                                                                             Territory_Abandon
+                                                                             ed = TRUE.
+Tier 5: Terminal / Multi-Year / No Immobility;          Caloric deficit      Daily intake <
+Catastrophic       Exit Option     consumption of       below basal          800\text{--}1000\te
+                   (>18–24 months) hides and            metabolic rate;      xt{[span_122](start
+                                   structural organic physical muscle _span)[span_122](
+                                   materials; in-place wasting preventing end_span)[span_1
+                                   starvation.          locomotion; severe 24](start_span)[sp
+                                                        systemic infection. an_124](end_span
+                                                                             )[span_126](start_
+                                                                             span)[span_126](e
+                                                                             nd_span) kcal}; set
+                                                                             residential mobility
+                                                                             to 0; initiate
+                                                                             catastrophic
+                                                                             mortality
+                                                                             schedules.
+Mortality Profiles, Age-Specific Vulnerabilities, and
+Reproductive Dynamics
+Age- and Sex-Specific Excess Mortality Curves
+Demographic mortality curves during foraging famines depart significantly from standard
+attritional baselines, shifting from generalized Gompertz-Makeham profiles toward distinct
+U-shaped or tri-modal mortality distributions. Under acute famine conditions, infants (0–1 years)
+and young children (1–5 years) experience the highest excess mortality rates, regularly
+reaching 50% to 85%.
+Maternal nutritional deprivation rapidly suppresses milk production, causing infants to suffer
+severe dehydration, metabolic wasting, and gastrointestinal failure. For young children, their
+minimal adipose reserves and immature cellular immune systems leave them vulnerable to
+secondary opportunistic infections, such as measles, bronchopneumonia, and infectious
+diarrhea.
+Post-reproductive elders (aged 50+) constitute the second most vulnerable demographic cohort,
+exhibiting famine-induced mortality rates of 40% to 60%. Physical senescence, underlying
+chronic degenerative conditions, and diminished walking speed prevent elders from keeping
+pace with rapid residential moves or arduous distress migrations across rough terrain. Under
+extreme distress, bands may invoke cultural norms of voluntary self-sacrifice or passive
+abandonment (senilicide) to conserve limited caloric reserves for the reproductive core of the
+group.
+Prime-age adults (aged 15 to 49) exhibit the greatest biological resilience, with excess mortality
+rarely exceeding 10% to 25% under moderate to severe food stress. Prime adults possess
+substantial skeletal muscle mass and adipose reserves that can be metabolized over weeks of
+sub-maintenance caloric intake. Furthermore, their role as primary hunters and foragers gives
+them first access to opportunistic kills, wild root patches, or remaining cached provisions.
+Across all demographic cohorts, biological sex significantly influences survivorship. Historical
+and bioarchaeological analyses of famine crises reveal a consistent female survival advantage.
+Adult females have a higher baseline percentage of body fat (roughly 20% to 26% versus 12%
+to 16% in males) and lower overall lean muscle mass, resulting in lower baseline basal
+metabolic rates per kilogram of body weight. Consequently, adult males suffer accelerated lean
+muscle wasting, early ketoacidosis, and faster metabolic collapse during absolute starvation.
+
+Physiological and Behavioral Suppression of Reproduction
+Nutritional crises trigger a rapid biological and behavioral shutdown of reproduction. The human
+female reproductive system is sensitive to the availability of metabolic fuel. When negative
+energy balances deplete adipose reserves below critical energetic thresholds—typically
+corresponding to a loss of 10% to 15% of normal body weight—the
+hypothalamic-pituitary-ovarian axis downregulates. The hypothalamus halts the pulsatile release
+of gonadotropin-releasing hormone (GnRH), which suppresses luteinizing hormone and
+follicle-stimulating hormone secretion, inducing hypogonadotropic anovulation and amenorrhea.
+Because mobile forager women operate at low baseline body fat levels (frequently 14% to
+18%), even moderate nutritional shortfalls trigger anovulation within 60 to 90 days. In historical
+and ethnographic famines, conception rates fall by 70% to 95%. For women who are pregnant
+when a crisis strikes, the maternal system prioritizes survival over fetal development, triggering
+spontaneous abortions, miscarriages, and stillbirths. Behavioral adjustments reinforce this
+biological suppression: libidos decline sharply, cultural taboos against intercourse during crises
+are reinforced, and rates of selective infanticide increase when mothers cannot sustain
+neonates.
+Recovery Horizons and Demographic Rebound
+Following the cessation of environmental stress, reproductive function recovers swiftly: ovulation
+and menstrual cycling typically resume within 2 to 4 months once positive energetic balance is
+re-established. This produces a compensatory baby boom 12 to 24 months after the famine
+ends, with birth rates rising 20% to 50% above baseline due to shortened interbirth intervals in
+mothers who lost nursing infants.
+However, systemic demographic recovery takes much longer. The loss of entire cohorts of
+infants and juveniles hollows out the age-sex pyramid, generating demographic deficits that
+ripple through the population for decades. While total group numbers may recover within 10 to
+20 years through high post-crisis fertility, the generational echo suppresses reproductive output
+15 to 25 years later, when the missing cohort would have entered their peak reproductive years.
+Crisis       Crude         Excess     Excess        Excess      Excess      Fertility    Representa
+Severity     Mortality     Infant &   Juvenile      Prime Adult Elder       Suppressio tive
+             Multiplier Child         Mortality     Mortality   Mortality   n (% drop Empirical
+                           Mortality  (6–14 yr) (15–49 yr) (50+ yr)         in           Cases &
+                           (0–5 yr)                                         conception Sources
+                                                                            s)
+Tier 1:      1.2\times\te +15\%\text{ +3\%\text{-- +1\%\text{-- +10\%\text{ 25\%\text{-- Kalahari
+Moderate xt{--}1.8\tim --}35\%        }8\%          }4\%        --}25\%     }45\%        Ju/'hoansi
+Stress       es                                                                          (1964–65
+                                                                                         drought);
+                                                                                         Western
+                                                                                         Desert
+                                                                                         Pintupi
+                                                                                         minor dry
+                                                                                         spells.
+Tier 2:      2.5\times\te +40\%\text{ +10\%\text{ +8\%\text{-- +35\%\text{ 60\%\text{-- Kivalliq
+Severe       xt{--}5.0\tim --}75\%    --}25\%       }18\%       --}55\%     }85\%        Caribou
+Crisis       es                                                                          Inuit /
+                                                                                         Ahearmiut
+                                                                                         (1950
+                                                                                         caribou
+                                                                                         failure);
+                                                                                         Pre-contact
+                                                                                         Hiwi
+                                                                                         seasonal
+                                                                                         food crises.
+Tier 3:      8.0\times\te +75\%\text{ +35\%\text{ +25\%\text{ +70\%\text{ 90\%\text{-- St.
+Catastrop xt{--}20.0\ti --}95\%       --}65\%       --}50\%     --}90\%     }100\%       Lawrence
+hic          mes                                                                         Island
+Collapse                                                                                 Yupik
+                                                                                         (1878–80
+                                                                                         famine/epid
+                                                                                         emic);
+                                                                                         Sadlermiut
+                                                                                         Inuit
+Crisis      Crude        Excess      Excess      Excess      Excess       Fertility  Representa
+Severity    Mortality    Infant &    Juvenile    Prime Adult Elder        Suppressio tive
+            Multiplier   Child       Mortality   Mortality   Mortality    n (% drop Empirical
+                         Mortality   (6–14 yr)   (15–49 yr) (50+ yr)      in         Cases &
+                         (0–5 yr)                                         conception Sources
+                                                                          s)
+                                                                                     (1902–03
+                                                                                     extinction).
+Demographic Extinction Versus Social Dissolution:
+Ecological Determinants and Case Evidence
+In the ethnographic, ethnohistoric, and archaeological records of mobile hunter-gatherers,
+complete biological extinction—where every member of a band dies in place—is an infrequent
+occurrence. In roughly 85% to 90% of documented subsistence crises, bands undergo social
+dissolution: the corporate structure of the band dissolves, and its constituent domestic units are
+absorbed into neighboring dialect groups, allied bands, or distant regional host communities.
+Complete biological extinction is typically confined to extreme boundary conditions: absolute
+geographical or social circumscription, severe weather barriers that prevent walking,
+synchronous multi-basin environmental collapse, or comorbidity with introduced epidemic
+pathogens.
+
+The Kalahari San: Resilient Dissolution and Social Buffers
+During the severe regional drought of 1964–1965 in the Dobe area of Botswana and Namibia,
+documented by Richard B. Lee and Nancy Howell, the Ju/'hoansi suffered virtually zero excess
+mortality from outright starvation. Although agricultural and pastoral Bantu populations suffered
+heavy livestock losses and food insecurity, mobile San utilized wild fallback foods—principally
+the drought-resistant mongongo nut (Schinziophyton rautanenii) and deep-rooted tubers—and
+activated their hxaro gift-exchange partnerships.
+Camps dissolved along bilateral family lines, dispersing across water points or joining related
+bands near permanent boreholes and cattle posts. Rather than dying out, the bands
+restructured their social composition, absorbing shock through social porosity and dynamic
+fission-fusion mechanics.
+
+Australian Western Desert: Hydrological Range Contractions
+In the Gibson and Great Sandy Deserts, Aboriginal groups (such as the Pintupi and Martu)
+endured droughts spanning three to seven years. In this hyper-arid environment, localized
+starvation was rarely the primary cause of death; dehydration was far more dangerous.
+As ephemeral and semi-permanent rock holes (gnamma) dried out, bands progressively
+abandoned peripheral hunting territories and contracted along known tracks to a small number
+of permanent water features (jila or deep springs). Different dialect groups and bands merged at
+these locations.
+When entire regional aquifer systems weakened, as observed during the severe droughts of the
+1920s and 1930s, Pintupi and Pitjantjatjara bands carried out coordinated distress migrations of
+200 to 400 km toward mission stations, pastoral fringes, and mountain gorge refugia. Individual
+bands dissolved into larger aggregated camps, with original social units reforming decades later
+when rains returned.
+
+The Arctic: Catastrophic Die-Off and Band Extinction
+High-latitude ecosystems feature low species diversity and extreme resource fluctuations,
+leaving foragers vulnerable to catastrophic collapse when focal prey species fail.
+On St. Lawrence Island, Alaska, during the winter of 1878–1880, severe weather conditions,
+freezing rain, and persistent pack ice prevented the launching of skin umiaks to hunt walrus and
+seals. This local ecological crisis, compounded by an introduced infectious epidemic, decimated
+the population. Between 75% and 86% of the island's 1,500 Yupik inhabitants died, with Hooper
+estimating over 1,000 casualties. Settlements such as Kukulik and Point Kialegak were
+completely abandoned, with entire households found dead in their winter houses. Bands were
+unable to cross the storm-swept sea ice to the Siberian mainland, producing localized
+demographic extinction. The island remained largely depopulated until Yupik immigrants from
+Chukotka settled it years later.
+On Southampton Island in Hudson Bay, the Sadlermiut represented the last culturally and
+biologically distinct remnant of the Dorset culture or an isolated early Thule lineage. In the winter
+of 1902–1903, an infectious enteric disease (typhoid or dysentery) introduced by the whaling
+vessel Active struck the community at Native Point. Because the illness incapacitated primary
+adult hunters, the band could not conduct winter seal or walrus hunts. The entire population of
+roughly 58 individuals died from the compounding effects of infection and starvation; only four or
+five children survived, who were subsequently adopted into mainland Aivilik and Netjilik groups.
+In the interior Kivalliq region of the Canadian Arctic, the Ahearmiut and Padlermiut Caribou Inuit
+relied on intercepting migratory herds of the Beverly and Qaminirjuaq caribou. In 1950, when
+caribou migration routes shifted away from inland river crossing points, approximately 60
+Caribou Inuit starved in isolated interior camps, representing 30% to 50% mortality across local
+bands. Starvation in place occurred because extreme overland distances, sub-zero
+temperatures, and the exhaustion of sled dogs prevented families from walking hundreds of
+kilometers to coastal settlements.
+In Northwest Alaska during 1881–1883, the collapse of the Western Arctic caribou herd
+produced widespread famine. Yet Ernest S. Burch Jr. noted that interior Nunamiut bands did not
+die out en masse. Instead, the groups dissolved: families carried out long-distance migrations to
+the Arctic coast at Point Barrow, the Mackenzie Delta, and Kotzebue Sound, assimilating into
+coastal whaling villages and wage labor networks. The interior Brooks Range was largely
+abandoned for three decades until caribou herds rebuilt and allowed scattered groups to return.
+
+Archaeological Records: Great Basin, California, and the Great Plains
+Bioarchaeological and settlement patterns throughout the American West document
+demographic adjustments during the Medieval Climatic Anomaly (MCA, cal AD 800–1350).
+Tree-ring and submerged tree stump reconstructions show severe, prolonged megadroughts
+from AD 900–1100 and AD 1200–1350. In the Great Basin, shallow marsh systems in the
+Lahontan Basin and around Lovelock Cave desiccated completely, leading to the abandonment
+of lowland sedentary forager base camps. Bioarchaeological analyses reveal sharp increases in
+skeletal stress indicators, such as linear enamel hypoplasia and porotic hyperostosis. Rather
+than dying out in place, these groups relocated to highland lacustrine refugia (e.g., Lake Tahoe,
+Mono Lake) or crossed the Sierra Nevada into California. This displacement increased
+population densities along coastal and riparian zones, triggering resource conflict evidenced by
+higher rates of cranial fractures and embedded arrow points.
+On the Northern Great Plains, nomadic bison-hunting groups frequently shifted their hunting
+ranges in response to multi-year droughts. At the Bergstrom site in central Montana,
+archaeological records indicate repeated seasonal use of bison hunting corrals for centuries,
+followed by abrupt abandonment roughly 1,100 years ago during prolonged regional drought.
+Paleoenvironmental data show that hunters did not die in place; rather, drying creeks made
+meat processing and encampment unviable, prompting hunting parties to reorganize and
+relocate to major river basins with permanent hydrological infrastructure.
+
+Spatial Relocation Dynamics: Distances, Destinations,
+and Host Group Friction
+Quantitative Displacement Metrics
+Spatial responses to resource shortfalls operate across three distinct operational radii:
+Spatial Scales of Movement:​
+Logistical Foraging Radius:              0–25 km      (Daily foraging; return to
+residential base within 24–48 hours)​
+Residential Range Adjustment: 25–100 km (Base camp relocation to
+alternate patches within known range)​
+Distress Relocation Vector:              100–500+ km (Long-distance migration
+abandoning regular range)​
+
+Within the logistical radius (0 to 25 km), small hunting or gathering task groups radiate outward
+from an established residential base, attempting to exploit marginal patches and returning to the
+base camp within 24 to 48 hours. When local patches fail, groups shift to residential range
+adjustments (25 to 100 km), moving the entire camp to alternative patches or waterholes within
+their known annual territory. When regional droughts or multi-year game failures persist, bands
+initiate long-distance distress migrations (100 to 500+ km), abandoning their normal annual
+territory to cross major geographic and cultural divides in search of persistent resources.
+
+Destination Landscape Typology
+Distress migrations follow established geographic and social corridors rather than random
+trajectories, targeting three primary landscape destinations:
+Permanent Hydrological and Ecological Refugia. Deep gorge systems (such as Lawn Hill Gorge
+in northern Australia or the canyons of the Central Australian ranges), artesian spring
+complexes, and deep perennial lakes maintain local water reserves and plant life even during
+decade-scale megadroughts. These destinations provide reliable drinking water, but incoming
+refugee bands quickly deplete local game and plant foods within days, creating intense
+competition around the refuge core.
+Occupied Lands with Kinship Ties. Foragers frequently direct emergency movements toward
+territories inhabited by bands with whom they maintain marriage ties, ritual partnerships, or
+shared mythological tracks. These affinal connections give migrants legitimate claims to
+hospitality and resource access under shared cultural obligations.
+Unoccupied Interstitial Buffer Zones. Wide border regions between hostile populations often
+remain unexploited during normal years, as the risk of inter-group encounters discourages
+routine foraging. Consequently, these zones can sustain higher game densities and intact plant
+patches. However, accessing these buffers carries significant risks: displaced bands operating
+in buffer zones risk violent confrontation with neighboring groups who may also be exploiting the
+area to survive shortfalls.
+
+Host Territorial Permeability and Social Friction
+The response of resident populations to incoming refugees is governed by the relative resource
+security of the host group:
+When food stress is asymmetric—affecting the migrant group while the host group enjoys stable
+water and food supplies—boundaries remain permeable. Hosts absorb incoming kin under
+cultural conventions of hospitality and generalized reciprocity, anticipating that they may need to
+make similar requests in future decades.
+As resource pressure tightens within the host territory, the relationship shifts toward balanced
+reciprocity or formal subordination. Incoming migrants may be expected to provide political
+support, bride exchange, specialized craft items, or subordinate labor in hunting drives and food
+processing in exchange for temporary harvesting rights.
+When multi-year drought or game collapse affects an entire region, exhausting resources in the
+host territory as well, boundary permeability collapses. Host populations defend their shrinking
+foraging perimeters and critical waterholes, closing their territories to outside bands. This
+boundary defense can escalate into lethal violence, raiding, and organized territorial defense, as
+documented by sharp increases in skeletal trauma throughout the prehistoric American
+Southwest, California, and the Arctic during historical and paleoenvironmental subsistence
+crises.
+
+Ecological Recovery Trajectories and Range
+Reoccupation Horizons
+When environmental shortfalls end and precipitation or prey cycles normalize, human
+reoccupation follows a structured ecological succession. The return of human groups is
+constrained by the biological recovery rates of local plant and animal communities.
+Hydrological recharge and initial plant growth occur rapidly: ephemeral claypans, rockholes, and
+surface creeks fill within days of breaking rains, and annual grasses, leafy forbs, and seed crops
+flourish within 1 to 3 months. Fast-reproducing small game species (e.g., rabbits, desert
+rodents, water birds) rebound to normal demographic densities within 1 to 3 years. In contrast,
+deep-rooted carbohydrate tubers, desert acacias, and mast-producing tree species (such as
+pinyon pine or oak groves) require 3 to 7 years to recover from severe desiccation or structural
+damage.
+Large ungulate populations recover on decadal timescales. Migratory herds of caribou and
+bison that have undergone severe crashes require 10 to 25 years of multi-generational
+reproduction to rebuild herd numbers and re-establish habitual migration paths.
+Human recolonization mirrors these ecological phases. During the early recovery window (Years
+1 to 5), foraging groups rarely move their entire residential bases back into previously
+abandoned lands. Instead, they send seasonal logistical scouting parties outward from their
+refuge bases to monitor water table recharge, track game abundance, and evaluate plant
+recovery.
+Full residential recolonization and the re-establishment of independent, permanently resident
+bands requires 10 to 30 years—roughly one human generation. This generational delay allows
+local fauna to reach sustainable harvest densities and provides time for the human group to
+produce a cohort of reproductive adults capable of fissioning from the host or refuge band to
+establish viable residential communities.
+In some instances, abandoned ranges are never reoccupied by the original lineages: the deaths
+of knowledgeable elders during the crisis can erase oral maps of hidden waterholes, or shifting
+political alliances and regional trade routes may leave the abandoned landscape open for
+gradual recolonization by neighboring groups.
+
+Epistemological Demarcation: Verified Facts,
+Computational Inferences, and Contested Evidence
+To configure agent-based simulations accurately, modelers must distinguish between empirically
+verified historical observations, theoretical parameter derivations, and contested evidentiary
+debates.
+Classification Tier       Domain & Key              Empirical Bases &        Epistemological Status
+                          Phenomena                 Sources                  & Methodological
+                                                                             Caveats
+Verified Empirical        Kalahari San              Longitudinal             Fact. Verified
+Fact                      subsistence buffering ethnographic fieldwork observation of
+                          via wild plant fallbacks by Lee (1979), Howell negligible starvation
+                          and hxaro exchange. (1979), and Wiessner mortality due to
+                                                    (1977, 1982) during the deep-rooted tubers,
+                                                    1964–65 drought.         mongongo nuts, and
+                                                                             bilateral kin dispersal
+                                                                             across 50–200 km.
+Verified Empirical        High-latitude             Historical maritime logs Fact. Verified excess
+Fact                      catastrophic die-off: St. (Hooper 1881; Jackson mortality claiming 75%
+                          Lawrence Island famine 1880);                      to 86% of the
+                          of 1878–1880.             bioarchaeological        population
+                                                    analyses at Kukulik      (~1,000–1,300 deaths),
+                                                    (Bockstoce 1986;         accompanied by total
+                                                    Crowell & Oozevaseuk village abandonment.
+                                                    2006).
+Verified Empirical        Complete band             Historical records of    Fact. Verified extinction
+Fact                      extinction: Sadlermiut whaler Active;              of an isolated band of
+                          of Southampton Island ethnographic and             58 individuals within a
+                          (1902–1903).              skeletal collections     single winter due to the
+                                                    (Collins 1955).          compound shock of
+                                                                             disease and winter
+                                                                             hunting failure.
+Verified Empirical        Energetics-driven         Clinical physiology;     Fact. Verified
+Fact                      amenorrhea and            human metabolic          physiological limit: lean
+                          physiological protein     studies; dietary         protein toxicity above
+Classification Tier     Domain & Key            Empirical Bases &       Epistemological Status
+                        Phenomena               Sources                 & Methodological
+                                                                        Caveats
+                     ceiling.                 analyses (Speth 1983, 35–40% of calories;
+                                              2010; Bongaarts 1980). hypothalamic
+                                                                        amenorrhea occurs
+                                                                        when body fat drops
+                                                                        below 12–17%.
+Simulation Inference Hierarchical,            Formal adaptation of Inference. Translates
+                     step-function response Minnis (1985)               continuous,
+                     sequence (Tiers 1 to 5). Southwest food stress opportunistic human
+                                              model and Halstead & adaptations into
+                                              O'Shea (1989) risk        discrete, operational
+                                              buffering.                thresholds for
+                                                                        computational
+                                                                        scheduling.
+Simulation Inference Age-structured           Synthesis of              Inference.
+                     mortality schedules      demographic data          Mathematical curves
+                     across varying crisis    across the Arctic, Hiwi constructed by
+                     tiers.                   life tables, and historic aggregating patchy
+                                              famine curves.            historical records into
+                                                                        standard age cohorts
+                                                                        for demographic
+                                                                        engines.
+Simulation Inference 85–90% social            Cross-cultural            Inference. Modeled
+                     dissolution versus       comparative survey of probability derived from
+                     10–15% biological        ethnographic and          ethnographic reporting
+                     extinction ratio.        ethnohistoric             bias; serves as a
+                                              hunter-gatherer crises. generalized parameter
+                                                                        for mobile band
+                                                                        societies.
+Contested Evidence Climatic megadroughts Medieval Climatic              Contested. Bettinger,
+                     as primary drivers of    Anomaly studies in        Basgall, and others
+                     abandonment and          California and Great      argue that internal
+                     violence.                Basin (Stine 1994;        population growth and
+                                              Jones et al. 1999;        resource intensification,
+                                              Schwitalla et al. 2014). rather than drought,
+                                                                        drove culture change.
+Contested Evidence Starvation vs. epidemic Alaskan and Arctic           Contested.
+                     pathogens as primary historical crises (St.        Disentangling pure
+                     mortality drivers in     Lawrence 1878–80;         caloric starvation from
+                     historic cases.          Kivalliq 1950;            introduced European
+                                              Sadlermiut 1902–03). diseases (measles,
+                                                                        influenza, typhoid,
+                                                                        dysentery) remains
+                                                                        methodologically
+                                                                        challenging.
+Classification Tier       Domain & Key              Empirical Bases &  Epistemological Status
+                          Phenomena                 Sources            & Methodological
+                                                                       Caveats
+Contested Evidence        Stratigraphic gaps in Great Basin Archaic    Contested. Hiatuses
+                          rockshelters          sites (Sudden Shelter, may reflect shifting to
+                          representing total    O'Malley Shelter)      high-mobility,
+                          regional abandonment. during mid-Holocene ephemeral camping
+                                                droughts.              patterns that leave
+                                                                       minimal archaeological
+                                                                       traces, rather than true
+                                                                       depopulation.
+Quantitative Simulation Architecture: Mathematical
+Formalization and State Transitions
+To integrate these behavioral, spatial, and demographic dynamics into computational
+simulations—such as agent-based models (ABMs) or differential demographic frameworks—the
+decision architecture can be formalized as an algorithmic state machine. The simulation
+evaluates individual band or household agents across discrete time-steps (recommended
+resolution: \Delta t = 1 \text{ season} \approx 3 \text{ months}).
+
+Caloric Balance and Shortfall Evaluation
+At each time-step t, an agent band i with demographic composition N_i(t) evaluates its energetic
+balance against the carrying capacity of its current territory:
+\Delta K_i(t) = \sum_{j \in \text{Diet}} \left( E_j \cdot H_{j}(A_{\text{forage}}) \right) - \sum_{k \in
+N_i(t)} \text{BMR}_k
+where E_j represents the net caloric value per unit of resource j, H_j is the harvest function
+across current foraging area A_{\text{forage}}, and \text{BMR}_k represents the basal metabolic
+requirement of individual k based on age and sex.
+If \Delta K_i(t) \ge 0, the band operates at baseline subsistence: the cumulative shortfall counter
+resets to zero (S_i = 0), regular seasonal rounds continue, and baseline demographics apply.
+If \Delta K_i(t) < 0, a resource shortfall occurs: the counter increments by one (S_i = S_i + 1),
+and the band enters the hierarchical escalation pipeline governed by the duration of S_i.
+
+State Transition Logic and Operational Execution
+The behavioral and spatial adaptations of the band advance through discrete states based on
+the value of S_i:
+State / Condition                               Operational Transformations and Parameter
+                                                Updates
+State 1: Tier 1 Buffering (S_i = 1)             • Update dietary breadth: include resources
+                                                where E/h < \text{baseline}. • Cap lean protein
+                                                intake: \text{Calories}_{\text{protein}} \le 0.35
+                                                \cdot \text{Calories}_{\text{total}}. • Expand
+                                                logistical radius: R_{\text{logistical}} =
+                                                \min(20\text{ km}, R_{\text{baseline}} \cdot 2.0).
+State / Condition                                  Operational Transformations and Parameter
+                                                   Updates
+                                                   • Deplete stored reserves: \text{Stores}_i(t+1) =
+                                                   \max(0, \text{Stores}_i(t) + \Delta K_i(t)).
+State 2: Tier 2 Fissioning (S_i = 2)               • Fission corporate band into micro-bands:
+                                                   N_{\text{micro}} \sim \text{Uniform}(5, 12). •
+                                                   Accelerate residential moves:
+                                                   f_{\text{residential}} = f_{\text{baseline}} \cdot
+                                                   2.5. • Camp tenure drops to 4–10 days; spatial
+                                                   home range remains centered within traditional
+                                                   territory.
+State 3: Tier 3 Dispersal (S_i = 3)                • Query social storage network for allied host
+                                                   nodes within D \in [50, 200]\text{ km}. •
+                                                   Disperse 30% to 60% of micro-bands to
+                                                   accepting partner nodes. • Host band
+                                                   population increases by 25% to 50%; adjust
+                                                   local harvest demands accordingly. •
+                                                   Non-dispersed micro-bands remain in territory
+                                                   under severe caloric restriction.
+State 4: Tier 4 Relocation (S_i \ge 4, Exit        • Identify nearest permanent ecological or
+Vector Open)                                       hydrological refugium within D \in [100,
+                                                   500]\text{ km}. • Execute long-distance
+                                                   residential migration along refugium vector. •
+                                                   Set Territory_Abandoned = TRUE; initialize
+                                                   Recovery_Timer = 0. • Coalesce at refugium:
+                                                   aggregate into macro-camp (N =
+                                                   50\text{--}200); local patch depletion within 15
+                                                   km accelerates 3.0\times.
+State 5: Tier 5 Immobility (S_i \ge 4, Exit        • If geographic barrier, extreme weather, or
+Vector Blocked)                                    hostile boundary prevents movement, trigger
+                                                   immobility. • Set R_{\text{residential}} = 0 and
+                                                   R_{\text{logistical}} = 0. • Per capita daily intake
+                                                   drops below 800\text{--}1000\text{ kcal}. • Apply
+                                                   catastrophic mortality functions until
+                                                   demographic collapse or environmental
+                                                   recovery.
+Demographic and Mortality Calculation Engine
+During any time-step where a band experiences unbuffered caloric deficits, demographic
+mortality and fertility schedules are altered as a function of deficit severity:
+M_k(t) = M_{0,k} \cdot \left( 1 + \alpha_k \cdot \left( \frac{-\Delta K_i(t)}{\sum \text{BMR}} \right)
+\right)
+where M_{0,k} is the baseline mortality probability for age-sex cohort k, and \alpha_k is the
+cohort vulnerability weighting factor:
+\alpha_{\text{infant}} = 4.5, \quad \alpha_{\text{child}} = 3.0, \quad \alpha_{\text{elder}} = 2.8,
+\quad \alpha_{\text{adult\_male}} = 1.4, \quad \alpha_{\text{adult\_female}} = 1.0
+Fertility suppression operates directly on the probability of conception P_{\text{conception}} and
+spontaneous abortion P_{\text{abortion}}:
+P_{\text{conception}}(t) = P_{\text{baseline}} \cdot \max\left(0, 1 - \beta \cdot \frac{-\Delta
+K_i(t)}{\sum \text{BMR}}\right), \quad \text{where } \beta = 1.2
+When severe deficits exceed 50% of metabolic requirements, P_{\text{conception}} drops to 0,
+amenorrhea affects 85% to 95% of reproductive-age females, and P_{\text{abortion}} increases
+to 0.50.
+
+Environmental Recovery and Recolonization Architecture
+When territorial environmental conditions recover (\Delta K_{\text{territory}} \ge 0), a post-crisis
+succession clock governs recolonization:
+Post-Crisis Horizon               Ecological and Behavioral        Computational Parameter
+                                  Dynamics                         Rules
+Years 0 to 1 (t_{\text{rec}} =    Fast flora and water sources     • Set P_{\text{conception}} =
+1\text{--}4\text{ seasons})       recharge; female ovulatory       P_{\text{baseline}} \cdot 1.4
+                                  function resumes within 2 to 4 (post-famine compensatory
+                                  months.                          baby boom). • Ephemeral water
+                                                                   points set to ACTIVE. • Band
+                                                                   maintains base camp at refuge.
+Years 1 to 5 (t_{\text{rec}} =    Small game rebounds;             • Dispatch seasonal scouting
+5\text{--}20\text{ seasons})      slow-growing tubers and mast groups from refuge to
+                                  trees begin structural recovery. abandoned range. • Radius of
+                                                                   scouting trips:
+                                                                   50\text{--}150\text{ km}. • Core
+                                                                   residential camps remain
+                                                                   aggregated.
+Years 10 to 30 (t_{\text{rec}} Large ungulate populations          • If N_{\text{band}} \ge
+\ge 40\text{ seasons})            rebuild; demographic recovery N_{\text{baseline}} and territory
+                                  produces viable new cohorts. game biomass \ge 80\%
+                                                                   baseline: reoccupy territory. •
+                                                                   Fission from refuge aggregate.
+                                                                   • Reset Territory_Abandoned =
+                                                                   FALSE.
+By translating qualitative anthropological models into this formal sequence of conditional
+evaluations, simulation modelers can capture the full continuum of hunter-gatherer crisis
+responses—from flexible day-to-day dietary adjustments and kinship dispersal to long-distance
+migration, catastrophic demographic collapse, and multi-decadal landscape recovery.
+
+Works cited
+
+1. Exchange as an Adaptive Strategy in Southern Nevada,
+https://oasis.library.unlv.edu/cgi/viewcontent.cgi?article=3259&context=thesesdissertations 2.
+Full text of "Journal of ethnobiology." - Internet Archive,
+https://archive.org/stream/mobot31753002402904/mobot31753002402904_djvu.txt 3. OAS -
+Ontario Archaeological Society,
+http://oaslondonchapter.ca/wp-content/uploads/2020/04/KEWA-2005-4-Full-Document.pdf 4.
+American Indian Culture and Research Journal - eScholarship.org,
+https://escholarship.org/content/qt0t47n9w2/qt0t47n9w2.pdf 5. Hunter-Gatherer Mobility
+Strategies, https://www.journals.uchicago.edu/doi/pdfplus/10.1086/jar.39.3.3629672 6. The
+upper limit to dietary protein intake and "rabbit starvation",
+https://www.researchgate.net/publication/415072555_The_upper_limit_to_dietary_protein_intak
+e_and_rabbit_starvation_Reality_or_myth 7. Hunter-Gatherer Movement Patterns: Causes and
+Constraints,
+https://www.researchgate.net/publication/222157123_Hunter-Gatherer_Movement_Patterns_Ca
+uses_and_Constraints 8. Famine Foods: A Structured Narrative Review of Nutritional ... - MDPI,
+https://www.mdpi.com/2304-8158/15/20/3602 9. Kalahari Hunter-Gatherers | black books,
+https://blackbooksdotpub.wordpress.com/wp-content/uploads/2023/03/kalahari-hunter-gatherers
+-studies-of-the-kung-san-and-their-neighbors-richard-b.-lee-irven-devore-z-library.pdf 10. Food
+Studies in Archaeology (Part II) - The Social Archaeology of Food,
+https://www.cambridge.org/core/books/social-archaeology-of-food/food-studies-in-archaeology/3
+ACE259716B8A5AA6F93C8460AD07E9F 11. Rethinking Binford's Utility Indices: Interpretive
+Problems in Northern,
+https://paleoanthropology.org/ojs/index.php/paleo/article/download/113/772/1317 12. TIL That it
+is entirely possible to starve to death from eating only,
+https://www.reddit.com/r/todayilearned/comments/1l2d2p4/til_that_it_is_entirely_possible_to_sta
+rve_to/ 13. How ancestral subsistence strategies solve salmon starvation and,
+https://pubmed.ncbi.nlm.nih.gov/33830500/ 14. What Are the “Costs and Benefits” of
+Meat-Eating in Human,
+https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2022.834638/full
+15. Pemmican: A Plains Indians Staple Food that Prevented Protein,
+https://thepaleodiet.com/pemmican-a-plains-indians-staple-food-that-prevented-protein-poisonin
+g/ 16. Meat and Animal Fat in Paleolithic diets | Aleph 2020,
+https://www.aleph2020.org/asf-and-livestock/paleolithic-diets 17. Red Meat in Human Evolution,
+Health, and Disease, https://www.journals.uchicago.edu/doi/10.1086/741185 18. Climate
+challenges, vulnerabilities, and food security - PNAS,
+https://www.pnas.org/doi/10.1073/pnas.1506494113 19. An individual-based comparative
+advantage model: did ... - SciSpace,
+https://scispace.com/pdf/an-individual-based-comparative-advantage-model-did-economic-2h2v
+cewlgb.pdf 20. A Multidisciplinary Approach to Past Fertility and Population Narratives,
+https://www.researchgate.net/publication/374024455_From_the_Ground_Up_A_Multidisciplinar
+y_Approach_to_Past_Fertility_and_Population_Narratives 21. (PDF) Social dynamism in the
+archaeology of the Western Desert,
+https://www.researchgate.net/publication/272158811_Social_dynamism_in_the_archaeology_of
+_the_Western_Desert 22. Cultural Heritage Impact Assessment Report & Management Plan,
+https://ntepa.nt.gov.au/_resources/documents/eia/chandler-salt-mine/draft-eis/appendices/chan
+dler_draft_eis_appendixS_historic_cultural_heritage_assessment.pdf 23. 'The Waters of
+Australian Deserts' Cultural Heritage Study - DCCEEW,
+https://www.dcceew.gov.au/sites/default/files/documents/waters-australian-deserts.pdf 24.
+Examining Social Adaptations in a Volatile Landscape in Northern,
+https://www.mdpi.com/2073-445x/4/1/157 25. Ecological Modelling - Center for Social
+Complexity,
+http://socialcomplexity.gmu.edu/wp-content/uploads/2017/10/1-s2.0-S0304380011005679-main.
+pdf 26. Man the Hunter - The Ted K Archive,
+https://www.thetedkarchive.com/library/richard-b-lee-irven-devore-man-the-hunter 27.
+Hunter-gatherers and Their Neighbors from Prehistory to the Present*1,
+https://scholarspace.manoa.hawaii.edu/bitstreams/51a40faf-eaa5-4e5f-8a93-4d13ac42213f/dow
+nload 28. A long-term perspective on !Kung (Ju/'hoansi) large-game hunting,
+https://www.researchgate.net/publication/263458495_Hunting_healing_and_hxaro_exchange_-
+_A_long-term_perspective_on_Kung_Ju'hoansi_large-game_hunting 29. (PDF) Information
+sharing in times of scarcity: an ethnographic and,
+https://www.researchgate.net/publication/338096192_Information_sharing_in_times_of_scarcity
+_an_ethnographic_and_archaeological_examination_of_drought_strategies_in_the_Kalahari_D
+esert_and_the_central_plains_of_North_America 30. Warri and Yatungka: Last of the Gibson
+Desert Nomads,
+https://www.odysseytraveller.com/articles/warri-and-yatungka-gibson-desert-nomads/ 31.
+Possible impacts of early-11th-, middle-12th-, and late-13th-century,
+https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1767&context=usgsstaffpub 32.
+reconstructing the st . lawrence island kayak,
+https://www.alaskaanthropology.org/wp-content/uploads/2021/02/AJA_15_2017-Anichtchenko.p
+df 33. St. Lawrence Island Encyclopedia Arctica 12: Alaska, Geography,
+https://collections.dartmouth.edu/arctica-beta/html/EA12-04.html 34. (PDF) Memories of
+Warfare: Archaeology and Oral History in,
+https://www.researchgate.net/publication/265960905_Memories_of_Warfare_Archaeology_and_
+Oral_History_in_Assessing_the_Conflict_and_Alliance_Model_of_Ernest_S_Burch 35. High
+Adult Mortality among Hiwi Hunter-Gatherers - ResearchGate,
+https://www.researchgate.net/publication/6515982_High_Adult_Mortality_among_Hiwi_Hunter-
+Gatherers_Implications_for_Human_Evolution 36. 13 The Arvia'juaq And Qikiqtaarjuk Oral
+History Project,
+https://archpress.lib.sfu.ca/index.php/archpress/catalog/download/42/14/645-1?inline=1?inline=
+1 37. The 1878-1880 famine on Saint Lawrence Island, Alaska,
+https://www.researchgate.net/publication/223654846_Natural_catastrophes_in_Arctic_populatio
+ns_The_1878-1880_famine_on_Saint_Lawrence_Island_Alaska 38. It turns out being a
+hunter-gatherer wasn't so great after all,
+https://www.spectator.com.au/2026/06/it-turns-out-being-a-hunter-gatherer-wasnt-so-great-after-
+all/ 39. (PDF) Lethal plague outbreaks in Lake Baikal hunter-gatherers,
+https://www.researchgate.net/publication/407221881_Lethal_plague_outbreaks_in_Lake_Baikal
+_hunter-gatherers_5500_years_ago 40. Famine in North Korea: Markets, Aid, and Reform,
+https://mpra.ub.uni-muenchen.de/92548/1/MPRA_paper_92548.pdf 41. (c) 1995 - MSpace -
+University of Manitoba,
+https://mspace.lib.umanitoba.ca/bitstream/handle/1993/3668/Fossett%2C%20In%20order.pdf
+42. The slow moon climbs : the science, history, and meaning of,
+https://dokumen.pub/the-slow-moon-climbs-the-science-history-and-meaning-of-menopause-06
+91171637-9780691171630.html 43. Anthropology &Aging Quarterly,
+https://anthropologyandgerontology.com/wp-content/uploads/2013/09/AAQ343complete2.pdf
+44. Two tiers, not one: Different sources of extrinsic mortality have,
+https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/two-tiers-not-one-
+different-sources-of-extrinsic-mortality-have-opposing-effects-on-life-history-traits/A8EE7B2C00
+EEE56BD94273F33EA21119 45. 1 of 31 Can we reliably detect adaptive responses of hunter,
+https://par.nsf.gov/servlets/purl/10548462 46. Human skeletal variation in the New World during
+the Holocene,
+https://search.proquest.com/openview/1608adc9b608f57c0aca8e63696991c1/1?pq-origsite=gs
+cholar&cbl=18750 47. The Dobe Ju/'hoansi,
+https://voidnetwork.gr/wp-content/uploads/2016/08/The-Dobe-Ju-hoansi-by-Richard-B.-Lee.pdf
+48. San - Summary - eHRAF World Cultures,
+https://ehrafworldcultures.yale.edu/cultures/fx10/summary 49. Review of how indigenous people
+managed for water on desert,
+https://www.researchgate.net/publication/254365445_Review_of_how_indigenous_people_man
+aged_for_water_on_desert_Regions_of_Australia 50. Aboriginal Homelands and Economy in
+Australia's Western Desert,
+https://www.cambridge.org/core/elements/aboriginal-homelands-and-economy-in-australias-wes
+tern-desert/2B00B2F037153B77A01E5B83687D3D21 51. Surviving Sudden Environmental
+Change: Answers from Archaeology, https://www.upcolorado.com/excerpts/9781607321682.pdf
+52. Cultural Responses to Resource Variability in North Alaska,
+https://www.researchgate.net/publication/259782660_The_Spirit_of_Survival_Cultural_Respons
+es_to_Resource_Variability_in_North_Alaska 53. List of famines - Wikipedia,
+https://en.wikipedia.org/wiki/List_of_famines 54. Language, identities and ideologies of the past
+and present Chukotka,
+https://www.erudit.org/fr/revues/etudinuit/2007-v31-n1-2-etudinuit2570/019721ar/ 55. Inuit: facts
+and history | Nosy Mag, https://nosymag.ca/wiki/indigenous-peoples/inuit/ 56. If the Ice Age
+indigenous populations came from Asia, why is their,
+https://www.quora.com/If-the-Ice-Age-indigenous-populations-came-from-Asia-why-is-their-pigm
+entation-different-from-present-day-Asians 57. What about the children? Incorporating
+osteological, archaeological,
+https://home.cc.umanitoba.ca/~hoppard/Pages/Inside%20frames/graduate%20students%20fra
+me%202_files/HOLLAND.pdf 58. From Talking Chiefs to a Native Corporate Elite: The Birth of
+Class,
+https://dokumen.pub/from-talking-chiefs-to-a-native-corporate-elite-the-birth-of-class-and-nation
+alism-among-canadian-inuit-newnbsped-0773513744-9780773513747.html 59. 1950 Caribou
+Inuit famine - Wikipedia, https://en.wikipedia.org/wiki/1950_Caribou_Inuit_famine 60. Climate
+Change and Unalakleet: A Deep Analysis - MDPI, https://www.mdpi.com/2071-1050/13/17/9971
+61. Demographics And Employment Alaska Communities Volume H,
+https://www.govinfo.gov/content/pkg/GOVPUB-I-234bd1551c04b3e9b87799fdaae947ac/pdf/GO
+VPUB-I-234bd1551c04b3e9b87799fdaae947ac.pdf 62. Technical Report Number 9 Beaufort
+Sea Region Sociocultural, https://www.boem.gov/oil-gas-energy/78tr9 63. Point Hope
+Comprehensive Plan - The North Slope Borough,
+https://www.north-slope.org/wp-content/uploads/2022/02/PHO_Adopted_Comprehensive_Plan.
+pdf 64. The Power of Place: Ideology and Ecology in the Bering Strait, 1848,
+https://escholarship.org/content/qt7gq2396x/qt7gq2396x.pdf 65. AJA 5(1) 2007 - Alaska Journal
+of Anthropology,
+https://www.alaskaanthropology.org/wp-content/uploads/2015/11/AJA-v51-optimized.pdf 66.
+(PDF) Archaeological Perspectives on the Effects of Medieval,
+https://www.researchgate.net/publication/228496804_Archaeological_Perspectives_on_the_Effe
+cts_of_Medieval_Drought_in_Prehistoric_California 67. Archaeological Perspectives on the
+Effects of Medieval Drought in,
+https://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1014&context=ssci_fac 68.
+Environmental Imperatives Reconsidered: Demographic Crises in,
+https://content-calpoly-edu.s3.amazonaws.com/socialsciences/1/documents/faculty/jones-terry/J
+ones%20et%20al%201999.pdf 69. Biocultural Perspectives on Interpersonal Violence in the
+Prehistoric,
+https://www.cambridge.org/core/books/huntergatherer-adaptation-and-resilience/biocultural-pers
+pectives-on-interpersonal-violence-in-the-prehistoric-san-francisco-bay-area/AF6A0F81D32C7A
+3C74E7C036584D2639 70. Recurring Drought Forced Ancient Bison Hunters to Abandon an,
+https://thedebrief.org/recurring-drought-forced-ancient-bison-hunters-to-abandon-an-1100-year-
+old-montana-hunting-ground/ 71. Indigenous impacts on North American Great Plains fire
+regimes of, https://pmc.ncbi.nlm.nih.gov/articles/PMC6094123/ 72. American bison kill site use
+and abandonment amid drought and,
+https://www.frontiersin.org/journals/conservation-science/articles/10.3389/fcosc.2025.1688950/f
+ull 73. Missionization among the Coastal Chumash of Central California,
+https://www.researchgate.net/publication/227631032_Missionization_among_the_Coastal_Chu
+mash_of_Central_California_A_Study_of_Risk_Minimization_Strategies 74. UC Santa Barbara -
+eScholarship.org, https://escholarship.org/content/qt3h86q151/qt3h86q151.pdf 75. Collapse of
+the Bison Population on the Plains, https://gladue.drc.usask.ca/node/2657 76. The Missing
+Megafauna: A Story of the American Bison,
+https://www.albertawilderness.ca/the-missing-megafauna-a-story-of-the-american-bison/ 77.
+Thesis title goes here,
+https://collectionscanada.gc.ca/obj/thesescanada/vol2/OTU/TC-OTU-34034.pdf
+
