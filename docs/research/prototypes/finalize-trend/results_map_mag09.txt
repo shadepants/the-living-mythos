@@ -1,0 +1,15 @@
+[bal4 (v0.24)] calm: easing=100.0% | flicker 0.00/band-yr
+[bal4 (v0.24)] drought+20: easing=92.4% steady=4.8% worsening=2.8% | +8 after end: easing=96.7% steady=3.3%
+[bal4 (v0.24)] hunger onsets warned: 6/10; lead seasons min/median/max 0/0/0
+[effD4 0.05] calm: easing=5.7% steady=90.1% worsening=4.2% | flicker 0.54/band-yr
+[effD4 0.05] drought+20: easing=14.8% steady=63.1% worsening=22.2% | +8 after end: easing=26.7% steady=63.3% worsening=10.0%
+[effD4 0.05] hunger onsets warned: 10/10; lead seasons min/median/max 3/6/8
+[pressD4 0.05] calm: easing=5.7% steady=90.1% worsening=4.2% | flicker 0.54/band-yr
+[pressD4 0.05] drought+20: easing=15.0% steady=62.6% worsening=22.4% | +8 after end: easing=26.7% steady=63.3% worsening=10.0%
+[pressD4 0.05] hunger onsets warned: 10/10; lead seasons min/median/max 3/6/8
+[pressD4 0.10] calm: easing=0.2% steady=99.8% worsening=0.1% | flicker 0.01/band-yr
+[pressD4 0.10] drought+20: easing=7.0% steady=80.3% worsening=12.7% | +8 after end: easing=16.7% steady=76.7% worsening=6.7%
+[pressD4 0.10] hunger onsets warned: 10/10; lead seasons min/median/max 1/5/6
+[pressMM 0.05] calm: easing=1.5% steady=97.8% worsening=0.7% | flicker 0.10/band-yr
+[pressMM 0.05] drought+20: easing=11.5% steady=68.9% worsening=19.6% | +8 after end: easing=33.3% steady=66.7%
+[pressMM 0.05] hunger onsets warned: 10/10; lead seasons min/median/max 1/5/6
