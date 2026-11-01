@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.12
+Version: 0.13
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.12 draft)
+# Living mythos: success-test slice (spec v0.13 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -175,7 +175,8 @@ Food (decided rev 23, whole-system review R1, option B): resource guilds.
   - Walk `k = 0, 1, …` accumulating `p(k+1) = p(k) · (n−k)/(k+1) · q/(1−q)` until the cumulative sum exceeds `u`; if rounding leaves `u` above the final sum, return n.
   It uses only `× ÷ + −`, so it's allowed, and it matches per-member draws in distribution. Draws use the start-of-season counts, so one outcome can't shift another. Proposed log edit: "Births/deaths via one binomial draw per bracket (inverse CDF, basic arithmetic only)". Under option B this would need a fixed-point CDF table.
 - Deaths: per bracket, `q = baseMortality[bracket] + hungerMortality[bracket, hungerState]`. Purpose `Death`, entity = band; the bracket index is folded into the purpose space via new codes `DeathChild` … `DeathElder` ([NEED: Jordan] new codes vs a sub-purpose convention).
-- Births: `n = round(adults_and_young_adults / 2)` (fertile women, [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState)`. Purpose `Birth`.
+- Births: `n = round(adults_and_young_adults / 2)` (fertile women, [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState) · effortFactor`. Purpose `Birth`.
+- Effort (rev 27, R4b): the share of the band's labour needed to meet consumption this season (stash top-up excluded), from the §9 allocation. `effortFactor` = 1 at effort ≤ `effortFull` (0.5 [P]), falling linearly to 0 at effort 1. Regulates population before hunger; hunger mortality is the backstop.
 - Aging: a fixed fraction of each bracket moves up each season (`1 / span_in_seasons`), using deterministic rounding with a carried remainder per band, so no draw is needed.
 
 | Tunable | Tag |
@@ -183,6 +184,7 @@ Food (decided rev 23, whole-system review R1, option B): resource guilds.
 | Base mortality by bracket | calibrate to l15 ≈ 0.57, modal adult death ~72 [R: report 3; Gurven & Kaplan 2007 per batch review] |
 | Birth rate | TFR 4.5-6, interbirth interval ~3.5 yr [R: report 3] |
 | `hungerMortality`, `fertilityFactor` | [P] |
+| `effortFull` | 0.5 [P] (rev 27) |
 
 ## 11. Migration
 - Trigger: hunger state `hungry` or worse for `migrateAfter` consecutive seasons.
@@ -197,7 +199,7 @@ Food (decided rev 23, whole-system review R1, option B): resource guilds.
 
 ## 12. Band lifecycle and die-out
 Decided rev 25 (review R3, option C).
-- Fission: a band with hunger state none and population above `fissionAt` (50 [P]) splits in half (floor per bracket; the parent keeps the remainder). The daughter founds a home range at the best free land cell within `searchRadius` whose home cell is at least 2·`homeRange` from every living band's home cell. The split happens only if that site's expected catchment return covers the daughter's consumption × (1 + `fissionMargin`, 0.2 [P]); otherwise no split this season. Ties: lowest cell index. The daughter gets a lineage ID (parent, tick, sibling index; hard rule 3) and needs the entity registry.
+- Fission: a band with hunger state none and population above `fissionAt` (50 [P]) splits in half (floor per bracket; the parent keeps the remainder). The daughter founds a home range at the best free land cell within `searchRadius` whose home cell is at least `homeRange` from every living band's home cell (rev 27; was 2·`homeRange`). The split happens only if that site's expected catchment return covers the daughter's consumption × (1 + `fissionMargin`, 0.2 [P]); otherwise no split this season. Ties: lowest cell index. The daughter gets a lineage ID (parent, tick, sibling index; hard rule 3) and needs the entity registry.
 - Dissolution: after `dissolveAfter` (3 [P]) consecutive hungry seasons, a band that has not migrated joins the nearest band with hunger state none within `hostRange` (15 cells [P]) whose current camp's expected catchment return covers host + refugee consumption × (1 + `fissionMargin`) (host guard, rev 26; ties: lowest band ID). Its bracket counts add to the host's. The band ends. With no qualifying host it stays (see perishing).
 - Perishing: a band with no host and no migration target stays; it ends when its population falls below `minViable` ([NEED: Jordan] value, Q11).
 - Both endings emit `band_died_out` with `outcome` (perished / dissolved) and, when dissolved, the host band ID in the payload. The band entity stays in the registry as a history record.
@@ -283,7 +285,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | R2 | Home range + seasonal camp (§9, §11) — **settled rev 24: seasonal camp with a move margin; migration shifts the home range; prey depression deferred** | 8 | — |
 | R3 | Band lifecycle (§12) — **settled rev 25: fission with a viability guard, dissolution into a fed neighbour, outcome on `band_died_out`** | R2 | — |
 | R4a | Host guard for dissolution (§12) — **settled rev 26: host must feed host + refugees × 1.2** | R3 | — |
-| R4b | Population regulation; band size vs density vs home-range spacing (§9-§12) | R4a | — |
+| R4b | Population regulation; band size vs density vs home-range spacing (§9-§12) — **settled rev 27: effort-scaled fertility, homes ≥ `homeRange` apart** | R4a | — |
 | R4c | Per-worker return anchor (food unit vs need) (§9) | R4b | — |
 | R4d | Hunt cap basis and meat share (§8, §9) | R4c | — |
 | R4e | Herd recovery target (§8) | R4d | — |
@@ -295,6 +297,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.13 - 2026-11-01
+- Decided: R4b population regulation (§10 effort factor; §12 fission spacing `homeRange`).
 ### v0.12 - 2026-11-01
 - Decided: R4a host guard (§12). R4 split into R4a-R4e (§20). Rev 25's quiet-baseline evidence corrected (growth-phase snapshot).
 ### v0.11 - 2026-11-01

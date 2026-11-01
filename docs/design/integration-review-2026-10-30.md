@@ -52,7 +52,7 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | R2 | Home range + seasonal camp vs fixed camp; migration = home-range shift — **settled rev 24 (option B + margin)** | §9 catchment use, §11 framing; rev 16 kept as the seasonal footprint |
 | R3 | Band lifecycle in the slice: fission and dissolution — **settled rev 25 (option C + fission guard)** | rev 9 non-goals, §12, Q11 |
 | R4a | Host guard — **settled rev 26 (option B)** | rev 25 |
-| R4b | Population regulation; band size vs density vs spacing | §10, §12, rev 24-25 |
+| R4b | Population regulation; band size vs density vs spacing — **settled rev 27 (option B)** | §10, §12, rev 24-25 |
 | R4c | Per-worker return anchor | §9 |
 | R4d | Hunt cap basis and meat share | §8, §9 |
 | R4e | Herd recovery target | rev 22 |

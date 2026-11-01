@@ -79,6 +79,7 @@ class Band:
 
 MODE = 'B'
 # R4 probe: effort-scaled fertility (energy balance). None = off (rev 25 behaviour).
+MDP = 0.0  # R4b probe: extra per-season mortality per (person per cell) within the home range
 EFF = None  # (e0, fMin): full fertility at effort <= e0, falls linearly to fMin at effort 1
 CAMP_MARGIN = 0.1
 def season(w, t, anom, recs):
@@ -86,6 +87,9 @@ def season(w, t, anom, recs):
     FOOT = HOME if MODE == 'C' else DISC
     sP, cnt = disc_sum(w.P, FOOT); sF, _ = disc_sum(w.F, FOOT)
     land = w.Kveg > 0.05
+    homecells = len(HOME)
+    for b in w.bands:
+        b.locdens = sum(o.br.sum() for o in w.bands if o.alive and (o.home[0]-b.home[0])**2+(o.home[1]-b.home[1])**2 <= R_HOME*R_HOME*4)/(homecells*4)
     for b in w.bands:
         if not b.alive: continue
         L, C = b.lab(), b.cons(); target = C + max(0, STASH_SEASONS*C - b.stash)
@@ -116,7 +120,7 @@ def season(w, t, anom, recs):
         b.stash = max(0, min(STASH_SEASONS*C, (b.stash+bal)*(1-SPOIL)))
         b.hungry = b.hungry+1 if (b.stash == 0 and bal < 0) else 0
         hs = 0 if b.hungry == 0 else (1 if b.hungry < STARVING_AFTER else 2)
-        q = np.clip(BASE_M + (HUNG_M if hs == 1 else STARVE_M if hs == 2 else 0), 0, 1)
+        q = np.clip(BASE_M + MDP*b.locdens + (HUNG_M if hs == 1 else STARVE_M if hs == 2 else 0), 0, 1)
         deaths = w.rng.binomial(b.br.astype(int), q)
         ff = 1.0
         if EFF is not None:
