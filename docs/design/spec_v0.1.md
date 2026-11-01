@@ -1,15 +1,15 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.9
+Version: 0.10
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
-Last Updated: 2026-10-31
+Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.9 draft)
+# Living mythos: success-test slice (spec v0.10 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -151,7 +151,8 @@ Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts
 Food (decided rev 23, whole-system review R1, option B): resource guilds.
 - Guild interface: per-cell stock in food units (1 = one adult's needs for a season); capacity from fields; regrowth rule (continuous logistic, herd model, or pulsed); per-worker Type II return `a·S/(1 + a·h·S)` on the mean catchment stock S; per-season take cap as a fraction of stock; seasonal factor. Energy only; a protein/fat budget comes with farming.
 - Slice guilds: large game (stock `F · foodPerHerd`, regrowth = rev 22 herd model, cap `maxHuntFraction`) and plant foods (capacity tied to V, logistic regrowth, cap `maxGatherFraction`). V is herbivore forage; people never eat it directly (v0.8 gathered ΣV, which fed people grass).
-- Catchment = Euclidean disc around the camp, dx² + dy² ≤ `catchment`² (29 cells at r = 3), offsets sorted by (dy, dx); off-map and sea excluded (rev 16). Whether the seasonal footprint is one catchment or several camps is R2.
+- Catchment = Euclidean disc around the camp, dx² + dy² ≤ `catchment`² (29 cells at r = 3), offsets sorted by (dy, dx); off-map and sea excluded (rev 16).
+- Home range and camp (decided rev 24, R2 option B + margin): the band has a home range of radius `homeRange` (5 [P]) around its home cell. Each season, before foraging, it scores every land cell in the home range by expected catchment return (same allocation as below, current stocks); it moves its camp only if the best cell beats the current camp by `campMoveMargin` (fraction [P]); ties go to the lowest cell index. Camp moves are snapshot state, not events. Prey depression deferred.
 - Labour `L = Σ bracket · labour[bracket]` (children 0.25, young adults 0.75, adults 1, elders 0.5 [P]).
 - Allocation: guilds in rank order (game, then plants); each takes `min(L_left · return, cap, need_left)`; stops at consumption + stash top-up. Removal split evenly across catchment cells (nearest-first deferred). `yieldNoise` from `rand01`, purpose `ForageYield`, entity = band [P].
 - Consumption = `Σ bracket · need[bracket]` (0.6 / 1 / 1 / 0.8 [P]).
@@ -274,7 +275,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 6 | Vegetation response and recovery targets (§7) — **settled rev 21: die-back toward K, moisture-dependent rates** | 3, 4, 5 | 50-70% drop in 2-3 seasons; recovery 1.5-2× drought length |
 | 7 | Large fauna: grazing, hunting, diffusion (§8) — **settled rev 22: herd-condition model, Type II, required mDens** | 6 | lag 1-2 seasons behind vegetation |
 | 8 | Food balance (§9) — **reframed by the whole-system review; R1 settled rev 23: resource guilds** | 6, 7 | (not covered) |
-| R2 | Home range + seasonal camp; migration = home-range shift; prey depression (§9, §11) | 8 | — |
+| R2 | Home range + seasonal camp (§9, §11) — **settled rev 24: seasonal camp with a move margin; migration shifts the home range; prey depression deferred** | 8 | — |
 | R3 | Band lifecycle: fission, dissolution (§12, rev 9 non-goals) | R2 | — |
 | R4 | Calibration anchors and targets (§8-§10) | R1-R3 | — |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
@@ -285,6 +286,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.10 - 2026-11-01
+- Decided: R2 home range and seasonal camp (§9). Migration (§11) now shifts the home range; its search and scoring stay Q10.
 ### v0.9 - 2026-10-31
 - Decided: R1 resource guilds (§9; whole-system review, `design/integration-review-2026-10-30.md`). Hunting moved from §8 into the large-game guild.
 - Fixed: v0.8 §9 fed people vegetation V directly.

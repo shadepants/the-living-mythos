@@ -45,7 +45,7 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | # | Question | Revises |
 |---|---|---|
 | R1 | Resource guild interface and food currency — **settled rev 23 (option B)** | spec §8 hunting, §9; Q8 |
-| R2 | Home range + seasonal camp vs fixed camp; migration = home-range shift | §9 catchment use, §11 framing; rev 16 kept as the seasonal footprint |
+| R2 | Home range + seasonal camp vs fixed camp; migration = home-range shift — **settled rev 24 (option B + margin)** | §9 catchment use, §11 framing; rev 16 kept as the seasonal footprint |
 | R3 | Band lifecycle in the slice: fission and dissolution | rev 9 non-goals, §12, Q11 |
 | R4 | Calibration anchors and targets | §8-§10 tunables |
 | then | Q9 demography, Q10 migration scoring, Q12 events, Q13 glance words, Q14 scenario | — |
