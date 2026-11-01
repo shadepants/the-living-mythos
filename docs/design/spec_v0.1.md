@@ -1,15 +1,15 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.23
-Status: Draft (Phase 2; open questions being grilled in order, section 20)
+Version: 0.24
+Status: Draft (Phase 2 complete; all questions settled; finalize next)
 Owner: Jordan
 Created: 2026-10-30
 Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.23 draft)
+# Living mythos: success-test slice (spec v0.24 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -235,7 +235,7 @@ Decided rev 36 (Q12, option B).
 | `drought_began` | `ROOT_ID` | a drought command takes effect | the command |
 | `drought_ended` | `ROOT_ID` | duration elapses | `drought_began` |
 | `dry_spell_began` / `dry_spell_ended` | `ROOT_ID` (region index in payload) | natural regime crossing with hysteresis (§6) | none / `dry_spell_began` |
-| `forage_failed` | band | food balance turns negative after ≥ `stableSeasons` non-negative seasons; payload `stockPct` (catchment stock % of capacity), `sharePct` (own labour share of the catchment, §11 weighting) | `drought_began` / `dry_spell_began` if the band's camp was inside it at any season within `causeWindow`; else none |
+| `forage_failed` | band | food balance turns negative after ≥ `stableSeasons` non-negative seasons; payload `stockPct` (catchment stock % of base worldgen capacity, not the drought-lowered capacity; rev 38), `sharePct` (own labour share of the catchment, §11 weighting) | `drought_began` / `dry_spell_began` if the band's camp was inside it at any season within `causeWindow`; else none |
 | `band_hunger_began` | band | hunger state enters `hungry` | the episode's `forage_failed` |
 | `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, the episode's `forage_failed` |
 | `band_migrated` | band | migration executes (payload from/to cells) | `band_starving` (or `band_hunger_began`), the episode's `forage_failed` |
@@ -258,7 +258,11 @@ Decided rev 36 (Q12, option B).
 ## 15. Legends (templated)
 - One `first_valid` template list per event type, filled from payload and band name; seeded by the content key (log "Narration pipeline").
 - "Why?" on an event walks causes back to a root (command or root event), max 4 levels shown.
-- Pass sentence pattern [NEED: Jordan] (question 11), e.g. "The Ash band left the valley in the spring of year 12. Why? The drought that began in year 11 withered its foraging grounds, and hunger set in."
+- Pass sentence templates (decided rev 38, Q14 option B), filled from the outcome event, its episode's `forage_failed` payload and the cited hunger event:
+  - `band_migrated`: "The {band} band left its lands in the {season} of year {y} and walked {km} km to new ground. Why? The drought that began in the {season} of year {y} cut its foraging grounds to {stockPct}% of their usual yield; hunger began in the {season} of year {y}."
+  - `band_died_out` dissolved: "The {band} band broke up in the {season} of year {y}; its last people joined the {host} band. Why? The drought that began … ; hunger began …, and no better land lay within reach."
+  - `band_died_out` dwindled: worded as dwindling and breaking up, never as starvation (prompt 12 review: bands below ~8-12 merge in reality; fusion is deferred).
+- Rendered from a real prototype chain (seed 1, magnitude 1.5): "The Ash band left its lands in the summer of year 1201 and walked 42 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 10% of their usual yield; hunger began in the summer of year 1201." and "The Reed band broke up in the winter of year 1201; its last people joined the Flint band. Why? … 11% … hunger began in the autumn of year 1201, and no better land lay within reach." Band names are presentation only.
 
 ## 16. Camp snapshot and glance words
 Snapshot fields (log rev 11): food balance and trend, stash level, hunger state, 4 bracket counts, season, last foraging trip outcome. "Last foraging trip outcome" = yield vs consumption this season as `good / poor / failed` ([P] thresholds).
@@ -286,7 +290,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 - Unit: each formula (clamping, stability, conservation where it applies, no NaN). Fauna: no-drought stability across vegetation richness 1-8 (no self-sustaining cycles). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
 - Property (fast-check, rev 14): every event's causes appear earlier in the log; non-`dwindled` band outcomes reach a root in ≤3 hops, and those within a drought + `causeWindow` reach its `drought_began` (rev 36); every hunger event cites a `forage_failed`; emission order identical across two runs; same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
-- Acceptance (success test): a fixed seed and scenario with two bands; a drought at season S; run to S + N. Pass when one band has `band_migrated` and the other `band_died_out`, each with a cause chain reaching `drought_began` in ≤3 hops, and the Legends template renders the pass sentence. Scenario values [NEED: Jordan] (question 11).
+- Acceptance (success test; decided rev 38, Q14 option B): a procedural slice world, seed fixed by the rev 16 refuge check before any drought run (never chosen by outcome); 2-band start run to the density plateau (1,200 yr [P]); one severe local drought (rev 20 preset, 8 seasons, radius 20 [P]) centred on the land cell nearest the centroid of living bands at that season [P]. Pass when, in [drought start, drought end + `causeWindow`], at least one `band_migrated` and one non-`dwindled` `band_died_out` each reach `drought_began` in ≤ 3 hops and both §15 sentences render; and the same seed run with no drought command has neither outcome in that window (counterfactual control). A 20-seed pass rate is reported, not a gate. Prototype (`research/prototypes/q14-scenario/`): 5/6 pass, controls 3/3 clean, island 0/5, hand-built fixtures 0/9. Until keyframes exist (hard rule 6) the test is slow (1,200 simulated years); tag it so it runs outside the default suite.
 
 ## 19. Alternatives considered
 | Topic | Options | Pick | Why |
@@ -298,6 +302,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 | Migration targets | free sites only / overlap on standing stock / overlap with competitor share | competitor share (rev 34) | §11; spacing suppressed migration; share discounts occupied land |
 | Glance words | draft (restless first, trend-based) / severity-first trend-based / severity-first effort-based | effort-based (rev 37) | §16; draft hid starving and left 99% of calm seasons wordless |
 | Event causes | active climate only / lookback window + payload facts / new cause events | lookback + payload facts (rev 36) | §14; active-only orphaned post-drought failures; new events had nothing to explain in the prototype |
+| Test scenario | hand-built fixture / filled procedural map + control / same + pass-rate gate | filled map + control (rev 38) | §18; fixtures 0/9 without tuning geometry to the outcome; a rate gate invites tuning |
 
 ## 20. Open questions (grill order)
 Ordered so each answer only depends on earlier ones. The rough Gemini draft's pick is noted for each as input, not as a decision.
@@ -327,9 +332,11 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 11 | Die-out floor `minViable` for perishing bands (§12) — **settled rev 35: 5; die-out mostly dissolution** | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) — **settled rev 36: climate lookback `causeWindow`, episode-scoped citations, outcome `dwindled`, payload facts worded by narration** | 2, 8-11 | as §14 |
 | 13 | Glance words and precedence (§16) — **settled rev 37: severity first, starving > hungry > well-fed (effort ≤ `effortFull`) > settled; restless to the band card** | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band; resolved rev 37] |
-| 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
+| 14 | Test scenario and pass sentence (§15, §18) — **settled rev 38: procedural filled map + local drought, existence pass with a no-drought control, templates, `stockPct` vs base capacity** | all | seed `0xDEADBEEF` [superseded: seed comes from the refuge check] |
 
 ## Changelog
+### v0.24 - 2026-11-01
+- Decided: Q14 test scenario and pass sentence (§15 templates, §18 acceptance with a no-drought control). Fixed: `stockPct` denominator is base capacity (§14). All §20 questions settled; finalize next (includes the §16 band-card food trend).
 ### v0.23 - 2026-11-01
 - Decided: Q13 glance words (§16): severity-first partition, `well-fed` from effort, `restless` to the band card; snapshot gains `effort` and `searchFailed`. Noted: §9 food trend defect (stash upkeep), fix at finalize.
 ### v0.22 - 2026-11-01

@@ -1,0 +1,34 @@
+map 1 0.9 density/century 0.08 0.13 0.25 0.36 0.51 0.59 0.64 0.64 0.65 0.71 0.72 0.70 alive 32
+map 1 1.5 density/century 0.08 0.13 0.25 0.36 0.51 0.59 0.64 0.64 0.65 0.71 0.72 0.70 alive 31
+map 2 0.9 density/century 0.12 0.20 0.24 0.35 0.39 0.48 0.57 0.71 0.73 0.70 0.70 0.70 alive 30
+map 2 1.5 density/century 0.12 0.20 0.24 0.35 0.39 0.48 0.57 0.71 0.73 0.70 0.70 0.70 alive 30
+map 3 0.9 density/century 0.09 0.12 0.27 0.41 0.48 0.63 0.66 0.71 0.69 0.67 0.69 0.66 alive 28
+map 3 1.5 density/century 0.09 0.12 0.27 0.41 0.48 0.63 0.66 0.71 0.69 0.67 0.69 0.66 alive 28
+
+map s1 m0.9 [stock vs drought K]: bands alive 32; window {'band_migrated': 2} chained {'band_migrated': 2}; calm window {'died_out/dwindled': 1}; PASS=False
+map s1 m1.5 [stock vs drought K]: bands alive 31; window {'band_migrated': 6, 'died_out/dissolved': 1} chained {'band_migrated': 6, 'died_out/dissolved': 1}; calm window {'died_out/dwindled': 1}; PASS=True
+    The Ash band left its lands in the summer of year 1201 and walked 42 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 48% of their usual yield; hunger began in the summer of year 1201.
+      chain: band_migrated <- forage_failed <- drought_began
+    The Reed band broke up in the winter of year 1201; its last people joined the Flint band. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 57% of their usual yield; hunger began in the autumn of year 1201, and no better land lay within reach.
+      chain: band_died_out <- forage_failed <- drought_began
+map s2 m0.9 [stock vs drought K]: bands alive 30; window {'died_out/dissolved': 2, 'band_migrated': 4} chained {'died_out/dissolved': 2, 'band_migrated': 4}; calm window {}; PASS=True
+    The Heron band left its lands in the autumn of year 1201 and walked 27 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 49% of their usual yield; hunger began in the autumn of year 1201.
+      chain: band_migrated <- forage_failed <- drought_began
+    The Sedge band broke up in the autumn of year 1201; its last people joined the Ochre band. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 30% of their usual yield; hunger began in the summer of year 1201, and no better land lay within reach.
+      chain: band_died_out <- forage_failed <- drought_began
+map s2 m1.5 [stock vs drought K]: bands alive 30; window {'band_migrated': 8, 'died_out/dissolved': 2} chained {'band_migrated': 8, 'died_out/dissolved': 2}; calm window {}; PASS=True
+    The Thorn band left its lands in the summer of year 1201 and walked 39 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 43% of their usual yield; hunger began in the summer of year 1201.
+      chain: band_migrated <- forage_failed <- drought_began
+    The Sedge band broke up in the summer of year 1201; its last people joined the Ochre band. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 55% of their usual yield; hunger began in the spring of year 1201, and no better land lay within reach.
+      chain: band_died_out <- forage_failed <- drought_began
+map s3 m0.9 [stock vs drought K]: bands alive 28; window {'band_migrated': 3, 'died_out/dissolved': 1} chained {'band_migrated': 3, 'died_out/dissolved': 1}; calm window {}; PASS=True
+    The Otter band left its lands in the autumn of year 1201 and walked 32 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 34% of their usual yield; hunger began in the autumn of year 1201.
+      chain: band_migrated <- forage_failed <- drought_began
+    The Birch band broke up in the spring of year 1202; its last people joined the Wren band. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 48% of their usual yield; hunger began in the winter of year 1201, and no better land lay within reach.
+      chain: band_died_out <- forage_failed <- drought_began
+map s3 m1.5 [stock vs drought K]: bands alive 28; window {'band_migrated': 8, 'died_out/dissolved': 2} chained {'band_migrated': 8, 'died_out/dissolved': 2}; calm window {}; PASS=True
+    The Otter band left its lands in the spring of year 1201 and walked 31 km to new ground. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 66% of their usual yield; hunger began in the spring of year 1201.
+      chain: band_migrated <- forage_failed <- drought_began
+    The Birch band broke up in the autumn of year 1201; its last people joined the Marrow band. Why? The drought that began in the spring of year 1200 cut its foraging grounds to 44% of their usual yield; hunger began in the summer of year 1201, and no better land lay within reach.
+      chain: band_died_out <- forage_failed <- drought_began
+{'runs': 6, 'pass': 5}

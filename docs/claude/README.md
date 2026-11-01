@@ -13,20 +13,22 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 37). Source of truth |
-| `claude/handoff-living-mythos.md` | Current (handoff #12, 2026-11-01) |
-| `claude/session-prompt-next.md` | Opening prompt for the next planning chat (prompt 12 review, then Q14) |
+| `design/decision-log.md` | Current (rev 38). Source of truth |
+| `claude/handoff-living-mythos.md` | Current (handoff #13, 2026-11-01) |
+| `claude/session-prompt-next.md` | Opening prompt for the next planning chat (spec finalize) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.23 (2026-11-01; file name kept); Q0-Q7, R1-R4, Q9-Q13 settled; Q14 last |
+| `design/spec_v0.1.md` | Draft v0.24 (2026-11-01; file name kept); all questions settled (Q14 rev 38); finalize next |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
-| `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; prompt 12 (famine outcomes, minimum band size) run, report uploaded as `Hunter-Gatherer Band Famine Dynamics.pdf` (2026-11-01), review deferred to Q14; 13-15 suggested |
+| `research/gemini-prompts.md` | Prompts 1-12 run and reviewed; 13-15 suggested |
+| `research/famine-outcomes-review-2026-11-01.md` | Review of prompt 12 (`Hunter-Gatherer Band Famine Dynamics.pdf`); spot-checks; no decision changed; feeds rev 38 |
 | `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 10 (population ecology), 11 (food-system architecture); spot-checks; feeds R1-R4 |
 | `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt`, `research/population-ecology-report-gemini.txt` | Prompt 8, 9, 11, 10 report text (PDFs in the repo mirror at `docs/research/`) |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |
 | `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
 | `research/prototypes/q9-demography/` | Throwaway Python prototypes for spec Q9 (Q9a draw method, sampler; Q9b bracket options, fill trajectories; Q9c hunger mortality, cut-off band); evidence for revs 31-33; never port |
 | `research/prototypes/q11-minviable/` | Throwaway Python prototypes for spec Q11 (band minimum sizes without a floor; island floors vs drought depth); evidence for rev 35; never port |
+| `research/prototypes/q14-scenario/` | Throwaway Python prototypes for spec Q14 (filled map + controls, island, hand-built fixtures; pass sentences rendered from real chains); evidence for rev 38; never port |
 | `research/prototypes/q13-glance/` | Throwaway Python prototype for spec Q13 (glance-word rule variants on plateau and island streams); evidence for rev 37; never port |
 | `research/prototypes/q12-events/` | Throwaway Python prototypes for spec Q12 (event streams dumped from the rev 35 base, emitter variants applied offline; filled map + island); evidence for rev 36; never port |
 | `research/prototypes/q10-migration/` | Throwaway Python prototypes for spec Q10 (migration variants, filled map to a plateau + island); evidence for rev 34; never port |
@@ -43,6 +45,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `Procedural History Narration Pipeline.pdf` | Gemini prompt 4; reviewed |
 | `Comparative Simulation Visualization Framework.pdf` | Gemini prompt 5; reviewed; shelved with forks |
 | `Open Source Repositories for Civilization Simulati....pdf` | Extra Gemini report; reviewed |
+| `Hunter-Gatherer Band Famine Dynamics.pdf` | Gemini prompt 12; reviewed 2026-11-01 |
 
 PDFs are Project file uploads; this tool can't move them into `archive/`. Jordan can remove or re-upload them in claude.ai if wanted.
 

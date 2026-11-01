@@ -157,7 +157,7 @@ Output: a comparison table; recurring patterns; a recommended resource interface
 ## Spec Q11-Q14 prompts (written 2026-11-01)
 Purpose: test rev 35 (die-out is mostly dissolution; `minViable` 5) and inform Q12 causes and the Q14 scenario. Paste the context block first, then: "Current focus: a slice where bands of 15-50 people in 4 age brackets forage on ~3 km grid cells with seasonal ticks, go hungry in a drought, then migrate, dissolve into a neighbouring band, or perish."
 
-### Prompt 12: Forager famine outcomes and minimum band size (pending)
+### Prompt 12: Forager famine outcomes and minimum band size (run; reviewed 2026-11-01 in `research/famine-outcomes-review-2026-11-01.md`)
 ```
 Research what actually happened to hunter-gatherer bands under severe food shortage, and how small a band can get before it stops functioning, in quantitative terms I can check simulation rules against. Cover:
 1. Outcomes of severe shortfall, per documented case: (a) band relocated as a unit, (b) members dispersed to kin or allied bands, (c) whole band merged into a host group, (d) band starved in place, (e) band recovered where it was. For each case give place, dates, group size before and after, length of the shortfall in seasons, and the source. Include at least: Caribou Inuit / Kivalliq (Ahiarmiut, Padlermiut) 1949-1958, Ju/'hoansi drought 1964-65 (Lee), Hiwi, Ache, Australian Western Desert droughts (Gould, Tonkinson), Great Basin (Steward), Alaskan and Canadian subarctic famines, and any archaeological evidence of whole-group extinction versus abandonment.

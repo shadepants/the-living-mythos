@@ -1,0 +1,12 @@
+island 1 1.5 density/century 0.14 0.08 alive 1
+island 2 1.5 density/century 0.22 0.23 alive 2
+island 3 1.5 density/century 0.10 0.15 alive 2
+island 4 1.5 density/century 0.12 0.09 alive 1
+island 5 1.5 density/century 0.09 0.08 alive 1
+
+island s1 m1.5 [stock vs drought K]: bands alive 1; window {} chained {}; calm window {}; PASS=False
+island s2 m1.5 [stock vs drought K]: bands alive 2; window {} chained {}; calm window {}; PASS=False
+island s3 m1.5 [stock vs drought K]: bands alive 2; window {} chained {}; calm window {}; PASS=False
+island s4 m1.5 [stock vs drought K]: bands alive 1; window {} chained {}; calm window {}; PASS=False
+island s5 m1.5 [stock vs drought K]: bands alive 1; window {} chained {}; calm window {}; PASS=False
+{'runs': 5, 'pass': 0}

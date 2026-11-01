@@ -1,0 +1,20 @@
+fixture 1 1.5 density/century 0.09 0.00 alive 0
+fixture 2 1.5 density/century 0.12 0.00 alive 0
+fixture 3 1.5 density/century 0.05 0.00 alive 0
+fixture 1 0.9 density/century 0.09 0.00 alive 0
+fixture 2 0.9 density/century 0.12 0.00 alive 0
+fixture 3 0.9 density/century 0.05 0.00 alive 0
+fixture2 1 1.5 density/century 0.11 0.10 alive 3
+fixture2 2 1.5 density/century 0.14 0.10 alive 3
+fixture2 3 1.5 density/century 0.12 0.10 alive 3
+
+fixture s1 m0.9 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture s1 m1.5 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture s2 m0.9 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture s2 m1.5 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture s3 m0.9 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture s3 m1.5 [stock vs base K]: bands alive 0; window {} chained {}; calm window {}; PASS=False
+fixture2 s1 m1.5 [stock vs base K]: bands alive 3; window {'band_migrated': 1} chained {'band_migrated': 1}; calm window {}; PASS=False
+fixture2 s2 m1.5 [stock vs base K]: bands alive 3; window {'band_migrated': 1} chained {'band_migrated': 1}; calm window {}; PASS=False
+fixture2 s3 m1.5 [stock vs base K]: bands alive 3; window {'band_migrated': 2} chained {'band_migrated': 2}; calm window {}; PASS=False
+{'runs': 9, 'pass': 0}
