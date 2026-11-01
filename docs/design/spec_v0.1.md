@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.10
+Version: 0.11
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.10 draft)
+# Living mythos: success-test slice (spec v0.11 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -26,7 +26,7 @@ Code facts below were checked against the repo on 2026-10-30 (tick loop built, 6
 - G4. Same seed + same command log → identical state hash on Windows/Chrome and Linux/Node.
 
 **Non-goals (later spec versions)**
-Techniques, farming, soil, small fauna, water, fire age, crop domestication, band fission/fusion, relations, notable individuals, lore, bloom, forks and fork UI, viewer polish beyond the slice's consumers (glance word, band card, Legends why chains, lab-coat heatmaps for the 2 fields).
+Techniques, farming, soil, small fauna, water, fire age, crop domestication, band fusion and seasonal aggregation, relations, notable individuals, lore, bloom, forks and fork UI, viewer polish beyond the slice's consumers (glance word, band card, Legends why chains, lab-coat heatmaps for the 2 fields).
 
 ## 2. Constraints (from the log and code)
 - Hard rules 1-7. Built: 1 (`rng.ts`), 2 (`eslint.config.js`), 3 (`lineage.ts`), 4 (`tick.ts`), 5 (`event-log.ts`), 7 (`config.ts`). Not built: 6 (command log, keyframes), entity registry.
@@ -195,9 +195,13 @@ Food (decided rev 23, whole-system review R1, option B): resource guilds.
 |---|---|
 | `migrateAfter`, `searchRadius`, `travelCost`, `migrateMargin` | [P] |
 
-## 12. Die-out
-- A band dies out when its total population reaches 0, or falls below `minViable` (survivors are lost; joining a neighbour is out of scope). [NEED: Jordan] floor value or zero.
-- Emits `band_died_out`; the band entity stays in the registry as a history record.
+## 12. Band lifecycle and die-out
+Decided rev 25 (review R3, option C).
+- Fission: a band with hunger state none and population above `fissionAt` (50 [P]) splits in half (floor per bracket; the parent keeps the remainder). The daughter founds a home range at the best free land cell within `searchRadius` whose home cell is at least 2·`homeRange` from every living band's home cell. The split happens only if that site's expected catchment return covers the daughter's consumption × (1 + `fissionMargin`, 0.2 [P]); otherwise no split this season. Ties: lowest cell index. The daughter gets a lineage ID (parent, tick, sibling index; hard rule 3) and needs the entity registry.
+- Dissolution: after `dissolveAfter` (3 [P]) consecutive hungry seasons, a band that has not migrated joins the nearest band with hunger state none within `hostRange` (15 cells [P]) (ties: lowest band ID). Its bracket counts add to the host's. The band ends.
+- Perishing: a band with no host and no migration target stays; it ends when its population falls below `minViable` ([NEED: Jordan] value, Q11).
+- Both endings emit `band_died_out` with `outcome` (perished / dissolved) and, when dissolved, the host band ID in the payload. The band entity stays in the registry as a history record.
+- Fusion of small healthy bands and seasonal aggregation are deferred.
 
 ## 13. Drought command
 Decided rev 20 (Q5, option B). Fields: `sign` (−1 drought, +1 rain; one command type, rev 11), `magnitude` (anomaly units, scaled integer), `durationSeasons`, `centerCell`, `radius` (cells; 0 = whole map). Applied at the next tick boundary and recorded in the command log with a command ID that events cite as a cause (confirms rev 12).
@@ -222,7 +226,8 @@ Decided rev 20 (Q5, option B). Fields: `sign` (−1 drought, +1 rain; one comman
 | `band_hunger_began` | band | hunger state enters `hungry` | `forage_failed` |
 | `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, `forage_failed` |
 | `band_migrated` | band | migration executes | `band_hunger_began` (or `band_starving`), `forage_failed` |
-| `band_died_out` | band | die-out | `band_starving`, `forage_failed` |
+| `band_died_out` | band | perished or dissolved (§12; `outcome` and host ID in payload) | `band_starving` or `band_hunger_began`, `forage_failed` |
+| `band_split` | parent band | fission (§12; daughter ID in payload) [P: Q12 confirms] | none |
 
 - World/region events use `ROOT_ID` as primary, with cell and radius in the payload; same-tick collisions use the ordinal (decided rev 17). Synthetic IDs may replace `ROOT_ID` when forks are worked on.
 - Payloads: integers only (cell indices, rounded population, scaled magnitudes).
@@ -276,16 +281,18 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 7 | Large fauna: grazing, hunting, diffusion (§8) — **settled rev 22: herd-condition model, Type II, required mDens** | 6 | lag 1-2 seasons behind vegetation |
 | 8 | Food balance (§9) — **reframed by the whole-system review; R1 settled rev 23: resource guilds** | 6, 7 | (not covered) |
 | R2 | Home range + seasonal camp (§9, §11) — **settled rev 24: seasonal camp with a move margin; migration shifts the home range; prey depression deferred** | 8 | — |
-| R3 | Band lifecycle: fission, dissolution (§12, rev 9 non-goals) | R2 | — |
+| R3 | Band lifecycle (§12) — **settled rev 25: fission with a viability guard, dissolution into a fed neighbour, outcome on `band_died_out`** | R2 | — |
 | R4 | Calibration anchors and targets (§8-§10) | R1-R3 | — |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
-| 11 | Die-out floor (§12) | 9 | zero |
+| 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
 | 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.11 - 2026-11-01
+- Decided: R3 band lifecycle (§12): fission, dissolution, perishing; `band_died_out` gains `outcome`; `band_split` added for Q12. Non-goals (§1) now exclude only fusion and aggregation.
 ### v0.10 - 2026-11-01
 - Decided: R2 home range and seasonal camp (§9). Migration (§11) now shifts the home range; its search and scoring stay Q10.
 ### v0.9 - 2026-10-31
