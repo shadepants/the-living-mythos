@@ -1,0 +1,197 @@
+# Throwaway integrated prototype for the whole-system review (spec Q8 rethink).
+# Floats + numpy RNG; never port to sim-core. Models: rev 21 vegetation, rev 22 fauna
+# with diffusion, an edible-plant guild, rank-and-cap foraging, a home range with a
+# per-season camp choice (marginal-value style), migration, simple demography, die-out.
+import numpy as np
+
+W, H = 48, 24
+R_CATCH, R_HOME = 3, 5
+SEARCH, MARGIN, MIGRATE_AFTER, MIN_VIABLE = 14, 0.2, 2, 5
+# vegetation / fauna (rev 21, rev 22 prototype units)
+rV, dieBack = 0.7, 0.5
+FP = dict(gMax=1.0, halfSat=0.3, need=1.0, maxGraze=0.5, condRate=0.6, rMax=0.06, cBreed=0.5,
+          mBase=0.02, mDens=0.1, mStarve=0.25, cStarve=0.4, D=0.1, roam=2.0, n=4)
+# plant-food guild (food units = adult person-seasons)
+pFrac, rP = 1.8, 0.8
+# foraging
+hMaxW, hF, maxHunt, meatConv = 3.5, 0.10, 0.01, 300.0
+gMaxW, hP = 1.8, 1.5
+LAB = np.array([0.25, 0.75, 1.0, 0.5]); NEED = np.array([0.6, 1.0, 1.0, 0.8])
+STASH_SEASONS, SPOIL, STARVING_AFTER = 0.5, 0.25, 2
+# demography (per season)
+BASE_M = np.array([0.0093, 0.003, 0.004, 0.02])
+HUNG_M = np.array([0.02, 0.01, 0.01, 0.02]); STARVE_M = np.array([0.10, 0.05, 0.05, 0.10])
+B_RATE = 0.045; FERT = {0: 1.0, 1: 0.5, 2: 0.1}
+AGE_UP = np.array([1/60, 1/40, 1/100, 0.0])
+
+def disc(r):
+    return [(dx, dy) for dy in range(-r, r+1) for dx in range(-r, r+1) if dx*dx+dy*dy <= r*r]
+DISC, HOME = disc(R_CATCH), disc(R_HOME)
+
+def disc_sum(A, offs):
+    out = np.zeros_like(A); cnt = np.zeros_like(A)
+    for dx, dy in offs:
+        sh = np.zeros_like(A); m = np.zeros_like(A)
+        ys0, ys1 = max(0, -dy), min(H, H-dy); xs0, xs1 = max(0, -dx), min(W, W-dx)
+        sh[ys0:ys1, xs0:xs1] = A[ys0+dy:ys1+dy, xs0+dx:xs1+dx]; m[ys0:ys1, xs0:xs1] = 1
+        out += sh; cnt += m
+    return out, cnt
+
+def mf(a): return np.clip(1 + 0.8*a, 0.2, 1.2)
+
+class World:
+    def __init__(s, Kveg, seed=1):
+        s.Kveg = Kveg; s.V = Kveg*0.83; s.F = np.full((H, W), 0.2)*(Kveg > 0.5); s.c = np.full((H, W), 0.85)
+        s.P = pFrac*s.V; s.rng = np.random.default_rng(seed); s.bands = []
+    def step_fields(s, anom):
+        K = s.Kveg*mf(anom); V = s.V
+        s.V = np.where(V <= K, V + rV*V*(1-V/np.maximum(K, 1e-9)), K + (V-K)*(1-dieBack))
+        p = FP; h = 1/p['n']
+        for _ in range(p['n']):
+            F, V, c = s.F, s.V, s.c
+            dem = F*p['gMax']*V/(V+p['halfSat'])*h; rem = np.minimum(dem, p['maxGraze']*h*V)
+            sat = np.where(F > 1e-12, np.minimum(1, rem/np.maximum(F*p['need']*h, 1e-12)), 1.0)
+            c = c + p['condRate']*h*(sat-c)
+            b = p['rMax']*np.maximum(0, (c-p['cBreed'])/(1-p['cBreed']))*F*h
+            d = (p['mBase'] + p['mDens']*F + p['mStarve']*np.maximum(0, (p['cStarve']-c)/p['cStarve']))*F*h
+            F = np.maximum(0, F+b-d); V = np.maximum(0, V-rem)
+            Dc = p['D']*(1 + p['roam']*(1-c))
+            Fp = np.pad(F, 1, mode='edge'); lap = Fp[:-2, 1:-1]+Fp[2:, 1:-1]+Fp[1:-1, :-2]+Fp[1:-1, 2:]-4*F
+            s.F, s.V, s.c = np.maximum(0, F + h*Dc*lap), V, c
+        cap = pFrac*s.V; P = s.P
+        s.P = np.where(P <= cap, P + rP*P*(1-P/np.maximum(cap, 1e-9)), cap + (P-cap)*(1-dieBack)) + 0.01
+
+def yield_at(Pm, Fm, L, target, ncell):
+    """Rank-and-cap: hunt first (Type II, capped), leftover labour gathers; satisfice at target."""
+    rH = hMaxW*Fm/(Fm+hF); rG = gMaxW*Pm/(Pm+hP)
+    meat = min(L*rH, maxHunt*Fm*ncell*meatConv, target)
+    used = meat/rH if rH > 0 else 0.0
+    plant = min(max(0, L-used)*rG, target-meat, Pm*ncell*0.5)
+    return meat, plant
+
+class Band:
+    def __init__(s, name, home, n):
+        s.name, s.home, s.camp = name, home, home
+        s.br = expand_start(n); s.carry = np.zeros(len(GROUP))
+        s.stash = 0.0; s.hungry = 0; s.alive = True; s.log = []; s.moves = 0; s.migr = []
+    def cons(s): return float(s.br @ NEED)
+    def lab(s): return float(s.br @ LAB)
+
+MODE = 'B'
+DEMO = 'bin'  # Q9a probe: 'bin' = binomial draw (options A/B, same distribution); 'det' = expected value with carried remainder (option C)
+def draw(w, b, tag, n, q):
+    if DEMO == 'bin':
+        return w.rng.binomial(n, q)
+    # deterministic: n*q plus a per-band carried remainder, floored (no randomness)
+    if not hasattr(b, 'dcarry'): b.dcarry = {}
+    exp = np.asarray(n, float)*np.asarray(q, float) + b.dcarry.get(tag, 0.0)
+    out = np.floor(exp); b.dcarry[tag] = exp - out
+    return out
+# R4 probe: effort-scaled fertility (energy balance). None = off (rev 25 behaviour).
+MDP = 0.0  # R4b probe: extra per-season mortality per (person per cell) within the home range
+EFF = None  # (e0, fMin): full fertility at effort <= e0, falls linearly to fMin at effort 1
+CAMP_MARGIN = 0.1
+def season(w, t, anom, recs):
+    w.step_fields(anom)
+    FOOT = HOME if MODE == 'C' else DISC
+    sP, cnt = disc_sum(w.P, FOOT); sF, _ = disc_sum(w.F, FOOT)
+    land = w.Kveg > 0.05
+    homecells = len(HOME)
+    for b in w.bands:
+        b.locdens = sum(o.br.sum() for o in w.bands if o.alive and (o.home[0]-b.home[0])**2+(o.home[1]-b.home[1])**2 <= R_HOME*R_HOME*4)/(homecells*4)
+    for b in w.bands:
+        if not b.alive: continue
+        L, C = b.lab(), b.cons(); target = C + max(0, STASH_SEASONS*C - b.stash)
+        def score(x, y):
+            n = cnt[y, x]; m, p = yield_at(sP[y, x]/n, sF[y, x]/n, L, 9e9, n); return m+p
+        hx, hy = b.home; best = None
+        for dx, dy in (HOME if MODE == 'B' else [(0, 0)]):
+            x, y = hx+dx, hy+dy
+            if 0 <= x < W and 0 <= y < H and land[y, x]:
+                sc = score(x, y)
+                if best is None or sc > best[0] + 1e-12: best = (sc, x, y)
+        ccx, ccy = b.camp
+        cur_sc = score(ccx, ccy) if land[ccy, ccx] else -1.0
+        if (best[1], best[2]) != b.camp and best[0] > cur_sc*(1+CAMP_MARGIN):
+            b.moves += 1; b.camp = (best[1], best[2])
+        cx, cy = b.camp; n = cnt[cy, cx]
+        meat, plant = yield_at(sP[cy, cx]/n, sF[cy, cx]/n, L, target, n)
+        for dx, dy in FOOT:
+            x, y = cx+dx, cy+dy
+            if 0 <= x < W and 0 <= y < H:
+                w.P[y, x] = max(0, w.P[y, x] - plant/n); w.F[y, x] = max(0, w.F[y, x] - meat/meatConv/n)
+        rH_ = hMaxW*(sF[cy, cx]/n)/((sF[cy, cx]/n)+hF); rG_ = gMaxW*(sP[cy, cx]/n)/((sP[cy, cx]/n)+hP)
+        used = (meat/rH_ if rH_ > 0 else 0) + (plant/rG_ if rG_ > 0 else 0)
+        # effort for consumption only (not stash top-up): share of labour needed to feed the band
+        eff = min(1.0, used/max(L, 1e-9) * C/max(target, 1e-9)) if (meat+plant) >= C else 1.0
+        b.eff = eff
+        y_ = meat+plant; bal = y_ - C
+        b.short = max(0.0, 1 - min(C, b.stash + y_)/C)  # Q9c: share of consumption not eaten this season
+        b.stash = max(0, min(STASH_SEASONS*C, (b.stash+bal)*(1-SPOIL)))
+        b.hungry = b.hungry+1 if (b.stash == 0 and bal < 0) else 0
+        hs = 0 if b.hungry == 0 else (1 if b.hungry < STARVING_AFTER else 2)
+        if HMODE == 'state': hm = HUNG_M if hs == 1 else STARVE_M if hs == 2 else 0
+        else: hm = b.short*HFULL[GROUP]
+        q = np.clip(BASE_M + MDP*b.locdens + hm, 0, 1)
+        deaths = draw(w, b, 'd', b.br.astype(int), q)
+        ff = 1.0
+        if EFF is not None:
+            e0, fmin = EFF; ff = 1.0 if eff <= e0 else max(fmin, 1 - (1-fmin)*(eff-e0)/(1-e0))
+        global REDUNDANT_CHECK
+        if hs > 0 and ff > 0: REDUNDANT_CHECK += 1   # hungry season where effort fertility is still above 0
+        births = draw(w, b, 'b', int(round(float(b.br @ FERTILE)/2)), B_RATE*FERT[hs]*ff)
+        up = b.br*AGE_UP + b.carry; moved = np.floor(up); b.carry = up-moved
+        b.br = b.br - deaths - moved + np.roll(moved, 1)*CHAIN; b.br[0] += births
+        b.br = np.maximum(b.br, 0)
+        MIGRATE(w, b, t, best, score, land, hx, hy)
+        pop = b.br.sum()
+        b.log.append((t, pop, bal/C, hs, meat/(y_ or 1)))
+        if pop < MIN_VIABLE: b.alive = False; b.died = t
+
+
+# ---- Q9b: bracket structure. Each of the 4 brackets may be split into k hidden stages (Erlang aging).
+def configure(spans, stages, mort, birth, fertile_brackets):
+    """spans: seasons per bracket (children, young adults, adults); stages: k per bracket (elders always 1);
+    mort: per-season base mortality per bracket; birth: per-season birth prob per fertile woman."""
+    global GROUP, AGE_UP, CHAIN, BASE_M, HUNG_M, STARVE_M, LAB, NEED, FERTILE, B_RATE, _LAB4, _NEED4, _HUNG4, _STARVE4
+    ks = list(stages) + [1]
+    GROUP = np.repeat(np.arange(4), ks)
+    up = []
+    for i, k in enumerate(ks[:3]): up += [k/spans[i]]*k
+    AGE_UP = np.array(up + [0.0]); CHAIN = np.array([0.0] + [1.0]*(len(GROUP)-1))
+    BASE_M = np.asarray(mort, float)[GROUP]; HUNG_M = _HUNG4[GROUP]; STARVE_M = _STARVE4[GROUP]
+    LAB = _LAB4[GROUP]; NEED = _NEED4[GROUP]
+    FERTILE = np.isin(GROUP, fertile_brackets).astype(float); B_RATE = birth
+_LAB4, _NEED4, _HUNG4, _STARVE4 = LAB.copy(), NEED.copy(), HUNG_M.copy(), STARVE_M.copy()
+def expand_start(n):
+    tot = np.array([8, 4, 9, 4], float)*n/25; out = np.zeros(len(GROUP))
+    for g in range(4):
+        idx = np.where(GROUP == g)[0]; out[idx] = tot[g]/len(idx)
+    return np.round(out)
+GROUP = np.arange(4); CHAIN = np.array([0, 1, 1, 1.0]); FERTILE = np.array([0, 1, 1, 0.0])
+
+# ---- Q9c: hunger mortality. 'state' = additive per-season rates by hunger state (hungry/starving);
+# 'short' = excess mortality proportional to this season's food shortfall. FERT set to 1 (effort only).
+HMODE = 'state'; HFULL = np.array([0.25, 0.10, 0.10, 0.35]); REDUNDANT_CHECK = 0
+FERT = {0: 1.0, 1: 1.0, 2: 1.0}
+def set_state_rates(adult_hungry, adult_starving, ratios):
+    global _HUNG4, _STARVE4, HUNG_M, STARVE_M
+    r = np.asarray(ratios, float); _HUNG4 = adult_hungry*r; _STARVE4 = adult_starving*r
+    HUNG_M = _HUNG4[GROUP]; STARVE_M = _STARVE4[GROUP]
+
+# ---- Q10: pluggable migration. Default = Q9c behaviour (trigger on hungry streak, standing-stock score).
+DIAG = []   # (t, band, reason, cur, cand) per triggered band-season
+def migrate_default(w, b, t, best, score, land, hx, hy):
+    if b.hungry < MIGRATE_AFTER: return
+    cur = best[0]; cand = None
+    for dy in range(-SEARCH, SEARCH+1):
+        for dx in range(-SEARCH, SEARCH+1):
+            x, y = hx+dx, hy+dy
+            if dx*dx+dy*dy <= SEARCH*SEARCH and 0 <= x < W and 0 <= y < H and land[y, x]:
+                sc = score(x, y) - 0.05*np.sqrt(dx*dx+dy*dy)
+                if cand is None or sc > cand[0] + 1e-12: cand = (sc, x, y)
+    ok = cand and cand[0] > cur*(1+MARGIN)
+    DIAG.append((t, b.name, 'move' if ok else 'nomargin', cur, cand[0] if cand else 0))
+    if ok:
+        b.migr.append((t, b.home, (cand[1], cand[2]))); b.home = (cand[1], cand[2]); b.camp = b.home
+MIGRATE = migrate_default

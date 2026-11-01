@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.21
+Version: 0.22
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.21 draft)
+# Living mythos: success-test slice (spec v0.22 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -210,8 +210,8 @@ Decided rev 34 (Q10, option C).
 Decided rev 25 (review R3, option C).
 - Fission: a band with hunger state none and population above `fissionAt` (50 [P]) splits in half (floor per bracket; the parent keeps the remainder). The daughter founds a home range at the best free land cell within `searchRadius` whose home cell is at least `homeRange` from every living band's home cell (rev 27; was 2·`homeRange`). The split happens only if that site's expected catchment return covers the daughter's consumption × (1 + `fissionMargin`, 0.2 [P]); otherwise no split this season. Ties: lowest cell index. The daughter gets a lineage ID (parent, tick, sibling index; hard rule 3) and needs the entity registry.
 - Dissolution: after `dissolveAfter` (3 [P]) consecutive hungry seasons, a band that has not migrated joins the nearest band with hunger state none within `hostRange` (15 cells [P]) whose current camp's expected catchment return covers host + refugee consumption × (1 + `fissionMargin`) (host guard, rev 26; ties: lowest band ID). Its bracket counts add to the host's. The band ends. With no qualifying host it stays (see perishing).
-- Perishing (decided rev 35, Q11 option A): a band with no qualifying host and no migration target stays; it ends when its population falls below `minViable` (5 [P]). In the slice, die-out is mostly dissolution: perishing in place needs a near-total food failure, which the slice drought doesn't produce (prototype: cut-off bands settle at 12-24 people while capacity stays ≥ 20%). A calm-time perishing (demographic decline, no hunger) gets its cause rule in Q12. Not tuned for drama: floors of 10+ ended healthy small bands with no cause.
-- Both endings emit `band_died_out` with `outcome` (perished / dissolved) and, when dissolved, the host band ID in the payload. The band entity stays in the registry as a history record.
+- Perishing (decided rev 35, Q11 option A): a band with no qualifying host and no migration target stays; it ends when its population falls below `minViable` (5 [P]). In the slice, die-out is mostly dissolution: perishing in place needs a near-total food failure, which the slice drought doesn't produce (prototype: cut-off bands settle at 12-24 people while capacity stays ≥ 20%). A calm-time perishing (demographic decline, no hunger) emits outcome `dwindled` with no causes (rev 36). Not tuned for drama: floors of 10+ ended healthy small bands with no cause.
+- Both endings emit `band_died_out` with `outcome` (perished / dissolved / dwindled; rev 36) and, when dissolved, the host band ID in the payload. The band entity stays in the registry as a history record.
 - Fusion of small healthy bands and seasonal aggregation are deferred.
 
 ## 13. Drought command
@@ -228,21 +228,32 @@ Decided rev 20 (Q5, option B). Fields: `sign` (−1 drought, +1 rain; one comman
 | default `durationSeasons` | 8 | [P] |
 
 ## 14. Events (slice set)
+Decided rev 36 (Q12, option B).
+
 | Type | Primary | Emitted when | Causes (≤3) |
 |---|---|---|---|
 | `drought_began` | `ROOT_ID` | a drought command takes effect | the command |
 | `drought_ended` | `ROOT_ID` | duration elapses | `drought_began` |
 | `dry_spell_began` / `dry_spell_ended` | `ROOT_ID` (region index in payload) | natural regime crossing with hysteresis (§6) | none / `dry_spell_began` |
-| `forage_failed` | band | food balance first turns negative after ≥`stableSeasons` non-negative | active drought or dry spell over the catchment, if any |
-| `band_hunger_began` | band | hunger state enters `hungry` | `forage_failed` |
-| `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, `forage_failed` |
-| `band_migrated` | band | migration executes | `band_hunger_began` (or `band_starving`), `forage_failed` |
-| `band_died_out` | band | perished or dissolved (§12; `outcome` and host ID in payload) | `band_starving` or `band_hunger_began`, `forage_failed` |
-| `band_split` | parent band | fission (§12; daughter ID in payload) [P: Q12 confirms] | none |
+| `forage_failed` | band | food balance turns negative after ≥ `stableSeasons` non-negative seasons; payload `stockPct` (catchment stock % of capacity), `sharePct` (own labour share of the catchment, §11 weighting) | `drought_began` / `dry_spell_began` if the band's camp was inside it at any season within `causeWindow`; else none |
+| `band_hunger_began` | band | hunger state enters `hungry` | the episode's `forage_failed` |
+| `band_starving` | band | hunger state enters `starving` | `band_hunger_began`, the episode's `forage_failed` |
+| `band_migrated` | band | migration executes (payload from/to cells) | `band_starving` (or `band_hunger_began`), the episode's `forage_failed` |
+| `band_died_out` | band | perished, dissolved or dwindled (§12); payload `outcome`, host ID when dissolved | `band_starving` or `band_hunger_began`, the episode's `forage_failed`; `dwindled` has none |
+| `band_split` | parent band | fission (§12); daughter ID in payload | none |
 
+- Shortfall episode: opened by a `forage_failed`; closed once the band has had `stableSeasons` non-negative seasons and is not hungry. Hunger and outcome events cite only the open episode's `forage_failed`, never an older one. Every hunger event has one: hunger needs a negative balance, which either opens an episode or falls inside one (prototype: 0 exceptions).
+- Climate lookback: each band keeps the last season its camp cell was inside an active drought (strength > 0) or dry spell, and that event's ID. `causeWindow` covers the aftermath (herd lag): in the prototype, 13 of 15 orphaned drought-window failures fell 1-5 seasons after the drought ended. Attribution is by proximity in time, not mechanism; `stockPct` is the reader's check.
+- `dwindled` = perished with no current hunger streak (demographic drift; prototype: 3 in 3,600 band-years, all hunger-free). The Legends say it dwindled; there is no event to cite.
+- Reason wording (depleted, crowded, drought) is chosen by the narration layer from the payload; the sim holds no reason threshold (salience lives in narration).
 - World/region events use `ROOT_ID` as primary, with cell and radius in the payload; same-tick collisions use the ordinal (decided rev 17). Synthetic IDs may replace `ROOT_ID` when forks are worked on.
-- Payloads: integers only (cell indices, rounded population, scaled magnitudes).
-- Every band outcome cites `forage_failed` directly, so `band_migrated` and `band_died_out` reach `drought_began` in 2 hops (outcome → `forage_failed` → `drought_began`), inside the 3-hop limit. (Bug fixed in v0.2: v0.1's die-out chain was 4 hops.) The intermediate hunger events stay as causes for the fuller "why" walk.
+- Payloads: integers only (cell indices, rounded population, percentages, scaled magnitudes).
+- Every non-`dwindled` band outcome cites `forage_failed` directly, so `band_migrated` and `band_died_out` reach `drought_began` in 2 hops (outcome → `forage_failed` → `drought_began`), inside the 3-hop limit. The intermediate hunger events stay as causes for the fuller "why" walk.
+
+| Tunable | Value | Tag |
+|---|---|---|
+| `stableSeasons` | 2 | [P] (prototype value) |
+| `causeWindow` | 8 seasons | [P] (prototype: 4 left 4/83 drought-window failures causeless, 8 and 16 left 2) |
 
 ## 15. Legends (templated)
 - One `first_valid` template list per event type, filled from payload and band name; seeded by the content key (log "Narration pipeline").
@@ -265,7 +276,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 
 ## 18. Testing plan
 - Unit: each formula (clamping, stability, conservation where it applies, no NaN). Fauna: no-drought stability across vegetation richness 1-8 (no self-sustaining cycles). Edge cases fixed in v0.2 get named tests: `V = 0` and ocean fauna cells, `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`, binomial at `q = 0`, `0.5`, `1` and `n = 0`.
-- Property (fast-check, rev 14): every event's causes appear earlier in the log; band outcomes reach a root in ≤3 hops; emission order identical across two runs; same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
+- Property (fast-check, rev 14): every event's causes appear earlier in the log; non-`dwindled` band outcomes reach a root in ≤3 hops, and those within a drought + `causeWindow` reach its `drought_began` (rev 36); every hunger event cites a `forage_failed`; emission order identical across two runs; same seed + commands → same state hash; populations never negative; vegetation in `[0, K]`.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
 - Acceptance (success test): a fixed seed and scenario with two bands; a drought at season S; run to S + N. Pass when one band has `band_migrated` and the other `band_died_out`, each with a cause chain reaching `drought_began` in ≤3 hops, and the Legends template renders the pass sentence. Scenario values [NEED: Jordan] (question 11).
 
@@ -277,6 +288,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 | Event emission | in systems / state-diff detector / transition records + emitter | transition records + emitter (rev 17) | §5; no actions inferred from diffs |
 | Migration randomness | none / `Migration` draw | none (rev 34) | keeps "why" a pure function of state |
 | Migration targets | free sites only / overlap on standing stock / overlap with competitor share | competitor share (rev 34) | §11; spacing suppressed migration; share discounts occupied land |
+| Event causes | active climate only / lookback window + payload facts / new cause events | lookback + payload facts (rev 36) | §14; active-only orphaned post-drought failures; new events had nothing to explain in the prototype |
 
 ## 20. Open questions (grill order)
 Ordered so each answer only depends on earlier ones. The rough Gemini draft's pick is noted for each as input, not as a decision.
@@ -304,11 +316,13 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 9c | Hunger mortality and fertility composition (§10) — **settled rev 33: shortfall-scaled by bracket; effort-only fertility** | 9b, R4b | — |
 | 10 | Migration trigger, search and scoring (§11) — **settled rev 34: competitor-share score, overlap allowed, no draw** | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) — **settled rev 35: 5; die-out mostly dissolution** | 9, R3 | zero |
-| 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
+| 12 | Event set, thresholds and causes (§14) — **settled rev 36: climate lookback `causeWindow`, episode-scoped citations, outcome `dwindled`, payload facts worded by narration** | 2, 8-11 | as §14 |
 | 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.22 - 2026-11-01
+- Decided: Q12 event set and causes (§14): `causeWindow` climate lookback, shortfall episodes, `band_died_out` outcome `dwindled`, `band_split` confirmed, `forage_failed` payload facts. §12 updated for `dwindled`.
 ### v0.21 - 2026-11-01
 - Decided: Q11 die-out floor (§12): `minViable` 5. Added: zero-labour guard on the migration share (§11). Noted for Q12: cause rule for calm-time perishing; for Q14: die-out needs a cut-off band with a host.
 ### v0.20 - 2026-11-01

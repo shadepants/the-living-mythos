@@ -1,0 +1,5 @@
+WIN=8  ff calm: 0
+WIN=8  ff cites drought after +40 seasons: 0
+WIN=8  ff drought-window: 10
+WIN=8  ff drought-window causeless: 0
+WIN=8  hunger without forage_failed: 0

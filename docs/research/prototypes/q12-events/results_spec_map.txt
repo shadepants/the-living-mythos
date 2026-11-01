@@ -1,0 +1,66 @@
+map s1 m0.9 dens 0.08 0.13 0.25 0.36 0.51 0.59 0.64 0.64 0.65 0.71 0.72 0.70
+  calm 200yr: band_died_out=1 band_split=2
+  drought 60yr: band_hunger_began=7 band_migrated=2 band_split=1 band_starving=6 drought_began=1 drought_ended=1 forage_failed=7
+  calm forage_failed reasons: {}
+  t -200 band_died_out  B.2.3.7.9.12 perished  causes=[] hops=None exposed=False ffage=None reason=None hungry=0 pop0=5.0
+  t   +7 band_migrated  B.2.3.7.9              causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +9 band_migrated  B.2.11                 causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+map s1 m1.5 dens 0.08 0.13 0.25 0.36 0.51 0.59 0.64 0.64 0.65 0.71 0.72 0.70
+  calm 200yr: band_died_out=1 band_split=2
+  drought 60yr: band_died_out=1 band_hunger_began=14 band_migrated=6 band_split=1 band_starving=12 drought_began=1 drought_ended=1 forage_failed=17
+  calm forage_failed reasons: {}
+  t -200 band_died_out  B.2.3.7.9.12 perished  causes=[] hops=None exposed=False ffage=None reason=None hungry=0 pop0=5.0
+  t   +5 band_migrated  B.2.3.7.9              causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=2 reason=drought hungry= pop0=
+  t   +6 band_migrated  A.21                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t   +7 band_died_out  A.21.27.32   dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry=3 pop0=26.0
+  t   +8 band_migrated  A.21                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=6 reason=drought hungry= pop0=
+  t   +8 band_migrated  B.2                    causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t   +8 band_migrated  B.2.3.4.17             causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +9 band_migrated  B.2.3.23               causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=6 reason=drought hungry= pop0=
+map s2 m0.9 dens 0.12 0.20 0.24 0.35 0.39 0.48 0.57 0.71 0.73 0.70 0.70 0.70
+  calm 200yr: 
+  drought 60yr: band_died_out=2 band_hunger_began=11 band_migrated=4 band_starving=8 drought_began=1 drought_ended=1 forage_failed=13
+  calm forage_failed reasons: {}
+  t   +6 band_died_out  B.2.4.7.33   dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry=3 pop0=33.0
+  t   +6 band_migrated  B.5                    causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t   +7 band_migrated  A.10                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +7 band_migrated  B.2.4                  causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +7 band_died_out  B.5          dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=5 reason=drought hungry=3 pop0=30.0
+  t   +9 band_migrated  A.10                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=5 reason=drought hungry= pop0=
+map s2 m1.5 dens 0.12 0.20 0.24 0.35 0.39 0.48 0.57 0.71 0.73 0.70 0.70 0.70
+  calm 200yr: 
+  drought 60yr: band_died_out=2 band_hunger_began=15 band_migrated=8 band_starving=15 drought_began=1 drought_ended=1 forage_failed=19
+  calm forage_failed reasons: {}
+  t   +5 band_migrated  A.10                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +5 band_died_out  B.2.4.7.33   dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry=3 pop0=26.0
+  t   +6 band_died_out  B.5          dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry=3 pop0=30.0
+  t   +7 band_migrated  B.5.16.20              causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +7 band_migrated  B.9                    causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +7 band_migrated  B.9.15.17              causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t   +8 band_migrated  A.10                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=6 reason=drought hungry= pop0=
+  t   +8 band_migrated  B.2.4.7.11             causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t  +10 band_migrated  A                      causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=7 reason=drought hungry= pop0=
+  t  +11 band_migrated  A.10.26                causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=7 reason=drought hungry= pop0=
+map s3 m0.9 dens 0.09 0.12 0.27 0.41 0.48 0.63 0.66 0.71 0.69 0.67 0.69 0.66
+  calm 200yr: band_split=1
+  drought 60yr: band_died_out=2 band_hunger_began=6 band_migrated=3 band_starving=4 drought_began=1 drought_ended=1 forage_failed=12
+  calm forage_failed reasons: {}
+  t   +6 band_migrated  A                      causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +8 band_migrated  A.18                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=4 reason=drought hungry= pop0=
+  t   +8 band_died_out  B.3.6.9.28   dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=5 reason=drought hungry=3 pop0=28.0
+  t  +13 band_migrated  A.13                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=7 reason=drought hungry= pop0=
+  t  +29 band_died_out  B.12.27      perished  causes=[] hops=None exposed=True ffage=None reason=None hungry=0 pop0=5.0
+map s3 m1.5 dens 0.09 0.12 0.27 0.41 0.48 0.63 0.66 0.71 0.69 0.67 0.69 0.66
+  calm 200yr: band_split=1
+  drought 60yr: band_died_out=2 band_hunger_began=11 band_migrated=8 band_starving=10 drought_began=1 drought_ended=1 forage_failed=15
+  calm forage_failed reasons: {}
+  t   +4 band_migrated  A                      causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=2 reason=drought hungry= pop0=
+  t   +5 band_migrated  A.18                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=2 reason=drought hungry= pop0=
+  t   +6 band_migrated  B.2.5.19               causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +6 band_died_out  B.3.6.9.28   dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry=3 pop0=31.0
+  t   +7 band_migrated  A.13                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=5 reason=drought hungry= pop0=
+  t   +7 band_migrated  B.7.11                 causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=3 reason=drought hungry= pop0=
+  t   +8 band_died_out  B.2.5.14     dissolved causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=5 reason=drought hungry=4 pop0=24.0
+  t  +10 band_migrated  B.2.5                  causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=7 reason=drought hungry= pop0=
+  t  +11 band_migrated  A.13                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=9 reason=drought hungry= pop0=
+  t  +12 band_migrated  A.13                   causes=['band_starvin', 'forage_faile'] hops=2 exposed=True ffage=10 reason=drought hungry= pop0=
