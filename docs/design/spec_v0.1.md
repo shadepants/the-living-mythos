@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.15
+Version: 0.16
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.15 draft)
+# Living mythos: success-test slice (spec v0.16 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -136,7 +136,7 @@ Decided rev 22 (Q7, option C + `mDens`). Per cell: herd density `F` and conditio
 | `rMax` | 0.04-0.06 per season | [R: allometry, rmax = 1.375·W^-0.315 (Sinclair 2003): wildebeest 0.248/yr, buffalo 0.208, eland 0.150] |
 | `gMax`, `halfSat`, `need`, `maxGrazeFraction`, `condRate`, `cBreed`, `mBase`, `mDens`, `mStarve`, `cStarve`, `D`, `roam`, `huntEff`, `huntHalf`, `maxHuntFraction` | | [P]; `mDens ≥ 0.05` in prototype units |
 
-Targets [P], severe drought: herds fall 25-75%; deaths start 1-3 seasons after onset; recovery to 90% in 30-50 seasons [UNCERTAIN]. The report's 12-28 seasons was relaxed: in a 576-setting prototype sweep no stable setting with ≥25% crash recovered in under 30. Stability (no self-sustaining boom-bust) is the hard requirement, because cycling herds write false Legends events.
+Targets [P], severe drought (rev 30): herds fall 25-75%; deaths start 1-3 seasons after onset; no cell extinction; back above 50% within 200 seasons. Recovery to 90% is a diagnostic, not a target (prototype 21-194 seasons; rev 22's 30-50 retired). The report's 12-28 seasons was relaxed: in a 576-setting prototype sweep no stable setting with ≥25% crash recovered in under 30. Stability (no self-sustaining boom-bust) is the hard requirement, because cycling herds write false Legends events.
 
 ## 9. Bands and food balance
 Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts, stash, food balance history (last 4 seasons), hunger seasons counter, alive flag.
@@ -289,7 +289,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | R4b | Population regulation; band size vs density vs home-range spacing (§9-§12) — **settled rev 27: effort-scaled fertility, homes ≥ `homeRange` apart** | R4a | — |
 | R4c | Per-worker return anchor (food unit vs need) (§9) — **settled rev 28: fresh effort = `effortFull` on median land** | R4b | — |
 | R4d | Hunt cap basis and meat share (§8, §9) — **settled rev 29: `huntShare` × `rMax`** | R4c | — |
-| R4e | Herd recovery target (§8) | R4d | — |
+| R4e | Herd recovery target (§8) — **settled rev 30: recovery time is a diagnostic** | R4d | — |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
@@ -298,6 +298,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.16 - 2026-11-01
+- Decided: R4e herd recovery target (§8). Whole-system review closed; Q9 next.
 ### v0.15 - 2026-11-01
 - Decided: R4d hunt cap basis (§8).
 ### v0.14 - 2026-11-01

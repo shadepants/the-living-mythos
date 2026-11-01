@@ -1,6 +1,6 @@
 # Whole-system review (2026-10-30)
 
-Status: open. Prompted by Jordan during spec Q8: "Research better solutions to this issue, even if it means revising previous decisions. ... The system needs to work as a whole. It's a simulation and will need to get deeper and more complex as systems are added." Nothing here is decided; each revision is grilled one at a time (order in section 4) and lands in the decision log only when Jordan picks.
+Status: closed 2026-11-01 (rev 30). R1-R4 settled; spec Q9-Q14 continue in the spec. Prompted by Jordan during spec Q8: "Research better solutions to this issue, even if it means revising previous decisions. ... The system needs to work as a whole. It's a simulation and will need to get deeper and more complex as systems are added." Nothing here is decided; each revision is grilled one at a time (order in section 4) and lands in the decision log only when Jordan picks.
 
 Update 2026-10-31: Gemini prompts 8-11 run and reviewed (`research/forager-reports-review-2026-10-31.md`).
 
@@ -55,7 +55,7 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | R4b | Population regulation; band size vs density vs spacing — **settled rev 27 (option B)** | §10, §12, rev 24-25 |
 | R4c | Per-worker return anchor — **settled rev 28 (option A)** | §9 |
 | R4d | Hunt cap basis and meat share — **settled rev 29 (option B)** | §8, §9 |
-| R4e | Herd recovery target | rev 22 |
+| R4e | Herd recovery target — **settled rev 30 (option C)** | rev 22 |
 | then | Q9 demography, Q10 migration scoring, Q12 events, Q13 glance words, Q14 scenario | — |
 
 ## 5. What stays

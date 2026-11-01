@@ -13,11 +13,11 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 29). Source of truth |
-| `claude/handoff-living-mythos.md` | Current (handoff #8, 2026-11-01) |
+| `design/decision-log.md` | Current (rev 30). Source of truth |
+| `claude/handoff-living-mythos.md` | Current (handoff #9, 2026-11-01) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.15 (2026-11-01; file name kept); Q0-Q7, R1-R3, R4a-R4d settled; R4e then Q9-Q14 in the order of section 20 |
-| `design/integration-review-2026-10-30.md` | Open: whole-system review raised during Q8; issues I1-I11, candidate architecture; R1 rev 23, R2 rev 24, R3 rev 25, R4a rev 26, R4b rev 27, R4c rev 28, R4d rev 29; R4e next, then Q9-Q14 |
+| `design/spec_v0.1.md` | Draft v0.16 (2026-11-01; file name kept); Q0-Q7, R1-R4 settled; Q9-Q14 in the order of section 20 |
+| `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; none pending |
 | `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 10 (population ecology), 11 (food-system architecture); spot-checks; feeds R1-R4 |
