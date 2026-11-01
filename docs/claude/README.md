@@ -20,7 +20,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `design/spec_v0.1.md` | Draft v0.21 (2026-11-01; file name kept); Q0-Q7, R1-R4, Q9-Q11 settled; Q12-Q14 in the order of section 20 |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
-| `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; none pending |
+| `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; prompt 12 (famine outcomes, minimum band size) pending; 13-15 suggested |
 | `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 10 (population ecology), 11 (food-system architecture); spot-checks; feeds R1-R4 |
 | `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt`, `research/population-ecology-report-gemini.txt` | Prompt 8, 9, 11, 10 report text (PDFs in the repo mirror at `docs/research/`) |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |

@@ -154,5 +154,28 @@ For each: how resources are represented (stocks, regrowth, return curves), how a
 Output: a comparison table; recurring patterns; a recommended resource interface for a seasonal grid simulation with two resources now and more later; pitfalls. Distinguish verified facts from inference.
 ```
 
+## Spec Q11-Q14 prompts (written 2026-11-01)
+Purpose: test rev 35 (die-out is mostly dissolution; `minViable` 5) and inform Q12 causes and the Q14 scenario. Paste the context block first, then: "Current focus: a slice where bands of 15-50 people in 4 age brackets forage on ~3 km grid cells with seasonal ticks, go hungry in a drought, then migrate, dissolve into a neighbouring band, or perish."
+
+### Prompt 12: Forager famine outcomes and minimum band size (pending)
+```
+Research what actually happened to hunter-gatherer bands under severe food shortage, and how small a band can get before it stops functioning, in quantitative terms I can check simulation rules against. Cover:
+1. Outcomes of severe shortfall, per documented case: (a) band relocated as a unit, (b) members dispersed to kin or allied bands, (c) whole band merged into a host group, (d) band starved in place, (e) band recovered where it was. For each case give place, dates, group size before and after, length of the shortfall in seasons, and the source. Include at least: Caribou Inuit / Kivalliq (Ahiarmiut, Padlermiut) 1949-1958, Ju/'hoansi drought 1964-65 (Lee), Hiwi, Ache, Australian Western Desert droughts (Gould, Tonkinson), Great Basin (Steward), Alaskan and Canadian subarctic famines, and any archaeological evidence of whole-group extinction versus abandonment.
+2. Which outcome was most common, and what decided it: access to kin elsewhere, reciprocal land-use rights (hxaro, n!ore, Western Desert visiting), host groups' own condition and willingness to accept people (Cashdan 1983 on territoriality vs resource predictability; Wiessner), distance to a refuge, outside agencies. State whether stressed hosts refused or limited newcomers, with cases.
+3. Starvation in place: under what conditions did whole groups die rather than leave or disperse (total failure of the main food, isolation, travel impossible, epidemic on top)? How fast, and how small did the group get before the end?
+4. Minimum functional band size: the smallest residential groups recorded as persisting for years, the size below which groups usually joined others, and why (labour for hunting, childcare, risk-sharing, marriage partners). Distinguish residential groups from regional mating networks (~150-500, Wobst 1974) and say which number is relevant to a band "ending".
+5. Excess mortality by age in these famines (children, adults, elders), with numbers and sources, and whether the commonly cited pattern (children and elders worst hit) holds in the primary sources.
+Output: (1) a case table with columns case, dates, group size before/after, shortfall length, outcome (a-e), deciding factor, source; (2) a short ranking of outcomes by frequency with the evidence base stated; (3) a table of minimum persisting group sizes with sources; (4) an age-mortality table; (5) flags for thin, contested or secondary-only evidence. Distinguish verified facts (with sources and dates) from inference, and say when a figure comes from a secondary summary rather than the primary source.
+```
+
+### Prompt 13 (suggested): Access to neighbours' ranges in drought
+Reciprocal access and territorial defence among foragers under stress (Cashdan 1983 economic defensibility; Dyson-Hudson & Smith 1978; hxaro; Western Desert ritual and visiting rights; Inuit sharing partnerships): who may forage in whose range, for how long, how many newcomers a host takes, and when boundaries harden. Tests rev 34's overlap-allowed migration and its competitor-share discount.
+
+### Prompt 14 (suggested): Forager fertility, workload and energy balance
+Ovarian function and birth spacing versus workload and energy balance (Ellison, Jasienska, Bentley; !Kung, Ache, Hadza, Agta): is the relationship roughly linear, threshold-like or saturating, and how fast does fertility recover after a hungry season? Tests rev 27's linear effort factor and `effortFull` 0.5.
+
+### Prompt 15 (suggested): Forager time allocation
+Hours per day spent foraging, processing and resting by age and sex (Hawkes, Hill & Kaplan, Kramer, Marlowe), and how hours rise in lean seasons. Tests `effortFull` and the labour weights (0.25 / 0.75 / 1 / 0.5).
+
 ## Suggested (not run)
 The former suggestions (food storage, forager drought response) are now prompts 9 and 8.
