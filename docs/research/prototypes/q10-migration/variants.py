@@ -22,7 +22,7 @@ def make(S, R, free, share=False):
             if o is b or not o.alive: continue
             d = np.hypot(o.camp[0]-x, o.camp[1]-y)
             if d < 2*S.R_CATCH: tot += o.lab()*(1 - d/(2*S.R_CATCH))
-        return Lb/tot
+        return Lb/tot if tot > 0 else 0.0   # band with no labour left (pop 0 before the end check)
     def mig(w, b, t, best, score, land, hx, hy):
         if b.hungry < S.MIGRATE_AFTER: return
         sP, cnt = S.disc_sum(w.P, S.DISC); sF, _ = S.disc_sum(w.F, S.DISC); L = b.lab()

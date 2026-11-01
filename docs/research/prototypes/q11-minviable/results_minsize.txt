@@ -1,0 +1,126 @@
+map s1 m0.9 mmf0.2 | bands pre 33 drought 33 | below floor (pre / drought) 5:0/0 8:2/0 10:2/0 12:6/1 15:10/7 | drought mins [np.float64(11.0), np.float64(13.0), np.float64(13.0), np.float64(13.0), np.float64(13.0), np.float64(14.0)] | ends: diss 0
+map s1 m1.5 mmf0.2 | bands pre 33 drought 33 | below floor (pre / drought) 5:0/0 8:2/0 10:2/0 12:6/1 15:10/6 | drought mins [np.float64(10.0), np.float64(12.0), np.float64(14.0), np.float64(14.0), np.float64(14.0), np.float64(14.0)] | ends: diss 1
+map s2 m0.9 mmf0.2 | bands pre 33 drought 33 | below floor (pre / drought) 5:1/1 8:1/3 10:3/3 12:6/3 15:10/6 | drought mins [np.float64(4.0), np.float64(6.0), np.float64(7.0), np.float64(12.0), np.float64(12.0), np.float64(14.0)] | ends: diss 0
+map s2 m1.5 mmf0.2 | bands pre 33 drought 32 | below floor (pre / drought) 5:1/0 8:1/1 10:3/5 12:6/5 15:10/7 | drought mins [np.float64(6.0), np.float64(8.0), np.float64(8.0), np.float64(9.0), np.float64(9.0), np.float64(12.0)] | ends: diss 0
+map s3 m0.9 mmf0.2 | bands pre 30 drought 30 | below floor (pre / drought) 5:0/1 8:0/2 10:3/3 12:4/3 15:7/5 | drought mins [np.float64(2.0), np.float64(6.0), np.float64(9.0), np.float64(13.0), np.float64(13.0), np.float64(15.0)] | ends: diss 1
+island s1 m1.5 mmf0.2 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/0 10:0/0 12:0/0 15:0/1 | drought mins [np.float64(14.0)] | ends: diss 0
+map s3 m1.5 mmf0.2 | bands pre 30 drought 30 | below floor (pre / drought) 5:0/0 8:0/0 10:3/3 12:4/3 15:7/6 | drought mins [np.float64(8.0), np.float64(8.0), np.float64(9.0), np.float64(13.0), np.float64(14.0), np.float64(14.0)] | ends: diss 2
+island s1 m1.5 mmf0.05 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/1 10:0/1 12:0/1 15:0/1 | drought mins [np.float64(7.0)] | ends: diss 0
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/q11.py", line 22, in <module>
+    R.step(w, t, dr(t), 2, ev)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/run5_q10.py", line 21, in step
+    S.season(w, t, anom, None)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/sysproto_q10.py", line 146, in season
+    MIGRATE(w, b, t, best, score, land, hx, hy)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in mig
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in <genexpr>
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+              ~~^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 30, in sc
+    n = cnt[y, x]; f = comp_share(w, b, x, y) if share else 1.0
+                       ~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 25, in comp_share
+    return Lb/tot
+           ~~^~~~
+ZeroDivisionError: float division by zero
+island s2 m1.5 mmf0.2 | bands pre 2 drought 2 | below floor (pre / drought) 5:0/0 8:0/0 10:0/0 12:0/0 15:0/0 | drought mins [np.float64(19.0), np.float64(21.0)] | ends: diss 0
+island s2 m1.5 mmf0.05 | bands pre 2 drought 2 | below floor (pre / drought) 5:0/0 8:0/0 10:0/1 12:0/2 15:0/2 | drought mins [np.float64(8.0), np.float64(10.0)] | ends: diss 0
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/q11.py", line 22, in <module>
+    R.step(w, t, dr(t), 2, ev)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/run5_q10.py", line 21, in step
+    S.season(w, t, anom, None)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/sysproto_q10.py", line 146, in season
+    MIGRATE(w, b, t, best, score, land, hx, hy)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in mig
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in <genexpr>
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+              ~~^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 30, in sc
+    n = cnt[y, x]; f = comp_share(w, b, x, y) if share else 1.0
+                       ~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 25, in comp_share
+    return Lb/tot
+           ~~^~~~
+ZeroDivisionError: float division by zero
+island s3 m1.5 mmf0.2 | bands pre 2 drought 2 | below floor (pre / drought) 5:0/0 8:0/0 10:0/0 12:0/0 15:0/1 | drought mins [np.float64(12.0), np.float64(15.0)] | ends: diss 0
+island s3 m1.5 mmf0.05 | bands pre 2 drought 2 | below floor (pre / drought) 5:0/2 8:0/2 10:0/2 12:0/2 15:0/2 | drought mins [np.float64(4.0), np.float64(4.0)] | ends: diss 0
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/q11.py", line 22, in <module>
+    R.step(w, t, dr(t), 2, ev)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/run5_q10.py", line 21, in step
+    S.season(w, t, anom, None)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/sysproto_q10.py", line 146, in season
+    MIGRATE(w, b, t, best, score, land, hx, hy)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in mig
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in <genexpr>
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+              ~~^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 30, in sc
+    n = cnt[y, x]; f = comp_share(w, b, x, y) if share else 1.0
+                       ~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 25, in comp_share
+    return Lb/tot
+           ~~^~~~
+ZeroDivisionError: float division by zero
+island s4 m1.5 mmf0.2 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/0 10:0/0 12:0/0 15:0/0 | drought mins [np.float64(20.0)] | ends: diss 0
+island s4 m1.5 mmf0.05 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/1 10:0/1 12:0/1 15:0/1 | drought mins [np.float64(7.0)] | ends: diss 0
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/q11.py", line 22, in <module>
+    R.step(w, t, dr(t), 2, ev)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/run5_q10.py", line 21, in step
+    S.season(w, t, anom, None)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/sysproto_q10.py", line 146, in season
+    MIGRATE(w, b, t, best, score, land, hx, hy)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in mig
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in <genexpr>
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+              ~~^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 30, in sc
+    n = cnt[y, x]; f = comp_share(w, b, x, y) if share else 1.0
+                       ~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 25, in comp_share
+    return Lb/tot
+           ~~^~~~
+ZeroDivisionError: float division by zero
+island s5 m1.5 mmf0.2 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/0 10:0/0 12:0/0 15:0/1 | drought mins [np.float64(14.0)] | ends: diss 0
+island s5 m1.5 mmf0.05 | bands pre 1 drought 1 | below floor (pre / drought) 5:0/0 8:0/1 10:0/1 12:0/1 15:0/1 | drought mins [np.float64(7.0)] | ends: diss 0
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/q11.py", line 22, in <module>
+    R.step(w, t, dr(t), 2, ev)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/run5_q10.py", line 21, in step
+    S.season(w, t, anom, None)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/sysproto_q10.py", line 146, in season
+    MIGRATE(w, b, t, best, score, land, hx, hy)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in mig
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 32, in <genexpr>
+    cur = max(sc(hx+dx, hy+dy) for dx, dy in S.HOME if 0 <= hx+dx < S.W and 0 <= hy+dy < S.H and land[hy+dy, hx+dx])
+              ~~^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 30, in sc
+    n = cnt[y, x]; f = comp_share(w, b, x, y) if share else 1.0
+                       ~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/09e3c0fc-bffc-5eeb-a25d-6b8f1b3d1b07/scratchpad/q10/variants.py", line 25, in comp_share
+    return Lb/tot
+           ~~^~~~
+ZeroDivisionError: float division by zero

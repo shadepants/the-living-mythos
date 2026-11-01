@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.20
+Version: 0.21
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.20 draft)
+# Living mythos: success-test slice (spec v0.21 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -192,7 +192,7 @@ Draws (decided rev 31, Q9a option A): one draw per bracket and outcome, sampling
 ## 11. Migration
 Decided rev 34 (Q10, option C).
 - Trigger: hunger state `hungry` or worse for `migrateAfter` consecutive seasons.
-- Target search: land cells within `searchRadius` of the home cell (Euclidean). Score = expected catchment return with each guild's stock scaled by `share`, minus `travelCost · distance`. `share = L_self / (L_self + Σ L_o · w_o)` over other living bands o, with `w_o = max(0, 1 − d_o / (2·catchment))` and d_o the distance from o's camp to the candidate cell (catchment overlap, linear stand-in [UNCERTAIN]); band ID order for the sum.
+- Target search: land cells within `searchRadius` of the home cell (Euclidean). Score = expected catchment return with each guild's stock scaled by `share`, minus `travelCost · distance`. `share = L_self / (L_self + Σ L_o · w_o)` over other living bands o, with `w_o = max(0, 1 − d_o / (2·catchment))` and d_o the distance from o's camp to the candidate cell (catchment overlap, linear stand-in [UNCERTAIN]); band ID order for the sum. `share = 0` when `L_self = 0` (guard, rev 35; a band with no labour left before its end check).
 - The current range is scored the same way (best camp in the home range, no travel cost). Move only if the best target beats it by `migrateMargin` (fraction). The move sets the home cell and camp to the target.
 - No spacing rule: a target may lie inside other bands' home ranges (fission keeps its `homeRange` spacing, §12). Occupied land is discounted by `share` rather than forbidden, and unforaged land is not preferred just for being unforaged (integration review I7).
 - Tie-break: lowest cell index. Randomness: none, so "why it moved" stays a pure function of state.
@@ -210,7 +210,7 @@ Decided rev 34 (Q10, option C).
 Decided rev 25 (review R3, option C).
 - Fission: a band with hunger state none and population above `fissionAt` (50 [P]) splits in half (floor per bracket; the parent keeps the remainder). The daughter founds a home range at the best free land cell within `searchRadius` whose home cell is at least `homeRange` from every living band's home cell (rev 27; was 2·`homeRange`). The split happens only if that site's expected catchment return covers the daughter's consumption × (1 + `fissionMargin`, 0.2 [P]); otherwise no split this season. Ties: lowest cell index. The daughter gets a lineage ID (parent, tick, sibling index; hard rule 3) and needs the entity registry.
 - Dissolution: after `dissolveAfter` (3 [P]) consecutive hungry seasons, a band that has not migrated joins the nearest band with hunger state none within `hostRange` (15 cells [P]) whose current camp's expected catchment return covers host + refugee consumption × (1 + `fissionMargin`) (host guard, rev 26; ties: lowest band ID). Its bracket counts add to the host's. The band ends. With no qualifying host it stays (see perishing).
-- Perishing: a band with no host and no migration target stays; it ends when its population falls below `minViable` ([NEED: Jordan] value, Q11).
+- Perishing (decided rev 35, Q11 option A): a band with no qualifying host and no migration target stays; it ends when its population falls below `minViable` (5 [P]). In the slice, die-out is mostly dissolution: perishing in place needs a near-total food failure, which the slice drought doesn't produce (prototype: cut-off bands settle at 12-24 people while capacity stays ≥ 20%). A calm-time perishing (demographic decline, no hunger) gets its cause rule in Q12. Not tuned for drama: floors of 10+ ended healthy small bands with no cause.
 - Both endings emit `band_died_out` with `outcome` (perished / dissolved) and, when dissolved, the host band ID in the payload. The band entity stays in the registry as a history record.
 - Fusion of small healthy bands and seasonal aggregation are deferred.
 
@@ -303,12 +303,14 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 9b | Bracket cut points and base rates (§9, §10) — **settled rev 32: 0-14/15-19/20-44/45+, one stage, calibrated to Gurven & Kaplan 2007** | 9a | 0-14/15-24/25-49/50+ |
 | 9c | Hunger mortality and fertility composition (§10) — **settled rev 33: shortfall-scaled by bracket; effort-only fertility** | 9b, R4b | — |
 | 10 | Migration trigger, search and scoring (§11) — **settled rev 34: competitor-share score, overlap allowed, no draw** | 8 | radius 8, +25% margin, no draw |
-| 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
+| 11 | Die-out floor `minViable` for perishing bands (§12) — **settled rev 35: 5; die-out mostly dissolution** | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
 | 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.21 - 2026-11-01
+- Decided: Q11 die-out floor (§12): `minViable` 5. Added: zero-labour guard on the migration share (§11). Noted for Q12: cause rule for calm-time perishing; for Q14: die-out needs a cut-off band with a host.
 ### v0.20 - 2026-11-01
 - Decided: Q10 migration (§11): competitor-share scoring, targets may overlap other ranges, no draw. Q11 next.
 ### v0.19 - 2026-11-01

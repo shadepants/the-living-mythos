@@ -1,0 +1,17 @@
+python3 q11b.py island <seed> 2.5 <minMoistureFactor> 5   (floor minViable = 5)
+island s1 m2.5 mmf0.0 | mins [6] | perished 1
+island s1 m2.5 mmf0.05 | mins [7] | perished 0
+island s1 m2.5 mmf0.1 | mins [12] | perished 0
+island s2 m2.5 mmf0.0 | mins [5, 5] | perished 2
+island s2 m2.5 mmf0.05 | mins [8, 10] | perished 0
+island s2 m2.5 mmf0.1 | mins [14, 15] | perished 0
+island s3 m2.5 mmf0.0 | mins [5, 7] | perished 2
+island s3 m2.5 mmf0.05 | mins [5, 7] | perished 1
+island s3 m2.5 mmf0.1 | mins [6, 9] | perished 0
+island s4 m2.5 mmf0.0 | mins [5] | perished 1
+island s4 m2.5 mmf0.05 | mins [7] | perished 0
+island s4 m2.5 mmf0.1 | mins [10] | perished 0
+island s5 m2.5 mmf0.0 | mins [6] | perished 1
+island s5 m2.5 mmf0.05 | mins [7] | perished 0
+island s5 m2.5 mmf0.1 | mins [5] | perished 1
+(mmf 0.2, the prototype default: 0/5 perished, mins 12-24; see results_minsize.txt)
