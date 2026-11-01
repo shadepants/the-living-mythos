@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.14
+Version: 0.15
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.14 draft)
+# Living mythos: success-test slice (spec v0.15 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -129,7 +129,7 @@ Decided rev 22 (Q7, option C + `mDens`). Per cell: herd density `F` and conditio
 - Diffusion: `h · Dc · Laplacian(F)` with `Dc = D · (1 + roam · (1 − c))`, so hungry herds spread out of drought. 4-neighbour; sea neighbours contribute the cell's own value (zero flux). Condition moves with the herd as a density-weighted mix.
 - Stability: `n_f = max(1, ceil(4 · D · (1 + roam)))` from the maximum possible rate, fixed per config, so the schedule never depends on state (hard rule 4) [verified numerically: stable at h·D = 1/4, unstable at 0.26].
 - Capacity emerges from food; `cF`, `rF`, `epsK` from v0.7 are removed. Very poor cells hold no herds.
-- Hunting: the large-game guild (§9, rev 23). Food stock per cell = `F · foodPerHerd`; per-season take capped at `maxHuntFraction · F`.
+- Hunting: the large-game guild (§9, rev 23). Food stock per cell = `F · foodPerHerd`; per-season take capped at `maxHuntFraction · F`, with `maxHuntFraction = huntShare · rMax` (rev 29; `huntShare` 0.2 [P], ≈ 0.01).
 
 | Tunable | Value | Tag |
 |---|---|---|
@@ -288,7 +288,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | R4a | Host guard for dissolution (§12) — **settled rev 26: host must feed host + refugees × 1.2** | R3 | — |
 | R4b | Population regulation; band size vs density vs home-range spacing (§9-§12) — **settled rev 27: effort-scaled fertility, homes ≥ `homeRange` apart** | R4a | — |
 | R4c | Per-worker return anchor (food unit vs need) (§9) — **settled rev 28: fresh effort = `effortFull` on median land** | R4b | — |
-| R4d | Hunt cap basis and meat share (§8, §9) | R4c | — |
+| R4d | Hunt cap basis and meat share (§8, §9) — **settled rev 29: `huntShare` × `rMax`** | R4c | — |
 | R4e | Herd recovery target (§8) | R4d | — |
 | 9 | Demography: draws, brackets, rates (§10) | 0, 8 | binomial per bracket; 0-14/15-24/25-49/50+ |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
@@ -298,6 +298,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.15 - 2026-11-01
+- Decided: R4d hunt cap basis (§8).
 ### v0.14 - 2026-11-01
 - Decided: R4c return anchor (§9).
 ### v0.13 - 2026-11-01
