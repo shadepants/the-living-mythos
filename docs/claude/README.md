@@ -13,10 +13,10 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 32). Source of truth |
+| `design/decision-log.md` | Current (rev 33). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #9, 2026-11-01) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.18 (2026-11-01; file name kept); Q0-Q7, R1-R4, Q9a-Q9b settled; Q9c-Q14 in the order of section 20 |
+| `design/spec_v0.1.md` | Draft v0.19 (2026-11-01; file name kept); Q0-Q7, R1-R4, Q9 settled; Q10-Q14 in the order of section 20 |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; none pending |
@@ -24,7 +24,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt`, `research/population-ecology-report-gemini.txt` | Prompt 8, 9, 11, 10 report text (PDFs in the repo mirror at `docs/research/`) |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |
 | `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
-| `research/prototypes/q9-demography/` | Throwaway Python prototypes for spec Q9 (Q9a draw method, sampler; Q9b bracket options, fill trajectories); evidence for revs 31-32; never port |
+| `research/prototypes/q9-demography/` | Throwaway Python prototypes for spec Q9 (Q9a draw method, sampler; Q9b bracket options, fill trajectories; Q9c hunger mortality, cut-off band); evidence for revs 31-33; never port |
 | `research/prototypes/q8-system/` | Throwaway Python prototypes for the whole-system review (band-only, integrated, prey depression `run3*`; R4 probe in `r4/`); evidence only; never port |
 | `research/vegetation-drought-report-gemini.txt` | Prompt 7 report (text of the PDF, which Jordan attached in chat; PDF in the repo mirror at `docs/research/`) |
 | `research/pixel-art-review-2026-10-24.md` | Review of prompt 6; partly adopted (rev 8); remaining items settle during the spec |

@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.18
+Version: 0.19
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.18 draft)
+# Living mythos: success-test slice (spec v0.19 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -177,8 +177,8 @@ Draws (decided rev 31, Q9a option A): one draw per bracket and outcome, sampling
   - `p(0) = (1−q)^n` by a multiply loop (`intPow`, n multiplications; `Math.pow` and `**` are banned). With n ≤ ~60 and `1−q ≥ 0.5`, `p(0) ≥ 2^-60`, far above double underflow.
   - Walk `k = 0, 1, …` accumulating `p(k+1) = p(k) · (n−k)/(k+1) · q/(1−q)` until the cumulative sum exceeds `u`; if rounding leaves `u` above the final sum, return n. Inferred: for n ≤ 60 the rounding shortfall (~1e-14) is below `rand01`'s 2^-32 step, so this fallback is unreachable; a property test pins it.
   It uses only `× ÷ + −` and matches per-member draws in distribution (prototype: total-variation distance 8.2e-5, the test grid's resolution). Draws use the start-of-season counts, so one outcome can't shift another. Purposes (appended, rev 31): `DeathChild`, `DeathYoungAdult`, `DeathAdult`, `DeathElder`; `Birth` unchanged; `Death` (4) retired. Entity = band.
-- Deaths: per bracket, `q = baseMortality[bracket] + hungerMortality[bracket, hungerState]`. Purpose `Death<Bracket>` (rev 31), entity = band.
-- Births: `n = round((youngAdults + adults) / 2)` (fertile women, ages 15-44; [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState) · effortFactor` (composition is Q9c). Purpose `Birth`.
+- Deaths: per bracket, `q = baseMortality[bracket] + shortfall · hungerMortality[bracket]`, with `shortfall = 1 − min(consumption, stash + yield) / consumption` this season (decided rev 33, Q9c option B). Hunger states drive events, glance words and lifecycle triggers, not mortality. Purpose `Death<Bracket>` (rev 31), entity = band.
+- Births: `n = round((youngAdults + adults) / 2)` (fertile women, ages 15-44; [UNCERTAIN] simplification), `q = birthRate · effortFactor` (rev 33: `fertilityFactor(hungerState)` removed; effort is 1 whenever consumption isn't met, so births already stop). Purpose `Birth`.
 - Effort (rev 27, R4b): the share of the band's labour needed to meet consumption this season (stash top-up excluded), from the §9 allocation. `effortFactor` = 1 at effort ≤ `effortFull` (0.5 [P]), falling linearly to 0 at effort 1. Regulates population before hunger; hunger mortality is the backstop.
 - Aging: a fixed fraction of each bracket moves up each season (`1 / span_in_seasons`), using deterministic rounding with a carried remainder per band, so no draw is needed.
 
@@ -186,7 +186,7 @@ Draws (decided rev 31, Q9a option A): one draw per bracket and outcome, sampling
 |---|---|
 | Base mortality by bracket | per season: children 0.0126 (exit probability 0.57), young adults 0.0025, adults 0.0028, elders 0.0125 [P] (rev 32; G&K 2007 shape, per-bracket averages [UNCERTAIN]) |
 | Birth rate | 0.0475 per woman-season = TFR 5.7 over ages 15-44 [P] (rev 32; G&K 2007 forager mean); prototype intrinsic growth +0.86%/yr with no food limit |
-| `hungerMortality`, `fertilityFactor` | [P] |
+| `hungerMortality` | per season at total shortfall: children 0.25, young adults 0.10, adults 0.10, elders 0.35 [P] (rev 33; prompt 8 shape, unverified) |
 | `effortFull` | 0.5 [P] (rev 27) |
 
 ## 11. Migration
@@ -294,7 +294,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | R4e | Herd recovery target (§8) — **settled rev 30: recovery time is a diagnostic** | R4d | — |
 | 9a | Demography draws and purpose codes (§10) — **settled rev 31: binomial per bracket, inverse CDF, 1 − u flip, four death purposes** | 0, 8 | binomial per bracket |
 | 9b | Bracket cut points and base rates (§9, §10) — **settled rev 32: 0-14/15-19/20-44/45+, one stage, calibrated to Gurven & Kaplan 2007** | 9a | 0-14/15-24/25-49/50+ |
-| 9c | Hunger mortality by age; how `effortFactor` and `fertilityFactor(hungerState)` combine (§10) | 9b, R4b | — |
+| 9c | Hunger mortality and fertility composition (§10) — **settled rev 33: shortfall-scaled by bracket; effort-only fertility** | 9b, R4b | — |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
@@ -302,6 +302,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.19 - 2026-11-01
+- Decided: Q9c hunger mortality and fertility (§10). Q9 closed. Noted for Q11/Q14: cut-off bands never perished in the prototype.
 ### v0.18 - 2026-11-01
 - Decided: Q9b brackets and base rates (§9 table, §10 rates).
 ### v0.17 - 2026-11-01
