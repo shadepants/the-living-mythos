@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.17
+Version: 0.18
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.17 draft)
+# Living mythos: success-test slice (spec v0.18 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -143,10 +143,12 @@ Band state (log Q1, slice subset): `EntityId`, name, camp cell, 4 bracket counts
 
 | Bracket | Span | Tag |
 |---|---|---|
-| children | 0-14 yr (0-59 seasons) | [P]; report 3 l15 ≈ 0.57 implies the 15-year cut [R: report 3] |
-| young adults | 15-24 yr | [NEED: Jordan] (cut points) |
-| adults | 25-49 yr | [NEED: Jordan] |
-| elders | 50+ yr | [NEED: Jordan] |
+| children | 0-14 yr (60 seasons) | decided rev 32 (Q9b option C); l15 ≈ 0.57 [R: Gurven & Kaplan 2007, verified] |
+| young adults | 15-19 yr (20 seasons) | rev 32; mobile bracket (marriage exchange, founding, migration) |
+| adults | 20-44 yr (100 seasons) | rev 32 |
+| elders | 45+ yr | rev 32; leave by death only |
+
+One aging stage per bracket, so real ages blur (median entry to young adults ~6 yr, to elders ~28 yr; prototype). Three hidden stages per bracket is the upgrade path when a system reads true age.
 
 Food (decided rev 23, whole-system review R1, option B): resource guilds.
 - Guild interface: per-cell stock in food units (1 = one adult's needs for a season); capacity from fields; regrowth rule (continuous logistic, herd model, or pulsed); per-worker Type II return `a·S/(1 + a·h·S)` on the mean catchment stock S; per-season take cap as a fraction of stock; seasonal factor. Energy only; a protein/fat budget comes with farming.
@@ -176,14 +178,14 @@ Draws (decided rev 31, Q9a option A): one draw per bracket and outcome, sampling
   - Walk `k = 0, 1, …` accumulating `p(k+1) = p(k) · (n−k)/(k+1) · q/(1−q)` until the cumulative sum exceeds `u`; if rounding leaves `u` above the final sum, return n. Inferred: for n ≤ 60 the rounding shortfall (~1e-14) is below `rand01`'s 2^-32 step, so this fallback is unreachable; a property test pins it.
   It uses only `× ÷ + −` and matches per-member draws in distribution (prototype: total-variation distance 8.2e-5, the test grid's resolution). Draws use the start-of-season counts, so one outcome can't shift another. Purposes (appended, rev 31): `DeathChild`, `DeathYoungAdult`, `DeathAdult`, `DeathElder`; `Birth` unchanged; `Death` (4) retired. Entity = band.
 - Deaths: per bracket, `q = baseMortality[bracket] + hungerMortality[bracket, hungerState]`. Purpose `Death<Bracket>` (rev 31), entity = band.
-- Births: `n = round(adults_and_young_adults / 2)` (fertile women, [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState) · effortFactor`. Purpose `Birth`.
+- Births: `n = round((youngAdults + adults) / 2)` (fertile women, ages 15-44; [UNCERTAIN] simplification), `q = birthRate · fertilityFactor(hungerState) · effortFactor` (composition is Q9c). Purpose `Birth`.
 - Effort (rev 27, R4b): the share of the band's labour needed to meet consumption this season (stash top-up excluded), from the §9 allocation. `effortFactor` = 1 at effort ≤ `effortFull` (0.5 [P]), falling linearly to 0 at effort 1. Regulates population before hunger; hunger mortality is the backstop.
 - Aging: a fixed fraction of each bracket moves up each season (`1 / span_in_seasons`), using deterministic rounding with a carried remainder per band, so no draw is needed.
 
 | Tunable | Tag |
 |---|---|
-| Base mortality by bracket | calibrate to l15 ≈ 0.57, modal adult death ~72 [R: report 3; Gurven & Kaplan 2007 per batch review] |
-| Birth rate | TFR 4.5-6, interbirth interval ~3.5 yr [R: report 3] |
+| Base mortality by bracket | per season: children 0.0126 (exit probability 0.57), young adults 0.0025, adults 0.0028, elders 0.0125 [P] (rev 32; G&K 2007 shape, per-bracket averages [UNCERTAIN]) |
+| Birth rate | 0.0475 per woman-season = TFR 5.7 over ages 15-44 [P] (rev 32; G&K 2007 forager mean); prototype intrinsic growth +0.86%/yr with no food limit |
 | `hungerMortality`, `fertilityFactor` | [P] |
 | `effortFull` | 0.5 [P] (rev 27) |
 
@@ -291,7 +293,7 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | R4d | Hunt cap basis and meat share (§8, §9) — **settled rev 29: `huntShare` × `rMax`** | R4c | — |
 | R4e | Herd recovery target (§8) — **settled rev 30: recovery time is a diagnostic** | R4d | — |
 | 9a | Demography draws and purpose codes (§10) — **settled rev 31: binomial per bracket, inverse CDF, 1 − u flip, four death purposes** | 0, 8 | binomial per bracket |
-| 9b | Bracket cut points and base rates (base mortality to l15 ≈ 0.57, birth rate to TFR 4.5-6) (§9, §10) | 9a | 0-14/15-24/25-49/50+ |
+| 9b | Bracket cut points and base rates (§9, §10) — **settled rev 32: 0-14/15-19/20-44/45+, one stage, calibrated to Gurven & Kaplan 2007** | 9a | 0-14/15-24/25-49/50+ |
 | 9c | Hunger mortality by age; how `effortFactor` and `fertilityFactor(hungerState)` combine (§10) | 9b, R4b | — |
 | 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
@@ -300,6 +302,8 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.18 - 2026-11-01
+- Decided: Q9b brackets and base rates (§9 table, §10 rates).
 ### v0.17 - 2026-11-01
 - Decided: Q9a demography draws (§10). Fixed: the q > 0.5 flip now uses 1 − u (monotone in q). Q9 split into Q9a-Q9c (§20).
 ### v0.16 - 2026-11-01
