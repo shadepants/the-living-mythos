@@ -1,0 +1,25 @@
+[draft] calm: None=98.9% thriving=1.1%
+[draft] drought: None=97.2% hungry=0.2% restless=0.4% settled=0.7% starving=0.1% thriving=1.4%
+[draft] calm flicker: 0.09 word changes per band-year
+[draft] before dissolved: restless x5 | before migrating: hungry x11 | before migrating: restless x10 | before migrating: starving x1 | before perished: None x4
+[draft] {'restless & starving': 80}
+[severity] calm: None=98.9% thriving=1.1%
+[severity] drought: None=97.2% hungry=0.2% settled=0.7% starving=0.5% thriving=1.4%
+[severity] calm flicker: 0.09 word changes per band-year
+[severity] before dissolved: starving x5 | before migrating: hungry x11 | before migrating: starving x11 | before perished: None x4
+[severity] {'restless & starving': 80}
+[ladder] calm: settled=98.9% thriving=1.1%
+[ladder] drought: hungry=0.2% lean=0.1% settled=97.8% starving=0.5% thriving=1.4%
+[ladder] calm flicker: 0.09 word changes per band-year
+[ladder] before dissolved: starving x5 | before migrating: hungry x11 | before migrating: starving x11 | before perished: settled x4
+[ladder] {'restless & starving': 80}
+[effort] calm: settled=92.0% thriving=8.0%
+[effort] drought: hungry=0.2% settled=89.8% starving=0.5% thriving=9.5%
+[effort] calm flicker: 0.06 word changes per band-year
+[effort] before dissolved: starving x5 | before migrating: hungry x11 | before migrating: starving x11 | before perished: thriving x4
+[effort] {'restless & starving': 80}
+[effort_hyst] calm: settled=87.4% thriving=12.6%
+[effort_hyst] drought: hungry=0.2% settled=85.6% starving=0.5% thriving=13.7%
+[effort_hyst] calm flicker: 0.02 word changes per band-year
+[effort_hyst] before dissolved: starving x5 | before migrating: hungry x11 | before migrating: starving x11 | before perished: thriving x4
+[effort_hyst] {'restless & starving': 80}

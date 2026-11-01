@@ -1,0 +1,25 @@
+[draft] calm: None=99.4% thriving=0.6%
+[draft] drought: None=94.0% hungry=0.4% restless=2.4% settled=1.3% thriving=1.9%
+[draft] calm flicker: 0.05 word changes per band-year
+[draft] 
+[draft] {'restless & starving': 40}
+[severity] calm: None=99.4% thriving=0.6%
+[severity] drought: None=94.0% hungry=0.4% settled=1.3% starving=2.4% thriving=1.9%
+[severity] calm flicker: 0.05 word changes per band-year
+[severity] 
+[severity] {'restless & starving': 40}
+[ladder] calm: settled=99.4% thriving=0.6%
+[ladder] drought: hungry=0.4% lean=0.3% settled=95.0% starving=2.4% thriving=1.9%
+[ladder] calm flicker: 0.05 word changes per band-year
+[ladder] 
+[ladder] {'restless & starving': 40}
+[effort] calm: settled=91.5% thriving=8.5%
+[effort] drought: hungry=0.4% settled=79.3% starving=2.4% thriving=17.9%
+[effort] calm flicker: 0.08 word changes per band-year
+[effort] 
+[effort] {'restless & starving': 40}
+[effort_hyst] calm: settled=83.6% thriving=16.4%
+[effort_hyst] drought: hungry=0.4% settled=69.9% starving=2.4% thriving=27.3%
+[effort_hyst] calm flicker: 0.02 word changes per band-year
+[effort_hyst] 
+[effort_hyst] {'restless & starving': 40}

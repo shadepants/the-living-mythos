@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.22
+Version: 0.23
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.22 draft)
+# Living mythos: success-test slice (spec v0.23 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -263,13 +263,21 @@ Decided rev 36 (Q12, option B).
 ## 16. Camp snapshot and glance words
 Snapshot fields (log rev 11): food balance and trend, stash level, hunger state, 4 bracket counts, season, last foraging trip outcome. "Last foraging trip outcome" = yield vs consumption this season as `good / poor / failed` ([P] thresholds).
 
-| Glance word | Rule | Tag |
-|---|---|---|
-| thriving | trend rising and stash ≥ `thrivingStash` | [P] |
-| settled | trend flat, not hungry | [P] |
-| hungry | hunger state hungry | from §9 |
-| starving | hunger state starving | from §9 |
-| restless | migration triggered but no target yet | [P] |
+Decided rev 37 (Q13, option C). One word per band, first match wins (a full partition, no gaps):
+
+| # | Glance word | Rule | Tag |
+|---|---|---|---|
+| 1 | starving | hunger state starving | from §9 |
+| 2 | hungry | hunger state hungry | from §9 |
+| 3 | well-fed | effort ≤ `effortFull` (full fertility, §10) | rev 27 threshold; no new tunable |
+| 4 | settled | otherwise | default |
+
+- Severity first: a band that is starving always reads "starving". The rough draft ranked `restless` first; restless ⊂ starving whenever `migrateAfter` = `starvingSeasons` (prototype: 120/120 band-seasons), so it hid starving on every dissolving band.
+- `restless` is not a glance word; the band card shows it as a line ("searching; no better land within reach") when migration triggered and found no target this season.
+- No hysteresis: flicker 0.06 word changes per band-year without it (0.02 with), about one change per 16 years.
+- "well-fed" claims food, not fate: a band drifting toward `dwindled` can read well-fed to the end (prototype: 4/4).
+- Snapshot additions (one field per thing drawn, rev 11): `effort` (glance word) and a `searchFailed` flag (band-card line).
+- Known defect, not decided: the §9 food trend (mean balance ÷ consumption) reads "rising" at steady state, because balance includes stash upkeep (prototype: +0.11-0.14 every calm season, stash pinned at 0.36-0.39 × consumption). Glance words no longer use it; the band card's trend gets a new definition at spec finalize (candidate: 4-season change in effort) [NEED: Jordan].
 
 ## 17. Config
 All tunables above become `SimConfig` fields with integer values and a stated scale (e.g. `rVPer10000`). The placeholders `seasonsPerYear` and `startingBandSize` are replaced; the config-hash golden value changes once.
@@ -288,6 +296,7 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 | Event emission | in systems / state-diff detector / transition records + emitter | transition records + emitter (rev 17) | §5; no actions inferred from diffs |
 | Migration randomness | none / `Migration` draw | none (rev 34) | keeps "why" a pure function of state |
 | Migration targets | free sites only / overlap on standing stock / overlap with competitor share | competitor share (rev 34) | §11; spacing suppressed migration; share discounts occupied land |
+| Glance words | draft (restless first, trend-based) / severity-first trend-based / severity-first effort-based | effort-based (rev 37) | §16; draft hid starving and left 99% of calm seasons wordless |
 | Event causes | active climate only / lookback window + payload facts / new cause events | lookback + payload facts (rev 36) | §14; active-only orphaned post-drought failures; new events had nothing to explain in the prototype |
 
 ## 20. Open questions (grill order)
@@ -317,10 +326,12 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 10 | Migration trigger, search and scoring (§11) — **settled rev 34: competitor-share score, overlap allowed, no draw** | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) — **settled rev 35: 5; die-out mostly dissolution** | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) — **settled rev 36: climate lookback `causeWindow`, episode-scoped citations, outcome `dwindled`, payload facts worded by narration** | 2, 8-11 | as §14 |
-| 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
+| 13 | Glance words and precedence (§16) — **settled rev 37: severity first, starving > hungry > well-fed (effort ≤ `effortFull`) > settled; restless to the band card** | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band; resolved rev 37] |
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.23 - 2026-11-01
+- Decided: Q13 glance words (§16): severity-first partition, `well-fed` from effort, `restless` to the band card; snapshot gains `effort` and `searchFailed`. Noted: §9 food trend defect (stash upkeep), fix at finalize.
 ### v0.22 - 2026-11-01
 - Decided: Q12 event set and causes (§14): `causeWindow` climate lookback, shortfall episodes, `band_died_out` outcome `dwindled`, `band_split` confirmed, `forage_failed` payload facts. §12 updated for `dwindled`.
 ### v0.21 - 2026-11-01
