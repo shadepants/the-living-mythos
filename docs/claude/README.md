@@ -19,9 +19,9 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `design/spec_v0.1.md` | Draft v0.8 (2026-10-30; file name kept); Q0-Q7 settled; open questions grilled in the order of section 20 |
 | `design/integration-review-2026-10-30.md` | Open (2026-10-30): whole-system review raised during Q8; issues I1-I9, candidate architecture, revised grill order R1-R4 then Q9-Q14 |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
-| `research/gemini-prompts.md` | Prompts 1-9 and 11 run; prompt 10 pending |
-| `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 11 (food-system architecture); spot-checks; feeds R1-R4 |
-| `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt` | Prompt 8, 9, 11 report text (PDFs in the repo mirror at `docs/research/`) |
+| `research/gemini-prompts.md` | Prompts 1-11 run and reviewed; none pending |
+| `research/forager-reports-review-2026-10-31.md` | Review of prompts 8 (famine), 9 (storage), 10 (population ecology), 11 (food-system architecture); spot-checks; feeds R1-R4 |
+| `research/forager-famine-report-gemini.txt`, `research/food-storage-report-gemini.txt`, `research/food-system-architecture-report-gemini.txt`, `research/population-ecology-report-gemini.txt` | Prompt 8, 9, 11, 10 report text (PDFs in the repo mirror at `docs/research/`) |
 | `research/vegetation-drought-review-2026-10-30.md` | Review of prompt 7; directions adopted, numbers and attributions unreliable; feeds spec Q6-Q7 |
 | `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
 | `research/prototypes/q8-system/` | Throwaway Python prototypes for the whole-system review (band-only, integrated, prey depression `run3*`); evidence only; never port |

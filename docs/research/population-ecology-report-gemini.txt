@@ -1,0 +1,785 @@
+Quantitative Population Ecology of
+Hunter-Gatherer Bands: Empirical
+Baselines and Simulation
+Parameterization
+Environmental Drivers of Population Density and
+Spatial Packing
+Hunter-gatherer population density is governed by thermodynamic constraints on trophic energy
+availability, modified by local biodiversity and macroparasite stress. Across global ethnographic
+compilations, hunter-gatherer population density spans more than three orders of magnitude,
+ranging from 0.005\text{ persons/km}^2 in arctic barrens and subarctic boreal forests to over
+2.0\text{ persons/km}^2 along productive marine estuaries and river systems supporting
+anadromous fish runs.
+In his worldwide ethnographic dataset (N = 339), Lewis Binford demonstrated that terrestrial
+density is constrained by Bailey’s Effective Temperature (ET), which simultaneously indexes the
+length and solar intensity of the annual plant growing season:
+ET = \frac{18W - 10C}{W - C + 8}
+where W is the mean temperature of the warmest month and C is the mean temperature of the
+coldest month. As effective temperature rises from 8.0^\circ\text{C} in polar regions to over
+18.0^\circ\text{C} in equatorial zones, terrestrial primary biomass expands, driving an increase
+in average human baseline densities.
+The relationship between Net Primary Productivity (\text{NPP}) and population density is
+non-linear. Bivariate piecewise regression across 300 non-equestrian forager societies identifies
+an environmental inflection point at \text{NPP} = 1{,}360\text{ g C/m}^2/\text{year}. Below this
+threshold (N = 234), human carrying capacity is constrained by primary energy availability and
+terrestrial mammal richness. In these lower-productivity environments,
+\tex[span_2](start_span)[span_2](end_span)t{NPP} exhibits a significant positive effect on
+population density (r = 0.597, p < 0.001), accounting for roughly 44\% of observed density
+variance.
+Above 1{,}360\text{ g C/m}^2/\text{year}—a regime typical of dense equatorial rainforests—the
+direct positive influence of primary productivity levels off. In these biomes, structural equation
+models demonstrate that pathogen stress and vector-borne parasite richness emerge as the
+dominant negative demographic drivers, capping human densities below theoretical trophic
+carrying capacities.
+Binford identified an empirical terrestrial packing threshold at 9.1\text{ persons per } 100\text{
+km}^2 (0.091\text{ persons/km}^2). Below this threshold, mobile bands accommodate localized
+prey depression through low-cost residential movement into open interstitial lands.
+Once regional density surpasses 0.091\text{ persons/km}^2, the residential foraging radii of
+adjacent bands overlap. This spatial compression prevents unrestricted movement, forcing
+foraging groups into subsistence intensification.
+Ethnographic data indicate that no mobile terrestrial hunter-gatherer group persists past this
+density threshold without experiencing a major reorganization of subsistence: bands shift toward
+low-ranked small-bodied game, mass collection of mast tree nuts and seeds, aquatic
+exploitation, delayed-return food storage, and defended territorial borders.
+Environment / Net Primary         Effective Temp Typical Density Dominant           Sample Size &
+Biome            Productivity     (ET,            Range            Subsistence      Primary
+                 (\text{g         ^\circ\text{C}) (\text{persons/k Mode             Sources
+                 C/m}^2/\text{yr}                 m}^2)
+                 )
+Arctic Tundra / < 100             8.0 - 10.5      0.005 - 0.03     Marine           N = 34; Binford
+High Latitude                                                      mammals,         (2001), Kelly
+                                                                   migratory        (2013)
+                                                                   ungulates
+Subarctic        100 - 400        10.5 - 11.5     0.006 - 0.05     Big-game         N = 28; Rogers
+Boreal Forest                                                      hunting,         (1969), Binford
+                                                                   freshwater       (2001)
+                                                                   fishing
+Cold Deserts / 50 - 250           11.0 - 12.5     0.01 - 0.05      Small game,      N = 22;
+High Elevation                                                     underground Steward
+                                                                   storage organs (1938), Hassan
+                                                                                    (1981)
+Warm             250 - 800        13.0 - 18.0     0.04 - 0.15      Large            N = 45; Lee
+Semi-Arid /                                                        ungulates,       (1979),
+Savanna                                                            tubers, fruits, Marlowe (2005)
+                                                                   nuts
+Temperate        600 - 1{,}200 12.5 - 15.0        0.10 - 0.40      Nut mast,        N = 38; Binford
+Deciduous                                                          ungulate         (2001), Kelly
+Forest                                                             stalking, small (2013)
+                                                                   game
+Tropical Rain > 1{,}360           > 18.0          0.05 - 0.25      Arboreal game, N = 42; Hill et
+Forest                                                             freshwater fish, al. (1984),
+                                                                   palms            Tallavaara
+                                                                                    (2018)
+Marine /         Highly Variable 9.0 - 16.0       0.50 - 5.00+     Anadromous N = 65;
+Anadromous                                                         salmon,          Perlman
+Coastal                                                            pinnipeds,       (1985), Ames
+                                                                   shellfish        (2003)
+Diet Composition across Latitudinal and
+Thermodynamic Gradients
+The relative contribution of hunted animal prey, gathered plant materials, and fished aquatic
+organisms varies across global latitudinal and thermodynamic gradients. Early syntheses from
+the 1966 Man the Hunter symposium argued that gathered plant foods provided approximately
+65\% of subsistence energy across prehistoric societies, with hunting contributing the remaining
+35\%.
+A cross-cultural analysis of the Ethnographic Atlas (N = 229) by Cordain and colleagues
+challenged this perspective, finding that animal products (hunted game and fish combined)
+contributed more than 56\% of subsistence energy in 73\% of worldwide hunter-gatherer
+societies. Cordain et al. calculated global mean subsistence contributions of 32\% gathered
+plant food, 42\% hunted terrestrial fauna, and 26\% aquatic resources.
+Frank Marlowe demonstrated that this high animal-food signature is partially driven by
+geographic sampling bias in the Ethnographic Atlas, where more than 40\% of documented
+cases inhabit latitudes above 45^\circ, regions where cold temperatures prevent meaningful
+plant growth.
+Restricting the analysis to warm-climate foragers (ET \ge 13.0^\circ\text{C})—the ecological
+setting of most early human evolutionary history—Marlowe found a median diet of 53\%
+gathered plant foods, 26\% hunted terrestrial game, and 21\% fished aquatic resources.
+Dietary composition shifts across specific ET thresholds:
+   ●​ When ET > 15.25^\circ\text{C}, edible plant biomass is abundant year-round, and
+       gathered plants contribute between 50\% and 75\% of caloric intake.
+   ●​ As ET drops between 15.25^\circ\text{C} and 12.75^\circ\text{C}, cold-season vegetative
+       dormancy forces diets to incorporate stored nuts, large ungulates, or riverine aquatic taxa.
+   ●​ Below ET = 12.75^\circ\text{C}, edible plant tissues disappear for major fractions of the
+       annual cycle; terrestrial hunting and aquatic harvesting account for 80\% to 100\% of
+       dietary energy.
+A critical physiological boundary constraining hunter-gatherer diet composition is the hepatic
+urea synthesis limit. The human liver cannot metabolize protein at rates exceeding
+approximately 3.5\text{ to } 4.5\text{ g of protein per kilogram of body mass per day},
+establishing an upper intake limit of 35\%\text{ to } 40\% of total daily energy derived from
+protein. Ingestion of lean animal protein beyond this threshold causes hyperaminoacidemia,
+hyperammonemia, and acute metabolic decompensation ("rabbit starvation").
+Consequently, high-latitude foragers consuming low-carbohydrate diets must obtain 50\%\text{
+to } 65\% of their total caloric energy from animal lipids, prioritizing subcutaneous fat, bone
+marrow, internal visceral depots, and marine mammal blubber. Conversely, warm-climate
+foragers rely on plant carbohydrates (tubers, seeds, tree fruits) and wild honey to fulfill their
+daily non-protein energetic needs.
+Latitudinal    Effective       Gathering (% Hunting (% Fishing (% Macronutrien Sample Size
+Zone           Temp (ET,       Energy)       Energy)        Energy)        t Energy       & Statistical
+               ^\circ\text{C})                                             Ratio          Trends
+                                                                           (Protein : Fat
+                                                                           :
+                                                                           Carbohydrat
+                                                                           e)
+High           < 11.5          0 - 10\%      30 - 55\%      40 - 70\%      30 - 35\% : N = 61;
+Latitude (>                                                                55 - 65\% : 0 Gathering vs.
+50^\circ)                                                                  - 10\%         Lat: r = -0.73
+Upper          11.5 - 12.75 10 - 25\%        35 - 50\%      30 - 50\%      25 - 35\% : N = 48;
+Mid-Latitude                                                               45 - 55\% : Fishing vs.
+(40^\circ -                                                                15 - 25\%      Lat: r = +0.57
+50^\circ)
+Lower          12.75 - 15.25 25 - 45\%       30 - 45\%      15 - 35\%      20 - 30\% : N = 52;
+Mid-Latitude                                                               35 - 50\% : Hunting vs.
+(30^\circ -                                                                25 - 40\%      Lat: r = +0.31
+Latitudinal   Effective       Gathering (% Hunting (%   Fishing (%    Macronutrien Sample Size
+Zone          Temp (ET,       Energy)      Energy)      Energy)       t Energy       & Statistical
+              ^\circ\text{C})                                         Ratio          Trends
+                                                                      (Protein : Fat
+                                                                      :
+                                                                      Carbohydrat
+                                                                      e)
+40^\circ)
+Low           > 15.25       45 - 70\%     20 - 35\%     5 - 25\%      15 - 25\% :   N = 68;
+Latitude                                                              25 - 40\% :   Marlowe
+(0^\circ -                                                            40 - 60\%     warm-climate
+30^\circ)                                                                           median
+Home Range, Mobility, and Movement Dynamics
+Hunter-gatherer spatial mobility reflects an economic balance between localized resource
+depression and the energetic, physiological, and social costs of residential relocation. Across
+ethnographic literature, mobility is quantified along four primary axes:
+   1.​ Total annual home range (A, in \text{km}^2).
+   2.​ Annual number of residential camp moves (NOMOV).
+   3.​ Average distance traversed per residential move (DISMOV, in \text{km}).
+   4.​ Total annual distance moved by the residential camp (TD = NOMOV \times DISMOV, in
+       \text{km}).
+In cross-cultural compilations, residential moves per year range from zero among fully sedentary
+coastal groups to more than 50 moves per year among equatorial forest foragers. Northern
+Ache bands moving through the forests of eastern Paraguay average between 45 and 60
+residential campsite relocations annually.
+The Hadza of Tanzania average between 6 and 10 residential moves per year, prompted by
+seasonal shifts in surface water availability and localized berry patch exhaustion. The Dobe
+!Kung of the Kalahari move their central camp 5 to 6 times per year as ephemeral waterholes
+dry up, concentrating at permanent pans during the dry winter.
+In subarctic zones, the caribou-hunting Nunamiut move residentially only 3 to 5 times per year,
+remaining tied to stored caches while dispatching logistical hunting parties to intercept migrating
+herds.
+Residential move distances cluster between 5 and 15 kilometers across biomes. This clustering
+reflects basic constraints on pedestrian load-carrying: when families relocate camp, adults must
+transport household gear, infants, and provisions on foot.
+Binford formalized this spatial dynamic in his "complete radius leapfrog model" of residential
+mobility. Given that unencumbered human foragers maintain an effective daily foraging radius of
+r_e \approx 5\text{ to } 8\text{ km} around a central campsite, a band moving to an adjacent
+catchment must relocate a distance equal to at least twice its foraging radius (2 r_e = 10\text{ to
+} 16\text{ km}). A shorter move places the new campsite inside the depleted resource halo of
+the abandoned camp.
+Grove and colleagues analyzed the trade-off between movement frequency and distance using
+the Distance/Frequency Index (DFI):
+DFI = \ln(DISMOV) - \ln(NOMOV)
+Multiple regressions against environmental and demographic variables (N = 314) indicate that
+DFI correlates positively with population density and negatively with effective temperature,
+group size, and hunting reliance.
+In high-ET, plant-rich environments, foragers sustain themselves by making frequent,
+short-distance moves. In low-ET environments characterized by high hunting dependence and
+sparse, clumped resources, foragers make infrequent, long-distance logistical migrations.
+Marcus Hamilton and colleagues showed that total home range area (A) scales allometrically
+with band population (N) according to the sub-linear power law A \propto N^{0.75}. This
+sub-linear scaling reflects spatial sharing efficiencies and cooperative foraging networks,
+allowing larger groups to utilize territory more compactly per capita than isolated individuals.
+| Mobility Strategy Class | Residential Moves / Year (NOMOV) | Distance / Move (DISMOV, km) |
+Total Annual Distance (TD, km) | Annual Home Range (A, \text{km}^2) | Primary Subsistence
+Focus | Representative Cultures & References | | :--- | :--- | :--- | :--- | :--- | :--- | :--- | | High
+Frequency / Short Distance | 25 - 60 | 4 - 10 | 200 - 500 | 200 - 1{,}200 | Tropical forest
+foraging, small game | Ache, Batek, Efe, Siriono | | Moderate Frequency / Medium Distance |
+6 - 15 | 8 - 18 | 100 - 250 | 500 - 4{,}000 | Savannah ungulates, tubers, fruits | Hadza, !Kung,
+Alyawarra | | Low Frequency / Long Distance | 2 - 5 | 25 - 70 | 80 - 300 | 2{,}500 - 25{,}000 |
+Migratory big game, caribou, bison | Nunamiut, Chipewyan, Copper Inuit | | Sedentary /
+Logistical Collectors | 0 - 2 | 0 - 5 | < 20 | 50 - 500 | Anadromous fisheries, marine mammals |
+Haida, Tlingit, Calusa, Chumash |
+
+Band Demography, Social Structuring, and
+Fission-Fusion Dynamics
+Hunter-gatherer social systems exhibit nested levels of organization that reflect cognitive,
+spatial, and subsistence constraints. Cross-cultural ethnographic data identify four recurring
+organizational tiers:
+The first tier is the task-oriented foraging party, typically comprising 3 to 8 individuals. In
+cooperative hunting of large or elusive game, an operational group size of 7 to 8 hunters
+provides an empirical optimum in tropical and savanna environments, maximizing encounter
+and pursuit success while limiting within-group prey disturbance.
+The second tier is the autonomous residential micro-band, averaging 25 to 30 individuals across
+4 to 8 nuclear households. Joseph Birdsell observed this scale as a modal constant across
+Australian Aboriginal groups, while Binford recorded a mean band size ("Group 1") of 30.2 \pm
+14.5 across his global comparative dataset.
+This group size balances risk-pooling through reciprocal meat sharing with low intra-camp travel
+costs, maintaining local camp mobility while buffering against individual hunting failure.
+The third tier is the seasonal macro-band, encompassing 50 to 150 individuals. This size
+corresponds to Dunbar's predicted cognitive limit (N \approx 150) on stable, informal social
+relationships maintained without formal hierarchical enforcement. Bands assemble into
+macro-bands during predictable seasonal resource flushes, such as autumn acorn or pinyon nut
+masts, anadromous fish migrations, or communal ungulate drives.
+The fourth tier is the regional dialect tribe or metapopulation, typically consisting of 400 to 600
+individuals. H. Martin Wobst modeled the spatial demography of Paleolithic bands and
+demonstrated that an endogamous mating network requires a minimum viable breeding
+population of 175 to 475 individuals (averaging \sim 400) to absorb demographic stochasticity
+and sex-ratio fluctuations, ensuring that all adults find non-incestuous reproductive partners
+without systemic demographic collapse.
+Fission-fusion cycles operate along two distinct timescales: intra-annual seasonal adjustments
+and multi-year demographic splits. Seasonal cycles reflect fluctuations in resource distribution.
+In semi-arid savannas, foragers aggregate near permanent water sources during the dry season
+and disperse into small family units across ephemeral patches during the wet season.
+In contrast, high-latitude foragers disperse across open ranges during the short summer to
+follow migratory herds, congregating in winter base camps supported by stored food.
+Permanent multi-year band fission occurs when residential group sizes exceed 40 to 50
+individuals. Beyond this scale, internal interpersonal disputes, reproductive competition, and
+free-rider tensions increase.
+Concurrently, the camp's daily foraging radius expands, requiring gatherers and hunters to walk
+unsustainable distances to find unharvested patches. Because mobile egalitarian foragers lack
+centralized authority to adjudicate grievances, social friction is resolved through residential
+fission: an extended family faction departs to establish an autonomous camp or merge with
+kinship networks in neighboring ranges.
+| Social Grouping Tier | Mean Census Size | Observed Empirical Range | Duration & Temporal
+Scale | Primary Functional Driver | Empirical References | | :--- | :--- | :--- | :--- | :--- | :--- | |
+Foraging / Task Party | 5 - 8 | 2 - 12 | Hours to several days | Cooperative hunting, game
+transport, harvesting | Hill & Hurtado (1996), Janssen & Hill (2014) | | Residential Micro-Band |
+28 | 15 - 45 | Weeks to several months | Food sharing, risk buffering, daily base camp life |
+Birdsell (1968), Hassan (1981), Binford (2001) | | Macro-Band Aggregation | 120 | 50 - 200 |
+Several weeks (seasonal) | Resource flushes, communal drives, ritual exchange | Dunbar
+(1993), Binford (2001), Hamilton (2007) | | Regional Metapopulation | 500 | 250 - 800 |
+Multi-generational | Genetic viability, mate finding, cultural transmission | Wobst (1974), Hassan
+(1981), Birdsell (1968) |
+
+Population Growth Rates and Long-Run Demographic
+Regulation
+Across the late Pleistocene and early Holocene, global hunter-gatherer populations maintained
+an average net annual growth rate of
+r[span_167](start_span)[span_167](end_span)[span_173](start_span)[span_173](end_span)
+\approx 0.0001\text{ yr}^{-1} (0.01\%\text{ per year}), representing effective demographic stasis.
+This long-term stability was maintained by mortality checks rather than low physiological
+fecundity.
+Under unconstrained conditions—such as the colonization of uninhabited regions, recovery
+following ecological disruptions, or the adoption of early agriculture—forager populations exhibit
+intrinsic growth rates of r_{\max} = 0.015\text{ to } 0.030\text{ yr}^{-1} (1.5\%\text{ to } 3.0\%\text{
+per year}), corresponding to population doubling times of 23 to 46 years.
+Natural fertility among mobile foragers is bounded. The total fertility rate (\text{TFR}) typically
+ranges from 4.5 to 6.0 live births per woman surviving to menopause. This is mediated by long
+inter-birth intervals (\text{IBI}), which average 3.2 to 4.5 years across mobile groups.
+The primary physiological driver of prolonged \text{IBI} is lactational amenorrhea maintained by
+high nursing frequencies. Mobile infants nurse multiple times per hour throughout the day and
+night, sustaining high prolactin levels that suppress the pulsatile release of
+gonadotropin-releasing hormone and delay postpartum ovulation for two to three years.
+This suppression is reinforced by maternal energetic balance: female physical activity levels
+(\text{PAL} = 1.7\text{ to } 1.9) combined with low body fat reserves (15\%\text{ to } 20\%) delay
+the recovery of ovulatory cycles.
+Demographic balance was maintained through high juvenile mortality. Cross-cultural
+demographic life tables compiled by Gurven and Kaplan demonstrate that an average of 27\%
+of infants die within their first year of life (q_0 = 0.27), and 47\% of individuals die before
+reaching reproductive maturity at age 15 (q_{15} = 0.47).
+Consequently, life expectancy at birth (e_0) is bounded between 25 and 35 years. This low
+figure is heavily skewed by infant and child mortality; individuals surviving to age 15 experience
+an adult life expectancy (e_{15}) of an additional 35 to 40 years, with elders regularly living into
+their sixth and seventh decades.
+Behavioral fertility regulation operated alongside natural mortality. Nicholas Blurton Jones
+formalized the "backload model" to explain why nomadic foragers maintain four-year birth
+spacing. A woman carrying a gathering basket, digging tools, and a nursing infant already
+carries a physical load of 10 to 15 kg across daily foraging treks of 5 to 10 km. Carrying two
+dependent children simultaneously exceeds maternal energetic limits and increases risks from
+heat stress, dehydration, and falls.
+When births occurred too close together (< 2.5\text{ years}), or when severe congenital
+deformities were present, infanticide was historically practiced. Ethnographic data suggest
+infanticide accounted for 5\%\text{ to } 15\% of live births, serving as a postpartum fertility
+regulation mechanism to safeguard maternal survival and existing offspring.
+Periodic multi-year ecological crises, such as severe droughts, disease outbreaks, or winter
+freezes, acted as density-dependent population checks, driving local populations back toward
+long-term carrying capacities.
+Demographic           Typical Empirical Intrinsic Biological Primary                 Foundational
+Parameter             Value / Range          Potential           Regulatory /        References
+                                                                 Causal
+                                                                 Mechanism
+Long-Run              0.00005 -              0.020 - 0.035\text{ Recurrent           Hassan (1981),
+Growth Rate (r) 0.0002\text{                 yr}^{-1}            ecological crises, Zahid et al. (2016)
+                      yr}^{-1}                                   juvenile mortality,
+                                                                 disease shocks
+Total Fertility       4.5 - 6.0\text{        8.0 - 10.0\text{    Lactational         Howell (1979),
+Rate (\text{TFR}) births/female}             births}             amenorrhea, high Bentley et al.
+                                                                 energetic burn,     (1993)
+                                                                 energetic deficit
+Inter-Birth           3.5 - 4.5\text{        1.2 - 2.0\text{     On-demand           Blurton Jones
+Interval              years}                 years}              nursing frequency, (1986), Marlowe
+(\text{IBI})                                                     maternal carrying (2005)
+                                                                 constraints
+Infant Mortality 20 - 30\%                   < 5\%               Gastrointestinal    Gurven & Kaplan
+(q_0)                                                            infections,         (2007)
+                                                                 respiratory
+                                                                 disease, accidents
+Juvenile Mortality 40 - 50\%                 < 10\%              Pathogen            Gurven & Kaplan
+(q_{15})                                                         vulnerability,      (2007)
+                                                                 foraging trauma,
+                                                                 predation
+Life Expectancy 25 - 35\text{ years} 60 - 70\text{ years} Skewed by high Gurven & Kaplan
+at Birth (e_0)                                                   infant and juvenile (2007), Howell
+Demographic         Typical Empirical Intrinsic Biological Primary           Foundational
+Parameter           Value / Range     Potential            Regulatory /      References
+                                                           Causal
+                                                           Mechanism
+                                                           death rates       (1979)
+Life Expectancy 50 - 65\text{ years} 75 - 80\text{         Low chronic       Gurven & Kaplan
+at Age 15 (e_{15})                    year[span_226](st metabolic disease; (2007)
+                                      art_span)[span_22 mortality driven by
+                                      6](end_span)s}       infection/trauma
+Infanticide Rate 5 - 15\%\text{       0\%                  Maternal load     Blurton Jones
+                   [span_238](start_s                      spacing, survival (1986), Kelly
+                   pan)[span_238](en                       buffering, child  (1995)
+                   d_span)of live                          deformity
+                   births}
+Prey Population Ecology, Sustainable Offtake, and
+Hunting Depletion Halos
+The interaction between human hunters and terrestrial animal populations is shaped by
+allometric scaling of prey reproductive rates, resulting in localized depletion zones ("halos")
+around central campsites. Large terrestrial mammals represent the most energetically profitable
+food items upon encounter, but their low intrinsic rates of natural increase make them
+susceptible to overharvesting.
+John G. Robinson and Kent H. Redford developed a model to estimate the maximum
+sustainable harvest (P_{\max}) of wild mammals:
+P_{\max} = 0.5 \cdot r_{\max} \cdot D \cdot F
+where r_{\max} is the intrinsic rate of natural increase, D is the undisturbed population density,
+and F is a life-history scaling factor that prevents recruitment failure:
+   ●​ F = 0.6 for short-lived species (maximum lifespan < 5\text{ years}, such as rodents and
+       lagomorphs).
+   ●​ F = 0.4 for medium-lived species (lifespan 5\text{ to } 10\text{ years}, such as peccaries
+       and small duikers).
+   ●​ F = 0.2 for long-lived species (lifespan > 10\text{ years}, such as deer, tapir, bison, and
+       large carnivores).
+Because large ungulates have low intrinsic reproductive rates (r_{\max} \approx 0.15\text{ to }
+0.30\text{ yr}^{-1}), sustainable human offtake is restricted to 2.5\%\text{ to } 5.5\% of standing
+biomass per year.
+If annual hunting offtake exceeds 8\% of standing adult biomass, harvest rates surpass
+population recruitment, causing local populations to decline.
+Hunting pressure around base settlements creates spatial zones of localized game exhaustion.
+William Vickers documented the formation of these depletion halos over a 10-year study of a
+newly founded Siona-Secoya settlement in the Ecuadorian Amazon.
+During the initial two years of settlement, hunters secured preferred large mammals (woolly
+monkeys, white-lipped peccaries, tapir) within 1 to 3 km of the village, achieving harvest rates of
+1.5 to 2.0 kg of meat per hunter-hour.
+By years 8 to 10, game biomass within a 5 km radius had declined by more than 50\%, and
+harvest rates within the local halo fell to 0.4 kg per hunter-hour.
+To sustain household meat consumption, hunters shifted to an expanded catchment of
+2,500\text{ km}^2, traveling 15 to 25 km on multi-day logistical hunting trips to access areas
+where returns remained at 1.5 kg per hunter-hour.
+Carlos Peres analyzed 31 Amazonian forest settlements, showing a consistent shift in harvest
+compositions: as settlements persist and hunting depresses local game, hunters replace
+large-bodied, slow-reproducing species with small-bodied, fast-reproducing animals (agoutis,
+armadillos, coatis).
+Depletion halos are driven by behavioral prey depression well before biological extirpation
+occurs. Game species detect human presence, hunting dogs, and trail scent, responding by
+increasing flight initiation distances, shifting toward nocturnal foraging, or moving outside the 5
+to 8 km daily hunting radius.
+For mobile foragers like the Ache and Hadza, this behavioral avoidance reduces encounter
+rates within walking distance of camp within days or weeks, motivating residential moves while
+regional animal populations remain intact.
+Depletion             Value / Range        Governing          Empirical Driver / Citations
+Parameter                                  Equation /         Consequence
+                                           Theoretical Rule
+Large Ungulate 2.5\% - 5.5\%\text{ P_{\max} = 0.5             Offtake > 8\%       Robinson &
+Sustainable           of standing          \cdot r_{\max}     causes recruitment Redford (1991)
+Offtake               biomass/yr}          \cdot D \cdot 0.2 failure and stock
+                                                              extirpation
+Small Game            10\% - 20\%\text{ P_{\max} = 0.5        Rapid reproductive Robinson &
+Sustainable           of standing          \cdot r_{\max}     recovery (r_{\max} Redford (1991)
+Offtake               biomass/yr}          \cdot D \cdot 0.6 > 0.8\text{
+                                                              yr}[span_259](start
+                                                              _span)[span_259](
+                                                              end_span)[span_2
+                                                              63](start_span)[sp
+                                                              an_263](end_span
+                                                              )^{-1}) buffers
+                                                              hunting pressure
+Core Depletion 3 - 8\text{ km}             Walking commute Daily hunting          Vickers (1988),
+Halo Radius           around camp          limit (r_e = 5 -   excursions          Peres (2000)
+                                           8\text{ km})       exhaust game
+                                                              within 1 - 2 hours
+                                                              travel
+Expanded              12 - 25\text{ km} A_{\text{catchment Demands                Vickers (1988),
+Logistical            from camp            }} = \pi \cdot R^2 multi-day bivouacs Kelly (1995)
+Catchment                                                     or boat/pack
+                                                              animal transit
+Return Rate           50\% - 75\%\text{ \[span_285](start_ Drives camp            Vickers (1988),
+Collapse in Halo reduction}                span)[span_285](e relocation when      Charnov (1976)
+                                           nd_span)[span_29 local returns fall
+                                           0](start_span)[spa below landscape
+                                           n_290](end_span) average
+                                           Delta (\text{kg
+                                           meat /
+Depletion           Value / Range       Governing            Empirical Driver / Citations
+Parameter                               Equation /           Consequence
+                                        Theoretical Rule
+                                        hunter-hour})
+Onset of            2 - 5\text{ days    \lambda(t) =         Prey evasion and Hill et al. (1987),
+Behavioral          (mobile)}; 6 -      \lambda_0 \cdot      shift to nocturnality Peres (2000)
+Depression          12\text{ mo (sed.)} \exp(-\alpha \cdot   depresses harvest
+                                        \text{Hunts})        rates
+Recommended Simulation Targets and Architectural
+Integration
+Configuring an agent-based or system-dynamics simulation across seasonal time steps requires
+integrating these demographic, energetic, and spatial baselines into computational parameter
+sets.
+The core scheduling loop must decouple biological updates from agent decision routines. At the
+start of each seasonal step, wild game and plant stocks should undergo biological renewal and
+spatial dispersion across grid patches. Agents then evaluate local patches and allocate labor
+using Central Place Foraging rules, balancing search and handling costs against travel friction.
+Depletion must register as both an extraction of biological biomass and an increase in local prey
+avoidance, triggering camp moves when local marginal returns fall below expected payoffs
+elsewhere.
+Simulation          Recommended         Algorithmic          Empirical          Modeling
+Subsystem           Target Value        Implementation       Grounding &        Sensitivity / Pitfall
+                                        Logic                Evidence
+Population          0.05 - 0.15\text{   Bound agent          Global             Overestimating
+Density             persons/km}^2       carrying capacity ethnographic          carrying capacity
+                    (terrestrial        via ET and local medians; Binford by omitting
+                    baseline)           \text{NPP};          packing threshold. pathogen caps in
+                                        enforce packing                         high-NPP tropical
+                                        shift at 0.091\text{                    forests.
+                                        persons/km}^2.
+Daily Energy        2{,}000 -           Require 500\text{ Human basal           Rabbit starvation:
+Intake              2{,}200\text{       g} edible dry        metabolic          unconstrained lean
+                    kcal/person/day} mass/capita;            requirements and hunting causes
+                                        balance              protein toxicity   metabolic die-offs
+                                        macronutrients to ceilings.             without fat/carb
+                                        prevent protein >                       buffers.
+                                        35\%.
+Diet Partitioning Low Lat: 55\%         Calculate relative Marlowe (2005)       Imposing uniform
+                    Plant, 30\% Hunt, returns                warm-climate vs. diets across
+                    15\% Fish High      dynamically using Cordain (2000)        latitudes causes
+                    Lat: 10\% Plant, Holling Type II         high-latitude      starvation in
+                    45\% Hunt, 45\% curves                   distributions.     high-latitude winter
+                    Fish                parameterized by                        scenarios.
+                                        season.
+Residential         8 - 12\text{        Relocate base        Central Place      Moving < 10\text{
+Simulation         Recommended         Algorithmic         Empirical           Modeling
+Subsystem          Target Value        Implementation      Grounding &         Sensitivity / Pitfall
+                                       Logic               Evidence
+Mobility           moves/year}; 10 - camp when mean Foraging                     km} leaves agents
+                   15\text{ km/move} return within daily mechanics;              inside their own
+                                       radius falls below Binford leapfrog       depleted halo,
+                                       travel-discounted distance (2 r_e).       driving poverty
+                                       alternatives.                             traps.
+Home Range         500 - 1{,}500\text{ Scale total spatial Hamilton et al.       Linear spatial
+Catchment          km}^2\text{ per     perimeter as a      (2007) metabolic      scaling
+                   band}               sub-linear power scaling of               overestimates
+                                       of band size: A     hunter-gatherer       territory demands
+                                       \propto N^{0.75}. space use.              of large
+                                                                                 macro-bands.
+Residential Band 25 - 35\text{          Maintain cohesive Birdsell (1968)        Bands < 15 face
+Size               persons} (5 -        domestic units;     modal band           high meat-sharing
+                   8\text{              initialize 7 - 8    census; optimal      variance; bands >
+                   households})         active adult        cooperative          45 experience
+                                        hunters per mobile hunting group size. social conflict.
+                                        band.
+Band Fission       N > 45 -             Trigger group split Dunbar cognitive Failure to
+Trigger            [span_5](start_spa into two daughter limits;                  implement fission
+                   n)[span_5](end_sp bands when             ethnographic band produces
+                   an)50\text{          per-capita foraging collapse             mega-bands that
+                   individuals}         return drops and thresholds.             exhaust local
+                                        conflict escalates.                      game indefinitely.
+Long-Run           Long-run:            Apply               Hassan (1981)        Unconstrained
+Growth Rate        0.0001\te[span_14 demographic            Paleolithic census; growth triggers
+                   2](start_span)[spa update penalized post-crisis               Malthusian
+                   n_142](end_span)[ by resource            expansion rates. boom-bust cycles
+                   span_145](start_s shortfall and                               without
+                   pan)[span_145](en stochastic stress.                          homeostatic
+                   d_span)xt{                                                    regulation.
+                   yr}^{-1}; Potential:
+                   0.020\text{ yr}^{-1}
+Inter-Birth        3.5 - 4.2\text{      Invalidate maternal Lactational          Short intervals (<
+Interval           years}               conception during amenorrhea and 2.5\text{ yrs})
+                                        the first 36 months Blurton Jones        create infant
+                                        following a         infant carrying load transport
+                                        surviving birth     constraints.         bottlenecks that
+                                        event.                                   depress group
+                                                                                 mobility.
+Juvenile Mortality 45\%\text[span_24 Apply                  Gurven & Kaplan Using modern
+                   3](start_span)[spa Gompertz-Makeha (2007) small-scale mortality tables
+                   n_243](end_span)[ m mortality hazard hunter-gatherer life causes
+                   span_246](start_s with high infant       table synthesis.     unrealistically
+                   pan)[span_246](en mortality (q_0 =                            rapid demographic
+Simulation         Recommended         Algorithmic         Empirical           Modeling
+Subsystem          Target Value        Implementation      Grounding &         Sensitivity / Pitfall
+                                       Logic               Evidence
+                 d_span){              0.25).                                   expansion.
+                 cumulative
+                 mortality by age
+                 15}
+Ungulate Offtake 3.0\% -             Stock update:          Robinson &          Offtake > 8\%
+Limit            5[span_208](start_ S_{t+1} = S_t + r Redford (1991)            causes irreversible
+                 span)[span_208](e S_t(1 - S_t/K) -         maximum             game extirpation
+                 nd_span).0\%\text{ Y_t, with r = 0.20; sustainable             within 10 to 20
+                 standing            restrict yield Y_t \le production indices. simulation years.
+                 biomass/year}       0.05 K.
+Depletion Halo   5\text{ km radius}; Patch search           Vickers (1988)      Omitting
+Formation        50\%\text{          efficiency decays: empirical halo          behavioral
+                 encounter drop in \beta_s(t) =             decay; behavioral depression causes
+                 30 days}            \beta_0                prey depression. agents to hunt
+                                     [span_227](start_s                         prey to biological
+                                     pan)[span_227](en                          extinction.
+                                     d_span)\exp(-\alph
+                                     a \sum
+                                     \text{HuntingHours
+                                     }).
+Methodological Debates and Epistemological
+Demarcation
+Several aspects of hunter-gatherer ecology remain subject to active debate in anthropology and
+archaeology, requiring careful consideration during model design.
+The relative importance of plant versus animal foods remains contested. While Cordain et al.
+(2000) documented a high animal-food reliance across the Ethnographic Atlas, critics point out
+that this dataset reflects historical sampling biases toward arctic and subarctic societies, while
+under-representing female gathering contributions in tropical and subtropical bands. Modelers
+configuring low-to-mid latitude simulations should avoid adopting high-latitude animal reliance
+values without including sufficient fat sources to prevent protein toxicity.
+The mechanisms maintaining long-term population stasis (r \approx 0.0001\text{ yr}^{-1}) are
+also debated. Classical ecological models assume forager populations were held in check by
+external mortality crises: starvation, harsh winters, and epidemic disease.
+Conversely, behavioral ecologists emphasize homeostatic regulation through prolonged
+lactational amenorrhea, high physical exertion, cultural taboos on intercourse during lactation,
+and infanticide. Simulations that rely exclusively on food starvation to balance demography tend
+to produce unrealistically volatile boom-bust cycles, whereas integrating lactational spacing and
+homeostatic fertility yields stable populations consistent with archaeological records.
+Binford's terrestrial packing threshold (0.091\text{ persons/km}^2) was derived primarily from
+inland North American environments. In coastal and estuarine zones, abundant marine
+resources, shellfish beds, and anadromous fish runs allow populations to reach 1.0 to 5.0
+persons/km² while maintaining foraging economies. Modeling architectures should treat packing
+limits as dynamic functions of local resource renewal and mobility constraints rather than static
+universal thresholds.
+Finally, while optimal foraging models treat camp moves as decisions driven by declining caloric
+intake (Marginal Value Theorem), ethnographic accounts demonstrate that social and non-food
+environmental pressures frequently trigger camp abandonment before local food is exhausted.
+Accumulation of camp refuse, parasite and flea infestations, local firewood depletion, and rising
+interpersonal conflict regularly prompt bands to relocate while local animal and plant densities
+remain productive.
+Ecological Domain Verified Empirical Theoretical           Contested Points Primary
+                    Facts               Inferences &       & Alternative       References
+                    (Documented in Modeling                Views
+                    Literature)         Assumptions
+Environmental       • Ethnographic      • Prehistoric      • Whether           Binford (2001),
+Density             densities range     Pleistocene        historical          Kelly (2013),
+                    from 0.005 to >     densities mirrored ethnographies       Tallavaara et al.
+                    2.0\text{           19th-century       represent pristine (2018)
+                    persons/km}^2. • post-contact          baselines or
+                    High-latitude       groups. •          marginalized
+                    groups exhibit      Ethnographic       populations. • The
+                    lower densities     groups inhabited extent to which
+                    than temperate      optimal habitats   historical contact
+                    groups. •           prior to farmer    disrupted
+                    \text{NPP}          displacement. •    demographic
+                    breakpoint at       Effective          patterns. • The
+                    1{,}360\text{ g     Temperature        universal
+                    C/m}^2/\text{yr}    operates as an     applicability of
+                    marks               unmediated proxy NPP-based
+                    pathogen-density for human caloric carrying capacity
+                    trade-offs.         availability.      models.
+Diet Composition • Circumpolar          • Ethnographic     • Cordain's         Lee & DeVore
+                    foragers consume Atlas percentage animal-heavy             (1968), Cordain
+                    > 80\%              estimates          baseline vs. Lee's (2000), Marlowe
+                    animal-source       represent precise plant-dominant       (2005)
+                    foods. •            annual caloric     gathering baseline.
+                    Warm-climate        intakes. •         • The degree to
+                    foragers derive     Hunter-gatherers which female
+                    over 50\% of        consistently       gathering was
+                    calories from       optimize energy underreported by
+                    gathered plants. • return rates over early male
+                    Sustained dietary micronutrients. • ethnographers. •
+                    protein intake      Plant versus       The caloric role of
+                    exceeding 35 -      animal ratios were underground
+                    40\% causes toxic static throughout storage organs
+                    urea overload.      multi-millennial   versus small
+                                        climatic shifts.   game.
+Home Range & • Modal residential • Foragers follow • Game depletion Binford (1982,
+Mobility            move distance       Binford's complete vs. camp            2001), Kelly
+Ecological Domain Verified Empirical Theoretical               Contested Points Primary
+                  Facts                    Inferences &        & Alternative         References
+                  (Documented in Modeling                      Views
+                  Literature)              Assumptions
+                  clusters tightly         radius leapfrog     sanitation, parasite (1995), Grove
+                  between 8 and            model (2 r_e)       loads, and            (2023)
+                  15\text{ km}. •          uniformly. • Camp firewood
+                  Residential moves moves are                  exhaustion as
+                  per year vary from triggered strictly by relocation triggers.
+                  0 to over 50             Marginal Value      • Residential vs.
+                  across cultures. • Theorem return            logistical mobility
+                  Home range size rate floors. • All           as distinct
+                  scales inversely band members                typologies vs.
+                  with regional            incur identical     continuous
+                  environmental            energetic transit spectra. • The
+                  productivity.            costs during        degree of
+                                           relocation.         seasonal territorial
+                                                               boundary defense.
+Social            • Modal residential • Band size is           • Whether band        Birdsell (1968),
+Organization      bands contain            optimized           size reflects         Wobst (1974),
+                  25\text{                 exclusively for     foraging              Dunbar (1993)
+                  t[span_6](start_sp cooperative               optimization or
+                  an)[span_6](end_s hunting and                defense against
+                  pan)o } 35\text{         meat-sharing risk inter-band
+                  individuals} (4 -        reduction. •        violence. • The
+                  8\text{ families}). • Fission thresholds universality of
+                  Endogamous               are governed by Birdsell’s "magic
+                  dialectical              universal cognitive numbers" (25,
+                  linguistic groups processing limits 500) across
+                  cluster around 400 (N \approx                non-Australian
+                  - 600\text{              150).<br>• Kinship populations. • The
+                  persons}. • Group structures operate fluidity of individual
+                  fission regularly        homogeneously camp membership
+                  occurs when band across disparate across years.
+                  sizes surpass 40 - ecological
+                  50\text{                 landscapes.
+                  individuals}.
+Demography & • Infant/juvenile             • High juvenile     • Malthusian          Howell (1979),
+Life History      mortality before         mortality was       mortality crises vs. Blurton Jones
+                  age 15                   uniform across all physiological          (1986), Gurven &
+                  approaches 40 - Paleolithic epochs homeostatic                     Kaplan (2007)
+                  50\% in natural          and habitats. •     fertility regulation.
+                  fertility. • Inter-birth Infanticide was     • The demographic
+                  intervals among deliberately                 impact of female
+                  mobile foragers          practiced across infanticide on
+                  average 3.5\text{ all groups to              operational sex
+                  to } 4.5\text{           optimize maternal ratios. • Extent of
+Ecological Domain Verified Empirical Theoretical           Contested Points Primary
+                  Facts               Inferences &         & Alternative       References
+                  (Documented in Modeling                  Views
+                  Literature)         Assumptions
+                  years}. • Adults    energy. • Historical senilicide and
+                  who reach age 15 population stasis (r abandonment of
+                  routinely survive \approx 0) was         the elderly during
+                  into their 60s and maintained by         resource
+                  70s.                continuous           shortages.
+                                      near-starvation.
+Prey Depletion    • Persistent        • Undisturbed prey • Numerical           Vickers (1988),
+Dynamics          hunting creates 5 - populations follow biological            Robinson &
+                  10\text{ km}        pure logistic        depletion vs.       Redford (1991),
+                  depletion halos     recruitment          behavioral prey     Peres (2000)
+                  around              functions (r K / 4). depression as the
+                  settlements. •      • Prey behavioral primary driver of
+                  Sustainable         depression decays halos. • The
+                  offtake of large    on identical         degree to which
+                  ungulates is        mathematical         traditional taboos
+                  limited to          schedules across and hunting
+                  2[span_229](start_ all taxa. •           rotations
+                  span)[span_229](e Indigenous             functioned as
+                  nd_span) -          subsistence          deliberate
+                  6\%\text{ per       hunting is           conservation. •
+                  year}. • Hunters    inherently           Whether overkill
+                  transition to       non-sustainable alone caused
+                  small-bodied prey without spatial        terminal
+                  as catchment age refugia.                Pleistocene
+                  increases.                               extinctions without
+                                                           climatic forcing.
+Works cited
+
+1. Productivity, biodiversity, and pathogens influence the global hunter,
+https://www.pnas.org/doi/10.1073/pnas.1715638115 2. Patterns of Innovation in the
+Archaeological Record and the Ecology,
+https://www.cambridge.org/core/services/aop-cambridge-core/content/view/AF83E5E4DBC0417
+1AA17A90E75EDDB0D/S0002731623000719a.pdf/from_mind_to_matter_patterns_of_innovati
+on_in_the_archaeological_record_and_the_ecology_of_social_learning.pdf 3. Hunter-Gatherer
+Social Costs and the Nonviability of Submarginal,
+https://www.journals.uchicago.edu/doi/pdfplus/10.1086/jar.49.1.3630629 4. Journal of
+Archaeological Science - University of Liverpool Repository,
+https://livrepository.liverpool.ac.uk/3176567/1/Grove%20et%20al.%202023%20JASR.pdf 5.
+Moving far or moving often? A neglected axis of variation in hunter,
+https://www.researchgate.net/publication/376123772_Moving_far_or_moving_often_A_neglecte
+d_axis_of_variation_in_hunter-gatherer_mobility 6. CLIMATIC CORRELATES OF HUMAN
+SUBSISTENCE, https://www.aloki.hu/pdf/1303_849862.pdf 7. (PDF) Exploring Adaptive
+Variation among Hunter-gatherers with,
+https://www.researchgate.net/publication/257578033_Exploring_Adaptive_Variation_among_Hu
+nter-gatherers_with_Binford's_Frames_of_Reference 8. Changes in limiting factors for forager
+population dynamics in ... - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC9448755/ 9. Dietary
+patterns in human populations from northwest Patagonia,
+http://sedici.unlp.edu.ar/bitstream/handle/10915/104790/Documento_completo.pdf?sequence=1
+10. Recent hunter-gatherer subsistence specialty (SUBSP) in property,
+https://www.researchgate.net/figure/Recent-hunter-gatherer-subsistence-specialty-SUBSP-in-pr
+operty-space-defined-by_fig1_257578033 11. Food Income and the Evolution of Forager
+Mobility - ResearchGate,
+https://www.researchgate.net/publication/332131694_Food_Income_and_the_Evolution_of_For
+ager_Mobility 12. The transition to foraging for dense and predictable resources and,
+https://royalsocietypublishing.org/rstb/article/371/1698/20150239/22889/The-transition-to-foragi
+ng-for-dense-and 13. Estimation of the diet-dependent net acid load in 229 worldwide,
+https://www.naturaleater.com/science-articles/119-net-acid-load-hunter-gatherers.pdf 14.
+Hunter-Gatherers (Foragers) - Human Relations Area Files,
+https://hraf.yale.edu/ehc/summaries/hunter-gatherers 15. Current views on hunter‐gatherer
+nutrition and the evolution of the,
+https://www.thehealthedgepodcast.com/wp-content/uploads/2026/01/Current-views-on-hunter-g
+atherer-nutrition-and-the-evolution-of-the-human-diet.pdf 16. Plant-animal subsistence ratios
+and macronutrient energy ... - PubMed, https://pubmed.ncbi.nlm.nih.gov/10702160/ 17.
+Visionmaker NYC parameter info: protein consumption outside home,
+https://visionmaker.us/info/parameter/43/ 18. Hunter-gatherers and human evolution -
+ResearchGate,
+https://www.researchgate.net/publication/227540834_Hunter-gatherers_and_human_evolution
+19. Hunter-gatherer diets—a different perspective : r/ScientificNutrition,
+https://www.reddit.com/r/ScientificNutrition/comments/a2qpas/huntergatherer_dietsa_different_p
+erspective/ 20. Hunter-gatherer energetics and human obesity,
+https://digitalcommons.wustl.edu/cgi/viewcontent.cgi?article=4499&context=open_access_pubs
+21. Title: The ecological and evolutionary energetics of hunter-gatherer,
+https://arxiv.org/pdf/1602.00631 22. Population Size as an Explanation for Patterns in the
+Paleolithic, https://www.journals.uchicago.edu/doi/full/10.1086/673881 23. Foraging Decisions
+Among Ach Hunter-Gatherers: New Data and,
+https://content.csbs.utah.edu/~hawkes/Hill_al87ForagingAcheOFT.pdf 24. An Agent-Based
+Model of Resource Distribution on Hunter-Gatherer,
+https://www.researchgate.net/publication/309331220_An_Agent-Based_Model_of_Resource_Di
+stribution_on_Hunter-Gatherer_Foraging_Strategies_Clumped_Habitats_Favor_Lower_Mobility
+_but_Result_in_Higher_Foraging_Returns 25. PACIFIC PRODUCTION SYSTEMS - ANU Open
+research repository,
+https://openresearch-repository.anu.edu.au/bitstreams/c908932b-5ef0-484c-bcf1-26709bb26bf8
+/download 26. A Spatially explicit ABM of Central Place Foraging Theory ... - ORBilu,
+https://orbilu.uni.lu/bitstream/10993/42178/1/ABM_of_CFP%20%282%29.pdf 27. Benefits of
+Grouping and Cooperative Hunting Among Ache Hunter,
+https://www.researchgate.net/publication/271738833_Benefits_of_Grouping_and_Cooperative_
+Hunting_Among_Ache_Hunter-Gatherers_Insights_from_an_Agent-Based_Foraging_Model 28.
+Late Holocene Research on Foragers and Farmers in the Desert,
+https://dokumen.pub/late-holocene-research-on-foragers-and-farmers-in-the-desert-west-1nbsp
+ed-9781607814474-9781607814467.html 29. A spatially explicit agent-based model of central
+place foraging,
+https://www.researchgate.net/publication/342133190_A_spatially_explicit_agent-based_model_
+of_central_place_foraging_theory_and_its_explanatory_power_for_hunter-gatherers_settlement
+_patterns_formation_processes 30. A Model-Based Analysis of the Minimum Size of
+Demographically, https://www.jasss.org/20/4/9.html 31. Constructing Frames of Reference -
+Google Books,
+https://books.google.com/books/about/Constructing_Frames_of_Reference.html?id=P8uRB0Ur
+WLUC 32. Tempo and Mode of Neolithic Crop Adoption by Palaeolithic Hunter,
+https://scholarworks.boisestate.edu/cgi/viewcontent.cgi?article=1160&context=anthro_facpubs
+33. Scaling of Hunter-Gatherer Camp Size and Human Sociality,
+https://www.journals.uchicago.edu/doi/10.1086/719234 34. Thesis title goes here,
+https://collectionscanada.gc.ca/obj/thesescanada/vol2/OTU/TC-OTU-34034.pdf 35. Insights
+from Hunter-Gatherers and Other Small-Scale Societies,
+https://www.annualreviews.org/doi/pdf/10.1146/annurev-nutr-111120-105520 36. Becoming
+Villagers: Comparing Early Village Societies (Amerind,
+https://dokumen.pub/becoming-villagers-comparing-early-village-societies-amerind-studies-in-ar
+chaeology-0816529019-9780816529018.html 37. proxies, scales and scope of the Cologne
+Protocol in European, https://crc806db.uni-koeln.de/data/E/E1/Schmidt_etal_2021.pdf 38.
+Intrinsic rate of natural increase in Neotropical forest mammals,
+https://www.researchgate.net/publication/226415119_Intrinsic_rate_of_natural_increase_in_Neo
+tropical_forest_mammals_Relationship_to_phylogeny_and_diet 39. (PDF) On the dynamics of
+mortality and the ephemeral nature of,
+https://www.researchgate.net/publication/365889493_On_the_dynamics_of_mortality_and_the_
+ephemeral_nature_of_mammalian_megafauna 40. Hunter-gatherer diets and human behavioral
+evolution.,
+https://www.semanticscholar.org/paper/Hunter-gatherer-diets-and-human-behavioral-Veile/9568
+8b55532363d403b86a6604f649662b96fa6f 41. Wealth inequality in the prehispanic northern US
+Southwest,
+https://royalsocietypublishing.org/rstb/article/378/1883/20220298/42681/Wealth-inequality-in-the
+-prehispanic-northern-US 42. Settlement Ecodynamics in the Prehispanic Central Mesa Verde,
+https://www.researchgate.net/publication/265286353_Settlement_Ecodynamics_in_the_Prehisp
+anic_Central_Mesa_Verde_Region 43. A Cross-Site Analysis of the Structure of Hunter-Kill
+Profiles in,
+https://www.researchgate.net/publication/222413905_Bringing_Home_the_Biggest_Bacon_A_C
+ross-Site_Analysis_of_the_Structure_of_Hunter-Kill_Profiles_in_Neotropical_Forests 44. Did
+Human Hunting Cause Mass Extinction? - ResearchGate,
+https://www.researchgate.net/publication/11641087_Did_Human_Hunting_Cause_Mass_Extinct
+ion 45. Sustainable harvest of Neotropical forest animals | Request PDF,
+https://www.researchgate.net/publication/280307343_Sustainable_harvest_of_Neotropical_fore
+st_animals 46. Why do models fail to assess properly the sustainability of duiker,
+https://www.cambridge.org/core/journals/oryx/article/why-do-models-fail-to-assess-properly-the-
+sustainability-of-duiker-cephalophus-spp-hunting-in-central-africa/676D69AB7F5C4B3ADDDB5
+46D74C35593 47. University of Southampton Research Repository ePrints Soton,
+https://eprints.soton.ac.uk/id/eprint/66711/1/RFoster_2008_PhD_thesis.pdf 48. UC Berkeley -
+eScholarship.org, https://escholarship.org/content/qt7bm0x2g9/qt7bm0x2g9.pdf?v=lg 49.
+-~·>:·-~ ~e_, https://acervo.socioambiental.org/sites/default/files/documents/02D00008.pdf 50.
+Previewpdf | PDF | Ecosystem | Ecology - Scribd,
+https://www.scribd.com/document/993948267/9781003175575-previewpdf 51. Marginal value
+theorem, patch choice, and human foraging,
+https://www.researchgate.net/publication/301271597_Marginal_value_theorem_patch_choice_a
+nd_human_foraging_response_in_varying_environments
+

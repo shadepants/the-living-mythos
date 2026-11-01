@@ -1,11 +1,12 @@
-# Review: Gemini prompts 8, 9, 11 (2026-10-31)
+# Review: Gemini prompts 8-11 (2026-10-31)
 
-Status: reviewed. Directions adopted as grilling input for the whole-system review (`design/integration-review-2026-10-30.md`, R1-R4); numbers stay [P] unless marked verified. Prompt 10 (population ecology) not yet run.
+Status: reviewed. Directions adopted as grilling input for the whole-system review (`design/integration-review-2026-10-30.md`, R1-R4); numbers stay [P] unless marked verified. Prompt 10 added the same day (section 3).
 
 Reports (text extracted from Jordan's PDFs; PDFs in the repo mirror `docs/research/`):
 - Prompt 8: `research/forager-famine-report-gemini.txt` ("Drought and Famine Responses in Mobile Hunter-Gatherer Societies")
 - Prompt 9: `research/food-storage-report-gemini.txt` ("Hunter-Gatherer Food Storage")
 - Prompt 11: `research/food-system-architecture-report-gemini.txt` ("Structural Architecture of Subsistence Systems")
+- Prompt 10: `research/population-ecology-report-gemini.txt` ("Quantitative Population Ecology of Hunter-Gatherer Bands")
 
 ## 1. Spot-checks
 
@@ -44,3 +45,19 @@ Not checked: per-food spoilage rates (9), the Ache/Hadza model details, the Alro
 - Per-season losses by food type: roughly 2-5% for dry seeds and pemmican, 10-25% for acorns, jerky in warm seasons and fish, total loss within days for fresh tropical foods (ranges from the report; spot-check not done).
 - Large stores tether bands (the report's rule: mobility locked above ~0.5 seasons of stores), produce depletion halos and precede domestication. Out of slice scope; relevant to farming emergence (log "Farming emergence" row).
 - Slice implication: one pooled stash with proportional spoilage. Stash size is a world setting until a temperature or seasonality field exists; default ≤ 0.5 seasons of consumption, spoilage 0.15-0.25 per season [P].
+
+## 3. Prompt 10 (population ecology)
+
+| Claim | Result |
+|---|---|
+| Home range scales sub-linearly with band size, A ∝ N^0.75 (Hamilton et al. 2007) | Verified with a correction (PNAS 2007, n = 339): overall exponent 0.70 (95% CI 0.58-0.83); 0.756 ± 0.042 after controlling for ecology; hunters 0.90, gatherers 0.64 |
+| Productivity raises density; biodiversity matters only at low productivity and pathogens only at high productivity (Tallavaara et al. 2018) | Verified in direction (PNAS 2018 abstract). The report's breakpoint (NPP 1,360 g C/m²/yr) and r = 0.597 were not in the abstract; unverified |
+| Sustainable ungulate offtake 2.5-5.5% of standing stock per year; > 8% causes decline (Robinson & Redford 1991) | Not verified this session. The report writes the model as P = 0.5·rmax·D·F; the commonly cited form (from recall, unverified) is production 0.6·D·(λmax − 1) times 0.2/0.4/0.6 by longevity. Treat the percentages as [UNCERTAIN] |
+| Binford packing threshold 9.1 persons/100 km²; mean band size 30.2 ± 14.5 | Not verified |
+| Infant mortality q0 ≈ 0.27, death before 15 ≈ 47% (Gurven & Kaplan 2007) | Not verified (abstract only). Consistent with report 3's l15 ≈ 0.57 already in the log |
+
+What it changes (input, not decisions):
+- **R1:** a per-season hunt cap of ~1% of stock (the Q8 prototype's stable value; 1.5% collapsed game) is ~4% per year, inside the report's 2.5-5.5% sustainable band. If that band holds, the cap has an ecological anchor rather than being a pure tuning knob. Behavioural prey depression is recommended again (second report); the job it does in the literature is triggering camp moves while stock is intact (Vickers, Ache), so it belongs in R2.
+- **R2:** bands move camp 5-15 times a year, 10-15 km a move (≈ 3-5 cells, just over twice the catchment radius: Binford's leapfrog). At seasonal ticks that is 1-4 camps per season, so a band's seasonal footprint is closer to its home range than to one 29-cell catchment. Home range 500-1,500 km² per band ≈ 55-165 cells (radius ≈ 4-7 cells). The prototype's radius 5 sits inside this.
+- **R3 / Q9:** band size 25-35, fission at 45-50 (the prototype's fission at 50 fits). Long-run growth ≈ 0 with a potential of 1.5-3% per year. The report flags that balancing population by starvation alone produces boom-bust; homeostatic fertility (interbirth interval ≈ 3.5-4.5 years, kept even when fed) gives stable populations. Matches the prototype's run 1 (bands grew to 78 and drifted into hunger).
+- **R4:** density target 0.05-0.15 persons/km² for terrestrial foragers (≈ 0.45-1.35 people per cell); warm-climate diet ≈ 53% plants, 26% hunting, 21% fishing (Marlowe 2005, via the report). The slice has no fish, so meat ≈ 30-50% of energy.
