@@ -53,7 +53,7 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | R3 | Band lifecycle in the slice: fission and dissolution — **settled rev 25 (option C + fission guard)** | rev 9 non-goals, §12, Q11 |
 | R4a | Host guard — **settled rev 26 (option B)** | rev 25 |
 | R4b | Population regulation; band size vs density vs spacing — **settled rev 27 (option B)** | §10, §12, rev 24-25 |
-| R4c | Per-worker return anchor | §9 |
+| R4c | Per-worker return anchor — **settled rev 28 (option A)** | §9 |
 | R4d | Hunt cap basis and meat share | §8, §9 |
 | R4e | Herd recovery target | rev 22 |
 | then | Q9 demography, Q10 migration scoring, Q12 events, Q13 glance words, Q14 scenario | — |
