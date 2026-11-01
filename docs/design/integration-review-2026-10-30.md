@@ -4,6 +4,8 @@ Status: open. Prompted by Jordan during spec Q8: "Research better solutions to t
 
 Update 2026-10-31: Gemini prompts 8-11 run and reviewed (`research/forager-reports-review-2026-10-31.md`).
 
+Update 2026-11-01 (R4 probe, `research/prototypes/q8-system/r4/`): run to 600 years, the rev 25 rules cycled once the map filled (~150-yr boom-bust, 13-65 dissolutions per crash, no drought); rev 25's quiet baseline was a growth-phase snapshot. A host capacity guard (rev 26) removed it. Then: density rose with richness (0.55-1.3 per cell) and meat share was 32-41% (with per-worker return × 1.8), but background hunger stayed at 3-10%, bands grew to 60-140 where no fission site was free, and a drought on a filled map produced 0-1 migrations and no endings. Effort-scaled fertility (fertility falls as the share of labour needed to eat rises) trimmed density slightly and did not remove the hunger. Computed: prompt 10's targets conflict under exclusive home ranges: bands of 25-35 spaced 2·`homeRange` apart (~100 cells each) give ~0.3 people per cell, below the 0.45-1.35 density target.
+
 Evidence: two throwaway prototypes (Python floats, never port), filed under `research/prototypes/q8-system/`. Gemini prompts 8-11 (`research/gemini-prompts.md`) cover what needs real literature.
 
 ## 1. What the prototypes showed
@@ -30,6 +32,8 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | I6 | Die-out is hard to reach. Drought hunger is short (plants backfill) and the trapped band shrinks but survives. Real forager famine responses may be dispersal to kin or other bands rather than starving in place | Prototype; the dispersal claim is unverified [UNCERTAIN] (prompt 8) | §12, Q11, success test wording ("died out") |
 | I7 | Migration scoring on standing stock rewards any unforaged land, so bands always find somewhere. On a filled map, territory makes refuges scarce instead | Prototype | §11, Q14 scenario |
 | I8 | Calibration has no anchor: food per V and F unit versus need is arbitrary, and outcomes swing on it | Prototype | §8, §9, rev 4 tuning targets |
+| I10 | Filled maps had no equilibrium: hosts took refugees they could not feed, giving dissolution cascades and boom-bust (fixed rev 26); with the guard, density is held by background hunger, not by a regulation mechanism | Prototype (R4 probe) | rev 25, §10, §12 |
+| I11 | Prompt 10's density, band-size and home-range targets cannot all hold with exclusive home ranges | Computed | rev 24, rev 25, R4 targets |
 | I9 | The rev 21 note "a lasting post-drought shortage must come from game" isn't borne out: the band doesn't feel the herd lag | Prototype | rev 21 basis text |
 
 ## 3. Candidate architecture (for grilling, not decided)
@@ -47,7 +51,11 @@ Evidence: two throwaway prototypes (Python floats, never port), filed under `res
 | R1 | Resource guild interface and food currency — **settled rev 23 (option B)** | spec §8 hunting, §9; Q8 |
 | R2 | Home range + seasonal camp vs fixed camp; migration = home-range shift — **settled rev 24 (option B + margin)** | §9 catchment use, §11 framing; rev 16 kept as the seasonal footprint |
 | R3 | Band lifecycle in the slice: fission and dissolution — **settled rev 25 (option C + fission guard)** | rev 9 non-goals, §12, Q11 |
-| R4 | Calibration anchors and targets | §8-§10 tunables |
+| R4a | Host guard — **settled rev 26 (option B)** | rev 25 |
+| R4b | Population regulation; band size vs density vs spacing | §10, §12, rev 24-25 |
+| R4c | Per-worker return anchor | §9 |
+| R4d | Hunt cap basis and meat share | §8, §9 |
+| R4e | Herd recovery target | rev 22 |
 | then | Q9 demography, Q10 migration scoring, Q12 events, Q13 glance words, Q14 scenario | — |
 
 ## 5. What stays
