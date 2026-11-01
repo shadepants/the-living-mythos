@@ -1,7 +1,7 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.19
+Version: 0.20
 Status: Draft (Phase 2; open questions being grilled in order, section 20)
 Owner: Jordan
 Created: 2026-10-30
@@ -9,7 +9,7 @@ Last Updated: 2026-11-01
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.19 draft)
+# Living mythos: success-test slice (spec v0.20 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, caused events and templated Legends (decision log rev 9). Every tunable is tagged with its source. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -190,15 +190,21 @@ Draws (decided rev 31, Q9a option A): one draw per bracket and outcome, sampling
 | `effortFull` | 0.5 [P] (rev 27) |
 
 ## 11. Migration
+Decided rev 34 (Q10, option C).
 - Trigger: hunger state `hungry` or worse for `migrateAfter` consecutive seasons.
-- Target search: land cells within `searchRadius` of the camp; score = expected catchment yield at the target (current fields) − `travelCost · distance`. Move only if the best score beats the current camp by `migrateMargin`.
-- Tie-break: lowest cell index (deterministic).
-- Randomness: none in the slice (lean), so "why it moved" stays a pure function of state. [NEED: Jordan] if a `Migration` draw should add variety.
+- Target search: land cells within `searchRadius` of the home cell (Euclidean). Score = expected catchment return with each guild's stock scaled by `share`, minus `travelCost · distance`. `share = L_self / (L_self + Σ L_o · w_o)` over other living bands o, with `w_o = max(0, 1 − d_o / (2·catchment))` and d_o the distance from o's camp to the candidate cell (catchment overlap, linear stand-in [UNCERTAIN]); band ID order for the sum.
+- The current range is scored the same way (best camp in the home range, no travel cost). Move only if the best target beats it by `migrateMargin` (fraction). The move sets the home cell and camp to the target.
+- No spacing rule: a target may lie inside other bands' home ranges (fission keeps its `homeRange` spacing, §12). Occupied land is discounted by `share` rather than forbidden, and unforaged land is not preferred just for being unforaged (integration review I7).
+- Tie-break: lowest cell index. Randomness: none, so "why it moved" stays a pure function of state.
 - A band that finds no better target stays and keeps starving; that difference is what makes the success test readable (one migrates, one dies out).
+- Prototype (rev 34): the Q9 prototypes reverted any move within `homeRange` of another home; that, not the trigger, radius or margin, suppressed every filled-map migration.
 
 | Tunable | Tag |
 |---|---|
-| `migrateAfter`, `searchRadius`, `travelCost`, `migrateMargin` | [P] |
+| `migrateAfter` | 2 seasons [P] |
+| `searchRadius` | 14 cells [P] (rough draft 8; prototype value) |
+| `travelCost` | 0.05 food units per cell [P] |
+| `migrateMargin` | 0.2 [P] |
 
 ## 12. Band lifecycle and die-out
 Decided rev 25 (review R3, option C).
@@ -269,7 +275,8 @@ All tunables above become `SimConfig` fields with integer values and a stated sc
 | Number representation | doubles / fixed-point | doubles (rev 15) | §3 |
 | Demography draws | per-member + new key field / binomial per bracket / expected value + remainder | binomial per bracket, 1 − u flip (rev 31) | §10; no key change; same distribution; deterministic option erased seed variety |
 | Event emission | in systems / state-diff detector / transition records + emitter | transition records + emitter (rev 17) | §5; no actions inferred from diffs |
-| Migration randomness | none / `Migration` draw | none (lean) | keeps "why" a pure function of state |
+| Migration randomness | none / `Migration` draw | none (rev 34) | keeps "why" a pure function of state |
+| Migration targets | free sites only / overlap on standing stock / overlap with competitor share | competitor share (rev 34) | §11; spacing suppressed migration; share discounts occupied land |
 
 ## 20. Open questions (grill order)
 Ordered so each answer only depends on earlier ones. The rough Gemini draft's pick is noted for each as input, not as a decision.
@@ -295,13 +302,15 @@ Ordered so each answer only depends on earlier ones. The rough Gemini draft's pi
 | 9a | Demography draws and purpose codes (§10) — **settled rev 31: binomial per bracket, inverse CDF, 1 − u flip, four death purposes** | 0, 8 | binomial per bracket |
 | 9b | Bracket cut points and base rates (§9, §10) — **settled rev 32: 0-14/15-19/20-44/45+, one stage, calibrated to Gurven & Kaplan 2007** | 9a | 0-14/15-24/25-49/50+ |
 | 9c | Hunger mortality and fertility composition (§10) — **settled rev 33: shortfall-scaled by bracket; effort-only fertility** | 9b, R4b | — |
-| 10 | Migration trigger, search and scoring (§11) | 8 | radius 8, +25% margin, no draw |
+| 10 | Migration trigger, search and scoring (§11) — **settled rev 34: competitor-share score, overlap allowed, no draw** | 8 | radius 8, +25% margin, no draw |
 | 11 | Die-out floor `minViable` for perishing bands (§12) | 9, R3 | zero |
 | 12 | Event set, thresholds and causes (§14) | 2, 8-11 | as §14 |
 | 13 | Glance words and precedence (§16) | 8, 10 | restless ranked first [CONFLICT: hides "starving" on the dying band] |
 | 14 | Test scenario and pass sentence (§15, §18) | all | seed `0xDEADBEEF` [UNCERTAIN: worldgen doesn't exist; its geometry is unknown] |
 
 ## Changelog
+### v0.20 - 2026-11-01
+- Decided: Q10 migration (§11): competitor-share scoring, targets may overlap other ranges, no draw. Q11 next.
 ### v0.19 - 2026-11-01
 - Decided: Q9c hunger mortality and fertility (§10). Q9 closed. Noted for Q11/Q14: cut-off bands never perished in the prototype.
 ### v0.18 - 2026-11-01

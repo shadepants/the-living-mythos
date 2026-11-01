@@ -1,0 +1,30 @@
+base island s1 m1.5 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
+base island s1 m0.9 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+share island s1 m1.5 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
+share island s1 m0.9 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+overlap island s1 m0.9 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+overlap island s1 m1.5 | dens/century(rich) 0.14 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
+base island s2 m0.9 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 14}
+base island s2 m1.5 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 18}
+share island s2 m0.9 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 14}
+share island s2 m1.5 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 18}
+overlap island s2 m0.9 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 14}
+overlap island s2 m1.5 | dens/century(rich) 0.22 0.23 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 2} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 18}
+base island s3 m0.9 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 2} | dest poor 0 dist 0.0 | trig reasons {}
+base island s3 m1.5 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1, 6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 8}
+share island s3 m0.9 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 2} | dest poor 0 dist 0.0 | trig reasons {}
+share island s3 m1.5 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1, 6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 8}
+overlap island s3 m0.9 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 2} | dest poor 0 dist 0.0 | trig reasons {}
+overlap island s3 m1.5 | dens/century(rich) 0.10 0.15 | pre hungry 0.000 bands 2 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1, 6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 8}
+base island s4 m0.9 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 2}
+base island s4 m1.5 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 6}
+share island s4 m0.9 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 2}
+share island s4 m1.5 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 6}
+overlap island s4 m0.9 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {3: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 2}
+overlap island s4 m1.5 | dens/century(rich) 0.12 0.09 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {6: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 6}
+base island s5 m0.9 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+base island s5 m1.5 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
+share island s5 m0.9 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+share island s5 m1.5 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
+overlap island s5 m0.9 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {0: 1} | dest poor 0 dist 0.0 | trig reasons {}
+overlap island s5 m1.5 | dens/century(rich) 0.09 0.08 | pre hungry 0.000 bands 1 | drought: mig 0 diss 0 died 0 fis 0 | max hungry streak hist {5: 1} | dest poor 0 dist 0.0 | trig reasons {'nomargin': 4}
