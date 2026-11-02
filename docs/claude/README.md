@@ -13,7 +13,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 42). Source of truth |
+| `design/decision-log.md` | Current (rev 43). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
 | `claude/audit-prompt-spec-v1.md` | Opening prompt for an independent audit of the spec v1.0 candidate (v0.27); run in a fresh session before approval |
 | `claude/session-prompt-next.md` | Opening prompt for the next session (v1.0 approval, CI fix, PR #1, cloud sim work under rev 42) |
@@ -71,4 +71,4 @@ Repo: github.com/shadepants/the-living-mythos (private), branch `Main-REPO` (pnp
 
 **Repo mirror:** `docs/` in the repo mirrors this Project (same paths, plus the PDFs under `docs/research/`). The Project is the source of truth. After every decision-log revision, or any change to a doc here, re-sync the changed files to `docs/` in one `docs:` commit.
 
-Rev 42: cloud sessions may write sim logic; sim-core changes merge only after `pnpm check` passes on Windows (CI workflow `.github/workflows/check.yml` or the laptop).
+Rev 42: cloud sessions may write sim logic; sim-core changes merge only after `pnpm check` passes on Windows (CI workflow `.github/workflows/check.yml` or the laptop). Rev 43 (interim, while neither works): merge on green Linux `pnpm check` + determinism review; the laptop runs the Windows check first when it returns.

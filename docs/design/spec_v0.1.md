@@ -51,7 +51,7 @@ Techniques, farming, soil, small fauna, water, fire age, crop domestication, ban
 - Banned in sim-core: Math.random, trig, exp/log, pow, cbrt, hypot, `**`, Date, performance.now. Allowed: `+ − × ÷`, Math.sqrt, integer bit ops.
 - `SimConfig` is flat safe integers; fractional tunables are scaled integers (rev 12; scale rule in §17). Real tunables replace the placeholders and change the config-hash golden value once (no saves exist).
 - Events: snake_case type; `tick` = absolute season; ≤ 3 causes (event or command); flat integer payload; content key `type:tick:primary:ordinal`; `primary` is an `EntityId`.
-- Where code is written (rev 42): sim-core changes merge into `Main-REPO` only after `pnpm check` passes on Windows (CI `windows-latest` or the laptop).
+- Where code is written (rev 42): sim-core changes merge into `Main-REPO` only after `pnpm check` passes on Windows (CI `windows-latest` or the laptop). Interim (rev 43): while neither is available, a green Linux `pnpm check` plus a clean determinism review; Windows check first when the laptop returns.
 - Tick loop: one tick = one season; systems in fixed array order with `period`, `offset`, `substeps` (1-1024); the schedule never depends on state.
 
 ## 3. Number representation (decided rev 15: option A)

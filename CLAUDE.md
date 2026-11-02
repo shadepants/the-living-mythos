@@ -20,6 +20,8 @@ Build the success-test slice only: worldgen (heightmap + biomes), climate regime
 ## Where code may be written (rev 42; was rev 10)
 Cloud sessions and the laptop may both write sim logic, tests and tooling. Any change under `packages/sim-core` goes on a branch and merges into `Main-REPO` only after `pnpm check` passes on Windows: the `check` workflow (`.github/workflows/check.yml`, windows-latest + ubuntu-latest) or the laptop. Before merging, run the `determinism-reviewer` subagent on the diff. Docs and tooling outside `packages/sim-core` may go straight to `Main-REPO` after a local `pnpm check`.
 
+**Interim (rev 43):** while no Windows check is available (laptop screen broken; the `check` workflow is manual-only because of a GitHub billing issue), sim-core PRs merge after a green Linux `pnpm check` and a clean determinism review, and the merge commit says "Linux-verified only". When the laptop returns, run `pnpm check` on `Main-REPO` on Windows before any new sim work and fix any failure; then the rule above resumes.
+
 ## Determinism hard rules (tests before sim code)
 1. Randomness only via `rand01`/`hashKey` keyed on (seed, absolute season, full 64-bit entity as `entity` + `entityHi`, purpose). Spread `entityRngFields(id)` into the key; non-lineage keys set `entityHi: 0` and use their own `Purpose` codes (rev 13). Never a shared sequential stream. Add new `Purpose` codes at the end; never renumber. Built: `rng.ts`.
 2. No platform-dependent math in `sim-core/src`: ESLint bans Math.random, trig/exp/log/pow/cbrt/hypot, the `**` operator, `Date`, `Date.now`, `performance.now`. Math.sqrt and basic arithmetic are fine. Built: `eslint.config.js`.
