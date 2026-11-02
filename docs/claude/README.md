@@ -13,11 +13,11 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 39). Source of truth |
+| `design/decision-log.md` | Current (rev 40). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #13, 2026-11-01) |
 | `claude/session-prompt-next.md` | Opening prompt for the next planning chat (spec finalize) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.25 (2026-11-01; file name kept); finalize consistency pass done (rev 39); food trend and anchor scale open before v1.0 |
+| `design/spec_v0.1.md` | Draft v0.26 (2026-11-02; file name kept); finalize: consistency pass rev 39, food trend rev 40; anchor scale open before v1.0 |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | Prompts 1-12 run and reviewed; 13-15 suggested |
@@ -28,7 +28,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | `research/prototypes/q7-fauna/` | Throwaway Python prototype for spec Q7 (5 scripts + README); evidence for rev 22; never port |
 | `research/prototypes/q9-demography/` | Throwaway Python prototypes for spec Q9 (Q9a draw method, sampler; Q9b bracket options, fill trajectories; Q9c hunger mortality, cut-off band); evidence for revs 31-33; never port |
 | `research/prototypes/q11-minviable/` | Throwaway Python prototypes for spec Q11 (band minimum sizes without a floor; island floors vs drought depth); evidence for rev 35; never port |
-| `research/prototypes/finalize-trend/` | Throwaway Python prototype for the spec finalize food-trend question (trend variants on regenerated plateau and island streams); evidence only; never port |
+| `research/prototypes/finalize-trend/` | Throwaway Python prototype for the spec finalize food-trend question (trend variants on regenerated plateau and island streams); evidence for rev 40; never port |
 | `research/prototypes/q14-scenario/` | Throwaway Python prototypes for spec Q14 (filled map + controls, island, hand-built fixtures; pass sentences rendered from real chains); evidence for rev 38; never port |
 | `research/prototypes/q13-glance/` | Throwaway Python prototype for spec Q13 (glance-word rule variants on plateau and island streams); evidence for rev 37; never port |
 | `research/prototypes/q12-events/` | Throwaway Python prototypes for spec Q12 (event streams dumped from the rev 35 base, emitter variants applied offline; filled map + island); evidence for rev 36; never port |

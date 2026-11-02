@@ -1,15 +1,15 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.25
-Status: Draft (Phase 3 finalize: consistency pass done; band-card food trend pending)
+Version: 0.26
+Status: Draft (Phase 3 finalize: food trend settled rev 40; return-anchor scale pending)
 Owner: Jordan
 Created: 2026-10-30
-Last Updated: 2026-11-01
+Last Updated: 2026-11-02
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.25 draft)
+# Living mythos: success-test slice (spec v0.26 draft)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna) plus a plant-food stock, bands with food balance and 4 age brackets, migration, fission and die-out, the drought nudge, caused events and templated Legends (decision log rev 9, extended by revs 23-38). Every tunable is listed in §17 with its scale and tag. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -110,7 +110,7 @@ Decided (rev 17, option C): systems 1-8 never append events. Each writes transit
 | Band | `hungerSeasons`, `nonNegSeasons` | integers | hunger state and episode closing (§9, §14) |
 | Band | open episode `forage_failed` event ID or none | event ID | §14 |
 | Band | last season inside a drought or dry spell, and that event's ID | integer, event ID | climate lookback (§14) |
-| Band | food-trend history | ring buffer | definition pending (§16) |
+| Band | pressure ring (4 entries) | numbers | food trend (§16, rev 40); snapshot only |
 | Band | `searchFailed` | boolean | band-card line (§16) |
 | Band | parent `EntityId`, founding tick | | entity registry (hard rule 3) |
 | Command | `id`, `tick`, `sign`, `magnitude`, `durationSeasons`, `centerCell`, `radius` | integers | §13 |
@@ -260,8 +260,9 @@ Glance words (decided rev 37): one word per band, first match wins.
 - `restless` is a band-card line ("searching; no better land within reach") when `searchFailed`.
 - No hysteresis (flicker 0.06 word changes per band-year in the prototype).
 - "well-fed" claims food, not fate: a band drifting toward `dwindled` can read well-fed to the end.
-- Band-card food trend: **pending finalize decision** [NEED: Jordan]. The v0.24 definition (mean balance ÷ consumption) reads "rising" at steady state because balance includes stash upkeep; it is withdrawn.
-- Return-anchor scale (§9): tuned constant vs computed at worldgen [NEED: Jordan], queued after the trend.
+- Band-card food trend (decided rev 40): pressure = effort while fed, 1 + shortfall otherwise; trend = pressure now − pressure 4 seasons ago; `easing` below −`trendBand`, `worsening` above +`trendBand`, else `steady`. Fewer than 4 seasons of history reads `steady`. Snapshot-only: no sim system reads it. Prototype: calm 99.8% steady, flicker 0.01 per band-year, every map hunger onset preceded by `worsening` (median 4 seasons ahead). The v0.24 mean-balance trend read "rising" at steady state (stash upkeep) and is replaced.
+- The card can show `worsening` beside `well-fed` (effort rising but still ≤ `effortFull`) or `easing` beside `starving` (recovering): both are true statements, not contradictions.
+- Return-anchor scale (§9): tuned constant vs computed at worldgen [NEED: Jordan].
 
 ## 17. Config
 Scale rule: integer counts (cells, seasons, people, percent) are stored as-is; every other tunable is stored × 10,000 with the suffix `Per10k` (e.g. `rVDryPer10k = 7000`). Piecewise-linear tables are flat numbered fields (`moistureCurveX0Per10k`, `moistureCurveY0Per10k`, …). Prototype starting values are in prototype units (rich land `Kveg` = 2) and MUST be rescaled with `Kveg`. Presentation values (`cellKm`, names) and test-scenario parameters are not `SimConfig` and stay out of the config hash.
@@ -312,7 +313,7 @@ Scale rule: integer counts (cells, seasons, people, percent) are stored as-is; e
 | Drought | `droughtMild`, `droughtSevere` | Per10k (anomaly) | prototype severe 0.9-1.5 | [P] |
 | Drought | `droughtDefaultSeasons` | seasons | 8 | [P] |
 | Snapshot | `tripGoodPct`, `tripPoorPct` | % | 100, 50 | [P] |
-| Snapshot | food-trend band | — | pending (§16) | [NEED: Jordan] |
+| Snapshot | `trendBand` | Per10k | 0.10 | [P] (rev 40) |
 
 Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1). Test scenario (not config): plateau 1,200 yr, drought radius 20, severe preset, 8 seasons (§18).
 
@@ -353,7 +354,8 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 | R1-R4e | whole-system review: guilds, home range, lifecycle, host guard, regulation, anchor, hunt cap, herd target | revs 23-30 |
 | 9a-9c | demography draws, brackets, hunger mortality | revs 31-33 |
 | 10-14 | migration, die-out floor, events, glance words, test scenario | revs 34-38 |
-| Finalize | band-card food trend; return-anchor scale | pending |
+| Finalize | band-card food trend | rev 40 |
+| Finalize | return-anchor scale | pending |
 
 ## 22. Future consideration
 | Item | Waits for |
@@ -367,6 +369,8 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 | Seasonal guild factor ≠ 1 | a seasonality or temperature field |
 
 ## Changelog
+### v0.26 - 2026-11-02
+- Decided: band-card food trend (§16, rev 40): 4-season change in food pressure, `trendBand` 0.10 (§17).
 ### v0.25 - 2026-11-01
 - Finalize consistency pass; no decision changed. Added: lifecycle system slot after migration (§5), state table (§5.1), plant-food regrowth rule from the prototype (§7), Purpose code table 6-12 (§2), config scale rule and full tunable table (§17), errors/build order/rollback (§20), future consideration (§22), batch-check list (§18). Fixed: §7 subtracted people's harvest from V (stale since rev 23); §7 "shortage must come from game" (stale, correction #15); fauna `need` renamed `herdNeed`; Type II return written as `maxReturn·S/(S + halfStock)` (removes the clash with substep `h`); stale `huntEff`/`huntHalf`; `stockPct` defined as plant stock vs `pFrac·Kveg` (prototype basis); property "V in [0, K]" (die-back keeps V above K); dissolution distance home-to-home. Removed: rough-draft notes and §20 rough-draft column; v0.24 food trend withdrawn pending decision.
 ### v0.24 - 2026-11-01
