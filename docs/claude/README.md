@@ -15,6 +15,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 |---|---|
 | `design/decision-log.md` | Current (rev 42). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
+| `claude/audit-prompt-spec-v1.md` | Opening prompt for an independent audit of the spec v1.0 candidate (v0.27); run in a fresh session before approval |
 | `claude/session-prompt-next.md` | Opening prompt for the next session (v1.0 approval, CI fix, PR #1, cloud sim work under rev 42) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
 | `design/spec_v0.1.md` | Draft v0.27 (2026-11-02; file name kept); finalize complete (revs 39-41); v1.0 proposed, awaiting Jordan's approval |
