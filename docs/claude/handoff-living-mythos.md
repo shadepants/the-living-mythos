@@ -166,21 +166,21 @@ See decision log "Rejected". Plus:
 | Doc workflow | cloud session: `add_repo` (push) then `git clone --depth 1 -b Main-REPO`; edit `docs/`; `project_write` from local paths; one `docs:` commit per decision; fetch + rebase; push | — | `gh repo clone` fails (GraphQL blocked) |
 | Laptop | screen broken; behind GitHub (docs only, fast-forward) | laptop clone | Needs repair or an external monitor before pulling or sim code |
 | Repo `CLAUDE.md` | updated 2026-11-02: rev 42 gate text, rule 4 built | repo root | — |
-| CI `check` workflow | `.github/workflows/check.yml`: `pnpm check` on windows-latest + ubuntu-latest, every push and PR, GitHub-made actions + corepack | repo | Every run so far: `startup_failure`, 0 jobs, also after removing the third-party action. Likely account level (Actions billing or settings) [BLOCKED: Jordan checks the run page or billing; doable from the phone]. The proxy blocks the API path that shows the reason |
+| CI `check` workflow | `.github/workflows/check.yml`: `pnpm check` on windows-latest + ubuntu-latest, every push and PR, GitHub-made actions + corepack | repo | Every run so far: `startup_failure`, 0 jobs, also after removing the third-party action. Cause confirmed by Jordan 2026-11-02: GitHub billing issue on the account [BLOCKED: Jordan fixes billing in GitHub Settings → Billing and plans, or sim merges wait for the laptop (rev 42 allows either)] |
 | PR #1 `sim/purpose-codes` | `Purpose` 6-12 appended; pinned test extended; golden values unchanged; Linux `pnpm check` green; determinism-reviewer clean | github.com/shadepants/the-living-mythos/pull/1 | Merge after a green Windows check (rev 42). Then update `CONTEXT.md` |
 | Dependabot | 1 moderate alert on `Main-REPO` | repo Security tab | Not reviewed |
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` | [NEED: Jordan] paste |
 
 ## 11. Next steps
 1. **Next action:** Jordan approves spec v1.0 (or names changes). On approval: Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push.
-2. Get CI green [BLOCKED: Jordan]: open the failed run on the repo's Actions tab (or Settings → Billing and plans) and read the startup error. When green on Windows, merge PR #1 and update `CONTEXT.md`.
+2. Get CI green [BLOCKED: Jordan, GitHub billing issue]: fix it in Settings → Billing and plans, then re-run the latest `check` run from the Actions tab. When green on Windows, merge PR #1 and update `CONTEXT.md`. Until then, cloud sim work continues on branches and PRs and nothing merges.
 3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, never n at u = 1 − 2^-32); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
 4. Open tuning gaps (batch tuning, not decisions): herd crash 12-25% vs 25-75% target; K2 density near the floor; slow 2-band fill; post-drought refuge crowding; causeless and window-edge `forage_failed`; glance word share vs `effortFull`; die-out rate vs the `searchRadius`/`hostRange` gap (never retune radii to pass the test); trend with a seasonal cycle (rev 40); seed spread of median `Kveg` (rev 41).
 5. Candidate Gemini prompts 13-15 (`research/gemini-prompts.md`); possible new one on band fusion and minimum residential group size. Parked: v5 Close-up rewatch; property norm; benchmarks once fields run; Dependabot alert.
 
 ## 12. Open questions
 - Spec v1.0 approval [NEED: Jordan].
-- CI `startup_failure` reason [BLOCKED: Jordan, Actions tab or billing].
+- CI blocked by a GitHub billing issue [BLOCKED: Jordan]. Independent audit of the v1.0 candidate: `claude/audit-prompt-spec-v1.md`, run in a fresh session before approving.
 - Stray Project doc `next-steps-prompts.md` at the Project root (duplicate of `claude/next-steps-prompts.md`): delete? Ask Jordan.
 - Gemini stash on the laptop (`stash@{0}`): drop once Jordan agrees the archive copies are enough.
 - [NEED: Jordan] paste `claude/project-instructions.md` into Project settings.
