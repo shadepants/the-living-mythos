@@ -20,7 +20,7 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 - **v1 scope:** simple hunter-gatherer bands to the first farming villages, one procedural landmass, time from year 0. Long-term: a Roman-Empire-like civilization.
 - **Success test:** "I trigger a drought and can read in the Legends why one band migrated and another died out." Stretch: fork the world before the drought. v1 passes without the fork.
 - **Core loop:** live nudge and watch. Forks are a v1 stretch goal.
-- **Current focus:** spec v1.0 approval; get the Windows CI check running so cloud sim work can merge (rev 42).
+- **Current focus:** independent audit and approval of spec v1.0; cloud sim work under the rev 43 interim merge rule.
 
 ## 2. About the user
 - Jordan; hobbyist developer, Calgary. Laptop: Windows 11, i7-8665U, 16GB, integrated GPU; device `mobilebattlestation`, Node 25.3.0, pnpm 10.28.0. **Laptop screen broke on 2026-10-31**; not usable until repaired or connected to an external monitor. Also develops from a Pixel 10 Pro XL.
@@ -80,12 +80,13 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 | 21 | Spec v0.8-v0.24 §7 still subtracted people's harvest from V and kept "shortage must come from game"; lifecycle had no system slot | Fixed in the v0.25 consistency pass (rev 39). Re-read whole sections after each decision, not just the changed lines |
 | 22 | Rev 28 recorded fresh effort 0.55 at K2 (×1.5) | That was measured while bands settled new land; at the no-band herd equilibrium it is 0.38. Say which state a measurement comes from (rev 41) |
 
-## 6. Decisions this handoff (details in decision log revs 39-42 and spec v0.27)
+## 6. Decisions this handoff (details in decision log revs 39-43 and spec v0.27)
 | Decision | Why |
 |---|---|
 | Rev 39: finalize consistency pass. No decision reversed. `lifecycle` system after `migration` (dissolution → perishing → fission); `Purpose` 6-9 deaths, 10 `WorldgenHeight`, 11 `WorldgenMoisture`, 12 `ClimateSpaceTime`; config scale rule (counts as-is, rest `Per10k`); full §17 tunable table; plant stock P rule (cap `pFrac`·V); `stockPct` = plant stock ÷ `pFrac`·`Kveg` (game excluded); command and config errors; state table; future-consideration list | Spec had gaps and stale text from before rev 23 |
 | Rev 40: band-card food trend = pressure now − 4 seasons ago (pressure = effort while fed, 1 + shortfall otherwise); `trendBand` 0.10; snapshot only | Option B. Calm 99.8% steady, flicker 0.01/band-yr, 36/36 hunger onsets warned (median 4 seasons ahead); v0.24 read rising 100% of calm seasons |
 | Rev 41: return constants written by an offline calibration tool (fields-only burn-in ≥ 200 seasons on reference seeds; reference band at `effortFull` on median-`Kveg` land); slow test fails outside 0.45-0.55. Revises rev 28 from per world to reference worlds | Option C. Herd stock not proportional to K and settles in 37-173 seasons; per-world scaling swung 2× and would erase seed richness |
+| Rev 43: interim merge rule: Linux-verified merges while no Windows check exists; laptop runs the Windows check first on return | Option D. Billing blocks CI and Jordan can't update payment now; waiting (C) would stack 4-6 PRs |
 | Rev 42: cloud gate lifted. Cloud and laptop may write sim logic; sim-core changes go on a branch and merge only after `pnpm check` passes on Windows (CI `windows-latest` or the laptop) plus a determinism-reviewer pass; docs and tooling may go straight to `Main-REPO` | Jordan's "cloud approval" = the lean. CI as the Windows check is Claude's fill-in (laptop screen broken). Linux `pnpm check` in the cloud matched Windows (67 + 1 todo) |
 
 ## 7. Changed / rejected
@@ -112,7 +113,7 @@ See decision log "Rejected". Plus:
 ## 8. Data & facts (exact)
 | Item | Value |
 |---|---|
-| Decision log | rev 42 |
+| Decision log | rev 43 |
 | Spec | v0.27 (file `design/spec_v0.1.md`); finalize complete (revs 39-41); v1.0 proposed, awaiting approval; no `[NEED]` left |
 | Integration review | `design/integration-review-2026-10-30.md`: closed rev 30; issues I1-I11 |
 | Tests | 67 pass, 1 todo, on Windows (no sim code changed in handoffs #7-#12) |
@@ -146,7 +147,7 @@ See decision log "Rejected". Plus:
 | Verified handoff #10 | Gurven & Kaplan 2007 (l15 0.57, adult mortality ~1%/yr to 40 then Gompertz, modal adult death 72 (68-78), forager TFR mean 5.7); Walker et al. 2006 (age at first reproduction ~19.2, menarche ~14.7) |
 | Verified handoff #9 | Kaplan et al. 2000 Table 2; ovarian function sensitive to energetic conditions (Harvard Reproductive Ecology Lab); Robinson & Redford approach (CITES guidance); Kruger buffalo ~32,000 → ~14-15,000 after the early-1990s drought |
 | Unverified | Prompt 8 famine age shape; per-bracket mortality averages read from G&K's curve; prompt 8 claim that stressed hosts refuse refugees (Cashdan 1983 found, not read); workload → fertility link and shape; Robinson & Redford formula; ungulate recovery times; handoff #8's list (St. Lawrence Island, Binford storage threshold, 85-90% dissolution share, Binford packing threshold) |
-| Repo head | `Main-REPO` after `b43d9ff` (ci: corepack) + handoff docs commit; branch `sim/purpose-codes` = PR #1 |
+| Repo head | `Main-REPO` at `8c04472` (PR #1) + CONTEXT/handoff docs commit (see `git log`) |
 | GitHub Actions (verified 2026-11-02, GitHub docs) | Free private repos: $12/month included compute; Linux $0.006/min, Windows $0.010/min (≈ 1,200 Windows min/month) |
 | Look test artifact | https://claude.ai/artifact/8TGrzjEVAJF1L2R669HcN5 (Version 5) |
 
@@ -158,7 +159,7 @@ See decision log "Rejected". Plus:
 ## 10. Work state
 | Item | Status | Location | Notes |
 |---|---|---|---|
-| Decision log | rev 42 | Project `design/decision-log.md`; mirrored | — |
+| Decision log | rev 43 | Project `design/decision-log.md`; mirrored | — |
 | Spec | v0.27 draft, v1.0 proposed | Project `design/spec_v0.1.md`; mirrored | On approval: Version 1.0, Status Approved, changelog entry, log header note |
 | Gemini prompts | 1-12 run and reviewed; 13-15 suggested | `research/gemini-prompts.md` | Prompt 12 review: `research/famine-outcomes-review-2026-11-01.md` |
 | Prototypes | throwaway Python; never port | `research/prototypes/` (READMEs list each script) | Latest: `finalize-anchor/`, `finalize-trend/` (streams from `q13-glance/q13run.py`), `q14-scenario/` (`q14run.py` adds fixtures, mag-0 controls, `pbase`; `q14chain.py` = pass check + sentence rendering). A full map run (1,200 yr + 60) is ~2-4 min; 2 in parallel on 2 cores |
@@ -167,20 +168,20 @@ See decision log "Rejected". Plus:
 | Laptop | screen broken; behind GitHub (docs only, fast-forward) | laptop clone | Needs repair or an external monitor before pulling or sim code |
 | Repo `CLAUDE.md` | updated 2026-11-02: rev 42 gate text, rule 4 built | repo root | — |
 | CI `check` workflow | `.github/workflows/check.yml`: `pnpm check` on windows-latest + ubuntu-latest, every push and PR, GitHub-made actions + corepack | repo | Every run so far: `startup_failure`, 0 jobs, also after removing the third-party action. Cause confirmed by Jordan 2026-11-02: GitHub billing issue on the account Jordan can't update payment for now (2026-11-02), so the workflow is manual-only (`workflow_dispatch`) to stop red runs on every push; restore the push/PR triggers noted in the file once billing is fixed. Until then the laptop is the only Windows check (rev 42) |
-| PR #1 `sim/purpose-codes` | `Purpose` 6-12 appended; pinned test extended; golden values unchanged; Linux `pnpm check` green; determinism-reviewer clean | github.com/shadepants/the-living-mythos/pull/1 | Merge after a green Windows check (rev 42). Then update `CONTEXT.md` |
+| PR #1 `Purpose` 6-12 | merged 2026-11-02 as `8c04472` (squash), Linux-verified only (rev 43) | `Main-REPO` | Covered by the laptop's first Windows check |
 | Dependabot | 1 moderate alert on `Main-REPO` | repo Security tab | Not reviewed |
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` | [NEED: Jordan] paste |
 
 ## 11. Next steps
 1. **Next action:** Jordan approves spec v1.0 (or names changes). On approval: Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push.
-2. Get CI green [BLOCKED: Jordan, GitHub billing issue]: fix it in Settings → Billing and plans, then re-run the latest `check` run from the Actions tab. When green on Windows, merge PR #1 and update `CONTEXT.md`. Until then, cloud sim work continues on branches and PRs and nothing merges.
+2. Interim merge rule (rev 43): sim-core PRs merge on green Linux `pnpm check` + clean determinism review, commit notes "Linux-verified only". When the laptop returns: Windows `pnpm check` on `Main-REPO` first. When billing is fixed: restore the `check` workflow's push/PR triggers (noted in the file); that also ends rev 43.
 3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, never n at u = 1 − 2^-32); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
 4. Open tuning gaps (batch tuning, not decisions): herd crash 12-25% vs 25-75% target; K2 density near the floor; slow 2-band fill; post-drought refuge crowding; causeless and window-edge `forage_failed`; glance word share vs `effortFull`; die-out rate vs the `searchRadius`/`hostRange` gap (never retune radii to pass the test); trend with a seasonal cycle (rev 40); seed spread of median `Kveg` (rev 41).
 5. Candidate Gemini prompts 13-15 (`research/gemini-prompts.md`); possible new one on band fusion and minimum residential group size. Parked: v5 Close-up rewatch; property norm; benchmarks once fields run; Dependabot alert.
 
 ## 12. Open questions
 - Spec v1.0 approval [NEED: Jordan].
-- CI blocked by a GitHub billing issue [BLOCKED: Jordan]. Independent audit of the v1.0 candidate: `claude/audit-prompt-spec-v1.md`, run in a fresh session before approving.
+- CI blocked by a GitHub billing issue; Jordan can't update payment for now (rev 43 covers it). Independent audit of the v1.0 candidate: `claude/audit-prompt-spec-v1.md`, run in a fresh session before approving.
 - Stray Project doc `next-steps-prompts.md` at the Project root (duplicate of `claude/next-steps-prompts.md`): delete? Ask Jordan.
 - Gemini stash on the laptop (`stash@{0}`): drop once Jordan agrees the archive copies are enough.
 - [NEED: Jordan] paste `claude/project-instructions.md` into Project settings.
