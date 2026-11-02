@@ -15,7 +15,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 |---|---|
 | `design/decision-log.md` | Current (rev 42). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
-| `claude/session-prompt-next.md` | Opening prompt for the next planning chat (v1.0 approval, rev 10 cloud gate) |
+| `claude/session-prompt-next.md` | Opening prompt for the next session (v1.0 approval, CI fix, PR #1, cloud sim work under rev 42) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
 | `design/spec_v0.1.md` | Draft v0.27 (2026-11-02; file name kept); finalize complete (revs 39-41); v1.0 proposed, awaiting Jordan's approval |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
