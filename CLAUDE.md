@@ -17,14 +17,14 @@ pnpm only; never npm. Default branch is `Main-REPO`. package.json scripts chain 
 ## Scope (decision log rev 9)
 Build the success-test slice only: worldgen (heightmap + biomes), climate regime, 2 fields (vegetation, large fauna), bands with food balance and 4 age brackets, migration and die-out, the drought nudge, events with causes, templated Legends. Techniques, farming and other fields come in later spec versions. If a change isn't on the path "drought → band migrated or died out → readable why", don't build it yet.
 
-## Where code may be written (rev 10)
-Cloud sessions (Linux VM) may write tests and tooling only: hard-rule tests, hooks, the determinism-reviewer subagent, the determinism skill. Sim logic is written on the Windows laptop. Windows `pnpm check` passed on 2026-10-30; whether this gate lifts is an open question in the decision log, so treat it as still in force.
+## Where code may be written (rev 42; was rev 10)
+Cloud sessions and the laptop may both write sim logic, tests and tooling. Any change under `packages/sim-core` goes on a branch and merges into `Main-REPO` only after `pnpm check` passes on Windows: the `check` workflow (`.github/workflows/check.yml`, windows-latest + ubuntu-latest) or the laptop. Before merging, run the `determinism-reviewer` subagent on the diff. Docs and tooling outside `packages/sim-core` may go straight to `Main-REPO` after a local `pnpm check`.
 
 ## Determinism hard rules (tests before sim code)
 1. Randomness only via `rand01`/`hashKey` keyed on (seed, absolute season, full 64-bit entity as `entity` + `entityHi`, purpose). Spread `entityRngFields(id)` into the key; non-lineage keys set `entityHi: 0` and use their own `Purpose` codes (rev 13). Never a shared sequential stream. Add new `Purpose` codes at the end; never renumber. Built: `rng.ts`.
 2. No platform-dependent math in `sim-core/src`: ESLint bans Math.random, trig/exp/log/pow/cbrt/hypot, the `**` operator, `Date`, `Date.now`, `performance.now`. Math.sqrt and basic arithmetic are fine. Built: `eslint.config.js`.
 3. Stable lineage-derived IDs (parent, birth tick, sibling index). Built: `lineage.ts`. The ID does not encode the parent; the entity registry (not built) must store it and assert uniqueness.
-4. Fixed internal substeps for environment fields; schedules never depend on state. Not built (tick loop).
+4. Fixed internal substeps for environment fields; schedules never depend on state. Built: `tick.ts`.
 5. Causal event log from day one; every event records at most 3 causes, each an earlier event or a nudge command. Content key `type:tick:primary:ordinal`. Built: `event-log.ts`.
 6. Snapshots = keyframes + command log + replay. Not built.
 7. All tunables in a versioned config; saves and forks record the config hash. Built: `config.ts` (placeholder fields until the slice spec).
