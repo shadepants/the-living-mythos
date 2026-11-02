@@ -62,7 +62,21 @@ describe('hash-based rng (hard rule 1)', () => {
   it('pins the Purpose codes so a renumbering or a mid-list insert fails loudly', () => {
     // Purpose codes are part of every rng key: renumbering one changes every draw that uses it.
     // New codes go at the end; extend this list, never edit an existing entry.
-    expect(Purpose).toEqual({ ForageYield: 1, Migration: 2, Birth: 3, Death: 4, Invention: 5 });
+    expect(Purpose).toEqual({
+      ForageYield: 1,
+      Migration: 2,
+      Birth: 3,
+      Death: 4,
+      Invention: 5,
+      // Appended rev 31 / rev 39 (spec v0.25 §2).
+      DeathChild: 6,
+      DeathYoungAdult: 7,
+      DeathAdult: 8,
+      DeathElder: 9,
+      WorldgenHeight: 10,
+      WorldgenMoisture: 11,
+      ClimateSpaceTime: 12,
+    });
   });
 
   it('stays in [0, 1) and is roughly uniform', () => {

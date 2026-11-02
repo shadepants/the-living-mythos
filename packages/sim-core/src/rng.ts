@@ -8,10 +8,22 @@ const TWO_POW_32 = 0x100000000;
 /** Purpose codes keep draws for different decisions independent. Append only; never renumber. */
 export const Purpose = {
   ForageYield: 1,
+  /** Reserved: migration has no draw in the slice (rev 34). */
   Migration: 2,
   Birth: 3,
+  /** Retired (rev 31): deaths draw per bracket below. Never reuse this code. */
   Death: 4,
+  /** Reserved: techniques. */
   Invention: 5,
+  // Per-bracket deaths (rev 31), keyed on the band.
+  DeathChild: 6,
+  DeathYoungAdult: 7,
+  DeathAdult: 8,
+  DeathElder: 9,
+  // Cell- or lattice-keyed (entityHi 0); no lineage entity uses these (rev 13, rev 39).
+  WorldgenHeight: 10,
+  WorldgenMoisture: 11,
+  ClimateSpaceTime: 12,
 } as const;
 export type Purpose = (typeof Purpose)[keyof typeof Purpose];
 
