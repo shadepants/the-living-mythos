@@ -13,13 +13,13 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 43). Source of truth |
+| `design/decision-log.md` | Current (rev 48). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
-| `claude/audit-prompt-spec-v1.md` | Opening prompt for an independent audit of the spec v1.0 candidate (v0.27); run in a fresh session before approval |
-| `design/spec-v1-audit-2026-11-02.md` | Open: independent audit of spec v0.27 (the v1.0 candidate), against decision log rev 42. Verdict: do not approve as written; 6 blockers, 11 majors, 6 minors; no decision reopened; findings 2, 3, 6, 15-16 need new revs. Feeds spec v0.28 |
-| `claude/session-prompt-next.md` | Opening prompt for the next session (v1.0 approval, CI fix, PR #1, cloud sim work under rev 42) |
+| `claude/audit-prompt-spec-v1.md` | Opening prompt for an independent audit of the spec v1.0 candidate; includes the scoped re-audit variant for v0.28 |
+| `design/spec-v1-audit-2026-11-02.md` | Fixes applied: independent audit of spec v0.27 (6 blockers, 11 majors, 6 minors); all 23 addressed in spec v0.28 (revs 44-48); re-audit of changed sections pending |
+| `claude/session-prompt-next.md` | Opening prompt for the next session (re-audit result, v1.0 approval, cloud sim work under rev 43) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
-| `design/spec_v0.1.md` | Draft v0.27 (2026-11-02; file name kept); finalize complete (revs 39-41); v1.0 proposed, awaiting Jordan's approval |
+| `design/spec_v0.1.md` | Draft v0.28 (2026-11-02; file name kept); audit fixes applied (revs 44-48); re-audit of changed sections, then v1.0 approval |
 | `design/integration-review-2026-10-30.md` | Closed 2026-11-01: whole-system review raised during Q8; issues I1-I11; R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30. Kept as evidence for those revisions |
 | `claude/project-instructions.md` | Copy of the Project custom instructions; updated 2026-10-28; needs pasting into Project settings |
 | `research/gemini-prompts.md` | Prompts 1-12 run and reviewed; 13-15 suggested |

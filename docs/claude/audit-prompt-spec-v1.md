@@ -27,3 +27,11 @@ You are an independent auditor. Audit the proposed v1.0 of the Living mythos sli
 - What you did not check, and why.
 
 **Rules:** Separate what you verified from what you infer, in the sentence. Use `[NEED: ]`, `[BLOCKED: ]`, `[UNCERTAIN: ]` only where the gap could change a finding. Do not reopen anything on the Rejected list; you may flag that a rejected item reappears. Do not propose new features. No emoji, no time estimates. For each blocker or major, name the external check that would settle it.
+
+---
+
+## Re-audit variant (spec v0.28)
+
+Use the same prompt in a new session, replacing its first paragraph's scope with this:
+
+> This is a scoped re-audit. The first audit (`docs/design/spec-v1-audit-2026-11-02.md`, against v0.27) found 23 issues; spec v0.28 (decision log revs 44-48) claims to fix all of them. Check (1) each of the 23 findings: fixed / partly fixed / not fixed / fix introduced a new problem; (2) every section v0.28 changed (§4.1, §5, §5.1, §6, §7, §8, §9, §10, §11, §12, §13, §14, §15, §17, §18, §20) for new contradictions with the decision log and with untouched sections; (3) revs 45-48's options and leans for errors of fact against the prototypes they cite. Same report format, same rules; keep areas 1-10 of the full audit for the changed sections only.

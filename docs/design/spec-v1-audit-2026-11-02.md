@@ -1,6 +1,6 @@
 # Spec v1.0 candidate audit (v0.27)
 
-**Status:** Open, 2026-11-02. Independent audit of `design/spec_v0.1.md` v0.27, the v1.0 candidate, run from `claude/audit-prompt-spec-v1.md` against decision log rev 42 and repo `Main-REPO` at `c82dbf9`. No file was edited and nothing was committed during the audit. Findings feed spec v0.28 and any new decision-log revs listed below.
+**Status:** Fixes applied 2026-11-02 in spec v0.28 (decision log revs 44-48); a re-audit of the changed sections is pending. Claude re-checked blockers 1-6 against the spec, code and prototypes before fixing. Adjustments to the proposed fixes: finding 2 uses both fixes (natural-only dry spells and a two-slot lookback, rev 45); finding 3's labour is per use (the host guard uses host + refugee labour, rev 46); finding 7 also corrects rev 31's check wording. Originally opened 2026-11-02. Independent audit of `design/spec_v0.1.md` v0.27, the v1.0 candidate, run from `claude/audit-prompt-spec-v1.md` against decision log rev 42 and repo `Main-REPO` at `c82dbf9`. No file was edited and nothing was committed during the audit. Findings feed spec v0.28 and any new decision-log revs listed below.
 
 ## Verdict: do not approve v0.27 as written
 
