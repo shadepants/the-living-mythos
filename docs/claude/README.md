@@ -13,7 +13,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 ## Documents (current)
 | Path | Status |
 |---|---|
-| `design/decision-log.md` | Current (rev 41). Source of truth |
+| `design/decision-log.md` | Current (rev 42). Source of truth |
 | `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
 | `claude/session-prompt-next.md` | Opening prompt for the next planning chat (v1.0 approval, rev 10 cloud gate) |
 | `claude/next-steps-prompts.md` | 2026-10-30: prompt A (laptop tooling setup), prompt B (grill spec v0.1), later triggers; each with Claude's suggested option |
@@ -70,4 +70,4 @@ Repo: github.com/shadepants/the-living-mythos (private), branch `Main-REPO` (pnp
 
 **Repo mirror:** `docs/` in the repo mirrors this Project (same paths, plus the PDFs under `docs/research/`). The Project is the source of truth. After every decision-log revision, or any change to a doc here, re-sync the changed files to `docs/` in one `docs:` commit.
 
-Cloud sessions stay limited to tests and tooling until the rev 10 gate is decided (Windows `pnpm check` passed 2026-10-30; see the decision log's open questions).
+Rev 42: cloud sessions may write sim logic; sim-core changes merge only after `pnpm check` passes on Windows (CI workflow `.github/workflows/check.yml` or the laptop).
