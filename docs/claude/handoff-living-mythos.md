@@ -20,7 +20,7 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 - **v1 scope:** simple hunter-gatherer bands to the first farming villages, one procedural landmass, time from year 0. Long-term: a Roman-Empire-like civilization.
 - **Success test:** "I trigger a drought and can read in the Legends why one band migrated and another died out." Stretch: fork the world before the drought. v1 passes without the fork.
 - **Core loop:** live nudge and watch. Forks are a v1 stretch goal.
-- **Current focus:** scoped re-audit of spec v0.28, then v1.0 approval; cloud sim work under the rev 43 interim merge rule.
+- **Current focus:** v1.0 approval of spec v0.29 (re-audit fixes applied, rev 49); cloud sim work under the rev 43 interim merge rule.
 
 ## 2. About the user
 - Jordan; hobbyist developer, Calgary. Laptop: Windows 11, i7-8665U, 16GB, integrated GPU; device `mobilebattlestation`, Node 25.3.0, pnpm 10.28.0. **Laptop screen broke on 2026-10-31**; not usable until repaired or connected to an external monitor. Also develops from a Pixel 10 Pro XL.
@@ -116,9 +116,9 @@ See decision log "Rejected". Plus:
 ## 8. Data & facts (exact)
 | Item | Value |
 |---|---|
-| Decision log | rev 48 |
-| Spec | v0.28 (file `design/spec_v0.1.md`); audit fixes applied (revs 44-48); re-audit pending, then v1.0 approval |
-| Audit | `design/spec-v1-audit-2026-11-02.md`: 6 blockers, 11 majors, 6 minors, all addressed; re-audit variant in `claude/audit-prompt-spec-v1.md` |
+| Decision log | rev 49 |
+| Spec | v0.29 (file `design/spec_v0.1.md`); audit fixes (revs 44-48) and re-audit fixes (rev 49) applied; v1.0 approval pending |
+| Audit | `design/spec-v1-audit-2026-11-02.md`: 6 blockers, 11 majors, 6 minors, all addressed; re-audit `design/spec-v1-reaudit-2026-11-02.md`: approve with fixes, 7 majors, 7 minors, all fixed in v0.29 (rev 49) |
 | Integration review | `design/integration-review-2026-10-30.md`: closed rev 30; issues I1-I11 |
 | Tests | 67 pass, 1 todo, on Windows (no sim code changed in handoffs #7-#12) |
 | RNG golden values | 1759517345 and 3421405739 (`rng.test.ts`). Never update casually |
@@ -128,7 +128,7 @@ See decision log "Rejected". Plus:
 | Migration [P] (rev 34) | `migrateAfter` 2, `searchRadius` 14, `travelCost` 0.05 per cell, `migrateMargin` 0.2; share weight linear 1 → 0 at 2·`catchment` (6 cells) |
 | Events [P] (rev 36) | `stableSeasons` 2, `causeWindow` 8 seasons; outcomes perished / dissolved / dwindled |
 | Food trend (rev 40) | pressure = effort while fed, 1 + shortfall otherwise; trend = now − 4 seasons ago; `trendBand` 0.10 [P] |
-| Purpose codes (rev 39) | 1 ForageYield, 2 Migration (reserved), 3 Birth, 4 Death (retired), 5 Invention (reserved), 6-9 DeathChild/YoungAdult/Adult/Elder, 10 WorldgenHeight, 11 WorldgenMoisture, 12 ClimateSpaceTime. Only 1-5 exist in `rng.ts` |
+| Purpose codes (rev 39) | 1 ForageYield, 2 Migration (reserved), 3 Birth, 4 Death (retired), 5 Invention (reserved), 6-9 DeathChild/YoungAdult/Adult/Elder, 10 WorldgenHeight, 11 WorldgenMoisture, 12 ClimateSpaceTime. All 12 exist in `rng.ts` (PR #1, verified 2026-11-02) |
 | Config scale (rev 39) | integer counts as-is; everything else ×10,000 (`Per10k`); prototype values are in prototype units (rich K = 2) |
 | Glance (rev 37) | starving > hungry > well-fed (effort ≤ `effortFull`) > settled; restless = band-card line |
 | Regulation and anchor [P] | `effortFull` 0.5; fresh effort on median land = `effortFull`; prototype return ×1.5 over rev 23 values |
@@ -163,8 +163,8 @@ See decision log "Rejected". Plus:
 ## 10. Work state
 | Item | Status | Location | Notes |
 |---|---|---|---|
-| Decision log | rev 48 | Project `design/decision-log.md`; mirrored | — |
-| Spec | v0.28 draft, v1.0 candidate | Project `design/spec_v0.1.md`; mirrored | Re-audit (scoped variant), fix anything it finds, then Version 1.0 / Approved |
+| Decision log | rev 49 | Project `design/decision-log.md`; mirrored | — |
+| Spec | v0.29 draft, v1.0 candidate | Project `design/spec_v0.1.md`; mirrored | Re-audit done and fixed (rev 49); next: Version 1.0 / Approved on Jordan's word |
 | Gemini prompts | 1-12 run and reviewed; 13-15 suggested | `research/gemini-prompts.md` | Prompt 12 review: `research/famine-outcomes-review-2026-11-01.md` |
 | Prototypes | throwaway Python; never port | `research/prototypes/` (READMEs list each script) | Latest: `finalize-anchor/`, `finalize-trend/` (streams from `q13-glance/q13run.py`), `q14-scenario/` (`q14run.py` adds fixtures, mag-0 controls, `pbase`; `q14chain.py` = pass check + sentence rendering). A full map run (1,200 yr + 60) is ~2-4 min; 2 in parallel on 2 cores |
 | sim-core | unchanged: rng, lint bans, config, lineage IDs, event log, tick loop; 67 tests + 1 todo | repo `packages/sim-core` | Entity registry needed early (fission creates bands). Pending from rev 31: append the 4 death purposes; fast-check tests for the binomial sampler — tests only, so cloud-eligible under rev 10 |
@@ -177,14 +177,14 @@ See decision log "Rejected". Plus:
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` | [NEED: Jordan] paste |
 
 ## 11. Next steps
-1. **Next action:** run the re-audit variant of `claude/audit-prompt-spec-v1.md` in a fresh session; fix its findings; then Jordan approves spec v1.0 (Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push).
+1. **Next action:** Jordan approves spec v1.0 (re-audit run and fixed: rev 49, spec v0.29) (Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push).
 2. Interim merge rule (rev 43): sim-core PRs merge on green Linux `pnpm check` + clean determinism review, commit notes "Linux-verified only". When the laptop returns: Windows `pnpm check` on `Main-REPO` first. When billing is fixed: restore the `check` workflow's push/PR triggers (noted in the file); that also ends rev 43.
 3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, never n at u = 1 − 2^-32); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
 4. Open tuning gaps (batch tuning, not decisions): herd crash 12-25% vs 25-75% target; K2 density near the floor; slow 2-band fill; post-drought refuge crowding; causeless and window-edge `forage_failed`; glance word share vs `effortFull`; die-out rate vs the `searchRadius`/`hostRange` gap (never retune radii to pass the test); trend with a seasonal cycle (rev 40); seed spread of median `Kveg` (rev 41).
 5. Candidate Gemini prompts 13-15 (`research/gemini-prompts.md`); possible new one on band fusion and minimum residential group size. Parked: v5 Close-up rewatch; property norm; benchmarks once fields run; Dependabot alert.
 
 ## 12. Open questions
-- Re-audit of spec v0.28, then v1.0 approval [NEED: Jordan].
+- v1.0 approval of spec v0.29 [NEED: Jordan].
 - CI blocked by a GitHub billing issue; Jordan can't update payment for now (rev 43 covers it). Independent audit of the v1.0 candidate: `claude/audit-prompt-spec-v1.md`, run in a fresh session before approving.
 - Stray Project doc `next-steps-prompts.md` at the Project root (duplicate of `claude/next-steps-prompts.md`): delete? Ask Jordan.
 - Gemini stash on the laptop (`stash@{0}`): drop once Jordan agrees the archive copies are enough.
