@@ -2,11 +2,12 @@
 # This job is that Windows check (plus Linux) while the laptop is unavailable; the laptop remains an alternative.
 name: check
 
+# Manual only while the GitHub account has a billing issue (2026-11-02): every automatic run
+# ended in startup_failure. When billing is fixed, restore:
+#   push: { branches: [Main-REPO] }
+#   pull_request: { branches: [Main-REPO] }
 on:
-  push:
-    branches: ['**']
-  pull_request:
-    branches: [Main-REPO]
+  workflow_dispatch:
 
 concurrency:
   group: check-${{ github.ref }}
