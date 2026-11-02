@@ -22,10 +22,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4 # version comes from packageManager in package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+      # GitHub-made actions only; corepack provides the pnpm version pinned in packageManager
+      - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
