@@ -1,0 +1,10 @@
+reference band 25: L=16.00 C=21.00
+K=0.6: F_eq=0.010 (F/K 0.017) P/K 1.80 P_eq=1.08 settle(F within 5%)=None seasons, late swing 12.3%, F at t=0 0.200, t=40 0.092, fresh effort x1.5 = 1.00
+K=1.0: F_eq=0.105 (F/K 0.105) P/K 1.59 P_eq=1.59 settle(F within 5%)=173 seasons, late swing 0.0%, F at t=0 0.200, t=40 0.145, fresh effort x1.5 = 0.75
+K=1.5: F_eq=0.180 (F/K 0.120) P/K 1.51 P_eq=2.26 settle(F within 5%)=37 seasons, late swing 0.0%, F at t=0 0.200, t=40 0.188, fresh effort x1.5 = 0.50
+K=2.0: F_eq=0.227 (F/K 0.114) P/K 1.51 P_eq=3.02 settle(F within 5%)=38 seasons, late swing 0.0%, F at t=0 0.200, t=40 0.217, fresh effort x1.5 = 0.38
+K=3.0: F_eq=0.281 (F/K 0.094) P/K 1.55 P_eq=4.66 settle(F within 5%)=70 seasons, late swing 0.0%, F at t=0 0.200, t=40 0.250, fresh effort x1.5 = 0.34
+K=4.0: F_eq=0.310 (F/K 0.078) P/K 1.60 P_eq=6.38 settle(F within 5%)=74 seasons, late swing 0.0%, F at t=0 0.200, t=40 0.269, fresh effort x1.5 = 0.33
+median K=1.0: computed scale k=1.49 (x1.5 base) -> fresh effort K0.6:1.00 K1.0:0.50 K1.5:0.33 K2.0:0.26 K3.0:0.23 K4.0:0.22
+median K=2.0: computed scale k=0.76 (x1.5 base) -> fresh effort K0.6:1.00 K1.0:0.98 K1.5:0.65 K2.0:0.50 K3.0:0.44 K4.0:0.43
+median K=3.0: computed scale k=0.68 (x1.5 base) -> fresh effort K0.6:1.00 K1.0:1.00 K1.5:0.73 K2.0:0.56 K3.0:0.50 K4.0:0.49

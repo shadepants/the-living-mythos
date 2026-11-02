@@ -1,15 +1,15 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.26
-Status: Draft (Phase 3 finalize: food trend settled rev 40; return-anchor scale pending)
+Version: 0.27
+Status: Draft, v1.0 proposed (Phase 3 finalize complete: revs 39-41; awaiting Jordan's approval)
 Owner: Jordan
 Created: 2026-10-30
 Last Updated: 2026-11-02
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.26 draft)
+# Living mythos: success-test slice (spec v0.27 draft, v1.0 proposed)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna) plus a plant-food stock, bands with food balance and 4 age brackets, migration, fission and die-out, the drought nudge, caused events and templated Legends (decision log rev 9, extended by revs 23-38). Every tunable is listed in §17 with its scale and tag. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -168,7 +168,7 @@ Food (decided rev 23, R1 option B): resource guilds behind one interface.
 - Slice guilds, in rank order: large game (stock `F · foodPerHerd`, cap `maxHuntFraction`), then plant foods (stock P, cap `maxGatherFraction`).
 - Catchment: Euclidean disc around the camp, dx² + dy² ≤ `catchment`² (29 cells at r = 3), offsets sorted by (dy, dx); off-map and sea cells excluded (rev 16).
 - Home range and camp (rev 24): radius `homeRange` around the home cell. Each season, before foraging, the band scores every land cell in the home range by expected catchment return (allocation below, current stocks) and moves its camp only if the best cell beats the current camp by more than `campMoveMargin` (fraction); ties go to the lowest cell index. Camp moves are snapshot state, not events.
-- Return anchor (rev 28): returns are scaled so a band on unforaged land of median `Kveg` meets its consumption with `effortFull` of its labour. Density 0.45-1.35 per land cell, bands 25-50 and background hunger ≤ 3% are acceptance targets, not fit parameters. Whether the scale is a tuned config constant or computed at worldgen is open (§16 note) [NEED: Jordan].
+- Return anchor (rev 28): returns are scaled so a band on unforaged land of median `Kveg` meets its consumption with `effortFull` of its labour. Density 0.45-1.35 per land cell, bands 25-50 and background hunger ≤ 3% are acceptance targets, not fit parameters. Calibration (decided rev 41): the four return constants are written into config by an offline tool that runs the fields with no bands for ≥ 200 seasons on reference seeds at default settings, then solves the scale so a reference band (25 people, starting bracket mix) on median-`Kveg` land meets consumption at `effortFull`. It is a config constant, not computed per world, so seeds keep their richness differences. Herd stock does not scale with `Kveg` (probe: F/K 0.02-0.12) and takes 37-173 seasons to settle, which is why the anchor needs a burn-in and not a formula.
 - Labour `L = Σ count[b] · labour[b]`. Consumption `C = Σ count[b] · need[b]`.
 - Allocation: guilds in rank order; each takes `min(L_left · return, cap, need_left)`, using labour `need_left / return`; stops at `C` + stash top-up (`max(0, stashSeasons · C − stash)`). Removal is split evenly across the catchment's cells. Yield is multiplied by `1 + yieldNoise · (2u − 1)`, `u = rand01` with purpose `ForageYield`, entity = band; `yieldNoise` defaults to 0 (the prototypes ran without it).
 - Effort = labour used to cover `C` ÷ L, capped at 1; 1 whenever yield < C (rev 27).
@@ -262,7 +262,6 @@ Glance words (decided rev 37): one word per band, first match wins.
 - "well-fed" claims food, not fate: a band drifting toward `dwindled` can read well-fed to the end.
 - Band-card food trend (decided rev 40): pressure = effort while fed, 1 + shortfall otherwise; trend = pressure now − pressure 4 seasons ago; `easing` below −`trendBand`, `worsening` above +`trendBand`, else `steady`. Fewer than 4 seasons of history reads `steady`. Snapshot-only: no sim system reads it. Prototype: calm 99.8% steady, flicker 0.01 per band-year, every map hunger onset preceded by `worsening` (median 4 seasons ahead). The v0.24 mean-balance trend read "rising" at steady state (stash upkeep) and is replaced.
 - The card can show `worsening` beside `well-fed` (effort rising but still ≤ `effortFull`) or `easing` beside `starving` (recovering): both are true statements, not contradictions.
-- Return-anchor scale (§9): tuned constant vs computed at worldgen [NEED: Jordan].
 
 ## 17. Config
 Scale rule: integer counts (cells, seasons, people, percent) are stored as-is; every other tunable is stored × 10,000 with the suffix `Per10k` (e.g. `rVDryPer10k = 7000`). Piecewise-linear tables are flat numbered fields (`moistureCurveX0Per10k`, `moistureCurveY0Per10k`, …). Prototype starting values are in prototype units (rich land `Kveg` = 2) and MUST be rescaled with `Kveg`. Presentation values (`cellKm`, names) and test-scenario parameters are not `SimConfig` and stay out of the config hash.
@@ -292,7 +291,7 @@ Scale rule: integer counts (cells, seasons, people, percent) are stored as-is; e
 | Foraging | `catchment` | cells | 3 | decided rev 16 |
 | Foraging | `homeRange` | cells | 5 | [P] (rev 24) |
 | Foraging | `campMoveMargin` | Per10k | prototype 0.1 | [P] |
-| Foraging | `gameMaxReturn`, `gameHalfStock`, `plantMaxReturn`, `plantHalfStock` | Per10k | prototype 5.25, 0.10, 2.7, 1.5 (×1.5 anchor applied) | [P] (rev 28) |
+| Foraging | `gameMaxReturn`, `gameHalfStock`, `plantMaxReturn`, `plantHalfStock` | Per10k | written by the calibration tool (rev 41); prototype 5.25, 0.10, 2.7, 1.5 | calibrated (revs 28, 41) |
 | Foraging | `maxGatherFraction` | Per10k | prototype uncapped | [P] |
 | Foraging | `labourChild`…`labourElder`, `needChild`…`needElder` | Per10k | 0.25/0.75/1/0.5; 0.6/1/1/0.8 | [P] |
 | Foraging | `stashSeasons` (world setting) | Per10k | ≤ 0.5 | [P] |
@@ -320,9 +319,10 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 ## 18. Testing plan
 - Unit: each formula (clamping, stability, conservation where it applies, no NaN). Named cases: `V = 0` and ocean fauna cells; `n_f > 1` gives the same one-season totals as `n_f = 1` within rounding for small `D`; binomial at `q = 0`, `0.5`, `1` and `n = 0`; drought fade profile (full at ≤ r/2, half at 0.75r, 0 at ≥ r); single-cell drought at three moisture levels against the §7 targets.
 - Property (fast-check, rev 14): every event's causes appear earlier in the log; non-`dwindled` band outcomes reach a root in ≤ 3 hops, and those within a drought + `causeWindow` reach its `drought_began`; every hunger event cites a `forage_failed`; emission order identical across two runs; same seed + commands → same state hash; populations never negative; V ≥ 0, logistic growth never takes V above K and die-back never below it; a drought never raises moisture; no dry spell shorter than `dryMinSeasons`; the glance word is a pure function of the snapshot and a starving band always reads starving; binomial sampler: exact pmf, monotone in q, never n at u = 1 − 2^-32.
+- Calibration (slow, rev 41): rerun the anchor calibration on the reference seeds; fail if fresh effort on median land is outside 0.45-0.55 at the config's return constants.
 - Determinism: state hash every 100 seasons, Node (Linux) vs Chrome (Windows) [R: timescale report].
 - Acceptance (success test; decided rev 38): a procedural slice world, seed fixed by the rev 16 refuge check before any drought run (never chosen by outcome); 2-band start run to the density plateau (1,200 yr [P]); one severe local drought (8 seasons, radius 20 [P]) centred on the land cell nearest the centroid of living bands at that season [P]. Pass when, in [drought start, drought end + `causeWindow`], at least one `band_migrated` and one non-`dwindled` `band_died_out` each reach `drought_began` in ≤ 3 hops and both §15 sentences render; and the same seed with no drought command has neither outcome in that window. A 20-seed pass rate is reported, not a gate. Tag the test slow until keyframes exist.
-- Batch checks (tuning reports, not CI gates; from the log): dry share 12-18% (rev 19); biome shares 3-50%, ≥ 5 of 20 seeds pass the refuge check (revs 16, 18); herd crash 25-75%, onset 1-3 seasons, no cell extinction (rev 30); 1-4 camp moves per band-year (rev 24); 0 dissolutions in 600 calm years on a filled map (rev 26); density 0.45-1.35/cell rising with richness, bands 25-50, hunger ≤ 3%, meat share 30-50% (revs 27-29); causeless `forage_failed` among exposed bands = 0 (rev 36); glance word share and flicker (rev 37); 20-seed acceptance pass rate and control cleanliness (rev 38).
+- Batch checks (tuning reports, not CI gates; from the log): dry share 12-18% (rev 19); biome shares 3-50%, ≥ 5 of 20 seeds pass the refuge check (revs 16, 18); herd crash 25-75%, onset 1-3 seasons, no cell extinction (rev 30); 1-4 camp moves per band-year (rev 24); 0 dissolutions in 600 calm years on a filled map (rev 26); density 0.45-1.35/cell rising with richness, bands 25-50, hunger ≤ 3%, meat share 30-50% (revs 27-29); ≥ 18 of 20 seeds with fresh effort 0.4-0.6 on their own median land (rev 41); causeless `forage_failed` among exposed bands = 0 (rev 36); glance word share and flicker (rev 37); 20-seed acceptance pass rate and control cleanliness (rev 38).
 
 ## 19. Alternatives considered
 | Topic | Options | Pick | Why |
@@ -343,7 +343,7 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 - Commands for a past tick: rejected (the command log is append-only in tick order).
 - Impossible by construction (asserted, not handled): NaN or ±Infinity in state (state hash rejects them), negative bracket counts, duplicate `EntityId` on registration.
 
-**Build order** (laptop): command log (rule 6) → entity registry → systems in §5 order, each with its unit and property tests first → Legends templates → acceptance test (slow-tagged).
+**Build order** (laptop): command log (rule 6) → entity registry → systems in §5 order, each with its unit and property tests first → anchor calibration tool and its slow test (after worldgen, vegetation, plant food and fauna exist; rev 41) → Legends templates → acceptance test (slow-tagged).
 
 **Rollback:** no saves exist, so changing `SimConfig` changes the config-hash golden value once, with no migration. Appending `Purpose` codes 6-12 leaves the RNG golden values unchanged. After v1.0, the spec changes only through a decision-log revision and a minor version bump; the first save format freezes the config hash and content keys (no rollback after that without a save migration).
 
@@ -355,7 +355,7 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 | 9a-9c | demography draws, brackets, hunger mortality | revs 31-33 |
 | 10-14 | migration, die-out floor, events, glance words, test scenario | revs 34-38 |
 | Finalize | band-card food trend | rev 40 |
-| Finalize | return-anchor scale | pending |
+| Finalize | return-anchor calibration | rev 41 |
 
 ## 22. Future consideration
 | Item | Waits for |
@@ -369,6 +369,8 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8), `medianKveg` (§4.1).
 | Seasonal guild factor ≠ 1 | a seasonality or temperature field |
 
 ## Changelog
+### v0.27 - 2026-11-02
+- Decided: return-anchor calibration (§9, rev 41): offline tool on reference seeds writes the return constants; slow test (§18); build order (§20). All finalize questions settled; v1.0 proposed.
 ### v0.26 - 2026-11-02
 - Decided: band-card food trend (§16, rev 40): 4-season change in food pressure, `trendBand` 0.10 (§17).
 ### v0.25 - 2026-11-01
