@@ -2,6 +2,9 @@
 // from one uniform u. Basic arithmetic only (hard rule 2), so the draw is identical on
 // every engine. The caller supplies u = rand01(key); this module never draws.
 
+const MAX_N = 1000;
+const TWO_POW_32 = 0x100000000;
+
 /** x^e for a non-negative integer e by repeated multiplication (Math.pow and ** are banned). */
 export const intPow = (x: number, e: number): number => {
   let out = 1;
@@ -42,8 +45,12 @@ export const binomialWalk = (n: number, q: number, u: number): WalkResult => {
  */
 export const sampleBinomial = (n: number, q: number, u: number): number => {
   if (!Number.isInteger(n) || n < 0) throw new RangeError(`binomial n must be a non-negative integer, got ${n}`);
+  // p(0) = 0.5^n underflows past n ≈ 1,074 and the walk would silently return n; fail loudly instead.
+  if (n > MAX_N) throw new RangeError(`binomial n must be <= ${MAX_N}, got ${n}`);
   if (Number.isNaN(q)) throw new RangeError('binomial q must not be NaN');
   if (!(u >= 0 && u < 1)) throw new RangeError(`binomial u must be in [0, 1), got ${u}`);
+  // The rev 49 rounding argument holds only on rand01's 2^-32 lattice; off it, 1 − u can round to 1.
+  if (!Number.isInteger(u * TWO_POW_32)) throw new RangeError(`binomial u must be a multiple of 2^-32 (use rand01), got ${u}`);
 
   if (q <= 0) return 0;
   if (q >= 1) return n;

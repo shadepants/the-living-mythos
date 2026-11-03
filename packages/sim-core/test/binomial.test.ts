@@ -61,6 +61,8 @@ describe('sampleBinomial edge cases (spec §10, §18)', () => {
     expect(() => sampleBinomial(5, Number.NaN, 0.5)).toThrow(RangeError);
     expect(() => sampleBinomial(5, 0.5, 1)).toThrow(RangeError);
     expect(() => sampleBinomial(5, 0.5, -0.1)).toThrow(RangeError);
+    expect(() => sampleBinomial(1001, 0.5, 0.5)).toThrow(RangeError);
+    expect(() => sampleBinomial(5, 0.5, 1e-12)).toThrow(RangeError);
   });
 });
 
@@ -120,7 +122,7 @@ describe('sampleBinomial matches the exact pmf (spec §18)', () => {
     it(`n = ${n}, q = ${q}`, () => {
       const counts = new Array<number>(n + 1).fill(0);
       for (let i = 0; i < G; i++) {
-        const k = sampleBinomial(n, q, i / G);
+        const k = sampleBinomial(n, q, i / G); // i / 2^14 lies on the 2^-32 lattice
         counts[k] = (counts[k] ?? 0) + 1;
       }
       const pmf = refPmf(n, q);
