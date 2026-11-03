@@ -20,7 +20,7 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 - **v1 scope:** simple hunter-gatherer bands to the first farming villages, one procedural landmass, time from year 0. Long-term: a Roman-Empire-like civilization.
 - **Success test:** "I trigger a drought and can read in the Legends why one band migrated and another died out." Stretch: fork the world before the drought. v1 passes without the fork.
 - **Core loop:** live nudge and watch. Forks are a v1 stretch goal.
-- **Current focus:** v1.0 approval of spec v0.29 (re-audit fixes applied, rev 49); cloud sim work under the rev 43 interim merge rule.
+- **Current focus:** spec v1.0 approved (rev 50); build in spec §20 order, cloud sim work under the rev 43 interim merge rule.
 
 ## 2. About the user
 - Jordan; hobbyist developer, Calgary. Laptop: Windows 11, i7-8665U, 16GB, integrated GPU; device `mobilebattlestation`, Node 25.3.0, pnpm 10.28.0. **Laptop screen broke on 2026-10-31**; not usable until repaired or connected to an external monitor. Also develops from a Pixel 10 Pro XL.
@@ -116,8 +116,8 @@ See decision log "Rejected". Plus:
 ## 8. Data & facts (exact)
 | Item | Value |
 |---|---|
-| Decision log | rev 49 |
-| Spec | v0.29 (file `design/spec_v0.1.md`); audit fixes (revs 44-48) and re-audit fixes (rev 49) applied; v1.0 approval pending |
+| Decision log | rev 50 |
+| Spec | **v1.0 approved** 2026-11-02 (rev 50; file `design/spec_v0.1.md`, content of v0.29) |
 | Audit | `design/spec-v1-audit-2026-11-02.md`: 6 blockers, 11 majors, 6 minors, all addressed; re-audit `design/spec-v1-reaudit-2026-11-02.md`: approve with fixes, 7 majors, 7 minors, all fixed in v0.29 (rev 49) |
 | Integration review | `design/integration-review-2026-10-30.md`: closed rev 30; issues I1-I11 |
 | Tests | 67 pass, 1 todo, on Windows (no sim code changed in handoffs #7-#12) |
@@ -177,14 +177,13 @@ See decision log "Rejected". Plus:
 | Project instructions | Settings text still has the old success-test wording | `claude/project-instructions.md` | [NEED: Jordan] paste |
 
 ## 11. Next steps
-1. **Next action:** Jordan approves spec v1.0 (re-audit run and fixed: rev 49, spec v0.29) (Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push).
+1. **Next action:** cloud sim work, tests first, one branch and PR each: binomial sampler (spec §10, §18), command log (hard rule 6, §20 errors), entity registry. Spec v1.0 approved 2026-11-02 (rev 50).
 2. Interim merge rule (rev 43): sim-core PRs merge on green Linux `pnpm check` + clean determinism review, commit notes "Linux-verified only". When the laptop returns: Windows `pnpm check` on `Main-REPO` first. When billing is fixed: restore the `check` workflow's push/PR triggers (noted in the file); that also ends rev 43.
 3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, result in [0, n], u = 0 gives 0 events, fallback taken only when the cumulative sum ≤ u; spec §10, §18); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
 4. Open tuning gaps (batch tuning, not decisions): herd crash 12-25% vs 25-75% target; K2 density near the floor; slow 2-band fill; post-drought refuge crowding; causeless and window-edge `forage_failed`; glance word share vs `effortFull`; die-out rate vs the `searchRadius`/`hostRange` gap (never retune radii to pass the test); trend with a seasonal cycle (rev 40); seed spread of median `Kveg` (rev 41).
 5. Candidate Gemini prompts 13-15 (`research/gemini-prompts.md`); possible new one on band fusion and minimum residential group size. Parked: v5 Close-up rewatch; property norm; benchmarks once fields run; Dependabot alert.
 
 ## 12. Open questions
-- v1.0 approval of spec v0.29 [NEED: Jordan].
 - CI blocked by a GitHub billing issue; Jordan can't update payment for now (rev 43 covers it). Independent audit of the v1.0 candidate: `claude/audit-prompt-spec-v1.md`, run in a fresh session before approving.
 - Stray Project doc `next-steps-prompts.md` at the Project root (duplicate of `claude/next-steps-prompts.md`): delete? Ask Jordan.
 - Gemini stash on the laptop (`stash@{0}`): drop once Jordan agrees the archive copies are enough.

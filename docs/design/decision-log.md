@@ -1,6 +1,6 @@
 # Living mythos: decision log
 
-Last updated: 2026-11-02 (rev 49). Sources: planning chats, handoffs #1-#7, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, research/vegetation-drought-review-2026-10-30.md, research/forager-reports-review-2026-10-31.md, research/famine-outcomes-review-2026-11-01.md, design/integration-review-2026-10-30.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
+Last updated: 2026-11-02 (rev 50). Sources: planning chats, handoffs #1-#7, research/stack-and-prior-projects-report.md, research/timescale-report.md, research/novelty-report-gemini.txt, research/tooling-report.md, research/pixel-art-review-2026-10-24.md, research/vegetation-drought-review-2026-10-30.md, research/forager-reports-review-2026-10-31.md, research/famine-outcomes-review-2026-11-01.md, design/integration-review-2026-10-30.md, archive/research/batch-review-2026-10-23.md (Gemini reports 2-5 + repos). This is the record of what's settled; the spec builds on it.
 
 Rev 9 (2026-10-24): forks recorded as a v1 stretch goal (option C); first spec scoped to the success-test slice.
 Rev 10 (2026-10-28): cloud sessions for tests and tooling only; information default is investigate-to-learn with a lab coat toggle (brainstorm Q3 resolved).
@@ -43,6 +43,7 @@ Rev 46 (2026-11-02): expected catchment return E defined: uncapped by need, labo
 Rev 47 (2026-11-02): 64-bit IDs in event payloads as Hi/Lo uint32 fields (audit finding 6).
 Rev 48 (2026-11-02): initial world, starting bands and fission-daughter state (audit findings 15-16).
 Rev 49 (2026-11-02): re-audit fixes (spec v0.29; `design/spec-v1-reaudit-2026-11-02.md`): acceptance runs nudge-only with the refuge check around the drought centre after the no-drought burn-in; no decision reversed; rev 35 and rev 36 wording corrected.
+Rev 50 (2026-11-02): spec v1.0 approved by Jordan (`design/spec_v0.1.md`, content of v0.29). Spec changes from here need a decision-log revision and a minor version bump.
 
 ## Vision
 A terrarium you poke: an observational god-view sandbox where bands of people develop, change the land and each other, and make history in unexpected, funny and exciting ways. You watch, read the history, zoom in, and nudge things to alter the course. Jordan's framing: "like a kid with an ant colony." It is not a game to win, and it is not a copy of Earth's timeline.
@@ -235,7 +236,7 @@ Implementation status (repo `CONTEXT.md`, checked 2026-11-01): rules 1, 2, 3, 4 
 - RNG entity-key collisions (rev 12, decided rev 13): `entityKey()` truncated the 64-bit entity ID to 32 bits, about a 4.5% chance of at least one colliding pair at 20,000 entities (birthday bound, computed, not tested); colliding entities would share every draw. Fix decided rev 13 and built (repo `CONTEXT.md`: key uses `entity` + `entityHi`; golden values recaptured once 2026-10-30). Closed. Hashing 64 bits into one 32-bit field was rejected: any 32-bit field collides at the same rate.
 
 ## Open questions (to grill)
-- Spec finalize (rev 39, spec v0.25): consistency pass done. Food trend settled rev 40; anchor calibration rev 41. All finalize questions settled. Independent audit (2026-11-02) found 23 issues; fixed in spec v0.28 (revs 44-48). Scoped re-audit (2026-11-02): approve with fixes, 14 findings; fixed in spec v0.29 (rev 49). Next: Jordan's v1.0 approval. Whole-system review closed rev 30 (R1 rev 23, R2 rev 24, R3 rev 25, R4a-R4e revs 26-30).
+- Spec v1.0 approved (rev 50) after finalize (revs 39-41), independent audit (revs 44-48) and re-audit (rev 49). Next: build in spec §20 order under the rev 43 interim merge rule. Whole-system review closed rev 30.
 - Brainstorm questions: all closed (Q1 lore deferred; Q2 pixel; Q3 rev 10; Q4, Q5 rev 11). Brainstorm archived at `archive/design/depth-and-visuals-brainstorm.md`.
 - Close-up view: does look test v5 (trips, stash, cooking smoke, tighter crowd) give the ant-farm feel? Jordan to rewatch. Known weak spot: a camp whose lineage colour is pale on sand is hard to see.
 - Property norm (Bowles & Choi) as a band attribute: defer until batch runs show farming needs it (lean).

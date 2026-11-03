@@ -1,15 +1,15 @@
 ---
 Title: Living mythos: success-test slice
 Type: Tech Spec
-Version: 0.29
-Status: Draft, v1.0 candidate (audit fixes revs 44-48; re-audit fixes rev 49; awaiting Jordan's v1.0 approval)
+Version: 1.0
+Status: Approved (Jordan, 2026-11-02; decision log rev 50)
 Owner: Jordan
 Created: 2026-10-30
 Last Updated: 2026-11-02
 Approvers: Jordan
 ---
 
-# Living mythos: success-test slice (spec v0.29 draft, v1.0 candidate)
+# Living mythos: success-test slice (spec v1.0)
 
 ## Executive summary
 This spec defines the smallest simulation that passes the v1 success test: "I trigger a drought and can read in the Legends why one band migrated and another died out." It covers worldgen (heightmap + biomes), a seeded climate regime, two fields (vegetation, large fauna) plus a plant-food stock, bands with food balance and 4 age brackets, migration, fission and die-out, the drought nudge, caused events and templated Legends (decision log rev 9, extended by revs 23-38). Every tunable is listed in §17 with its scale and tag. Nothing here overrides `design/decision-log.md`; where they disagree, the log wins and this spec gets a `[CONFLICT]` tag.
@@ -381,6 +381,8 @@ Derived, not config: `n_f` (§8), `maxHuntFraction` (§8). Config load MUST reje
 | Seasonal guild factor ≠ 1 | a seasonality or temperature field |
 
 ## Changelog
+### v1.0 - 2026-11-02
+- Approved by Jordan (decision log rev 50). Content identical to v0.29: finalize (revs 39-41), independent audit fixes (revs 44-48), re-audit fixes (rev 49), reviewed. From here the spec changes only through a decision-log revision and a minor version bump (§20).
 ### v0.29 - 2026-11-02
 - Re-audit fixes (rev 49; `design/spec-v1-reaudit-2026-11-02.md`). Fixed: sampler u = 0 returns 0 events (§10, §18); `emit_events` writes band event-ID state, slots read the end-of-season camp, inclusive window, overlapping droughts (§5, §5.1, §14); record order within a band (§5); scoped cause property (§18); acceptance at `volatility = 0` with refuge check around the drought centre after the no-drought burn-in, default-volatility run reported (§17, §18); Euclidean fission search (§12); starting-band slots and placement note (§4.1); grazing test scope, raw-ID rejection test, game removal units, `vegSeed` timing, code facts (§2 header, §7, §9, §18).
 ### v0.28 - 2026-11-02
