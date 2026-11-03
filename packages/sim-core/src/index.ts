@@ -3,6 +3,8 @@ export type { RngKey } from './rng.ts';
 export { sampleBinomial } from './binomial.ts';
 export { CommandError, createCommandLog } from './command-log.ts';
 export type { CommandLog, DroughtCommand, DroughtCommandInput, WorldSize } from './command-log.ts';
+export { createEntityRegistry } from './entity-registry.ts';
+export type { EntityRecord, EntityRegistry } from './entity-registry.ts';
 export { DEFAULT_CONFIG, hashConfig } from './config.ts';
 export type { SimConfig } from './config.ts';
 export { ROOT_ID, deriveEntityId, entityRngFields, founderId } from './lineage.ts';
