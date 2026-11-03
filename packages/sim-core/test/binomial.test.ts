@@ -16,6 +16,8 @@ const refPmf = (n: number, q: number): number[] => {
 
 // rand01 yields multiples of 2^-32 in [0, 1); generate the same lattice.
 const TWO_POW_32 = 0x100000000;
+// Snap a decimal onto rand01's 2^-32 lattice (sampleBinomial rejects anything else).
+const lat = (x: number): number => Math.floor(x * TWO_POW_32) / TWO_POW_32;
 const uArb = fc.integer({ min: 0, max: TWO_POW_32 - 1 }).map((i) => i / TWO_POW_32);
 const nArb = fc.integer({ min: 0, max: 200 });
 const qArb = fc.double({ min: 0, max: 1, noNaN: true });
@@ -31,18 +33,18 @@ describe('intPow', () => {
 
 describe('sampleBinomial edge cases (spec §10, §18)', () => {
   it('n = 0 always gives 0', () => {
-    for (const q of [0, 0.3, 0.5, 0.9, 1]) expect(sampleBinomial(0, q, 0.7)).toBe(0);
+    for (const q of [0, 0.3, 0.5, 0.9, 1]) expect(sampleBinomial(0, q, lat(0.7))).toBe(0);
   });
 
   it('q = 0 gives 0 and q = 1 gives n', () => {
-    expect(sampleBinomial(10, 0, 0.999)).toBe(0);
+    expect(sampleBinomial(10, 0, lat(0.999))).toBe(0);
     expect(sampleBinomial(10, -0.1, 0.5)).toBe(0);
     expect(sampleBinomial(10, 1, 0)).toBe(10);
     expect(sampleBinomial(10, 1.2, 0.5)).toBe(10);
   });
 
   it('q = 0.5 splits the unit interval symmetrically for n = 1', () => {
-    expect(sampleBinomial(1, 0.5, 0.49)).toBe(0);
+    expect(sampleBinomial(1, 0.5, lat(0.49))).toBe(0);
     expect(sampleBinomial(1, 0.5, 0.5)).toBe(1);
   });
 
