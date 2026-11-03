@@ -16,9 +16,9 @@ TypeScript (strict, pinned 6.0.x), pnpm workspace, Vitest, ESLint (determinism b
   - Open: lineage parent is not recorded by the log; the future entity registry must store it and assert id uniqueness.
 - [x] Tick loop with fixed substeps (rule 4, `tick.ts`): one tick = one season; `createSchedule` freezes an ordered list of systems (name, period, offset, substeps); `systemsDue` is a pure function of the season; `runTick` runs due systems in order for their fixed substeps. No real systems yet.
   - Open: periods and substep counts are passed by the caller; they move into `SimConfig` with the slice spec (changing the config hash once, before saves exist).
-- [x] Tooling: property tests (fast-check 4.10.2, @fast-check/vitest 0.5.0, pinned); `Purpose` list pinned by a test; project skills `javascript-testing-expert` (fast-check, commit fd17f486fc) and `determinism-rules`; read-only `determinism-reviewer` subagent. 67 tests + 1 todo.
+- [x] Tooling: property tests (fast-check 4.10.2, @fast-check/vitest 0.5.0, pinned); `Purpose` list pinned by a test; project skills `javascript-testing-expert` (fast-check, commit fd17f486fc) and `determinism-rules`; read-only `determinism-reviewer` subagent. 88 tests + 1 todo (Linux, after PR #2).
+- [x] Binomial sampler (spec §10, `binomial.ts`): `sampleBinomial(n, q, u)` inverse CDF, 1 − u flip for q > 0.5, u = 0 → 0, fallback to n only when the cumulative sum ≤ u; asserts n ≤ 1000 and u on rand01's 2^-32 lattice. Caller passes `u = rand01(key)`. fast-check tests: exact pmf, monotone in q, nondecreasing in u, range, fallback condition. PR #2, merged 2026-11-02 as `8f65a1d`, Linux-verified only (rev 43).
 - [ ] Windows `pnpm check` on `Main-REPO` when the laptop returns (rev 43): first task, before new sim work
-- [ ] Binomial sampler (spec §10) with fast-check property tests
 - [ ] Command log (rule 6) and entity registry (stores lineage parent, asserts id uniqueness); the command log unblocks the `it.todo` fork test in `rng.test.ts`
 
 ## Don't Forget
