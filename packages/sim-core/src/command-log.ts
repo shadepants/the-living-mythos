@@ -69,6 +69,10 @@ const validate = (input: DroughtCommandInput, cellCount: number, minTick: number
   if (input.magnitude <= 0) throw new CommandError('magnitude', `must be > 0, got ${input.magnitude}`);
   requireInteger('durationSeasons', input.durationSeasons);
   if (input.durationSeasons < 1) throw new CommandError('durationSeasons', `must be >= 1, got ${input.durationSeasons}`);
+  // Seasons are uint32 in rng keys (§2), so the last active season must fit too.
+  if (input.tick + input.durationSeasons - 1 > UINT32_MAX) {
+    throw new CommandError('durationSeasons', `last active season ${input.tick + input.durationSeasons - 1} exceeds 2^32-1`);
+  }
   requireInteger('centerCell', input.centerCell);
   if (input.centerCell < 0 || input.centerCell >= cellCount) {
     throw new CommandError('centerCell', `must be on the map [0, ${cellCount - 1}], got ${input.centerCell}`);
@@ -93,14 +97,15 @@ export const createCommandLog = (world: WorldSize): CommandLog => {
     // Both readings of "past tick" (§20): before the next simulated season, or before the last command.
     const minTick = last === undefined ? nextTick : Math.max(nextTick, last.tick);
     validate(input, cellCount, minTick);
+    // `+ 0` turns -0 into 0, so a live log and one reloaded from JSON compare equal.
     const command: DroughtCommand = Object.freeze({
       id: stored.length + 1,
-      tick: input.tick,
+      tick: input.tick + 0,
       sign: input.sign,
       magnitude: input.magnitude,
       durationSeasons: input.durationSeasons,
-      centerCell: input.centerCell,
-      radius: input.radius,
+      centerCell: input.centerCell + 0,
+      radius: input.radius + 0,
     });
     stored.push(command);
     return command;

@@ -107,6 +107,21 @@ describe('command validation errors (spec §20)', () => {
     expect(() => log.append(valid({ radius: -3 }), 0)).toThrow(/radius/);
   });
 
+  it('rejects a duration whose last active season passes 2^32 - 1', () => {
+    const log = createCommandLog(WORLD);
+    const tick = 0xffffffff - 3;
+    expect(fieldOf(() => log.append(valid({ tick, durationSeasons: 5 }), 0))).toBe('durationSeasons');
+    expect(log.append(valid({ tick, durationSeasons: 4 }), 0).durationSeasons).toBe(4);
+  });
+
+  it('stores -0 inputs as 0 (replay equality after a JSON round-trip)', () => {
+    const log = createCommandLog(WORLD);
+    const c = log.append(valid({ tick: -0, centerCell: -0, radius: -0 }), 0);
+    expect(Object.is(c.tick, 0)).toBe(true);
+    expect(Object.is(c.centerCell, 0)).toBe(true);
+    expect(Object.is(c.radius, 0)).toBe(true);
+  });
+
   it('rejects a malformed nextTick from the sim loop', () => {
     const log = createCommandLog(WORLD);
     expect(() => log.append(valid(), Number.NaN)).toThrow(RangeError);
