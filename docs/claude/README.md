@@ -14,7 +14,7 @@ Read order for a new chat: this file, then `design/decision-log.md`, then `claud
 | Path | Status |
 |---|---|
 | `design/decision-log.md` | Current (rev 50). Source of truth |
-| `claude/handoff-living-mythos.md` | Current (handoff #14, 2026-11-02) |
+| `claude/handoff-living-mythos.md` | Current (handoff #15, 2026-11-02) |
 | `claude/audit-prompt-spec-v1.md` | Opening prompt for an independent audit of the spec v1.0 candidate; includes the scoped re-audit variant for v0.28 |
 | `design/spec-v1-audit-2026-11-02.md` | Fixes applied: independent audit of spec v0.27 (6 blockers, 11 majors, 6 minors); all 23 addressed in spec v0.28 (revs 44-48); re-audit done (see below) |
 | `design/spec-v1-reaudit-2026-11-02.md` | Fixes applied: scoped re-audit of spec v0.28 (approve with fixes; 7 majors, 7 minors); all 14 addressed in spec v0.29 (rev 49) |
