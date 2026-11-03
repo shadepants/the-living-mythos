@@ -82,7 +82,7 @@ You are continuing work from a previous chat. That chat is gone; this file plus 
 | 23 | The v0.25 consistency pass kept and worsened a double grazing subtraction, left "expected catchment return" undefined, and missed K = 0, negative counts and 64-bit payload IDs | An independent audit in a fresh session caught 23 issues the same-chat pass missed (revs 44-48). Self-review is not verification: run an independent audit before approving consequential docs |
 | 24 | Spec §7 and §18 rules were written from memory of the prototype | Re-read the prototype code (`sysproto_q10.py`, `run5_q10.py`, `variants.py`) when writing a rule it is cited for |
 
-## 6. Decisions this handoff (details in decision log revs 39-48 and spec v0.28)
+## 6. Decisions this handoff (details in decision log revs 39-49 and spec v0.29)
 | Decision | Why |
 |---|---|
 | Rev 39: finalize consistency pass. No decision reversed. `lifecycle` system after `migration` (dissolution → perishing → fission); `Purpose` 6-9 deaths, 10 `WorldgenHeight`, 11 `WorldgenMoisture`, 12 `ClimateSpaceTime`; config scale rule (counts as-is, rest `Per10k`); full §17 tunable table; plant stock P rule (cap `pFrac`·V); `stockPct` = plant stock ÷ `pFrac`·`Kveg` (game excluded); command and config errors; state table; future-consideration list | Spec had gaps and stale text from before rev 23 |
@@ -179,7 +179,7 @@ See decision log "Rejected". Plus:
 ## 11. Next steps
 1. **Next action:** Jordan approves spec v1.0 (re-audit run and fixed: rev 49, spec v0.29) (Version 1.0, Status Approved, changelog v1.0, decision-log header note; sync and push).
 2. Interim merge rule (rev 43): sim-core PRs merge on green Linux `pnpm check` + clean determinism review, commit notes "Linux-verified only". When the laptop returns: Windows `pnpm check` on `Main-REPO` first. When billing is fixed: restore the `check` workflow's push/PR triggers (noted in the file); that also ends rev 43.
-3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, never n at u = 1 − 2^-32); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
+3. Cloud sim work (rev 42), each on its own branch and PR, tests first: binomial sampler + fast-check tests (exact pmf, monotone in q, result in [0, n], u = 0 gives 0 events, fallback taken only when the cumulative sum ≤ u; spec §10, §18); command log (hard rule 6) with §20 validation; entity registry. Then systems in spec §5 order, calibration tool + slow test, Legends templates, acceptance test (slow-tagged). The `determinism-rules` skill and `determinism-reviewer` run on every sim-core diff.
 4. Open tuning gaps (batch tuning, not decisions): herd crash 12-25% vs 25-75% target; K2 density near the floor; slow 2-band fill; post-drought refuge crowding; causeless and window-edge `forage_failed`; glance word share vs `effortFull`; die-out rate vs the `searchRadius`/`hostRange` gap (never retune radii to pass the test); trend with a seasonal cycle (rev 40); seed spread of median `Kveg` (rev 41).
 5. Candidate Gemini prompts 13-15 (`research/gemini-prompts.md`); possible new one on band fusion and minimum residential group size. Parked: v5 Close-up rewatch; property norm; benchmarks once fields run; Dependabot alert.
 
